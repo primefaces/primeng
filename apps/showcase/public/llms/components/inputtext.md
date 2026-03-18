@@ -425,16 +425,16 @@ InputText directive is an extension to standard input element with theming.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| pInputTextPT | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. |
-| pInputTextUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pSize | InputSignal<InputSize> | ... | Defines the size of the component. |
-| variant | InputSignal<InputVariant> | undefined | Specifies the input variant of the component. |
-| fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, InputTextPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| pInputTextPT | PassThrough<I, InputTextPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the InputText component. |
+| pInputTextUnstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pSize | "small" \| "large" | - | Defines the size of the component. |
+| variant | "filled" \| "outlined" | undefined | Specifies the input variant of the component. |
+| fluid | boolean | undefined | Spans 100% width of the container when enabled. |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
 
 ## Pass Through Options
 

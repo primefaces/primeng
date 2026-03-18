@@ -496,37 +496,37 @@ Galleria is an advanced content gallery component.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<GalleriaPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| activeIndex | InputSignalWithTransform<number, unknown> | ... | Index of the first item. |
-| fullScreen | InputSignalWithTransform<boolean, unknown> | ... | Whether to display the component on fullscreen. |
-| id | InputSignal<string> | ... | Unique identifier of the element. |
-| value | InputSignal<any[]> | ... | An array of objects to display. |
-| numVisible | InputSignalWithTransform<number, unknown> | ... | Number of items per page. |
-| responsiveOptions | InputSignal<GalleriaResponsiveOptions[]> | ... | An array of options for responsive design. |
-| showItemNavigators | InputSignalWithTransform<boolean, unknown> | ... | Whether to display navigation buttons in item section. |
-| showThumbnailNavigators | InputSignalWithTransform<boolean, unknown> | ... | Whether to display navigation buttons in thumbnail container. |
-| showItemNavigatorsOnHover | InputSignalWithTransform<boolean, unknown> | ... | Whether to display navigation buttons on item hover. |
-| changeItemOnIndicatorHover | InputSignalWithTransform<boolean, unknown> | ... | When enabled, item is changed on indicator hover. |
-| circular | InputSignalWithTransform<boolean, unknown> | ... | Defines if scrolling would be infinite. |
-| autoPlay | InputSignalWithTransform<boolean, unknown> | ... | Items are displayed with a slideshow in autoPlay mode. |
-| shouldStopAutoplayByClick | InputSignalWithTransform<boolean, unknown> | ... | When enabled, autorun should stop by click. |
-| transitionInterval | InputSignalWithTransform<number, unknown> | ... | Time in milliseconds to scroll items. |
-| showThumbnails | InputSignalWithTransform<boolean, unknown> | ... | Whether to display thumbnail container. |
-| thumbnailsPosition | InputSignal<GalleriaPosition> | ... | Position of thumbnails. |
-| verticalThumbnailViewPortHeight | InputSignal<string> | ... | Height of the viewport in vertical thumbnail. |
-| showIndicators | InputSignalWithTransform<boolean, unknown> | ... | Whether to display indicator container. |
-| showIndicatorsOnItem | InputSignalWithTransform<boolean, unknown> | ... | When enabled, indicator container is displayed on item container. |
-| indicatorsPosition | InputSignal<GalleriaPosition> | ... | Position of indicators. |
-| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
-| maskClass | InputSignal<string> | ... | Style class of the mask on fullscreen mode. |
-| containerClass | InputSignal<string> | ... | Style class of the component on fullscreen mode. Otherwise, the 'class' property can be used. |
-| containerStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component on fullscreen mode. Otherwise, the 'style' property can be used. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| maskMotionOptions | InputSignal<MotionOptions> | ... | The mask motion options. |
-| visible | ModelSignal<boolean> | ... | Specifies the visibility of the mask on fullscreen mode. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, GalleriaPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| activeIndex | number | - | Index of the first item. |
+| fullScreen | boolean | - | Whether to display the component on fullscreen. |
+| id | string | - | Unique identifier of the element. |
+| value | any[] | - | An array of objects to display. |
+| numVisible | number | - | Number of items per page. |
+| responsiveOptions | GalleriaResponsiveOptions[] | - | An array of options for responsive design. |
+| showItemNavigators | boolean | - | Whether to display navigation buttons in item section. |
+| showThumbnailNavigators | boolean | - | Whether to display navigation buttons in thumbnail container. |
+| showItemNavigatorsOnHover | boolean | - | Whether to display navigation buttons on item hover. |
+| changeItemOnIndicatorHover | boolean | - | When enabled, item is changed on indicator hover. |
+| circular | boolean | - | Defines if scrolling would be infinite. |
+| autoPlay | boolean | - | Items are displayed with a slideshow in autoPlay mode. |
+| shouldStopAutoplayByClick | boolean | - | When enabled, autorun should stop by click. |
+| transitionInterval | number | - | Time in milliseconds to scroll items. |
+| showThumbnails | boolean | - | Whether to display thumbnail container. |
+| thumbnailsPosition | "bottom" \| "top" \| "left" \| "right" | - | Position of thumbnails. |
+| verticalThumbnailViewPortHeight | string | - | Height of the viewport in vertical thumbnail. |
+| showIndicators | boolean | - | Whether to display indicator container. |
+| showIndicatorsOnItem | boolean | - | When enabled, indicator container is displayed on item container. |
+| indicatorsPosition | "bottom" \| "top" \| "left" \| "right" | - | Position of indicators. |
+| baseZIndex | number | - | Base zIndex value to use in layering. |
+| maskClass | string | - | Style class of the mask on fullscreen mode. |
+| containerClass | string | - | Style class of the component on fullscreen mode. Otherwise, the 'class' property can be used. |
+| containerStyle | Partial<CSSStyleDeclaration> | - | Inline style of the component on fullscreen mode. Otherwise, the 'style' property can be used. |
+| motionOptions | MotionOptions | - | The motion options. |
+| maskMotionOptions | MotionOptions | - | The mask motion options. |
+| visible | boolean | - | Specifies the visibility of the mask on fullscreen mode. |
 
 ### Emits
 

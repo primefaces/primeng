@@ -436,44 +436,44 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<InputMaskPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| fluid | InputSignalWithTransform<boolean, unknown> | false | Spans 100% width of the container when enabled. |
-| variant | InputSignal<"filled" \| "outlined"> | 'outlined' | Specifies the input variant of the component. |
-| size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
-| inputSize | InputSignal<number> | undefined | Specifies the visible width of the input element in characters. |
-| pattern | InputSignal<string> | undefined | Specifies the value must match the pattern. |
-| min | InputSignal<number> | undefined | The value must be greater than or equal to the value. |
-| max | InputSignal<number> | undefined | The value must be less than or equal to the value. |
-| step | InputSignal<number> | undefined | Unless the step is set to the any literal, the value must be min + an integral multiple of the step. |
-| minlength | InputSignal<number> | undefined | The number of characters (code points) must not be less than the value of the attribute, if non-empty. |
-| maxlength | InputSignal<number> | undefined | The number of characters (code points) must not exceed the value of the attribute. |
-| type | InputSignal<string> | ... | HTML5 input type. |
-| slotChar | InputSignal<string> | ... | Placeholder character in mask, default is underscore. |
-| autoClear | InputSignalWithTransform<boolean, unknown> | ... | Clears the incomplete value on blur. |
-| showClear | InputSignalWithTransform<boolean, unknown> | ... | When enabled, a clear icon is displayed to clear the value. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the input field. |
-| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the component. |
-| styleClass | InputSignal<string> | ... | Style class of the input field. |
-| placeholder | InputSignal<string> | ... | Advisory information to display on input. |
-| tabindex | InputSignal<string> | ... | Specifies tab order of the element. |
-| title | InputSignal<string> | ... | Title text of the input text. |
-| ariaLabel | InputSignal<string> | ... | Used to define a string that labels the input element. |
-| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| ariaRequired | InputSignalWithTransform<boolean, unknown> | ... | Used to indicate that user input is required on an element before a form can be submitted. |
-| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that an input field is read-only. |
-| unmask | InputSignalWithTransform<boolean, unknown> | ... | Defines if ngModel sets the raw unmasked value to bound value or the formatted mask value. |
-| characterPattern | InputSignal<string> | ... | Regex pattern for alpha characters |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, the input gets a focus automatically on load. |
-| autocomplete | InputSignal<string> | ... | Used to define a string that autocomplete attribute the current element. |
-| keepBuffer | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that whether to clean buffer value from model. |
-| mask | InputSignal<string> | ... | Mask pattern. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, InputMaskPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| fluid | boolean | false | Spans 100% width of the container when enabled. |
+| variant | "filled" \| "outlined" | 'outlined' | Specifies the input variant of the component. |
+| size | "small" \| "large" | undefined | Specifies the size of the component. |
+| inputSize | number | undefined | Specifies the visible width of the input element in characters. |
+| pattern | string | undefined | Specifies the value must match the pattern. |
+| min | number | undefined | The value must be greater than or equal to the value. |
+| max | number | undefined | The value must be less than or equal to the value. |
+| step | number | undefined | Unless the step is set to the any literal, the value must be min + an integral multiple of the step. |
+| minlength | number | undefined | The number of characters (code points) must not be less than the value of the attribute, if non-empty. |
+| maxlength | number | undefined | The number of characters (code points) must not exceed the value of the attribute. |
+| type | string | - | HTML5 input type. |
+| slotChar | string | - | Placeholder character in mask, default is underscore. |
+| autoClear | boolean | - | Clears the incomplete value on blur. |
+| showClear | boolean | - | When enabled, a clear icon is displayed to clear the value. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the input field. |
+| inputId | string | - | Identifier of the focus input to match a label defined for the component. |
+| styleClass | string | - | Style class of the input field. |
+| placeholder | string | - | Advisory information to display on input. |
+| tabindex | string | - | Specifies tab order of the element. |
+| title | string | - | Title text of the input text. |
+| ariaLabel | string | - | Used to define a string that labels the input element. |
+| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| ariaRequired | boolean | - | Used to indicate that user input is required on an element before a form can be submitted. |
+| readonly | boolean | - | When present, it specifies that an input field is read-only. |
+| unmask | boolean | - | Defines if ngModel sets the raw unmasked value to bound value or the formatted mask value. |
+| characterPattern | string | - | Regex pattern for alpha characters |
+| autofocus | boolean | - | When present, the input gets a focus automatically on load. |
+| autocomplete | string | - | Used to define a string that autocomplete attribute the current element. |
+| keepBuffer | boolean | - | When present, it specifies that whether to clean buffer value from model. |
+| mask | string | - | Mask pattern. |
 
 ### Emits
 

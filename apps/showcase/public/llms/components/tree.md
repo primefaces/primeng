@@ -548,46 +548,46 @@ Tree is used to display hierarchical data.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<TreePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| value | InputSignal<any> | ... | An array of treenodes. |
-| selectionMode | InputSignal<TreeSelectionMode> | ... | Defines the selection mode. |
-| loadingMode | InputSignal<TreeLoadingMode> | ... | Loading mode display. |
-| selection | ModelSignal<TreeNode<any> \| TreeNode<any>[]> | ... | A single treenode instance or an array to refer to the selections. |
-| contextMenu | InputSignal<any> | ... | Context menu instance. |
-| contextMenuSelection | ModelSignal<TreeNode<any>> | ... | Selected node with a context menu. |
-| draggableScope | InputSignal<any> | ... | Scope of the draggable nodes to match a droppableScope. |
-| droppableScope | InputSignal<any> | ... | Scope of the droppable nodes to match a draggableScope. |
-| draggableNodes | InputSignalWithTransform<boolean, unknown> | ... | Whether the nodes are draggable. |
-| droppableNodes | InputSignalWithTransform<boolean, unknown> | ... | Whether the nodes are droppable. |
-| metaKeySelection | InputSignalWithTransform<boolean, unknown> | ... | Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically. |
-| propagateSelectionUp | InputSignalWithTransform<boolean, unknown> | ... | Whether checkbox selections propagate to ancestor nodes. |
-| propagateSelectionDown | InputSignalWithTransform<boolean, unknown> | ... | Whether checkbox selections propagate to descendant nodes. |
-| loading | InputSignalWithTransform<boolean, unknown> | ... | Displays a loader to indicate data load is in progress. |
-| loadingIcon | InputSignal<string> | ... | The icon to show while indicating data load is in progress. |
-| emptyMessage | InputSignal<string> | ... | Text to display when there is no data. |
-| ariaLabel | InputSignal<string> | ... | Used to define a string that labels the tree. |
-| togglerAriaLabel | InputSignal<string> | ... | Defines a string that labels the toggler icon for accessibility. |
-| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| validateDrop | InputSignalWithTransform<boolean, unknown> | ... | When enabled, drop can be accepted or rejected based on condition defined at onNodeDrop. |
-| filter | InputSignalWithTransform<boolean, unknown> | ... | When specified, displays an input field to filter the items. |
-| filterInputAutoFocus | InputSignalWithTransform<boolean, unknown> | ... | Determines whether the filter input should be automatically focused when the component is rendered. |
-| filterBy | InputSignal<string> | ... | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
-| filterMode | InputSignal<string> | ... | Mode for filtering valid values are "lenient" and "strict". Default is lenient. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, TreePassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| value | any | - | An array of treenodes. |
+| selectionMode | "single" \| "multiple" \| "checkbox" \| null \| undefined | - | Defines the selection mode. |
+| loadingMode | "mask" \| "icon" | - | Loading mode display. |
+| selection | TreeNode<any> \| TreeNode<any>[] | - | A single treenode instance or an array to refer to the selections. |
+| contextMenu | any | - | Context menu instance. |
+| contextMenuSelection | TreeNode<any> | - | Selected node with a context menu. |
+| draggableScope | any | - | Scope of the draggable nodes to match a droppableScope. |
+| droppableScope | any | - | Scope of the droppable nodes to match a draggableScope. |
+| draggableNodes | boolean | - | Whether the nodes are draggable. |
+| droppableNodes | boolean | - | Whether the nodes are droppable. |
+| metaKeySelection | boolean | - | Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically. |
+| propagateSelectionUp | boolean | - | Whether checkbox selections propagate to ancestor nodes. |
+| propagateSelectionDown | boolean | - | Whether checkbox selections propagate to descendant nodes. |
+| loading | boolean | - | Displays a loader to indicate data load is in progress. |
+| loadingIcon | string | - | The icon to show while indicating data load is in progress. |
+| emptyMessage | string | - | Text to display when there is no data. |
+| ariaLabel | string | - | Used to define a string that labels the tree. |
+| togglerAriaLabel | string | - | Defines a string that labels the toggler icon for accessibility. |
+| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| validateDrop | boolean | - | When enabled, drop can be accepted or rejected based on condition defined at onNodeDrop. |
+| filter | boolean | - | When specified, displays an input field to filter the items. |
+| filterInputAutoFocus | boolean | - | Determines whether the filter input should be automatically focused when the component is rendered. |
+| filterBy | string | - | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
+| filterMode | string | - | Mode for filtering valid values are "lenient" and "strict". Default is lenient. |
 | filterOptions | any | - | Mode for filtering valid values are "lenient" and "strict". Default is lenient. |
-| filterPlaceholder | InputSignal<string> | ... | Placeholder text to show when filter input is empty. |
+| filterPlaceholder | string | - | Placeholder text to show when filter input is empty. |
 | filteredNodes | TreeNode<any>[] | - | Values after the tree nodes are filtered. |
-| filterLocale | InputSignal<string> | ... | Locale to use in filtering. The default locale is the host environment's current locale. |
-| scrollHeight | InputSignal<string> | ... | Height of the scrollable viewport. |
-| lazy | InputSignalWithTransform<boolean, unknown> | ... | Defines if data is loaded and interacted with in lazy manner. |
-| virtualScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether the data should be loaded on demand during scroll. |
-| virtualScrollItemSize | InputSignal<number> | ... | Height of an item in the list for VirtualScrolling. |
-| virtualScrollOptions | InputSignal<ScrollerOptions> | ... | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
-| indentation | InputSignalWithTransform<number, unknown> | ... | Indentation factor for spacing of the nested node when virtual scrolling is enabled. |
-| trackBy | InputSignal<Function> | ... | Function to optimize the node list rendering, default algorithm checks for object identity. |
-| highlightOnSelect | InputSignalWithTransform<boolean, unknown> | ... | Highlights the node on select. |
+| filterLocale | string | - | Locale to use in filtering. The default locale is the host environment's current locale. |
+| scrollHeight | string | - | Height of the scrollable viewport. |
+| lazy | boolean | - | Defines if data is loaded and interacted with in lazy manner. |
+| virtualScroll | boolean | - | Whether the data should be loaded on demand during scroll. |
+| virtualScrollItemSize | number | - | Height of an item in the list for VirtualScrolling. |
+| virtualScrollOptions | ScrollerOptions | - | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
+| indentation | number | - | Indentation factor for spacing of the nested node when virtual scrolling is enabled. |
+| trackBy | Function | - | Function to optimize the node list rendering, default algorithm checks for object identity. |
+| highlightOnSelect | boolean | - | Highlights the node on select. |
 
 ### Emits
 

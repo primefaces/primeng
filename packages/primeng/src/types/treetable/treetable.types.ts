@@ -6,6 +6,42 @@ import type { PaginatorPassThrough } from 'primeng/types/paginator';
 import type { VirtualScrollerPassThrough } from 'primeng/types/scroller';
 
 /**
+ * Defines the position of the paginator.
+ * @group Types
+ */
+export type TreeTablePaginatorPosition = 'top' | 'bottom' | 'both';
+
+/**
+ * Defines the sort mode.
+ * @group Types
+ */
+export type TreeTableSortMode = 'single' | 'multiple';
+
+/**
+ * Defines the selection mode.
+ * @group Types
+ */
+export type TreeTableSelectionMode = 'single' | 'multiple' | 'checkbox';
+
+/**
+ * Defines the algorithm to compare selections.
+ * @group Types
+ */
+export type TreeTableCompareSelectionBy = 'equals' | 'deepEquals';
+
+/**
+ * Defines the column resize mode.
+ * @group Types
+ */
+export type TreeTableColumnResizeMode = 'fit' | 'expand';
+
+/**
+ * Defines the filter mode.
+ * @group Types
+ */
+export type TreeTableFilterMode = 'lenient' | 'strict';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

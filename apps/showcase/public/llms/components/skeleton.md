@@ -198,16 +198,16 @@ Skeleton is a placeholder to display instead of the actual content.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<SkeletonPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| shape | InputSignal<string> | ... | Shape of the element. |
-| animation | InputSignal<string> | ... | Type of the animation. |
-| borderRadius | InputSignal<string> | ... | Border radius of the element, defaults to value from theme. |
-| size | InputSignal<string> | ... | Size of the skeleton. |
-| width | InputSignal<string> | ... | Width of the element. |
-| height | InputSignal<string> | ... | Height of the element. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, SkeletonPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| shape | string | - | Shape of the element. |
+| animation | string | - | Type of the animation. |
+| borderRadius | string | - | Border radius of the element, defaults to value from theme. |
+| size | string | - | Size of the skeleton. |
+| width | string | - | Width of the element. |
+| height | string | - | Height of the element. |
 
 ## Pass Through Options
 

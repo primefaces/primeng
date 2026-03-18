@@ -436,31 +436,31 @@ Checkbox is an extension to standard checkbox element with theming.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<CheckboxPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| value | InputSignal<any> | ... | Value of the checkbox. |
-| binary | InputSignalWithTransform<boolean, unknown> | ... | Allows to select a boolean value instead of multiple values. |
-| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| ariaLabel | InputSignal<string> | ... | Used to define a string that labels the input element. |
-| tabindex | InputSignal<number> | ... | Index of the element in tabbing order. |
-| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the component. |
-| inputStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the input element. |
-| inputClass | InputSignal<string> | ... | Style class of the input element. |
-| indeterminate | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies input state as indeterminate. |
-| formControl | InputSignal<FormControl<any>> | ... | Form control value. |
-| checkboxIcon | InputSignal<string> | ... | Icon class of the checkbox icon. |
-| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component cannot be edited. |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
-| trueValue | InputSignal<any> | ... | Value in checked state. |
-| falseValue | InputSignal<any> | ... | Value in unchecked state. |
-| variant | InputSignal<InputVariant> | undefined | Specifies the input variant of the component. |
-| size | InputSignal<InputSize> | undefined | Specifies the size of the component. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, CheckboxPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| value | any | - | Value of the checkbox. |
+| binary | boolean | - | Allows to select a boolean value instead of multiple values. |
+| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| ariaLabel | string | - | Used to define a string that labels the input element. |
+| tabindex | number | - | Index of the element in tabbing order. |
+| inputId | string | - | Identifier of the focus input to match a label defined for the component. |
+| inputStyle | Partial<CSSStyleDeclaration> | - | Inline style of the input element. |
+| inputClass | string | - | Style class of the input element. |
+| indeterminate | boolean | - | When present, it specifies input state as indeterminate. |
+| formControl | FormControl<any> | - | Form control value. |
+| checkboxIcon | string | - | Icon class of the checkbox icon. |
+| readonly | boolean | - | When present, it specifies that the component cannot be edited. |
+| autofocus | boolean | - | When present, it specifies that the component should automatically get focus on load. |
+| trueValue | any | - | Value in checked state. |
+| falseValue | any | - | Value in unchecked state. |
+| variant | "filled" \| "outlined" | undefined | Specifies the input variant of the component. |
+| size | "small" \| "large" | undefined | Specifies the size of the component. |
 
 ### Emits
 

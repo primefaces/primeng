@@ -128,19 +128,19 @@ Splitter is utilized to separate and resize panels.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<SplitterPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| panelStyleClass | InputSignal<string> | ... | Style class of the panel. |
-| panelStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the panel. |
-| stateStorage | InputSignal<SplitterStateStorage> | ... | Defines where a stateful splitter keeps its state, valid values are 'session' for sessionStorage and 'local' for localStorage. |
-| stateKey | InputSignal<string> | ... | Storage identifier of a stateful Splitter. |
-| layout | InputSignal<SplitterLayout> | ... | Orientation of the panels. Valid values are 'horizontal' and 'vertical'. |
-| gutterSize | InputSignalWithTransform<number, unknown> | ... | Size of the divider in pixels. |
-| step | InputSignalWithTransform<number, unknown> | ... | Step factor to increment/decrement the size of the panels while pressing the arrow keys. |
-| minSizes | InputSignal<number[]> | ... | Minimum size of the elements relative to 100%. |
-| panelSizes | InputSignal<number[]> | ... | Size of the elements relative to 100%. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, SplitterPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| panelStyleClass | string | - | Style class of the panel. |
+| panelStyle | Partial<CSSStyleDeclaration> | - | Inline style of the panel. |
+| stateStorage | "session" \| "local" | - | Defines where a stateful splitter keeps its state, valid values are 'session' for sessionStorage and 'local' for localStorage. |
+| stateKey | string | - | Storage identifier of a stateful Splitter. |
+| layout | "horizontal" \| "vertical" | - | Orientation of the panels. Valid values are 'horizontal' and 'vertical'. |
+| gutterSize | number | - | Size of the divider in pixels. |
+| step | number | - | Step factor to increment/decrement the size of the panels while pressing the arrow keys. |
+| minSizes | number[] | - | Minimum size of the elements relative to 100%. |
+| panelSizes | number[] | - | Size of the elements relative to 100%. |
 
 ### Emits
 

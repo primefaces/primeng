@@ -160,15 +160,15 @@ Badge is a small status indicator for another element.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| badgeSize | InputSignal<BadgeSize> | ... | Size of the badge, valid options are "large" and "xlarge". |
-| size | InputSignal<BadgeSize> | ... | Size of the badge, valid options are "large" and "xlarge". |
-| severity | InputSignal<BadgeSeverity> | ... | Severity type of the badge. |
-| value | InputSignal<string \| number> | ... | Value to display inside the badge. |
-| badgeDisabled | InputSignalWithTransform<boolean, unknown> | ... | When specified, disables the component. |
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<BadgePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| badgeSize | "small" \| "large" \| "xlarge" \| null | - | Size of the badge, valid options are "large" and "xlarge". |
+| size | "small" \| "large" \| "xlarge" \| null | - | Size of the badge, valid options are "large" and "xlarge". |
+| severity | "secondary" \| "info" \| "success" \| "warn" \| "danger" \| "contrast" \| null | - | Severity type of the badge. |
+| value | string \| number | - | Value to display inside the badge. |
+| badgeDisabled | boolean | - | When specified, disables the component. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, BadgePassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Pass Through Options
 

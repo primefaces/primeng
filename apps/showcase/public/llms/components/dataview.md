@@ -493,39 +493,39 @@ DataView displays data in grid or list layout with pagination and sorting featur
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<DataViewPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| paginator | InputSignalWithTransform<boolean, unknown> | ... | When specified as true, enables the pagination. |
-| rows | ModelSignal<number> | ... | Number of rows to display per page. |
-| totalRecords | ModelSignal<number> | ... | Number of total records, defaults to length of value when not defined. |
-| pageLinks | InputSignalWithTransform<number, unknown> | ... | Number of page links to display in paginator. |
-| rowsPerPageOptions | InputSignal<any[] \| number[]> | ... | Array of integer/object values to display inside rows per page dropdown of paginator |
-| paginatorPosition | InputSignal<DataViewPaginatorPosition> | ... | Position of the paginator. |
-| paginatorStyleClass | InputSignal<string> | ... | Custom style class for paginator |
-| alwaysShowPaginator | InputSignalWithTransform<boolean, unknown> | ... | Whether to show it even there is only one page. |
-| paginatorDropdownAppendTo | InputSignal<AppendTo> | ... | Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| paginatorDropdownScrollHeight | InputSignal<string> | ... | Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
-| currentPageReportTemplate | InputSignal<string> | ... | Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords} |
-| showCurrentPageReport | InputSignalWithTransform<boolean, unknown> | ... | Whether to display current page report. |
-| showJumpToPageDropdown | InputSignalWithTransform<boolean, unknown> | ... | Whether to display a dropdown to navigate to any page. |
-| showFirstLastIcon | InputSignalWithTransform<boolean, unknown> | ... | When enabled, icons are displayed on paginator to go first and last page. |
-| showPageLinks | InputSignalWithTransform<boolean, unknown> | ... | Whether to show page links. |
-| lazy | InputSignalWithTransform<boolean, unknown> | ... | Defines if data is loaded and interacted with in lazy manner. |
-| lazyLoadOnInit | InputSignalWithTransform<boolean, unknown> | ... | Whether to call lazy loading on initialization. |
-| emptyMessage | InputSignal<string> | ... | Text to display when there is no data. Defaults to global value in i18n translation configuration. |
-| gridStyleClass | InputSignal<string> | ... | Style class of the grid. |
-| trackBy | InputSignal<Function> | ... | Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity. |
-| filterBy | InputSignal<string> | ... | Comma separated list of fields in the object graph to search against. |
-| filterLocale | InputSignal<string> | ... | Locale to use in filtering. The default locale is the host environment's current locale. |
-| loading | InputSignalWithTransform<boolean, unknown> | ... | Displays a loader to indicate data load is in progress. |
-| loadingIcon | InputSignal<string> | ... | The icon to show while indicating data load is in progress. |
-| first | ModelSignal<number> | ... | Index of the first row to be displayed. |
-| sortField | InputSignal<string> | ... | Property name of data to use in sorting by default. |
-| sortOrder | InputSignal<number> | ... | Order to sort the data by default. |
-| value | ModelSignal<any[]> | ... | An array of objects to display. |
-| layout | InputSignal<DataViewLayout> | ... | Defines the layout mode. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, DataViewPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| paginator | boolean | - | When specified as true, enables the pagination. |
+| rows | number | - | Number of rows to display per page. |
+| totalRecords | number | - | Number of total records, defaults to length of value when not defined. |
+| pageLinks | number | - | Number of page links to display in paginator. |
+| rowsPerPageOptions | any[] \| number[] | - | Array of integer/object values to display inside rows per page dropdown of paginator |
+| paginatorPosition | "top" \| "bottom" \| "both" | - | Position of the paginator. |
+| paginatorStyleClass | string | - | Custom style class for paginator |
+| alwaysShowPaginator | boolean | - | Whether to show it even there is only one page. |
+| paginatorDropdownAppendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | - | Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| paginatorDropdownScrollHeight | string | - | Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
+| currentPageReportTemplate | string | - | Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords} |
+| showCurrentPageReport | boolean | - | Whether to display current page report. |
+| showJumpToPageDropdown | boolean | - | Whether to display a dropdown to navigate to any page. |
+| showFirstLastIcon | boolean | - | When enabled, icons are displayed on paginator to go first and last page. |
+| showPageLinks | boolean | - | Whether to show page links. |
+| lazy | boolean | - | Defines if data is loaded and interacted with in lazy manner. |
+| lazyLoadOnInit | boolean | - | Whether to call lazy loading on initialization. |
+| emptyMessage | string | - | Text to display when there is no data. Defaults to global value in i18n translation configuration. |
+| gridStyleClass | string | - | Style class of the grid. |
+| trackBy | Function | - | Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity. |
+| filterBy | string | - | Comma separated list of fields in the object graph to search against. |
+| filterLocale | string | - | Locale to use in filtering. The default locale is the host environment's current locale. |
+| loading | boolean | - | Displays a loader to indicate data load is in progress. |
+| loadingIcon | string | - | The icon to show while indicating data load is in progress. |
+| first | number | - | Index of the first row to be displayed. |
+| sortField | string | - | Property name of data to use in sorting by default. |
+| sortOrder | number | - | Order to sort the data by default. |
+| value | any[] | - | An array of objects to display. |
+| layout | "list" \| "grid" | - | Defines the layout mode. |
 
 ### Emits
 

@@ -11,6 +11,7 @@ import {
     forwardRef,
     inject,
     input,
+    model,
     NgModule,
     numberAttribute,
     output,
@@ -467,7 +468,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * Specifies the visibility of the options panel.
      * @group Props
      */
-    overlayVisible = signal<boolean>(false);
+    overlayVisible = model<boolean>(false);
     /**
      * Index of the element in tabbing order.
      * @group Props

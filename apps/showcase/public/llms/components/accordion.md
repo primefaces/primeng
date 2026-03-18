@@ -345,16 +345,16 @@ Accordion groups a collection of contents in tabs.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| value | ModelSignal<AccordionValue> | undefined | Value of the active tab. |
-| multiple | InputSignalWithTransform<boolean, unknown> | false | When enabled, multiple tabs can be activated at the same time. |
-| expandIcon | InputSignal<string> | ... | Icon of a collapsed tab. |
-| collapseIcon | InputSignal<string> | ... | Icon of an expanded tab. |
-| selectOnFocus | InputSignalWithTransform<boolean, unknown> | false | When enabled, the focused tab is activated. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<AccordionPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| value | string \| number \| (string \| number)[] \| null \| undefined | undefined | Value of the active tab. |
+| multiple | boolean | false | When enabled, multiple tabs can be activated at the same time. |
+| expandIcon | string | - | Icon of a collapsed tab. |
+| collapseIcon | string | - | Icon of an expanded tab. |
+| selectOnFocus | boolean | false | When enabled, the focused tab is activated. |
+| motionOptions | MotionOptions | - | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, AccordionPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ### Emits
 

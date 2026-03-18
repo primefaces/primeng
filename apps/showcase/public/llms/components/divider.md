@@ -202,13 +202,13 @@ Divider is used to separate contents.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<DividerPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| layout | InputSignal<DividerLayout> | ... | Specifies the orientation. |
-| type | InputSignal<DividerType> | ... | Border style type. |
-| align | InputSignal<DividerAlign> | ... | Alignment of the content. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, DividerPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| layout | "horizontal" \| "vertical" | - | Specifies the orientation. |
+| type | "solid" \| "dashed" \| "dotted" | - | Border style type. |
+| align | "left" \| "center" \| "right" \| "top" \| "bottom" | - | Alignment of the content. |
 
 ## Pass Through Options
 

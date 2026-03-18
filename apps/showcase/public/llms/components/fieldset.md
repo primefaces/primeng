@@ -90,16 +90,16 @@ Fieldset is a grouping component with the optional content toggle feature.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<FieldsetPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| legend | InputSignal<string> | ... | Header text of the fieldset. |
-| toggleable | InputSignalWithTransform<boolean, unknown> | false | When specified, content can toggled by clicking the legend. |
-| collapsed | ModelSignal<boolean> | ... | Defines the initial state of content, supports one or two-way binding as well. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
-| styleClass | InputSignal<string> | ... | Style class of the component. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, FieldsetPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| legend | string | - | Header text of the fieldset. |
+| toggleable | boolean | false | When specified, content can toggled by clicking the legend. |
+| collapsed | boolean | - | Defines the initial state of content, supports one or two-way binding as well. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the component. |
+| styleClass | string | - | Style class of the component. |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

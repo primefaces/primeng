@@ -437,29 +437,29 @@ Sidebar is a panel component displayed as an overlay at the edges of the screen.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<DrawerPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| blockScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether to block scrolling of the document when drawer is active. |
-| style | InputSignal<{ [klass: string]: any }> | ... | Inline style of the component. |
-| styleClass | InputSignal<string> | ... | Style class of the component. |
-| ariaCloseLabel | InputSignal<string> | ... | Aria label of the close icon. |
-| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
-| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
-| modal | InputSignalWithTransform<boolean, unknown> | ... | Whether an overlay mask is displayed behind the drawer. |
-| closeButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
-| dismissible | InputSignalWithTransform<boolean, unknown> | ... | Whether to dismiss drawer on click of the mask. |
-| showCloseIcon | InputSignalWithTransform<boolean, unknown> | ... | Whether to display the close icon. **(Deprecated)** |
-| closeOnEscape | InputSignalWithTransform<boolean, unknown> | ... | Specifies if pressing escape key should hide the drawer. |
-| visible | ModelSignal<boolean> | false | The visible property is an input that determines the visibility of the component. |
-| position | InputSignal<DrawerPosition> | 'left' | Specifies the position of the drawer, valid values are "left", "right", "bottom" and "top". |
-| fullScreen | InputSignal<boolean> | false | Adds a close icon to the header to hide the dialog. |
-| header | InputSignal<string> | ... | Title content of the dialog. |
-| maskStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Style of the mask. |
-| closable | InputSignalWithTransform<boolean, unknown> | true | Whether to display close button. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, DrawerPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | MotionOptions | - | The motion options. |
+| blockScroll | boolean | - | Whether to block scrolling of the document when drawer is active. |
+| style | { [klass: string]: any } | - | Inline style of the component. |
+| styleClass | string | - | Style class of the component. |
+| ariaCloseLabel | string | - | Aria label of the close icon. |
+| autoZIndex | boolean | - | Whether to automatically manage layering. |
+| baseZIndex | number | - | Base zIndex value to use in layering. |
+| modal | boolean | - | Whether an overlay mask is displayed behind the drawer. |
+| closeButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
+| dismissible | boolean | - | Whether to dismiss drawer on click of the mask. |
+| showCloseIcon | boolean | - | Whether to display the close icon. **(Deprecated)** |
+| closeOnEscape | boolean | - | Specifies if pressing escape key should hide the drawer. |
+| visible | boolean | false | The visible property is an input that determines the visibility of the component. |
+| position | "left" \| "right" \| "bottom" \| "top" \| "full" | 'left' | Specifies the position of the drawer, valid values are "left", "right", "bottom" and "top". |
+| fullScreen | boolean | false | Adds a close icon to the header to hide the dialog. |
+| header | string | - | Title content of the dialog. |
+| maskStyle | Partial<CSSStyleDeclaration> | - | Style of the mask. |
+| closable | boolean | true | Whether to display close button. |
 
 ### Emits
 

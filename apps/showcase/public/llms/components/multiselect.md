@@ -831,78 +831,78 @@ MultiSelect is used to select multiple items from a collection.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<MultiSelectPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| id | InputSignal<string> | ... | Unique identifier of the component |
-| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
-| panelStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the overlay panel. |
-| panelStyleClass | InputSignal<string> | ... | Style class of the overlay panel element. |
-| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the component. |
-| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component cannot be edited. |
-| group | InputSignalWithTransform<boolean, unknown> | ... | Whether to display options as grouped when nested options are provided. |
-| filter | InputSignalWithTransform<boolean, unknown> | ... | When specified, displays an input field to filter the items on keyup. |
-| filterPlaceHolder | InputSignal<string> | ... | Defines placeholder of the filter input. |
-| filterLocale | InputSignal<string> | ... | Locale to use in filtering. The default locale is the host environment's current locale. |
-| overlayVisible | WritableSignal<boolean> | ... | Specifies the visibility of the options panel. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
-| dataKey | InputSignal<string> | ... | A property to uniquely identify a value in options. |
-| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| displaySelectedLabel | InputSignalWithTransform<boolean, unknown> | true | Whether to show labels of selected item labels or use default label. |
-| maxSelectedLabels | InputSignal<number> | 3 | Decides how many selected item labels to show at most. |
-| selectionLimit | InputSignalWithTransform<number, unknown> | ... | Maximum number of selectable items. |
-| selectedItemsLabel | InputSignal<string> | ... | Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow. |
-| showToggleAll | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the checkbox at header to toggle all items at once. |
-| emptyFilterMessage | InputSignal<string> | ... | Text to display when filtering does not return any results. |
-| emptyMessage | InputSignal<string> | ... | Text to display when there is no data. Defaults to global value in i18n translation configuration. |
-| resetFilterOnHide | InputSignalWithTransform<boolean, unknown> | ... | Clears the filter value when hiding the dropdown. |
-| dropdownIcon | InputSignal<string> | ... | Icon class of the dropdown icon. |
-| chipIcon | InputSignal<string> | ... | Icon class of the chip icon. |
-| optionLabel | InputSignal<string> | ... | Name of the label field of an option. |
-| optionValue | InputSignal<string> | ... | Name of the value field of an option. |
-| optionDisabled | InputSignal<string> | ... | Name of the disabled field of an option. |
-| optionGroupLabel | InputSignal<string> | ... | Name of the label field of an option group. |
-| optionGroupChildren | InputSignal<string> | ... | Name of the options field of an option group. |
-| showHeader | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the header. |
-| filterBy | InputSignal<string> | ... | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
-| scrollHeight | InputSignal<string> | ... | Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
-| lazy | InputSignalWithTransform<boolean, unknown> | ... | Defines if data is loaded and interacted with in lazy manner. |
-| virtualScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether the data should be loaded on demand during scroll. |
-| loading | InputSignalWithTransform<boolean, unknown> | ... | Whether the multiselect is in loading state. |
-| virtualScrollItemSize | InputSignalWithTransform<number, unknown> | ... | Height of an item in the list for VirtualScrolling. |
-| loadingIcon | InputSignal<string> | ... | Icon to display in loading state. |
-| virtualScrollOptions | InputSignal<ScrollerOptions> | ... | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
-| overlayOptions | InputSignal<OverlayOptions> | ... | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
-| ariaFilterLabel | InputSignal<string> | ... | Defines a string that labels the filter input. |
-| filterMatchMode | InputSignal<FilterMatchModeType> | ... | Defines how the items are filtered. |
-| tooltip | InputSignal<string> | ... | Advisory information to display in a tooltip on hover. |
-| tooltipPosition | InputSignal<TooltipPosition> | ... | Position of the tooltip. |
-| tooltipPositionStyle | InputSignal<string> | ... | Type of CSS position. |
-| tooltipStyleClass | InputSignal<string> | ... | Style class of the tooltip. |
-| autofocusFilter | InputSignalWithTransform<boolean, unknown> | ... | Applies focus to the filter element when the overlay is shown. |
-| display | InputSignal<MultiSelectDisplay> | ... | Defines how the selected items are displayed. |
-| autocomplete | InputSignal<string> | ... | Defines the autocomplete is active. |
-| showClear | InputSignalWithTransform<boolean, unknown> | ... | When enabled, a clear icon is displayed to clear the value. |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
-| placeholder | InputSignal<string> | ... | Label to display when there are no selections. |
-| options | InputSignal<any[]> | ... | An array of objects to display as the available options. |
-| filterValue | InputSignal<string> | ... | When specified, filter displays with this value. |
-| selectAll | InputSignal<boolean> | ... | Whether all data is selected. |
-| focusOnHover | InputSignalWithTransform<boolean, unknown> | ... | Indicates whether to focus on options when hovering over them, defaults to optionLabel. |
-| filterFields | InputSignal<string[]> | ... | Fields used when filtering the options, defaults to optionLabel. |
-| selectOnFocus | InputSignalWithTransform<boolean, unknown> | ... | Determines if the option will be selected on focus. |
-| autoOptionFocus | InputSignalWithTransform<boolean, unknown> | ... | Whether to focus on the first visible or selected element when the overlay panel is shown. |
-| highlightOnSelect | InputSignalWithTransform<boolean, unknown> | ... | Whether the selected option will be add highlight class. |
-| size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
-| variant | InputSignal<"filled" \| "outlined"> | undefined | Specifies the input variant of the component. |
-| fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, MultiSelectPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| id | string | - | Unique identifier of the component |
+| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
+| panelStyle | Partial<CSSStyleDeclaration> | - | Inline style of the overlay panel. |
+| panelStyleClass | string | - | Style class of the overlay panel element. |
+| inputId | string | - | Identifier of the focus input to match a label defined for the component. |
+| readonly | boolean | - | When present, it specifies that the component cannot be edited. |
+| group | boolean | - | Whether to display options as grouped when nested options are provided. |
+| filter | boolean | - | When specified, displays an input field to filter the items on keyup. |
+| filterPlaceHolder | string | - | Defines placeholder of the filter input. |
+| filterLocale | string | - | Locale to use in filtering. The default locale is the host environment's current locale. |
+| overlayVisible | boolean | - | Specifies the visibility of the options panel. |
+| tabindex | number | - | Index of the element in tabbing order. |
+| dataKey | string | - | A property to uniquely identify a value in options. |
+| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| displaySelectedLabel | boolean | true | Whether to show labels of selected item labels or use default label. |
+| maxSelectedLabels | number | 3 | Decides how many selected item labels to show at most. |
+| selectionLimit | number | - | Maximum number of selectable items. |
+| selectedItemsLabel | string | - | Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow. |
+| showToggleAll | boolean | - | Whether to show the checkbox at header to toggle all items at once. |
+| emptyFilterMessage | string | - | Text to display when filtering does not return any results. |
+| emptyMessage | string | - | Text to display when there is no data. Defaults to global value in i18n translation configuration. |
+| resetFilterOnHide | boolean | - | Clears the filter value when hiding the dropdown. |
+| dropdownIcon | string | - | Icon class of the dropdown icon. |
+| chipIcon | string | - | Icon class of the chip icon. |
+| optionLabel | string | - | Name of the label field of an option. |
+| optionValue | string | - | Name of the value field of an option. |
+| optionDisabled | string | - | Name of the disabled field of an option. |
+| optionGroupLabel | string | - | Name of the label field of an option group. |
+| optionGroupChildren | string | - | Name of the options field of an option group. |
+| showHeader | boolean | - | Whether to show the header. |
+| filterBy | string | - | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
+| scrollHeight | string | - | Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
+| lazy | boolean | - | Defines if data is loaded and interacted with in lazy manner. |
+| virtualScroll | boolean | - | Whether the data should be loaded on demand during scroll. |
+| loading | boolean | - | Whether the multiselect is in loading state. |
+| virtualScrollItemSize | number | - | Height of an item in the list for VirtualScrolling. |
+| loadingIcon | string | - | Icon to display in loading state. |
+| virtualScrollOptions | ScrollerOptions | - | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
+| overlayOptions | OverlayOptions | - | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
+| ariaFilterLabel | string | - | Defines a string that labels the filter input. |
+| filterMatchMode | "startsWith" \| "contains" \| "notContains" \| "endsWith" \| "equals" \| "notEquals" \| "in" \| "between" \| "lt" \| "lte" \| "gt" \| "gte" \| "is" \| "isNot" \| "before" \| "after" \| "dateIs" \| "dateIsNot" \| "dateBefore" \| "dateAfter" | - | Defines how the items are filtered. |
+| tooltip | string | - | Advisory information to display in a tooltip on hover. |
+| tooltipPosition | "right" \| "left" \| "top" \| "bottom" | - | Position of the tooltip. |
+| tooltipPositionStyle | string | - | Type of CSS position. |
+| tooltipStyleClass | string | - | Style class of the tooltip. |
+| autofocusFilter | boolean | - | Applies focus to the filter element when the overlay is shown. |
+| display | "comma" \| "chip" | - | Defines how the selected items are displayed. |
+| autocomplete | string | - | Defines the autocomplete is active. |
+| showClear | boolean | - | When enabled, a clear icon is displayed to clear the value. |
+| autofocus | boolean | - | When present, it specifies that the component should automatically get focus on load. |
+| placeholder | string | - | Label to display when there are no selections. |
+| options | any[] | - | An array of objects to display as the available options. |
+| filterValue | string | - | When specified, filter displays with this value. |
+| selectAll | boolean | - | Whether all data is selected. |
+| focusOnHover | boolean | - | Indicates whether to focus on options when hovering over them, defaults to optionLabel. |
+| filterFields | string[] | - | Fields used when filtering the options, defaults to optionLabel. |
+| selectOnFocus | boolean | - | Determines if the option will be selected on focus. |
+| autoOptionFocus | boolean | - | Whether to focus on the first visible or selected element when the overlay panel is shown. |
+| highlightOnSelect | boolean | - | Whether the selected option will be add highlight class. |
+| size | "small" \| "large" | undefined | Specifies the size of the component. |
+| variant | "filled" \| "outlined" | undefined | Specifies the input variant of the component. |
+| fluid | boolean | undefined | Spans 100% width of the container when enabled. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

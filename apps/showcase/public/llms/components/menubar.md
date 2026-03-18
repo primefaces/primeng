@@ -339,20 +339,20 @@ Menubar is a horizontal menu component.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<MenubarPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | InputSignal<MenuItem[]> | ... | An array of menuitems. |
-| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
-| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
-| autoDisplay | InputSignalWithTransform<boolean, unknown> | true | Whether to show a root submenu on mouse over. |
-| autoHide | InputSignalWithTransform<boolean, unknown> | ... | Whether to hide a root submenu when mouse leaves. |
-| breakpoint | InputSignal<string> | ... | The breakpoint to define the maximum width boundary. |
-| autoHideDelay | InputSignalWithTransform<number, unknown> | ... | Delay to hide the root submenu in milliseconds when mouse leaves. |
-| id | InputSignal<string> | ... | Current id state as a string. |
-| ariaLabel | InputSignal<string> | ... | Defines a string value that labels an interactive element. |
-| ariaLabelledBy | InputSignal<string> | ... | Identifier of the underlying input element. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, MenubarPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| model | MenuItem[] | - | An array of menuitems. |
+| autoZIndex | boolean | - | Whether to automatically manage layering. |
+| baseZIndex | number | - | Base zIndex value to use in layering. |
+| autoDisplay | boolean | true | Whether to show a root submenu on mouse over. |
+| autoHide | boolean | - | Whether to hide a root submenu when mouse leaves. |
+| breakpoint | string | - | The breakpoint to define the maximum width boundary. |
+| autoHideDelay | number | - | Delay to hide the root submenu in milliseconds when mouse leaves. |
+| id | string | - | Current id state as a string. |
+| ariaLabel | string | - | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | string | - | Identifier of the underlying input element. |
 
 ### Emits
 

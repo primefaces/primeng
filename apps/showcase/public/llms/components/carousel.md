@@ -331,28 +331,28 @@ Carousel is a content slider featuring various customization options.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| page | InputSignalWithTransform<number, unknown> | 0 | Index of the first item. |
-| numVisible | InputSignalWithTransform<number, unknown> | 1 | Number of items per page. |
-| numScroll | InputSignalWithTransform<number, unknown> | 1 | Number of items to scroll. |
-| responsiveOptions | InputSignal<CarouselResponsiveOptions[]> | ... | An array of options for responsive design. |
-| orientation | InputSignal<CarouselOrientation> | ... | Specifies the layout of the component. |
-| verticalViewPortHeight | InputSignal<string> | ... | Height of the viewport in vertical layout. |
-| contentClass | InputSignal<string> | ... | Style class of main content. |
-| indicatorsContentClass | InputSignal<string> | ... | Style class of the indicator items. |
-| indicatorsContentStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the indicator items. |
-| indicatorStyleClass | InputSignal<string> | ... | Style class of the indicators. |
-| indicatorStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Style of the indicators. |
-| value | InputSignal<any[]> | null | An array of objects to display. |
-| circular | InputSignalWithTransform<boolean, unknown> | ... | Defines if scrolling would be infinite. |
-| showIndicators | InputSignalWithTransform<boolean, unknown> | ... | Whether to display indicator container. |
-| showNavigators | InputSignalWithTransform<boolean, unknown> | ... | Whether to display navigation buttons in container. |
-| autoplayInterval | InputSignalWithTransform<number, unknown> | ... | Time in milliseconds to scroll items automatically. |
-| prevButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
-| nextButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| page | number | 0 | Index of the first item. |
+| numVisible | number | 1 | Number of items per page. |
+| numScroll | number | 1 | Number of items to scroll. |
+| responsiveOptions | CarouselResponsiveOptions[] | - | An array of options for responsive design. |
+| orientation | "horizontal" \| "vertical" | - | Specifies the layout of the component. |
+| verticalViewPortHeight | string | - | Height of the viewport in vertical layout. |
+| contentClass | string | - | Style class of main content. |
+| indicatorsContentClass | string | - | Style class of the indicator items. |
+| indicatorsContentStyle | Partial<CSSStyleDeclaration> | - | Inline style of the indicator items. |
+| indicatorStyleClass | string | - | Style class of the indicators. |
+| indicatorStyle | Partial<CSSStyleDeclaration> | - | Style of the indicators. |
+| value | any[] | null | An array of objects to display. |
+| circular | boolean | - | Defines if scrolling would be infinite. |
+| showIndicators | boolean | - | Whether to display indicator container. |
+| showNavigators | boolean | - | Whether to display navigation buttons in container. |
+| autoplayInterval | number | - | Time in milliseconds to scroll items automatically. |
+| prevButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
+| nextButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
 
 ### Emits
 

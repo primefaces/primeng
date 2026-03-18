@@ -322,28 +322,28 @@ SelectButton is used to choose single or multiple items from a list using button
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<SelectButtonPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| options | InputSignal<any[]> | ... | An array of selectitems to display as the available options. |
-| optionLabel | InputSignal<string> | ... | Name of the label field of an option. |
-| optionValue | InputSignal<string> | ... | Name of the value field of an option. |
-| optionDisabled | InputSignal<string> | ... | Name of the disabled field of an option. |
-| unselectable | InputSignalWithTransform<boolean, unknown> | ... | Whether selection can be cleared. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
-| multiple | InputSignalWithTransform<boolean, unknown> | ... | When specified, allows selecting multiple values. |
-| allowEmpty | InputSignalWithTransform<boolean, unknown> | ... | Whether selection can not be cleared. |
-| styleClass | InputSignal<string> | ... | Style class of the component. |
-| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| dataKey | InputSignal<string> | ... | A property to uniquely identify a value in options. |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
-| size | InputSignal<InputSize> | undefined | Specifies the size of the component. |
-| fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, SelectButtonPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| options | any[] | - | An array of selectitems to display as the available options. |
+| optionLabel | string | - | Name of the label field of an option. |
+| optionValue | string | - | Name of the value field of an option. |
+| optionDisabled | string | - | Name of the disabled field of an option. |
+| unselectable | boolean | - | Whether selection can be cleared. |
+| tabindex | number | - | Index of the element in tabbing order. |
+| multiple | boolean | - | When specified, allows selecting multiple values. |
+| allowEmpty | boolean | - | Whether selection can not be cleared. |
+| styleClass | string | - | Style class of the component. |
+| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| dataKey | string | - | A property to uniquely identify a value in options. |
+| autofocus | boolean | - | When present, it specifies that the component should automatically get focus on load. |
+| size | "small" \| "large" | undefined | Specifies the size of the component. |
+| fluid | boolean | undefined | Spans 100% width of the container when enabled. |
 
 ### Emits
 

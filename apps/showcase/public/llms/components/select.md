@@ -992,75 +992,75 @@ Select is used to choose an item from a collection of options.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<SelectPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| fluid | InputSignalWithTransform<boolean, unknown> | false | Spans 100% width of the container when enabled. |
-| variant | InputSignal<"filled" \| "outlined"> | 'outlined' | Specifies the input variant of the component. |
-| size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
-| inputSize | InputSignal<number> | undefined | Specifies the visible width of the input element in characters. |
-| pattern | InputSignal<string> | undefined | Specifies the value must match the pattern. |
-| min | InputSignal<number> | undefined | The value must be greater than or equal to the value. |
-| max | InputSignal<number> | undefined | The value must be less than or equal to the value. |
-| step | InputSignal<number> | undefined | Unless the step is set to the any literal, the value must be min + an integral multiple of the step. |
-| minlength | InputSignal<number> | undefined | The number of characters (code points) must not be less than the value of the attribute, if non-empty. |
-| maxlength | InputSignal<number> | undefined | The number of characters (code points) must not exceed the value of the attribute. |
-| id | InputSignal<string> | ... | Unique identifier of the component |
-| scrollHeight | InputSignal<string> | ... | Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
-| filter | InputSignalWithTransform<boolean, unknown> | ... | When specified, displays an input field to filter the items on keyup. |
-| panelStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the overlay panel element. |
-| panelStyleClass | InputSignal<string> | ... | Style class of the overlay panel element. |
-| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component cannot be edited. |
-| editable | InputSignalWithTransform<boolean, unknown> | ... | When present, custom value instead of predefined options can be entered using the editable input field. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
-| placeholder | InputSignal<string> | ... | Default text to display when no option is selected. |
-| loadingIcon | InputSignal<string> | ... | Icon to display in loading state. |
-| filterPlaceholder | InputSignal<string> | ... | Placeholder text to show when filter input is empty. |
-| filterLocale | InputSignal<string> | ... | Locale to use in filtering. The default locale is the host environment's current locale. |
-| inputId | InputSignal<string> | ... | Identifier of the accessible input element. |
-| dataKey | InputSignal<string> | ... | A property to uniquely identify a value in options. |
-| filterBy | InputSignal<string> | ... | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
-| filterFields | InputSignal<any[]> | ... | Fields used when filtering the options, defaults to optionLabel. |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
-| resetFilterOnHide | InputSignalWithTransform<boolean, unknown> | ... | Clears the filter value when hiding the select. |
-| checkmark | InputSignalWithTransform<boolean, unknown> | ... | Whether the selected option will be shown with a check mark. |
-| dropdownIcon | InputSignal<string> | ... | Icon class of the select icon. |
-| loading | InputSignalWithTransform<boolean, unknown> | ... | Whether the select is in loading state. |
-| optionLabel | InputSignal<string> | ... | Name of the label field of an option. |
-| optionValue | InputSignal<string> | ... | Name of the value field of an option. |
-| optionDisabled | InputSignal<string> | ... | Name of the disabled field of an option. |
-| optionGroupLabel | InputSignal<string> | ... | Name of the label field of an option group. |
-| optionGroupChildren | InputSignal<string> | ... | Name of the options field of an option group. |
-| group | InputSignalWithTransform<boolean, unknown> | ... | Whether to display options as grouped when nested options are provided. |
-| showClear | InputSignalWithTransform<boolean, unknown> | ... | When enabled, a clear icon is displayed to clear the value. |
-| emptyFilterMessage | InputSignal<string> | ... | Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration. |
-| emptyMessage | InputSignal<string> | ... | Text to display when there is no data. Defaults to global value in i18n translation configuration. |
-| lazy | InputSignalWithTransform<boolean, unknown> | ... | Defines if data is loaded and interacted with in lazy manner. |
-| virtualScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether the data should be loaded on demand during scroll. |
-| virtualScrollItemSize | InputSignalWithTransform<number, unknown> | ... | Height of an item in the list for VirtualScrolling. |
-| virtualScrollOptions | InputSignal<ScrollerOptions> | ... | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
-| overlayOptions | InputSignal<OverlayOptions> | ... | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
-| ariaFilterLabel | InputSignal<string> | ... | Defines a string that labels the filter input. |
-| ariaLabel | InputSignal<string> | ... | Used to define a aria label attribute the current element. |
-| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| filterMatchMode | InputSignal<FilterMatchModeType> | ... | Defines how the items are filtered. |
-| tooltip | InputSignal<string> | ... | Advisory information to display in a tooltip on hover. |
-| tooltipPosition | InputSignal<TooltipPosition> | ... | Position of the tooltip. |
-| tooltipPositionStyle | InputSignal<string> | ... | Type of CSS position. |
-| tooltipStyleClass | InputSignal<string> | ... | Style class of the tooltip. |
-| focusOnHover | InputSignalWithTransform<boolean, unknown> | ... | Fields used when filtering the options, defaults to optionLabel. |
-| selectOnFocus | InputSignalWithTransform<boolean, unknown> | ... | Determines if the option will be selected on focus. |
-| autoOptionFocus | InputSignalWithTransform<boolean, unknown> | ... | Whether to focus on the first visible or selected element when the overlay panel is shown. |
-| autofocusFilter | InputSignalWithTransform<boolean, unknown> | ... | Applies focus to the filter element when the overlay is shown. |
-| filterValue | InputSignal<string> | ... | When specified, filter displays with this value. |
-| options | InputSignal<any[]> | ... | An array of objects to display as the available options. |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, SelectPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| fluid | boolean | false | Spans 100% width of the container when enabled. |
+| variant | "filled" \| "outlined" | 'outlined' | Specifies the input variant of the component. |
+| size | "small" \| "large" | undefined | Specifies the size of the component. |
+| inputSize | number | undefined | Specifies the visible width of the input element in characters. |
+| pattern | string | undefined | Specifies the value must match the pattern. |
+| min | number | undefined | The value must be greater than or equal to the value. |
+| max | number | undefined | The value must be less than or equal to the value. |
+| step | number | undefined | Unless the step is set to the any literal, the value must be min + an integral multiple of the step. |
+| minlength | number | undefined | The number of characters (code points) must not be less than the value of the attribute, if non-empty. |
+| maxlength | number | undefined | The number of characters (code points) must not exceed the value of the attribute. |
+| id | string | - | Unique identifier of the component |
+| scrollHeight | string | - | Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
+| filter | boolean | - | When specified, displays an input field to filter the items on keyup. |
+| panelStyle | Partial<CSSStyleDeclaration> | - | Inline style of the overlay panel element. |
+| panelStyleClass | string | - | Style class of the overlay panel element. |
+| readonly | boolean | - | When present, it specifies that the component cannot be edited. |
+| editable | boolean | - | When present, custom value instead of predefined options can be entered using the editable input field. |
+| tabindex | number | - | Index of the element in tabbing order. |
+| placeholder | string | - | Default text to display when no option is selected. |
+| loadingIcon | string | - | Icon to display in loading state. |
+| filterPlaceholder | string | - | Placeholder text to show when filter input is empty. |
+| filterLocale | string | - | Locale to use in filtering. The default locale is the host environment's current locale. |
+| inputId | string | - | Identifier of the accessible input element. |
+| dataKey | string | - | A property to uniquely identify a value in options. |
+| filterBy | string | - | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
+| filterFields | any[] | - | Fields used when filtering the options, defaults to optionLabel. |
+| autofocus | boolean | - | When present, it specifies that the component should automatically get focus on load. |
+| resetFilterOnHide | boolean | - | Clears the filter value when hiding the select. |
+| checkmark | boolean | - | Whether the selected option will be shown with a check mark. |
+| dropdownIcon | string | - | Icon class of the select icon. |
+| loading | boolean | - | Whether the select is in loading state. |
+| optionLabel | string | - | Name of the label field of an option. |
+| optionValue | string | - | Name of the value field of an option. |
+| optionDisabled | string | - | Name of the disabled field of an option. |
+| optionGroupLabel | string | - | Name of the label field of an option group. |
+| optionGroupChildren | string | - | Name of the options field of an option group. |
+| group | boolean | - | Whether to display options as grouped when nested options are provided. |
+| showClear | boolean | - | When enabled, a clear icon is displayed to clear the value. |
+| emptyFilterMessage | string | - | Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration. |
+| emptyMessage | string | - | Text to display when there is no data. Defaults to global value in i18n translation configuration. |
+| lazy | boolean | - | Defines if data is loaded and interacted with in lazy manner. |
+| virtualScroll | boolean | - | Whether the data should be loaded on demand during scroll. |
+| virtualScrollItemSize | number | - | Height of an item in the list for VirtualScrolling. |
+| virtualScrollOptions | ScrollerOptions | - | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
+| overlayOptions | OverlayOptions | - | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
+| ariaFilterLabel | string | - | Defines a string that labels the filter input. |
+| ariaLabel | string | - | Used to define a aria label attribute the current element. |
+| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| filterMatchMode | "startsWith" \| "contains" \| "notContains" \| "endsWith" \| "equals" \| "notEquals" \| "in" \| "between" \| "lt" \| "lte" \| "gt" \| "gte" \| "is" \| "isNot" \| "before" \| "after" \| "dateIs" \| "dateIsNot" \| "dateBefore" \| "dateAfter" | - | Defines how the items are filtered. |
+| tooltip | string | - | Advisory information to display in a tooltip on hover. |
+| tooltipPosition | "right" \| "left" \| "top" \| "bottom" | - | Position of the tooltip. |
+| tooltipPositionStyle | string | - | Type of CSS position. |
+| tooltipStyleClass | string | - | Style class of the tooltip. |
+| focusOnHover | boolean | - | Fields used when filtering the options, defaults to optionLabel. |
+| selectOnFocus | boolean | - | Determines if the option will be selected on focus. |
+| autoOptionFocus | boolean | - | Whether to focus on the first visible or selected element when the overlay panel is shown. |
+| autofocusFilter | boolean | - | Applies focus to the filter element when the overlay is shown. |
+| filterValue | string | - | When specified, filter displays with this value. |
+| options | any[] | - | An array of objects to display as the available options. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

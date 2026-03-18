@@ -341,17 +341,17 @@ Textarea adds styling and autoResize functionality to standard textarea element.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<TextareaPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| pTextareaPT | InputSignal<TextareaPassThrough> | undefined | Used to pass attributes to DOM elements inside the Textarea component. |
-| pTextareaUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| autoResize | InputSignalWithTransform<boolean, unknown> | ... | When present, textarea size changes as being typed. |
-| pSize | InputSignal<InputSize> | ... | Defines the size of the component. |
-| variant | InputSignal<InputVariant> | undefined | Specifies the input variant of the component. |
-| fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, TextareaPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| pTextareaPT | PassThrough<I, TextareaPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the Textarea component. |
+| pTextareaUnstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| autoResize | boolean | - | When present, textarea size changes as being typed. |
+| pSize | "small" \| "large" | - | Defines the size of the component. |
+| variant | "filled" \| "outlined" | undefined | Specifies the input variant of the component. |
+| fluid | boolean | undefined | Spans 100% width of the container when enabled. |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
 
 ### Emits
 

@@ -407,19 +407,19 @@ Toast is used to display messages in an overlay.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ToastPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| key | InputSignal<string> | ... | Key of the message in case message is targeted to a specific toast component. |
-| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
-| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
-| life | InputSignalWithTransform<number, unknown> | ... | The default time to display messages for in milliseconds. |
-| position | InputSignal<ToastPositionType> | ... | Position of the toast in viewport. |
-| preventOpenDuplicates | InputSignalWithTransform<boolean, unknown> | ... | It does not add the new message if there is already a toast displayed with the same content |
-| preventDuplicates | InputSignalWithTransform<boolean, unknown> | ... | Displays only once a message with the same content. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| breakpoints | InputSignal<ToastBreakpoints> | ... | Object literal to define styles per screen size. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ToastPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| key | string | - | Key of the message in case message is targeted to a specific toast component. |
+| autoZIndex | boolean | - | Whether to automatically manage layering. |
+| baseZIndex | number | - | Base zIndex value to use in layering. |
+| life | number | - | The default time to display messages for in milliseconds. |
+| position | "top-left" \| "top-center" \| "top-right" \| "bottom-left" \| "bottom-center" \| "bottom-right" \| "center" | - | Position of the toast in viewport. |
+| preventOpenDuplicates | boolean | - | It does not add the new message if there is already a toast displayed with the same content |
+| preventDuplicates | boolean | - | Displays only once a message with the same content. |
+| motionOptions | MotionOptions | - | The motion options. |
+| breakpoints | Record<string, Partial<CSSStyleDeclaration>> | - | Object literal to define styles per screen size. |
 
 ### Emits
 

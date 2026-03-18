@@ -351,17 +351,17 @@ Avatar represents people using icons, labels and images.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| label | InputSignal<string> | ... | Defines the text to display. |
-| icon | InputSignal<string> | ... | Defines the icon to display. |
-| image | InputSignal<string> | ... | Defines the image to display. |
-| size | InputSignal<AvatarSize> | ... | Size of the element. |
-| shape | InputSignal<AvatarShape> | ... | Shape of the element. |
-| ariaLabel | InputSignal<string> | ... | Establishes a string value that labels the component. |
-| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<AvatarPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| label | string | - | Defines the text to display. |
+| icon | string | - | Defines the icon to display. |
+| image | string | - | Defines the image to display. |
+| size | "normal" \| "large" \| "xlarge" | - | Size of the element. |
+| shape | "square" \| "circle" | - | Shape of the element. |
+| ariaLabel | string | - | Establishes a string value that labels the component. |
+| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, AvatarPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ### Emits
 

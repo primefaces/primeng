@@ -254,27 +254,27 @@ ToggleButton is used to select a boolean value using a button.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ToggleButtonPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| onLabel | InputSignal<string> | ... | Label for the on state. |
-| offLabel | InputSignal<string> | ... | Label for the off state. |
-| onIcon | InputSignal<string> | ... | Icon for the on state. |
-| offIcon | InputSignal<string> | ... | Icon for the off state. |
-| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
-| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the component. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
-| iconPos | InputSignal<ToggleButtonIconPos> | ... | Position of the icon. |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
-| size | InputSignal<InputSize> | ... | Defines the size of the component. |
-| allowEmpty | InputSignal<boolean> | ... | Whether selection can not be cleared. |
-| fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ToggleButtonPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| onLabel | string | - | Label for the on state. |
+| offLabel | string | - | Label for the off state. |
+| onIcon | string | - | Icon for the on state. |
+| offIcon | string | - | Icon for the off state. |
+| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
+| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| inputId | string | - | Identifier of the focus input to match a label defined for the component. |
+| tabindex | number | - | Index of the element in tabbing order. |
+| iconPos | "left" \| "right" | - | Position of the icon. |
+| autofocus | boolean | - | When present, it specifies that the component should automatically get focus on load. |
+| size | "small" \| "large" | - | Defines the size of the component. |
+| allowEmpty | boolean | - | Whether selection can not be cleared. |
+| fluid | boolean | undefined | Spans 100% width of the container when enabled. |
 
 ### Emits
 

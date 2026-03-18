@@ -138,14 +138,14 @@ Tag component is used to categorize content.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<TagPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| severity | InputSignal<TagSeverity> | ... | Severity type of the tag. |
-| value | InputSignal<string> | ... | Value to display inside the tag. |
-| icon | InputSignal<string> | ... | Icon of the tag to display next to the value. |
-| rounded | InputSignalWithTransform<boolean, unknown> | ... | Whether the corners of the tag are rounded. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, TagPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| severity | "success" \| "secondary" \| "info" \| "warn" \| "danger" \| "contrast" | - | Severity type of the tag. |
+| value | string | - | Value to display inside the tag. |
+| icon | string | - | Icon of the tag to display next to the value. |
+| rounded | boolean | - | Whether the corners of the tag are rounded. |
 
 ### Templates
 

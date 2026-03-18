@@ -259,21 +259,21 @@ Rating is an extension to standard radio button element with theming.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<RatingPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, changing the value is not possible. |
-| stars | InputSignalWithTransform<number, unknown> | ... | Number of stars. |
-| iconOnClass | InputSignal<string> | ... | Style class of the on icon. |
-| iconOnStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the on icon. |
-| iconOffClass | InputSignal<string> | ... | Style class of the off icon. |
-| iconOffStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the off icon. |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, RatingPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| readonly | boolean | - | When present, changing the value is not possible. |
+| stars | number | - | Number of stars. |
+| iconOnClass | string | - | Style class of the on icon. |
+| iconOnStyle | Partial<CSSStyleDeclaration> | - | Inline style of the on icon. |
+| iconOffClass | string | - | Style class of the off icon. |
+| iconOffStyle | Partial<CSSStyleDeclaration> | - | Inline style of the off icon. |
+| autofocus | boolean | - | When present, it specifies that the component should automatically get focus on load. |
 
 ### Emits
 

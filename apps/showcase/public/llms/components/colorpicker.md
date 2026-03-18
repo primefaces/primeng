@@ -218,24 +218,24 @@ ColorPicker groups a collection of contents in tabs.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ColorPickerPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| inline | InputSignalWithTransform<boolean, unknown> | ... | Whether to display as an overlay or not. |
-| format | InputSignal<ColorPickerFormat> | ... | Format to use in value binding. |
-| tabindex | InputSignal<string> | ... | Index of the element in tabbing order. |
-| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the dropdown. |
-| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
-| defaultColor | InputSignal<string> | ... | Default color to display initially when model value is not present. |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| overlayOptions | InputSignal<OverlayOptions> | ... | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ColorPickerPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| inline | boolean | - | Whether to display as an overlay or not. |
+| format | "hex" \| "rgb" \| "hsb" | - | Format to use in value binding. |
+| tabindex | string | - | Index of the element in tabbing order. |
+| inputId | string | - | Identifier of the focus input to match a label defined for the dropdown. |
+| autoZIndex | boolean | - | Whether to automatically manage layering. |
+| autofocus | boolean | - | When present, it specifies that the component should automatically get focus on load. |
+| defaultColor | string | - | Default color to display initially when model value is not present. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| overlayOptions | OverlayOptions | - | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

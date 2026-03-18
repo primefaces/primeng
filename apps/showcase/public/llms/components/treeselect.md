@@ -741,52 +741,52 @@ TreeSelect is a form component to choose from hierarchical data.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<TreeSelectPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| inputId | InputSignal<string> | ... | Identifier of the underlying input element. |
-| scrollHeight | InputSignal<string> | ... | Height of the viewport, a scrollbar is defined if height of list exceeds this value. |
-| metaKeySelection | InputSignalWithTransform<boolean, unknown> | ... | Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically. |
-| display | InputSignal<TreeSelectDisplay> | ... | Defines how the selected items are displayed. |
-| selectionMode | InputSignal<TreeSelectSelectionMode> | ... | Defines the selection mode. |
-| tabindex | InputSignal<string> | ... | Index of the element in tabbing order. |
-| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
-| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| placeholder | InputSignal<string> | ... | Label to display when there are no selections. |
-| panelClass | InputSignal<string \| string[] \| Set<string> \| { [klass: string]: any }> | ... | Style class of the overlay panel. |
-| panelStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the panel element. |
-| panelStyleClass | InputSignal<string> | ... | Style class of the panel element. |
-| labelStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the label element. |
-| labelStyleClass | InputSignal<string> | ... | Style class of the label element. |
-| overlayOptions | InputSignal<OverlayOptions> | ... | Specifies the options for the overlay. |
-| emptyMessage | InputSignal<string> | ... | Text to display when there are no options available. Defaults to value from PrimeNG locale configuration. |
-| filter | InputSignalWithTransform<boolean, unknown> | ... | When specified, displays an input field to filter the items. |
-| filterBy | InputSignal<string> | ... | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
-| filterMode | InputSignal<string> | ... | Mode for filtering valid values are "lenient" and "strict". Default is lenient. |
-| filterPlaceholder | InputSignal<string> | ... | Placeholder text to show when filter input is empty. |
-| filterLocale | InputSignal<string> | ... | Locale to use in filtering. The default locale is the host environment's current locale. |
-| filterInputAutoFocus | InputSignalWithTransform<boolean, unknown> | ... | Determines whether the filter input should be automatically focused when the component is rendered. |
-| propagateSelectionDown | InputSignalWithTransform<boolean, unknown> | ... | Whether checkbox selections propagate to descendant nodes. |
-| propagateSelectionUp | InputSignalWithTransform<boolean, unknown> | ... | Whether checkbox selections propagate to ancestor nodes. |
-| showClear | InputSignalWithTransform<boolean, unknown> | ... | When enabled, a clear icon is displayed to clear the value. |
-| resetFilterOnHide | InputSignalWithTransform<boolean, unknown> | ... | Clears the filter value when hiding the dropdown. |
-| virtualScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether the data should be loaded on demand during scroll. |
-| virtualScrollItemSize | InputSignalWithTransform<number, unknown> | ... | Height of an item in the list for VirtualScrolling. |
-| virtualScrollOptions | InputSignal<ScrollerOptions> | ... | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
-| options | InputSignal<TreeNode<any>[]> | undefined | An array of treenodes. |
-| loading | InputSignalWithTransform<boolean, unknown> | ... | Displays a loader to indicate data load is in progress. |
-| loadingMode | InputSignal<TreeSelectLoadingMode> | ... | Loading mode display. |
-| size | InputSignal<InputSize> | undefined | Specifies the size of the component. |
-| variant | InputSignal<InputVariant> | undefined | Specifies the input variant of the component. |
-| fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, TreeSelectPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| inputId | string | - | Identifier of the underlying input element. |
+| scrollHeight | string | - | Height of the viewport, a scrollbar is defined if height of list exceeds this value. |
+| metaKeySelection | boolean | - | Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically. |
+| display | "comma" \| "chip" | - | Defines how the selected items are displayed. |
+| selectionMode | "single" \| "multiple" \| "checkbox" | - | Defines the selection mode. |
+| tabindex | string | - | Index of the element in tabbing order. |
+| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
+| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| placeholder | string | - | Label to display when there are no selections. |
+| panelClass | string \| string[] \| Set<string> \| { [klass: string]: any } | - | Style class of the overlay panel. |
+| panelStyle | Partial<CSSStyleDeclaration> | - | Inline style of the panel element. |
+| panelStyleClass | string | - | Style class of the panel element. |
+| labelStyle | Partial<CSSStyleDeclaration> | - | Inline style of the label element. |
+| labelStyleClass | string | - | Style class of the label element. |
+| overlayOptions | OverlayOptions | - | Specifies the options for the overlay. |
+| emptyMessage | string | - | Text to display when there are no options available. Defaults to value from PrimeNG locale configuration. |
+| filter | boolean | - | When specified, displays an input field to filter the items. |
+| filterBy | string | - | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
+| filterMode | string | - | Mode for filtering valid values are "lenient" and "strict". Default is lenient. |
+| filterPlaceholder | string | - | Placeholder text to show when filter input is empty. |
+| filterLocale | string | - | Locale to use in filtering. The default locale is the host environment's current locale. |
+| filterInputAutoFocus | boolean | - | Determines whether the filter input should be automatically focused when the component is rendered. |
+| propagateSelectionDown | boolean | - | Whether checkbox selections propagate to descendant nodes. |
+| propagateSelectionUp | boolean | - | Whether checkbox selections propagate to ancestor nodes. |
+| showClear | boolean | - | When enabled, a clear icon is displayed to clear the value. |
+| resetFilterOnHide | boolean | - | Clears the filter value when hiding the dropdown. |
+| virtualScroll | boolean | - | Whether the data should be loaded on demand during scroll. |
+| virtualScrollItemSize | number | - | Height of an item in the list for VirtualScrolling. |
+| virtualScrollOptions | ScrollerOptions | - | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
+| autofocus | boolean | - | When present, it specifies that the component should automatically get focus on load. |
+| options | TreeNode<any>[] | undefined | An array of treenodes. |
+| loading | boolean | - | Displays a loader to indicate data load is in progress. |
+| loadingMode | "mask" \| "icon" | - | Loading mode display. |
+| size | "small" \| "large" | undefined | Specifies the size of the component. |
+| variant | "filled" \| "outlined" | undefined | Specifies the input variant of the component. |
+| fluid | boolean | undefined | Spans 100% width of the container when enabled. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

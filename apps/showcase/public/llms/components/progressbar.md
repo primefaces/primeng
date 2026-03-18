@@ -121,16 +121,16 @@ ProgressBar is a process status indicator.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ProgressBarPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| value | InputSignalWithTransform<number, unknown> | ... | Current value of the progress. |
-| showValue | InputSignalWithTransform<boolean, unknown> | ... | Whether to display the progress bar value. |
-| valueStyleClass | InputSignal<string> | ... | Style class of the value element. |
-| unit | InputSignal<string> | ... | Unit sign appended to the value. |
-| mode | InputSignal<ProgressBarMode> | 'determinate' | Defines the mode of the progress |
-| color | InputSignal<string> | ... | Color for the background of the progress. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ProgressBarPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| value | number | - | Current value of the progress. |
+| showValue | boolean | - | Whether to display the progress bar value. |
+| valueStyleClass | string | - | Style class of the value element. |
+| unit | string | - | Unit sign appended to the value. |
+| mode | "determinate" \| "indeterminate" | 'determinate' | Defines the mode of the progress |
+| color | string | - | Color for the background of the progress. |
 
 ### Templates
 

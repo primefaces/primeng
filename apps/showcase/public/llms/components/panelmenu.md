@@ -598,15 +598,15 @@ PanelMenu is a hybrid of Accordion and Tree components.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<PanelMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | InputSignal<MenuItem[]> | ... | An array of menuitems. |
-| multiple | InputSignalWithTransform<boolean, unknown> | ... | Whether multiple tabs can be activated at the same time or not. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| id | InputSignal<string> | ... | Current id state as a string. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, PanelMenuPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| model | MenuItem[] | - | An array of menuitems. |
+| multiple | boolean | - | Whether multiple tabs can be activated at the same time or not. |
+| motionOptions | MotionOptions | - | The motion options. |
+| id | string | - | Current id state as a string. |
+| tabindex | number | - | Index of the element in tabbing order. |
 
 ### Templates
 

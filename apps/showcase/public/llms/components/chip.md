@@ -104,18 +104,18 @@ Chip represents people using icons, labels and images.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ChipPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| label | InputSignal<string> | ... | Defines the text to display. |
-| icon | InputSignal<string> | ... | Defines the icon to display. |
-| image | InputSignal<string> | ... | Defines the image to display. |
-| alt | InputSignal<string> | ... | Alt attribute of the image. |
-| disabled | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the element should be disabled. |
-| removable | InputSignalWithTransform<boolean, unknown> | ... | Whether to display a remove icon. |
-| removeIcon | InputSignal<string> | ... | Icon of the remove element. |
-| chipProps | InputSignal<ChipProps> | ... | Used to pass all properties of the chipProps to the Chip component. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ChipPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| label | string | - | Defines the text to display. |
+| icon | string | - | Defines the icon to display. |
+| image | string | - | Defines the image to display. |
+| alt | string | - | Alt attribute of the image. |
+| disabled | boolean | - | When present, it specifies that the element should be disabled. |
+| removable | boolean | - | Whether to display a remove icon. |
+| removeIcon | string | - | Icon of the remove element. |
+| chipProps | ChipProps | - | Used to pass all properties of the chipProps to the Chip component. |
 
 ### Emits
 

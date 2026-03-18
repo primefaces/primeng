@@ -127,18 +127,18 @@ Panel is a container with the optional content toggle feature.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<PanelPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| toggleable | InputSignalWithTransform<boolean, unknown> | ... | Defines if content of panel can be expanded and collapsed. |
-| header | InputSignal<string> | ... | Header text of the panel. |
-| collapsed | ModelSignal<boolean> | ... | Defines the initial state of panel content, supports one or two-way binding as well. |
-| iconPos | InputSignal<PanelIconPos> | ... | Position of the icons. |
-| showHeader | InputSignalWithTransform<boolean, unknown> | ... | Specifies if header of panel cannot be displayed. |
-| toggler | InputSignal<PanelToggler> | ... | Specifies the toggler element to toggle the panel content. |
-| toggleButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, PanelPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| toggleable | boolean | - | Defines if content of panel can be expanded and collapsed. |
+| header | string | - | Header text of the panel. |
+| collapsed | boolean | - | Defines the initial state of panel content, supports one or two-way binding as well. |
+| iconPos | "start" \| "end" \| "center" | - | Position of the icons. |
+| showHeader | boolean | - | Specifies if header of panel cannot be displayed. |
+| toggler | "icon" \| "header" | - | Specifies the toggler element to toggle the panel content. |
+| toggleButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

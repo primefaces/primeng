@@ -622,62 +622,62 @@ ListBox is used to select one or more values from a list of items.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ListBoxPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| id | InputSignal<string> | ... | Unique identifier of the component. |
-| searchMessage | InputSignal<string> | '{0} results are available' | Text to display when the search is active. Defaults to global value in i18n translation configuration. |
-| emptySelectionMessage | InputSignal<string> | 'No selected item' | Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration. |
-| selectionMessage | InputSignal<string> | '{0} items selected' | Text to be displayed in hidden accessible field when options are selected. Defaults to global value in i18n translation configuration. |
-| autoOptionFocus | InputSignalWithTransform<boolean, unknown> | ... | Whether to focus on the first visible or selected element when the overlay panel is shown. |
-| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
-| selectOnFocus | InputSignalWithTransform<boolean, unknown> | ... | When enabled, the focused option is selected. |
-| searchLocale | InputSignalWithTransform<boolean, unknown> | ... | Locale to use in searching. The default locale is the host environment's current locale. |
-| focusOnHover | InputSignalWithTransform<boolean, unknown> | ... | When enabled, the hovered option will be focused. |
-| filterMessage | InputSignal<string> | ... | Text to display when filtering. |
-| filterFields | InputSignal<any[]> | ... | Fields used when filtering the options, defaults to optionLabel. |
-| lazy | InputSignalWithTransform<boolean, unknown> | ... | Defines if data is loaded and interacted with in lazy manner. |
-| virtualScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether the data should be loaded on demand during scroll. |
-| virtualScrollItemSize | InputSignalWithTransform<number, unknown> | ... | Height of an item in the list for VirtualScrolling. |
-| virtualScrollOptions | InputSignal<ScrollerOptions> | ... | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
-| scrollHeight | InputSignal<string> | ... | Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
-| multiple | InputSignalWithTransform<boolean, unknown> | ... | When specified, allows selecting multiple values. |
-| listStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the list element. |
-| listStyleClass | InputSignal<string> | ... | Style class of the list element. |
-| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the element value cannot be changed. |
-| checkbox | InputSignalWithTransform<boolean, unknown> | ... | When specified, allows selecting items with checkboxes. |
-| filter | InputSignalWithTransform<boolean, unknown> | ... | When specified, displays a filter input at header. |
-| filterBy | InputSignal<string> | ... | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
-| filterMatchMode | InputSignal<FilterMatchModeType> | ... | Defines how the items are filtered. |
-| filterLocale | InputSignal<string> | ... | Locale to use in filtering. The default locale is the host environment's current locale. |
-| metaKeySelection | InputSignalWithTransform<boolean, unknown> | ... | Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically. |
-| dataKey | InputSignal<string> | ... | A property to uniquely identify a value in options. |
-| showToggleAll | InputSignalWithTransform<boolean, unknown> | ... | Whether header checkbox is shown in multiple mode. |
-| optionLabel | InputSignal<string> | ... | Name of the label field of an option. |
-| optionValue | InputSignal<string> | ... | Name of the value field of an option. |
-| optionGroupChildren | InputSignal<string> | ... | Name of the options field of an option group. |
-| optionGroupLabel | InputSignal<string> | ... | Name of the label field of an option group. |
-| optionDisabled | InputSignal<string \| ((item: any) => boolean)> | ... | Name of the disabled field of an option or function to determine disabled state. |
-| ariaFilterLabel | InputSignal<string> | ... | Defines a string that labels the filter input. |
-| filterPlaceHolder | InputSignal<string> | ... | Defines placeholder of the filter input. |
-| emptyFilterMessage | InputSignal<string> | ... | Text to display when filtering does not return any results. |
-| emptyMessage | InputSignal<string> | ... | Text to display when there is no data. Defaults to global value in i18n translation configuration. |
-| group | InputSignalWithTransform<boolean, unknown> | ... | Whether to display options as grouped when nested options are provided. |
-| options | InputSignal<any[]> | ... | An array of selectitems to display as the available options. |
-| filterValue | InputSignal<string> | ... | When specified, filter displays with this value. |
-| selectAll | InputSignal<boolean> | ... | Whether all data is selected. |
-| striped | InputSignalWithTransform<boolean, unknown> | false | Whether to displays rows with alternating colors. |
-| highlightOnSelect | InputSignalWithTransform<boolean, unknown> | true | Whether the selected option will be add highlight class. |
-| checkmark | InputSignalWithTransform<boolean, unknown> | false | Whether the selected option will be shown with a check mark. |
-| dragdrop | InputSignalWithTransform<boolean, unknown> | ... | Whether to enable dragdrop based reordering. |
-| dropListData | InputSignal<any[]> | ... | Array to use for CDK drop list data binding. When not provided, uses options array. |
-| fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ListBoxPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| id | string | - | Unique identifier of the component. |
+| searchMessage | string | '{0} results are available' | Text to display when the search is active. Defaults to global value in i18n translation configuration. |
+| emptySelectionMessage | string | 'No selected item' | Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration. |
+| selectionMessage | string | '{0} items selected' | Text to be displayed in hidden accessible field when options are selected. Defaults to global value in i18n translation configuration. |
+| autoOptionFocus | boolean | - | Whether to focus on the first visible or selected element when the overlay panel is shown. |
+| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
+| selectOnFocus | boolean | - | When enabled, the focused option is selected. |
+| searchLocale | boolean | - | Locale to use in searching. The default locale is the host environment's current locale. |
+| focusOnHover | boolean | - | When enabled, the hovered option will be focused. |
+| filterMessage | string | - | Text to display when filtering. |
+| filterFields | any[] | - | Fields used when filtering the options, defaults to optionLabel. |
+| lazy | boolean | - | Defines if data is loaded and interacted with in lazy manner. |
+| virtualScroll | boolean | - | Whether the data should be loaded on demand during scroll. |
+| virtualScrollItemSize | number | - | Height of an item in the list for VirtualScrolling. |
+| virtualScrollOptions | ScrollerOptions | - | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
+| scrollHeight | string | - | Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
+| tabindex | number | - | Index of the element in tabbing order. |
+| multiple | boolean | - | When specified, allows selecting multiple values. |
+| listStyle | Partial<CSSStyleDeclaration> | - | Inline style of the list element. |
+| listStyleClass | string | - | Style class of the list element. |
+| readonly | boolean | - | When present, it specifies that the element value cannot be changed. |
+| checkbox | boolean | - | When specified, allows selecting items with checkboxes. |
+| filter | boolean | - | When specified, displays a filter input at header. |
+| filterBy | string | - | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
+| filterMatchMode | "startsWith" \| "contains" \| "notContains" \| "endsWith" \| "equals" \| "notEquals" \| "in" \| "between" \| "lt" \| "lte" \| "gt" \| "gte" \| "is" \| "isNot" \| "before" \| "after" \| "dateIs" \| "dateIsNot" \| "dateBefore" \| "dateAfter" | - | Defines how the items are filtered. |
+| filterLocale | string | - | Locale to use in filtering. The default locale is the host environment's current locale. |
+| metaKeySelection | boolean | - | Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically. |
+| dataKey | string | - | A property to uniquely identify a value in options. |
+| showToggleAll | boolean | - | Whether header checkbox is shown in multiple mode. |
+| optionLabel | string | - | Name of the label field of an option. |
+| optionValue | string | - | Name of the value field of an option. |
+| optionGroupChildren | string | - | Name of the options field of an option group. |
+| optionGroupLabel | string | - | Name of the label field of an option group. |
+| optionDisabled | string \| ((item: any) => boolean) | - | Name of the disabled field of an option or function to determine disabled state. |
+| ariaFilterLabel | string | - | Defines a string that labels the filter input. |
+| filterPlaceHolder | string | - | Defines placeholder of the filter input. |
+| emptyFilterMessage | string | - | Text to display when filtering does not return any results. |
+| emptyMessage | string | - | Text to display when there is no data. Defaults to global value in i18n translation configuration. |
+| group | boolean | - | Whether to display options as grouped when nested options are provided. |
+| options | any[] | - | An array of selectitems to display as the available options. |
+| filterValue | string | - | When specified, filter displays with this value. |
+| selectAll | boolean | - | Whether all data is selected. |
+| striped | boolean | false | Whether to displays rows with alternating colors. |
+| highlightOnSelect | boolean | true | Whether the selected option will be add highlight class. |
+| checkmark | boolean | false | Whether the selected option will be shown with a check mark. |
+| dragdrop | boolean | - | Whether to enable dragdrop based reordering. |
+| dropListData | any[] | - | Array to use for CDK drop list data binding. When not provided, uses options array. |
+| fluid | boolean | undefined | Spans 100% width of the container when enabled. |
 
 ### Emits
 

@@ -153,45 +153,45 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ConfirmDialogPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| header | InputSignal<string> | ... | Title text of the dialog. |
-| icon | InputSignal<string> | ... | Icon to display next to message. |
-| message | InputSignal<string> | ... | Message of the confirmation. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the element. |
-| styleClass | InputSignal<string> | ... | Class of the element. |
-| maskStyleClass | InputSignal<string> | ... | Specify the CSS class(es) for styling the mask element |
-| acceptIcon | InputSignal<string> | ... | Icon of the accept button. |
-| acceptLabel | InputSignal<string> | ... | Label of the accept button. |
-| closeAriaLabel | InputSignal<string> | ... | Defines a string that labels the close button for accessibility. |
-| acceptAriaLabel | InputSignal<string> | ... | Defines a string that labels the accept button for accessibility. |
-| acceptVisible | InputSignalWithTransform<boolean, unknown> | ... | Visibility of the accept button. |
-| rejectIcon | InputSignal<string> | ... | Icon of the reject button. |
-| rejectLabel | InputSignal<string> | ... | Label of the reject button. |
-| rejectAriaLabel | InputSignal<string> | ... | Defines a string that labels the reject button for accessibility. |
-| rejectVisible | InputSignalWithTransform<boolean, unknown> | ... | Visibility of the reject button. |
-| acceptButtonStyleClass | InputSignal<string> | ... | Style class of the accept button. |
-| rejectButtonStyleClass | InputSignal<string> | ... | Style class of the reject button. |
-| closeOnEscape | InputSignalWithTransform<boolean, unknown> | ... | Specifies if pressing escape key should hide the dialog. |
-| dismissableMask | InputSignalWithTransform<boolean, unknown> | ... | Specifies if clicking the modal background should hide the dialog. |
-| blockScroll | InputSignalWithTransform<boolean, unknown> | ... | Determines whether scrolling behavior should be blocked within the component. |
-| rtl | InputSignalWithTransform<boolean, unknown> | ... | When enabled dialog is displayed in RTL direction. |
-| closable | InputSignalWithTransform<boolean, unknown> | ... | Adds a close icon to the header to hide the dialog. |
-| appendTo | InputSignal<AppendTo> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| key | InputSignal<string> | ... | Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs. |
-| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
-| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| maskMotionOptions | InputSignal<MotionOptions> | ... | The motion options for the mask. |
-| focusTrap | InputSignalWithTransform<boolean, unknown> | ... | When enabled, can only focus on elements inside the confirm dialog. |
-| defaultFocus | InputSignal<ConfirmDialogDefaultFocus> | ... | Element to receive the focus when the dialog gets visible. |
-| breakpoints | InputSignal<Record<string, string>> | ... | Object literal to define widths per screen size. |
-| modal | InputSignalWithTransform<boolean, unknown> | ... | Defines if background should be blocked when dialog is displayed. |
-| visible | ModelSignal<boolean> | ... | Current visible state as a boolean. |
-| position | InputSignal<DialogPosition> | ... | Allows getting the position of the component. |
-| draggable | InputSignalWithTransform<boolean, unknown> | ... | Enables dragging to change the position using header. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ConfirmDialogPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| header | string | - | Title text of the dialog. |
+| icon | string | - | Icon to display next to message. |
+| message | string | - | Message of the confirmation. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the element. |
+| styleClass | string | - | Class of the element. |
+| maskStyleClass | string | - | Specify the CSS class(es) for styling the mask element |
+| acceptIcon | string | - | Icon of the accept button. |
+| acceptLabel | string | - | Label of the accept button. |
+| closeAriaLabel | string | - | Defines a string that labels the close button for accessibility. |
+| acceptAriaLabel | string | - | Defines a string that labels the accept button for accessibility. |
+| acceptVisible | boolean | - | Visibility of the accept button. |
+| rejectIcon | string | - | Icon of the reject button. |
+| rejectLabel | string | - | Label of the reject button. |
+| rejectAriaLabel | string | - | Defines a string that labels the reject button for accessibility. |
+| rejectVisible | boolean | - | Visibility of the reject button. |
+| acceptButtonStyleClass | string | - | Style class of the accept button. |
+| rejectButtonStyleClass | string | - | Style class of the reject button. |
+| closeOnEscape | boolean | - | Specifies if pressing escape key should hide the dialog. |
+| dismissableMask | boolean | - | Specifies if clicking the modal background should hide the dialog. |
+| blockScroll | boolean | - | Determines whether scrolling behavior should be blocked within the component. |
+| rtl | boolean | - | When enabled dialog is displayed in RTL direction. |
+| closable | boolean | - | Adds a close icon to the header to hide the dialog. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| key | string | - | Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs. |
+| autoZIndex | boolean | - | Whether to automatically manage layering. |
+| baseZIndex | number | - | Base zIndex value to use in layering. |
+| motionOptions | MotionOptions | - | The motion options. |
+| maskMotionOptions | MotionOptions | - | The motion options for the mask. |
+| focusTrap | boolean | - | When enabled, can only focus on elements inside the confirm dialog. |
+| defaultFocus | "accept" \| "reject" \| "close" \| "none" | - | Element to receive the focus when the dialog gets visible. |
+| breakpoints | Record<string, string> | - | Object literal to define widths per screen size. |
+| modal | boolean | - | Defines if background should be blocked when dialog is displayed. |
+| visible | boolean | - | Current visible state as a boolean. |
+| position | "center" \| "top" \| "bottom" \| "left" \| "right" \| "topleft" \| "topright" \| "bottomleft" \| "bottomright" | - | Allows getting the position of the component. |
+| draggable | boolean | - | Enables dragging to change the position using header. |
 
 ### Emits
 

@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
             header="Dynamic Dialog"
             description="Dialogs can be created dynamically with any component as the content using a DialogService."
             [docs]="docs"
-            [apiDocs]="['DynamicDialog-Ref', 'DynamicDialog-Config', 'DialogService']"
+            [apiDocs]="['DynamicDialogRef', 'DynamicDialogConfig', 'DialogService']"
             [ptDocs]="ptComponent"
             themeDocs="dynamicdialog"
             [heroDoc]="heroDoc"

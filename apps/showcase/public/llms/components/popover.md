@@ -329,21 +329,21 @@ Popover is a container component that can overlay other components on page.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<PopoverPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
-| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| dismissable | InputSignalWithTransform<boolean, unknown> | ... | Enables to hide the overlay when outside is clicked. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
-| styleClass | InputSignal<string> | ... | Style class of the component. |
-| appendTo | InputSignal<AppendTo> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
-| ariaCloseLabel | InputSignal<string> | ... | Aria label of the close icon. |
-| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
-| focusOnShow | InputSignalWithTransform<boolean, unknown> | ... | When enabled, first button receives focus on show. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, PopoverPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
+| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| dismissable | boolean | - | Enables to hide the overlay when outside is clicked. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the component. |
+| styleClass | string | - | Style class of the component. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| autoZIndex | boolean | - | Whether to automatically manage layering. |
+| ariaCloseLabel | string | - | Aria label of the close icon. |
+| baseZIndex | number | - | Base zIndex value to use in layering. |
+| focusOnShow | boolean | - | When enabled, first button receives focus on show. |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

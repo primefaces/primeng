@@ -63,13 +63,13 @@ Terminal is a text based user interface.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<TerminalPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| welcomeMessage | InputSignal<string> | ... | Initial text to display on terminal. |
-| prompt | InputSignal<string> | ... | Prompt text for each command. |
-| response | InputSignal<string> | ... | Response to display after a command. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, TerminalPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| welcomeMessage | string | - | Initial text to display on terminal. |
+| prompt | string | - | Prompt text for each command. |
+| response | string | - | Response to display after a command. |
 
 ## Pass Through Options
 

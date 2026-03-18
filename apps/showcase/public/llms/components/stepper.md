@@ -343,13 +343,13 @@ Stepper is a component that streamlines a wizard-like workflow, organizing conte
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<StepperPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| value | ModelSignal<number> | undefined | A model that can hold a numeric value or be undefined. |
-| linear | InputSignalWithTransform<boolean, unknown> | false | A boolean variable that captures user input. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, StepperPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| value | number | undefined | A model that can hold a numeric value or be undefined. |
+| linear | boolean | false | A boolean variable that captures user input. |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ## Pass Through Options
 

@@ -4292,89 +4292,89 @@ Table displays data in tabular format.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<TablePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| frozenColumns | InputSignal<any[]> | ... | An array of objects to represent dynamic columns that are frozen. |
-| frozenValue | InputSignal<any[]> | ... | An array of objects to display as frozen. |
-| tableStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the table. |
-| tableStyleClass | InputSignal<string> | ... | Style class of the table. |
-| paginator | InputSignalWithTransform<boolean, unknown> | ... | When specified as true, enables the pagination. |
-| pageLinks | InputSignalWithTransform<number, unknown> | ... | Number of page links to display in paginator. |
-| rowsPerPageOptions | InputSignal<any[]> | ... | Array of integer/object values to display inside rows per page dropdown of paginator |
-| alwaysShowPaginator | InputSignalWithTransform<boolean, unknown> | ... | Whether to show it even there is only one page. |
-| paginatorPosition | InputSignal<TablePaginatorPosition> | ... | Position of the paginator, options are "top", "bottom" or "both". |
-| paginatorStyleClass | InputSignal<string> | ... | Custom style class for paginator |
-| paginatorDropdownAppendTo | InputSignal<any> | ... | Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| paginatorDropdownScrollHeight | InputSignal<string> | ... | Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
-| currentPageReportTemplate | InputSignal<string> | ... | Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords} |
-| showCurrentPageReport | InputSignalWithTransform<boolean, unknown> | ... | Whether to display current page report. |
-| showJumpToPageDropdown | InputSignalWithTransform<boolean, unknown> | ... | Whether to display a dropdown to navigate to any page. |
-| showJumpToPageInput | InputSignalWithTransform<boolean, unknown> | ... | Whether to display a input to navigate to any page. |
-| showFirstLastIcon | InputSignalWithTransform<boolean, unknown> | ... | When enabled, icons are displayed on paginator to go first and last page. |
-| showPageLinks | InputSignalWithTransform<boolean, unknown> | ... | Whether to show page links. |
-| defaultSortOrder | InputSignalWithTransform<number, unknown> | ... | Sort order to use when an unsorted column gets sorted by user interaction. |
-| sortMode | InputSignal<TableSortMode> | ... | Defines whether sorting works on single column or on multiple columns. |
-| resetPageOnSort | InputSignalWithTransform<boolean, unknown> | ... | When true, resets paginator to first page after sorting. Available only when sortMode is set to single. |
-| selectionMode | InputSignal<TableSelectionMode> | ... | Specifies the selection mode, valid values are "single" and "multiple". |
-| selectionPageOnly | InputSignalWithTransform<boolean, unknown> | ... | When enabled with paginator and checkbox selection mode, the select all checkbox in the header will select all rows on the current page. |
-| contextMenuSelectionInput | InputSignal<any> | ... | Selected row with a context menu. |
-| dataKey | InputSignal<string> | ... | A property to uniquely identify a record in data. |
-| metaKeySelection | InputSignalWithTransform<boolean, unknown> | ... | Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically. |
-| rowSelectable | InputSignal<(row: { data: any; index: number }) => boolean> | ... | Defines if the row is selectable. |
-| rowTrackBy | InputSignal<Function> | ... | Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity. |
-| lazy | InputSignalWithTransform<boolean, unknown> | ... | Defines if data is loaded and interacted with in lazy manner. |
-| lazyLoadOnInit | InputSignalWithTransform<boolean, unknown> | ... | Whether to call lazy loading on initialization. |
-| compareSelectionBy | InputSignal<"equals" \| "deepEquals"> | ... | Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields. |
-| csvSeparator | InputSignal<string> | ... | Character to use as the csv separator. |
-| exportFilename | InputSignal<string> | ... | Name of the exported file. |
-| filtersInput | InputSignal<{ [s: string]: FilterMetadata \| FilterMetadata[] }> | ... | An array of FilterMetadata objects to provide external filters. |
-| globalFilterFields | InputSignal<string[]> | ... | An array of fields as string to use in global filtering. |
-| filterDelay | InputSignalWithTransform<number, unknown> | ... | Delay in milliseconds before filtering the data. |
-| filterLocale | InputSignal<string> | ... | Locale to use in filtering. The default locale is the host environment's current locale. |
-| expandedRowKeysInput | InputSignal<{ [s: string]: boolean }> | ... | Map instance to keep the expanded rows where key of the map is the data key of the row. |
-| editingRowKeysInput | InputSignal<{ [s: string]: boolean }> | ... | Map instance to keep the rows being edited where key of the map is the data key of the row. |
-| rowExpandMode | InputSignal<TableRowExpandMode> | ... | Whether multiple rows can be expanded at any time. Valid values are "multiple" and "single". |
-| scrollable | InputSignalWithTransform<boolean, unknown> | ... | Enables scrollable tables. |
-| rowGroupMode | InputSignal<TableRowGroupMode> | ... | Type of the row grouping, valid values are "subheader" and "rowspan". |
-| scrollHeight | InputSignal<string> | ... | Height of the scroll viewport in fixed pixels or the "flex" keyword for a dynamic size. |
-| virtualScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether the data should be loaded on demand during scroll. |
-| virtualScrollItemSize | InputSignalWithTransform<number, unknown> | ... | Height of a row to use in calculations of virtual scrolling. |
-| virtualScrollOptions | InputSignal<ScrollerOptions> | ... | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
-| virtualScrollDelay | InputSignalWithTransform<number, unknown> | ... | Threshold in milliseconds to delay lazy loading during scrolling. |
-| frozenWidth | InputSignal<string> | ... | Width of the frozen columns container. |
-| contextMenu | InputSignal<any> | ... | Local ng-template varilable of a ContextMenu. |
-| resizableColumns | InputSignalWithTransform<boolean, unknown> | ... | When enabled, columns can be resized using drag and drop. |
-| columnResizeMode | InputSignal<TableColumnResizeMode> | ... | Defines whether the overall table width should change on column resize, valid values are "fit" and "expand". |
-| reorderableColumns | InputSignalWithTransform<boolean, unknown> | ... | When enabled, columns can be reordered using drag and drop. |
-| loading | InputSignalWithTransform<boolean, unknown> | ... | Displays a loader to indicate data load is in progress. |
-| loadingIcon | InputSignal<string> | ... | The icon to show while indicating data load is in progress. |
-| showLoader | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the loading mask when loading property is true. |
-| rowHover | InputSignalWithTransform<boolean, unknown> | ... | Adds hover effect to rows without the need for selectionMode. Note that tr elements that can be hovered need to have "p-selectable-row" class for rowHover to work. |
-| customSort | InputSignalWithTransform<boolean, unknown> | ... | Whether to use the default sorting or a custom one using sortFunction. |
-| showInitialSortBadge | InputSignalWithTransform<boolean, unknown> | ... | Whether to use the initial sort badge or not. |
-| exportFunction | InputSignal<Function> | ... | Export function. |
-| exportHeader | InputSignal<string> | ... | Custom export header of the column to be exported as CSV. |
-| stateKey | InputSignal<string> | ... | Unique identifier of a stateful table to use in state storage. |
-| stateStorage | InputSignal<TableStateStorage> | ... | Defines where a stateful table keeps its state, valid values are "session" for sessionStorage and "local" for localStorage. |
-| editMode | InputSignal<TableEditMode> | ... | Defines the editing mode, valid values are "cell" and "row". |
-| groupRowsBy | InputSignal<any> | ... | Field name to use in row grouping. |
-| size | InputSignal<TableSize> | ... | Defines the size of the table. |
-| showGridlines | InputSignalWithTransform<boolean, unknown> | ... | Whether to show grid lines between cells. |
-| stripedRows | InputSignalWithTransform<boolean, unknown> | ... | Whether to display rows with alternating colors. |
-| groupRowsByOrder | InputSignalWithTransform<number, unknown> | ... | Order to sort when default row grouping is enabled. |
-| paginatorLocale | InputSignal<string> | ... | Locale to be used in paginator formatting. |
-| valueInput | InputSignal<RowData[]> | ... | An array of objects to display. |
-| columnsInput | InputSignal<any[]> | ... | An array of objects to represent dynamic columns. |
-| first | ModelSignal<number> | ... | Index of the first row to be displayed. |
-| rows | ModelSignal<number> | ... | Number of rows to display per page. |
-| totalRecords | ModelSignal<number> | ... | Number of total records, defaults to length of value when not defined. |
-| sortFieldInput | InputSignal<string> | ... | Name of the field to sort data by default. |
-| sortOrderInput | InputSignal<number> | ... | Order to sort when default sorting is enabled. |
-| multiSortMetaInput | InputSignal<SortMeta[]> | ... | An array of SortMeta objects to sort the data by default in multiple sort mode. |
-| selection | ModelSignal<any> | ... | Selected row in single mode or an array of values in multiple mode. |
-| selectAllInput | InputSignal<boolean> | ... | Whether all data is selected. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, TablePassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| frozenColumns | any[] | - | An array of objects to represent dynamic columns that are frozen. |
+| frozenValue | any[] | - | An array of objects to display as frozen. |
+| tableStyle | Partial<CSSStyleDeclaration> | - | Inline style of the table. |
+| tableStyleClass | string | - | Style class of the table. |
+| paginator | boolean | - | When specified as true, enables the pagination. |
+| pageLinks | number | - | Number of page links to display in paginator. |
+| rowsPerPageOptions | any[] | - | Array of integer/object values to display inside rows per page dropdown of paginator |
+| alwaysShowPaginator | boolean | - | Whether to show it even there is only one page. |
+| paginatorPosition | "top" \| "bottom" \| "both" | - | Position of the paginator, options are "top", "bottom" or "both". |
+| paginatorStyleClass | string | - | Custom style class for paginator |
+| paginatorDropdownAppendTo | any | - | Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| paginatorDropdownScrollHeight | string | - | Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
+| currentPageReportTemplate | string | - | Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords} |
+| showCurrentPageReport | boolean | - | Whether to display current page report. |
+| showJumpToPageDropdown | boolean | - | Whether to display a dropdown to navigate to any page. |
+| showJumpToPageInput | boolean | - | Whether to display a input to navigate to any page. |
+| showFirstLastIcon | boolean | - | When enabled, icons are displayed on paginator to go first and last page. |
+| showPageLinks | boolean | - | Whether to show page links. |
+| defaultSortOrder | number | - | Sort order to use when an unsorted column gets sorted by user interaction. |
+| sortMode | "single" \| "multiple" | - | Defines whether sorting works on single column or on multiple columns. |
+| resetPageOnSort | boolean | - | When true, resets paginator to first page after sorting. Available only when sortMode is set to single. |
+| selectionMode | "single" \| "multiple" | - | Specifies the selection mode, valid values are "single" and "multiple". |
+| selectionPageOnly | boolean | - | When enabled with paginator and checkbox selection mode, the select all checkbox in the header will select all rows on the current page. |
+| contextMenuSelectionInput | any | - | Selected row with a context menu. |
+| dataKey | string | - | A property to uniquely identify a record in data. |
+| metaKeySelection | boolean | - | Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically. |
+| rowSelectable | (row: { data: any; index: number }) => boolean | - | Defines if the row is selectable. |
+| rowTrackBy | Function | - | Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity. |
+| lazy | boolean | - | Defines if data is loaded and interacted with in lazy manner. |
+| lazyLoadOnInit | boolean | - | Whether to call lazy loading on initialization. |
+| compareSelectionBy | "equals" \| "deepEquals" | - | Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields. |
+| csvSeparator | string | - | Character to use as the csv separator. |
+| exportFilename | string | - | Name of the exported file. |
+| filtersInput | { [s: string]: FilterMetadata \| FilterMetadata[] } | - | An array of FilterMetadata objects to provide external filters. |
+| globalFilterFields | string[] | - | An array of fields as string to use in global filtering. |
+| filterDelay | number | - | Delay in milliseconds before filtering the data. |
+| filterLocale | string | - | Locale to use in filtering. The default locale is the host environment's current locale. |
+| expandedRowKeysInput | { [s: string]: boolean } | - | Map instance to keep the expanded rows where key of the map is the data key of the row. |
+| editingRowKeysInput | { [s: string]: boolean } | - | Map instance to keep the rows being edited where key of the map is the data key of the row. |
+| rowExpandMode | "multiple" \| "single" | - | Whether multiple rows can be expanded at any time. Valid values are "multiple" and "single". |
+| scrollable | boolean | - | Enables scrollable tables. |
+| rowGroupMode | "subheader" \| "rowspan" | - | Type of the row grouping, valid values are "subheader" and "rowspan". |
+| scrollHeight | string | - | Height of the scroll viewport in fixed pixels or the "flex" keyword for a dynamic size. |
+| virtualScroll | boolean | - | Whether the data should be loaded on demand during scroll. |
+| virtualScrollItemSize | number | - | Height of a row to use in calculations of virtual scrolling. |
+| virtualScrollOptions | ScrollerOptions | - | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
+| virtualScrollDelay | number | - | Threshold in milliseconds to delay lazy loading during scrolling. |
+| frozenWidth | string | - | Width of the frozen columns container. |
+| contextMenu | any | - | Local ng-template varilable of a ContextMenu. |
+| resizableColumns | boolean | - | When enabled, columns can be resized using drag and drop. |
+| columnResizeMode | "fit" \| "expand" | - | Defines whether the overall table width should change on column resize, valid values are "fit" and "expand". |
+| reorderableColumns | boolean | - | When enabled, columns can be reordered using drag and drop. |
+| loading | boolean | - | Displays a loader to indicate data load is in progress. |
+| loadingIcon | string | - | The icon to show while indicating data load is in progress. |
+| showLoader | boolean | - | Whether to show the loading mask when loading property is true. |
+| rowHover | boolean | - | Adds hover effect to rows without the need for selectionMode. Note that tr elements that can be hovered need to have "p-selectable-row" class for rowHover to work. |
+| customSort | boolean | - | Whether to use the default sorting or a custom one using sortFunction. |
+| showInitialSortBadge | boolean | - | Whether to use the initial sort badge or not. |
+| exportFunction | Function | - | Export function. |
+| exportHeader | string | - | Custom export header of the column to be exported as CSV. |
+| stateKey | string | - | Unique identifier of a stateful table to use in state storage. |
+| stateStorage | "session" \| "local" | - | Defines where a stateful table keeps its state, valid values are "session" for sessionStorage and "local" for localStorage. |
+| editMode | "cell" \| "row" | - | Defines the editing mode, valid values are "cell" and "row". |
+| groupRowsBy | any | - | Field name to use in row grouping. |
+| size | "small" \| "large" | - | Defines the size of the table. |
+| showGridlines | boolean | - | Whether to show grid lines between cells. |
+| stripedRows | boolean | - | Whether to display rows with alternating colors. |
+| groupRowsByOrder | number | - | Order to sort when default row grouping is enabled. |
+| paginatorLocale | string | - | Locale to be used in paginator formatting. |
+| valueInput | RowData[] | - | An array of objects to display. |
+| columnsInput | any[] | - | An array of objects to represent dynamic columns. |
+| first | number | - | Index of the first row to be displayed. |
+| rows | number | - | Number of rows to display per page. |
+| totalRecords | number | - | Number of total records, defaults to length of value when not defined. |
+| sortFieldInput | string | - | Name of the field to sort data by default. |
+| sortOrderInput | number | - | Order to sort when default sorting is enabled. |
+| multiSortMetaInput | SortMeta[] | - | An array of SortMeta objects to sort the data by default in multiple sort mode. |
+| selection | any | - | Selected row in single mode or an array of values in multiple mode. |
+| selectAllInput | boolean | - | Whether all data is selected. |
 
 ### Emits
 

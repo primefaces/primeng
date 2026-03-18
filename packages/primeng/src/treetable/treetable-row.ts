@@ -214,7 +214,7 @@ export class TTRow extends BaseComponent {
     ptmOptions() {
         return {
             context: {
-                selectable: this.tt?.rowHover() || this.tt.selectionMode() === 'row',
+                selectable: this.tt?.rowHover() || !!this.tt.selectionMode(),
                 selected: this.tt.isSelected((<any>this.rowNode())?.node),
                 scrollable: this.tt?.scrollable(),
                 rowNode: this.rowNode()

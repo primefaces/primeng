@@ -203,29 +203,29 @@ Paginator is a generic component to display content in paged format.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<PaginatorPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| pageLinkSize | InputSignalWithTransform<number, unknown> | ... | Number of page links to display. |
-| alwaysShow | InputSignalWithTransform<boolean, unknown> | ... | Whether to show it even there is only one page. |
-| templateLeft | InputSignal<TemplateRef<PaginatorTemplateContext>> | ... | Template instance to inject into the left side of the paginator. |
-| templateRight | InputSignal<TemplateRef<PaginatorTemplateContext>> | ... | Template instance to inject into the right side of the paginator. |
-| dropdownScrollHeight | InputSignal<string> | ... | Dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
-| currentPageReportTemplate | InputSignal<string> | ... | Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords} |
-| showCurrentPageReport | InputSignalWithTransform<boolean, unknown> | ... | Whether to display current page report. |
-| showFirstLastIcon | InputSignalWithTransform<boolean, unknown> | ... | When enabled, icons are displayed on paginator to go first and last page. |
-| totalRecords | InputSignalWithTransform<number, unknown> | ... | Number of total records. |
-| rows | ModelSignal<number> | ... | Data count to display per page. |
-| first | ModelSignal<number> | ... | Zero-relative number of the first row to be displayed. |
-| rowsPerPageOptions | InputSignal<any[]> | ... | Array of integer/object values to display inside rows per page dropdown. A object that have 'showAll' key can be added to it to show all data. Exp; [10,20,30,{showAll:'All'}] |
-| showJumpToPageDropdown | InputSignalWithTransform<boolean, unknown> | ... | Whether to display a dropdown to navigate to any page. |
-| showJumpToPageInput | InputSignalWithTransform<boolean, unknown> | ... | Whether to display a input to navigate to any page. |
-| jumpToPageItemTemplate | InputSignal<TemplateRef<PaginatorDropdownItemTemplateContext>> | ... | Template instance to inject into the jump to page dropdown item inside in the paginator. |
-| showPageLinks | InputSignalWithTransform<boolean, unknown> | ... | Whether to show page links. |
-| locale | InputSignal<string> | ... | Locale to be used in formatting. |
-| dropdownItemTemplate | InputSignal<TemplateRef<PaginatorDropdownItemTemplateContext>> | ... | Template instance to inject into the rows per page dropdown item inside in the paginator. |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, PaginatorPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| pageLinkSize | number | - | Number of page links to display. |
+| alwaysShow | boolean | - | Whether to show it even there is only one page. |
+| templateLeft | TemplateRef<PaginatorTemplateContext> | - | Template instance to inject into the left side of the paginator. |
+| templateRight | TemplateRef<PaginatorTemplateContext> | - | Template instance to inject into the right side of the paginator. |
+| dropdownScrollHeight | string | - | Dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
+| currentPageReportTemplate | string | - | Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords} |
+| showCurrentPageReport | boolean | - | Whether to display current page report. |
+| showFirstLastIcon | boolean | - | When enabled, icons are displayed on paginator to go first and last page. |
+| totalRecords | number | - | Number of total records. |
+| rows | number | - | Data count to display per page. |
+| first | number | - | Zero-relative number of the first row to be displayed. |
+| rowsPerPageOptions | any[] | - | Array of integer/object values to display inside rows per page dropdown. A object that have 'showAll' key can be added to it to show all data. Exp; [10,20,30,{showAll:'All'}] |
+| showJumpToPageDropdown | boolean | - | Whether to display a dropdown to navigate to any page. |
+| showJumpToPageInput | boolean | - | Whether to display a input to navigate to any page. |
+| jumpToPageItemTemplate | TemplateRef<PaginatorDropdownItemTemplateContext> | - | Template instance to inject into the jump to page dropdown item inside in the paginator. |
+| showPageLinks | boolean | - | Whether to show page links. |
+| locale | string | - | Locale to be used in formatting. |
+| dropdownItemTemplate | TemplateRef<PaginatorDropdownItemTemplateContext> | - | Template instance to inject into the rows per page dropdown item inside in the paginator. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 
 ### Emits
 

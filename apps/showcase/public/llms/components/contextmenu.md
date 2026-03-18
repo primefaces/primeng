@@ -465,25 +465,25 @@ ContextMenu displays an overlay menu on right click of its target. Note that com
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ContextMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | InputSignal<MenuItem[]> | ... | An array of menuitems. |
-| triggerEvent | InputSignal<string> | ... | Event for which the menu must be displayed. |
-| target | InputSignal<string \| HTMLElement> | ... | Local template variable name of the element to attach the context menu. |
-| global | InputSignalWithTransform<boolean, unknown> | ... | Attaches the menu to document instead of a particular item. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
-| styleClass | InputSignal<string> | ... | Style class of the component. |
-| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
-| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
-| id | InputSignal<string> | ... | Current id state as a string. |
-| breakpoint | InputSignal<string> | ... | The breakpoint to define the maximum width boundary. |
-| ariaLabel | InputSignal<string> | ... | Defines a string value that labels an interactive element. |
-| ariaLabelledBy | InputSignal<string> | ... | Identifier of the underlying input element. |
-| pressDelay | InputSignalWithTransform<number, unknown> | ... | Press delay in touch devices as miliseconds. |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ContextMenuPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| model | MenuItem[] | - | An array of menuitems. |
+| triggerEvent | string | - | Event for which the menu must be displayed. |
+| target | string \| HTMLElement | - | Local template variable name of the element to attach the context menu. |
+| global | boolean | - | Attaches the menu to document instead of a particular item. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the component. |
+| styleClass | string | - | Style class of the component. |
+| autoZIndex | boolean | - | Whether to automatically manage layering. |
+| baseZIndex | number | - | Base zIndex value to use in layering. |
+| id | string | - | Current id state as a string. |
+| breakpoint | string | - | The breakpoint to define the maximum width boundary. |
+| ariaLabel | string | - | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | string | - | Identifier of the underlying input element. |
+| pressDelay | number | - | Press delay in touch devices as miliseconds. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

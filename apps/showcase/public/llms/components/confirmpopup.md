@@ -317,19 +317,19 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ConfirmPopupPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| key | InputSignal<string> | ... | Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs. |
-| defaultFocus | InputSignal<ConfirmPopupDefaultFocus> | ... | Element to receive the focus when the popup gets visible, valid values are "accept", "reject", and "none". |
-| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
-| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
-| styleClass | InputSignal<string> | ... | Style class of the component. |
-| visible | InputSignal<boolean> | ... | Defines if the component is visible. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| appendTo | InputSignal<AppendTo> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ConfirmPopupPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| key | string | - | Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs. |
+| defaultFocus | "accept" \| "reject" \| "none" | - | Element to receive the focus when the popup gets visible, valid values are "accept", "reject", and "none". |
+| autoZIndex | boolean | - | Whether to automatically manage layering. |
+| baseZIndex | number | - | Base zIndex value to use in layering. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the component. |
+| styleClass | string | - | Style class of the component. |
+| visible | boolean | - | Defines if the component is visible. |
+| motionOptions | MotionOptions | - | The motion options. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 
 ### Templates
 

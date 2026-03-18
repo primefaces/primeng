@@ -448,16 +448,16 @@ Dock is a navigation component consisting of menuitems.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<DockPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| id | InputSignal<string> | ... | Current id state as a string. |
-| model | InputSignal<MenuItem[]> | ... | MenuModel instance to define the action items. |
-| position | InputSignal<DockPosition> | ... | Position of element. |
-| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
-| breakpoint | InputSignal<string> | 960px | The breakpoint to define the maximum width boundary. |
-| ariaLabelledBy | InputSignal<string> | ... | Defines a string that labels the dropdown button for accessibility. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, DockPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| id | string | - | Current id state as a string. |
+| model | MenuItem[] | - | MenuModel instance to define the action items. |
+| position | "bottom" \| "top" \| "left" \| "right" | - | Position of element. |
+| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
+| breakpoint | string | 960px | The breakpoint to define the maximum width boundary. |
+| ariaLabelledBy | string | - | Defines a string that labels the dropdown button for accessibility. |
 
 ### Emits
 

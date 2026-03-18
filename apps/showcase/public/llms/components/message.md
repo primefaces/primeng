@@ -291,17 +291,17 @@ Message groups a collection of contents in tabs.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<MessagePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| severity | InputSignal<MessageSeverity> | 'info' | Severity level of the message. |
-| closable | InputSignalWithTransform<boolean, unknown> | false | Whether the message can be closed manually using the close icon. |
-| icon | InputSignal<string> | undefined | Icon to display in the message. |
-| closeIcon | InputSignal<string> | undefined | Icon to display in the message close button. |
-| size | InputSignal<MessageSize> | ... | Defines the size of the component. |
-| variant | InputSignal<MessageVariant> | ... | Specifies the input variant of the component. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, MessagePassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| severity | "success" \| "info" \| "warn" \| "error" \| "secondary" \| "contrast" | 'info' | Severity level of the message. |
+| closable | boolean | false | Whether the message can be closed manually using the close icon. |
+| icon | string | undefined | Icon to display in the message. |
+| closeIcon | string | undefined | Icon to display in the message close button. |
+| size | "large" \| "small" | - | Defines the size of the component. |
+| variant | "outlined" \| "text" \| "simple" | - | Specifies the input variant of the component. |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

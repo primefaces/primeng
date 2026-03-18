@@ -247,38 +247,38 @@ OrderList is used to manage the order of a collection.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<OrderListPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| header | InputSignal<string> | ... | Text for the caption. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
-| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
-| ariaLabelledBy | InputSignal<string> | ... | Specifies one or more IDs in the DOM that labels the input field. |
-| listStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the list element. |
-| responsive | InputSignalWithTransform<boolean, unknown> | ... | A boolean value that indicates whether the component should be responsive. |
-| filterBy | InputSignal<string> | ... | When specified displays an input field to filter the items on keyup and decides which fields to search against. |
-| filterPlaceholder | InputSignal<string> | ... | Placeholder of the filter input. |
-| filterLocale | InputSignal<string> | ... | Locale to use in filtering. The default locale is the host environment's current locale. |
-| metaKeySelection | InputSignalWithTransform<boolean, unknown> | ... | When true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically. |
-| dragdrop | InputSignalWithTransform<boolean, unknown> | ... | Whether to enable dragdrop based reordering. |
-| controlsPosition | InputSignal<OrderListControlsPosition> | ... | Defines the location of the buttons with respect to the list. |
-| ariaFilterLabel | InputSignal<string> | ... | Defines a string that labels the filter input. |
-| filterMatchMode | InputSignal<FilterMatchModeType> | ... | Defines how the items are filtered. |
-| breakpoint | InputSignal<string> | ... | Indicates the width of the screen at which the component should change its behavior. |
-| stripedRows | InputSignalWithTransform<boolean, unknown> | ... | Whether to displays rows with alternating colors. |
-| disabled | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should be disabled. |
-| trackBy | InputSignal<Function> | ... | Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity. |
-| scrollHeight | InputSignal<string> | ... | Height of the viewport, a scrollbar is defined if height of list exceeds this value. |
-| autoOptionFocus | InputSignalWithTransform<boolean, unknown> | ... | Whether to focus on the first visible or selected element. |
-| dataKey | InputSignal<string> | ... | Name of the field that uniquely identifies the record in the data. |
-| selection | ModelSignal<any[]> | ... | A list of values that are currently selected. |
-| value | ModelSignal<any[]> | ... | Array of values to be displayed in the component. It represents the data source for the list of items. |
-| buttonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
-| moveUpButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the move up button inside the component. |
-| moveTopButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the move top button inside the component. |
-| moveDownButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the move down button inside the component. |
-| moveBottomButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the move bottom button inside the component. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, OrderListPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| header | string | - | Text for the caption. |
+| tabindex | number | - | Index of the element in tabbing order. |
+| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
+| ariaLabelledBy | string | - | Specifies one or more IDs in the DOM that labels the input field. |
+| listStyle | Partial<CSSStyleDeclaration> | - | Inline style of the list element. |
+| responsive | boolean | - | A boolean value that indicates whether the component should be responsive. |
+| filterBy | string | - | When specified displays an input field to filter the items on keyup and decides which fields to search against. |
+| filterPlaceholder | string | - | Placeholder of the filter input. |
+| filterLocale | string | - | Locale to use in filtering. The default locale is the host environment's current locale. |
+| metaKeySelection | boolean | - | When true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically. |
+| dragdrop | boolean | - | Whether to enable dragdrop based reordering. |
+| controlsPosition | "left" \| "right" | - | Defines the location of the buttons with respect to the list. |
+| ariaFilterLabel | string | - | Defines a string that labels the filter input. |
+| filterMatchMode | "startsWith" \| "contains" \| "notContains" \| "endsWith" \| "equals" \| "notEquals" \| "in" \| "between" \| "lt" \| "lte" \| "gt" \| "gte" \| "is" \| "isNot" \| "before" \| "after" \| "dateIs" \| "dateIsNot" \| "dateBefore" \| "dateAfter" | - | Defines how the items are filtered. |
+| breakpoint | string | - | Indicates the width of the screen at which the component should change its behavior. |
+| stripedRows | boolean | - | Whether to displays rows with alternating colors. |
+| disabled | boolean | - | When present, it specifies that the component should be disabled. |
+| trackBy | Function | - | Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity. |
+| scrollHeight | string | - | Height of the viewport, a scrollbar is defined if height of list exceeds this value. |
+| autoOptionFocus | boolean | - | Whether to focus on the first visible or selected element. |
+| dataKey | string | - | Name of the field that uniquely identifies the record in the data. |
+| selection | any[] | - | A list of values that are currently selected. |
+| value | any[] | - | Array of values to be displayed in the component. It represents the data source for the list of items. |
+| buttonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
+| moveUpButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the move up button inside the component. |
+| moveTopButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the move top button inside the component. |
+| moveDownButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the move down button inside the component. |
+| moveBottomButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the move bottom button inside the component. |
 
 ### Emits
 

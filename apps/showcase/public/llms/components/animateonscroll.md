@@ -154,14 +154,14 @@ AnimateOnScroll is used to apply animations to elements when entering or leaving
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| enterClass | InputSignal<string> | ... | Selector to define the CSS class for enter animation. |
-| leaveClass | InputSignal<string> | ... | Selector to define the CSS class for leave animation. |
-| root | InputSignal<HTMLElement> | ... | Specifies the root option of the IntersectionObserver API. |
-| rootMargin | InputSignal<string> | ... | Specifies the rootMargin option of the IntersectionObserver API. |
-| threshold | InputSignalWithTransform<number, unknown> | ... | Specifies the threshold option of the IntersectionObserver API |
-| once | InputSignalWithTransform<boolean, unknown> | ... | Whether the scroll event listener should be removed after initial run. |
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| enterClass | string | - | Selector to define the CSS class for enter animation. |
+| leaveClass | string | - | Selector to define the CSS class for leave animation. |
+| root | HTMLElement | - | Specifies the root option of the IntersectionObserver API. |
+| rootMargin | string | - | Specifies the rootMargin option of the IntersectionObserver API. |
+| threshold | number | - | Specifies the threshold option of the IntersectionObserver API |
+| once | boolean | - | Whether the scroll event listener should be removed after initial run. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 

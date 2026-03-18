@@ -104,28 +104,28 @@ Displays an image with preview and tranformation options. For multiple image, se
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ImagePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| imageClass | InputSignal<string> | ... | Style class of the image element. |
-| imageStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the image element. |
-| src | InputSignal<string \| SafeUrl> | ... | The source path for the main image. |
-| srcSet | InputSignal<string \| SafeUrl> | ... | The srcset definition for the main image. |
-| sizes | InputSignal<string> | ... | The sizes definition for the main image. |
-| previewImageSrc | InputSignal<string \| SafeUrl> | ... | The source path for the preview image. |
-| previewImageSrcSet | InputSignal<string \| SafeUrl> | ... | The srcset definition for the preview image. |
-| previewImageSizes | InputSignal<string> | ... | The sizes definition for the preview image. |
-| alt | InputSignal<string> | ... | Attribute of the preview image element. |
-| width | InputSignal<string> | ... | Attribute of the image element. |
-| height | InputSignal<string> | ... | Attribute of the image element. |
-| loading | InputSignal<ImageLoading> | ... | Attribute of the image element. |
-| preview | InputSignalWithTransform<boolean, unknown> | ... | Controls the preview functionality. |
-| modalEnterAnimation | InputSignal<string> | 'p-modal-enter' | Enter animation class name of modal. |
-| modalLeaveAnimation | InputSignal<string> | 'p-modal-leave' | Leave animation class name of modal. |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| maskMotionOptions | InputSignal<MotionOptions> | ... | The motion options for the mask. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ImagePassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| imageClass | string | - | Style class of the image element. |
+| imageStyle | Partial<CSSStyleDeclaration> | - | Inline style of the image element. |
+| src | string \| SafeUrl | - | The source path for the main image. |
+| srcSet | string \| SafeUrl | - | The srcset definition for the main image. |
+| sizes | string | - | The sizes definition for the main image. |
+| previewImageSrc | string \| SafeUrl | - | The source path for the preview image. |
+| previewImageSrcSet | string \| SafeUrl | - | The srcset definition for the preview image. |
+| previewImageSizes | string | - | The sizes definition for the preview image. |
+| alt | string | - | Attribute of the preview image element. |
+| width | string | - | Attribute of the image element. |
+| height | string | - | Attribute of the image element. |
+| loading | "lazy" \| "eager" | - | Attribute of the image element. |
+| preview | boolean | - | Controls the preview functionality. |
+| modalEnterAnimation | string | 'p-modal-enter' | Enter animation class name of modal. |
+| modalLeaveAnimation | string | 'p-modal-leave' | Leave animation class name of modal. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| maskMotionOptions | MotionOptions | - | The motion options for the mask. |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

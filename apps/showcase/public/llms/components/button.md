@@ -527,35 +527,35 @@ Button is an extension to standard button element with icons and theming.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ButtonPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| type | InputSignal<string> | ... | Type of the button. |
-| badge | InputSignal<string> | ... | Value of the badge. |
-| disabled | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should be disabled. |
-| raised | InputSignalWithTransform<boolean, unknown> | ... | Add a shadow to indicate elevation. |
-| rounded | InputSignalWithTransform<boolean, unknown> | ... | Add a circular border radius to the button. |
-| text | InputSignalWithTransform<boolean, unknown> | ... | Add a textual class to the button without a background initially. |
-| plain | InputSignalWithTransform<boolean, unknown> | ... | Add a plain textual class to the button without a background initially. |
-| outlined | InputSignalWithTransform<boolean, unknown> | ... | Add a border class without a background initially. |
-| link | InputSignalWithTransform<boolean, unknown> | ... | Add a link style to the button. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Add a tabindex to the button. |
-| size | InputSignal<ButtonSize> | ... | Defines the size of the button. |
-| variant | InputSignal<ButtonVariant> | ... | Specifies the variant of the component. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the element. |
-| styleClass | InputSignal<string> | ... | Class of the element. |
-| badgeSeverity | InputSignal<BadgeSeverity> | secondary | Severity type of the badge. |
-| ariaLabel | InputSignal<string> | ... | Used to define a string that autocomplete attribute the current element. |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
-| iconPos | InputSignal<ButtonIconPosition> | ... | Position of the icon. |
-| icon | InputSignal<string> | ... | Name of the icon. |
-| label | InputSignal<string> | ... | Text of the button. |
-| loading | InputSignalWithTransform<boolean, unknown> | ... | Whether the button is in loading state. |
-| loadingIcon | InputSignal<string> | ... | Icon to display in loading state. |
-| severity | InputSignal<ButtonSeverity> | ... | Defines the style of the button. |
-| buttonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
-| fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ButtonPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| type | string | - | Type of the button. |
+| badge | string | - | Value of the badge. |
+| disabled | boolean | - | When present, it specifies that the component should be disabled. |
+| raised | boolean | - | Add a shadow to indicate elevation. |
+| rounded | boolean | - | Add a circular border radius to the button. |
+| text | boolean | - | Add a textual class to the button without a background initially. |
+| plain | boolean | - | Add a plain textual class to the button without a background initially. |
+| outlined | boolean | - | Add a border class without a background initially. |
+| link | boolean | - | Add a link style to the button. |
+| tabindex | number | - | Add a tabindex to the button. |
+| size | "small" \| "large" | - | Defines the size of the button. |
+| variant | "outlined" \| "text" | - | Specifies the variant of the component. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the element. |
+| styleClass | string | - | Class of the element. |
+| badgeSeverity | "secondary" \| "info" \| "success" \| "warn" \| "danger" \| "contrast" \| null | secondary | Severity type of the badge. |
+| ariaLabel | string | - | Used to define a string that autocomplete attribute the current element. |
+| autofocus | boolean | - | When present, it specifies that the component should automatically get focus on load. |
+| iconPos | "left" \| "right" \| "top" \| "bottom" | - | Position of the icon. |
+| icon | string | - | Name of the icon. |
+| label | string | - | Text of the button. |
+| loading | boolean | - | Whether the button is in loading state. |
+| loadingIcon | string | - | Icon to display in loading state. |
+| severity | "success" \| "info" \| "warn" \| "danger" \| "help" \| "primary" \| "secondary" \| "contrast" \| null \| undefined | - | Defines the style of the button. |
+| buttonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
+| fluid | boolean | undefined | Spans 100% width of the container when enabled. |
 
 ### Emits
 

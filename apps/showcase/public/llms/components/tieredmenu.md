@@ -477,25 +477,25 @@ TieredMenu displays submenus in nested overlays.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<TieredMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | InputSignal<MenuItem[]> | ... | An array of menuitems. |
-| popup | InputSignalWithTransform<boolean, unknown> | ... | Defines if menu would displayed as a popup. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
-| styleClass | InputSignal<string> | ... | Style class of the component. |
-| breakpoint | InputSignal<string> | ... | The breakpoint to define the maximum width boundary. |
-| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
-| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
-| autoDisplay | InputSignalWithTransform<boolean, unknown> | true | Whether to show a root submenu on mouse over. |
-| id | InputSignal<string> | ... | Current id state as a string. |
-| ariaLabel | InputSignal<string> | ... | Defines a string value that labels an interactive element. |
-| ariaLabelledBy | InputSignal<string> | ... | Identifier of the underlying input element. |
-| disabled | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should be disabled. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, TieredMenuPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| model | MenuItem[] | - | An array of menuitems. |
+| popup | boolean | - | Defines if menu would displayed as a popup. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the component. |
+| styleClass | string | - | Style class of the component. |
+| breakpoint | string | - | The breakpoint to define the maximum width boundary. |
+| autoZIndex | boolean | - | Whether to automatically manage layering. |
+| baseZIndex | number | - | Base zIndex value to use in layering. |
+| autoDisplay | boolean | true | Whether to show a root submenu on mouse over. |
+| id | string | - | Current id state as a string. |
+| ariaLabel | string | - | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | string | - | Identifier of the underlying input element. |
+| disabled | boolean | - | When present, it specifies that the component should be disabled. |
+| tabindex | number | - | Index of the element in tabbing order. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

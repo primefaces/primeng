@@ -193,7 +193,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 
 @Component({
     template: `
-        <p-inputcolor [(ngModel)]="color" [format]="activeFormat" defaultValue="#276def" class="max-w-xs mx-auto space-y-3">
+        <p-inputcolor [(ngModel)]="color" [format]="activeFormat" class="max-w-xs mx-auto space-y-3">
             <p-inputcolor-area>
                 <p-inputcolor-area-background />
                 <p-inputcolor-area-thumb />
@@ -260,7 +260,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
     imports: [SelectModule, InputGroupModule, FormsModule]
 })
 export class InputColorBasicDemo {
-    color: string = '';
+    color: string = '#276def';
     format: string = 'hex';
     formatOptions: any[] = [
         { label: 'HEX', value: 'hex' },
@@ -361,7 +361,7 @@ import { Popover, PopoverModule } from 'primeng/popover';
 @Component({
     template: `
         <div class="flex items-center justify-center">
-            <p-inputcolor [(ngModel)]="color" defaultValue="#0099ff">
+            <p-inputcolor [(ngModel)]="color">
                 <p-inputcolor-swatch (click)="op.toggle($event)" style="cursor: pointer">
                     <p-inputcolor-transparency-grid />
                     <p-inputcolor-swatch-background />
@@ -397,7 +397,7 @@ import { Popover, PopoverModule } from 'primeng/popover';
     imports: [PopoverModule, FormsModule]
 })
 export class InputColorPopoverDemo {
-    color: string = '';
+    color: string = '#0099ff';
 }
 ```
 
@@ -417,7 +417,7 @@ import { MessageService } from 'primeng/api';
         <div class="flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col items-center gap-2">
-                    <p-inputcolor formControlName="color" defaultValue="#276def" class="w-80 space-y-3">
+                    <p-inputcolor formControlName="color" class="w-80 space-y-3">
                         <p-inputcolor-area>
                             <p-inputcolor-area-background />
                             <p-inputcolor-area-thumb />
@@ -489,7 +489,7 @@ import { MessageService } from 'primeng/api';
         <div class="flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                 <div class="flex flex-col items-center gap-2">
-                    <p-inputcolor name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultValue="#276def" class="w-80 space-y-3">
+                    <p-inputcolor name="color" [(ngModel)]="color" #colorModel="ngModel" required class="w-80 space-y-3">
                         <p-inputcolor-area>
                             <p-inputcolor-area-background />
                             <p-inputcolor-area-thumb />

@@ -65,19 +65,19 @@ ScrollTop gets displayed after a certain scroll position and used to navigates t
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<ScrollTopPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| styleClass | InputSignal<string> | ... | Class of the element. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the element. |
-| target | InputSignal<ScrollTopTarget> | ... | Target of the ScrollTop. |
-| threshold | InputSignalWithTransform<number, unknown> | ... | Defines the threshold value of the vertical scroll position of the target to toggle the visibility. |
-| _icon | InputSignal<string> | ... | Name of the icon or JSX.Element for icon. |
-| behavior | InputSignal<ScrollTopBehavior> | ... | Defines the scrolling behavior, "smooth" adds an animation and "auto" scrolls with a jump. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| buttonAriaLabel | InputSignal<string> | ... | Establishes a string value that labels the scroll-top button. |
-| buttonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, ScrollTopPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| styleClass | string | - | Class of the element. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the element. |
+| target | "window" \| "parent" | - | Target of the ScrollTop. |
+| threshold | number | - | Defines the threshold value of the vertical scroll position of the target to toggle the visibility. |
+| _icon | string | - | Name of the icon or JSX.Element for icon. |
+| behavior | "auto" \| "smooth" | - | Defines the scrolling behavior, "smooth" adds an animation and "auto" scrolls with a jump. |
+| motionOptions | MotionOptions | - | The motion options. |
+| buttonAriaLabel | string | - | Establishes a string value that labels the scroll-top button. |
+| buttonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
 
 ### Templates
 

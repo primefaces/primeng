@@ -41,6 +41,24 @@ async function main() {
     if (project) {
         let doc = {};
 
+        const resolveTypeString = (type) => {
+            if (!type) return null;
+
+            // For InputSignal<T>, InputSignalWithTransform<T, U>, ModelSignal<T>, Signal<T> - resolve T
+            if (['InputSignal', 'InputSignalWithTransform', 'ModelSignal', 'Signal'].includes(type.name) && type.typeArguments?.length > 0) {
+                const innerType = type.typeArguments[0];
+
+                // If the inner type is a reference to a type alias, resolve it to its actual type
+                if (innerType.type === 'reference' && innerType.reflection?.type) {
+                    return innerType.reflection.type.toString();
+                }
+
+                return innerType.toString();
+            }
+
+            return type.toString();
+        };
+
         const parseText = (text) => {
             return text.replace(/&#123;/g, '{').replace(/&#125;/g, '}');
         };
@@ -161,7 +179,7 @@ async function main() {
                                     };
 
                                     component_props_group.children.forEach((prop) => {
-                                        let defaultValue = prop.defaultValue ? prop.defaultValue.replace(/^'|'$/g, '') : undefined;
+                                        let defaultValue = prop.defaultValue && prop.defaultValue !== '...' ? prop.defaultValue.replace(/^'|'$/g, '') : undefined;
 
                                         // Check for @defaultValue tag in comment blockTags
                                         if (prop.comment && prop.comment.blockTags) {
@@ -175,7 +193,7 @@ async function main() {
                                             name: prop.name,
                                             optional: prop.flags.isOptional,
                                             readonly: prop.flags.isReadonly,
-                                            type: prop.getSignature && prop.getSignature.type ? prop.getSignature.type.toString() : prop.type ? prop.type.toString() : null,
+                                            type: resolveTypeString(prop.getSignature?.type ?? prop.type),
                                             default: prop.type && prop.type.name === 'boolean' && !prop.defaultValue ? 'false' : defaultValue,
                                             description: (prop.getSignature?.comment?.summary || prop.setSignature?.comment?.summary || prop.comment?.summary)?.map((s) => s.text || '').join(' '),
                                             deprecated: getDeprecatedText(prop.getSignature) || getDeprecatedText(prop.setSignature) || getDeprecatedText(prop)
@@ -269,7 +287,7 @@ async function main() {
                                     };
 
                                     component_templates_group.children.forEach((template) => {
-                                        const templateType = template.type && template.type.toString();
+                                        const templateType = resolveTypeString(template.type);
                                         let contextType = 'unknown';
 
                                         const match = templateType && templateType.match(/TemplateRef<(.+)>/);

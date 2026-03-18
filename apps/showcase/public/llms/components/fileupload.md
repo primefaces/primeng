@@ -259,48 +259,48 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<FileUploadPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| name | InputSignal<string> | ... | Name of the request parameter to identify the files at backend. |
-| url | InputSignal<string> | ... | Remote url to upload the files. |
-| method | InputSignal<"post" \| "put"> | ... | HTTP method to send the files to the url such as "post" and "put". |
-| multiple | InputSignalWithTransform<boolean, unknown> | ... | Used to select multiple files at once from file dialog. |
-| accept | InputSignal<string> | ... | Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as "image/*") or the file extensions (such as ".jpg"). |
-| disabled | InputSignalWithTransform<boolean, unknown> | ... | Disables the upload functionality. |
-| auto | InputSignalWithTransform<boolean, unknown> | ... | When enabled, upload begins automatically after selection is completed. |
-| withCredentials | InputSignalWithTransform<boolean, unknown> | ... | Cross-site Access-Control requests should be made using credentials such as cookies, authorization headers or TLS client certificates. |
-| maxFileSize | InputSignalWithTransform<number, unknown> | ... | Maximum file size allowed in bytes. |
-| invalidFileSizeMessageSummary | InputSignal<string> | ... | Summary message of the invalid file size. |
-| invalidFileSizeMessageDetail | InputSignal<string> | ... | Detail message of the invalid file size. |
-| invalidFileTypeMessageSummary | InputSignal<string> | ... | Summary message of the invalid file type. |
-| invalidFileTypeMessageDetail | InputSignal<string> | ... | Detail message of the invalid file type. |
-| invalidFileLimitMessageDetail | InputSignal<string> | ... | Detail message of the invalid file type. |
-| invalidFileLimitMessageSummary | InputSignal<string> | ... | Summary message of the invalid file type. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the element. |
-| styleClass | InputSignal<string> | ... | Class of the element. |
-| previewWidth | InputSignalWithTransform<number, unknown> | ... | Width of the image thumbnail in pixels. |
-| chooseLabel | InputSignal<string> | ... | Label of the choose button. Defaults to PrimeNG Locale configuration. |
-| uploadLabel | InputSignal<string> | ... | Label of the upload button. Defaults to PrimeNG Locale configuration. |
-| cancelLabel | InputSignal<string> | ... | Label of the cancel button. Defaults to PrimeNG Locale configuration. |
-| chooseIcon | InputSignal<string> | ... | Icon of the choose button. |
-| uploadIcon | InputSignal<string> | ... | Icon of the upload button. |
-| cancelIcon | InputSignal<string> | ... | Icon of the cancel button. |
-| showUploadButton | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the upload button. |
-| showCancelButton | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the cancel button. |
-| mode | InputSignal<"advanced" \| "basic"> | ... | Defines the UI of the component. |
-| headers | InputSignal<HttpHeaders> | ... | HttpHeaders class represents the header configuration options for an HTTP request. |
-| customUpload | InputSignalWithTransform<boolean, unknown> | ... | Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration. |
-| fileLimit | InputSignalWithTransform<number, unknown> | ... | Maximum number of files that can be uploaded. |
-| uploadStyleClass | InputSignal<string> | ... | Style class of the upload button. |
-| cancelStyleClass | InputSignal<string> | ... | Style class of the cancel button. |
-| removeStyleClass | InputSignal<string> | ... | Style class of the remove button. |
-| chooseStyleClass | InputSignal<string> | ... | Style class of the choose button. |
-| chooseButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the choose button inside the component. |
-| uploadButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the upload button inside the component. |
-| cancelButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the cancel button inside the component. |
-| filesInput | InputSignal<File[]> | ... | Files input. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, FileUploadPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| name | string | - | Name of the request parameter to identify the files at backend. |
+| url | string | - | Remote url to upload the files. |
+| method | "post" \| "put" | - | HTTP method to send the files to the url such as "post" and "put". |
+| multiple | boolean | - | Used to select multiple files at once from file dialog. |
+| accept | string | - | Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as "image/*") or the file extensions (such as ".jpg"). |
+| disabled | boolean | - | Disables the upload functionality. |
+| auto | boolean | - | When enabled, upload begins automatically after selection is completed. |
+| withCredentials | boolean | - | Cross-site Access-Control requests should be made using credentials such as cookies, authorization headers or TLS client certificates. |
+| maxFileSize | number | - | Maximum file size allowed in bytes. |
+| invalidFileSizeMessageSummary | string | - | Summary message of the invalid file size. |
+| invalidFileSizeMessageDetail | string | - | Detail message of the invalid file size. |
+| invalidFileTypeMessageSummary | string | - | Summary message of the invalid file type. |
+| invalidFileTypeMessageDetail | string | - | Detail message of the invalid file type. |
+| invalidFileLimitMessageDetail | string | - | Detail message of the invalid file type. |
+| invalidFileLimitMessageSummary | string | - | Summary message of the invalid file type. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the element. |
+| styleClass | string | - | Class of the element. |
+| previewWidth | number | - | Width of the image thumbnail in pixels. |
+| chooseLabel | string | - | Label of the choose button. Defaults to PrimeNG Locale configuration. |
+| uploadLabel | string | - | Label of the upload button. Defaults to PrimeNG Locale configuration. |
+| cancelLabel | string | - | Label of the cancel button. Defaults to PrimeNG Locale configuration. |
+| chooseIcon | string | - | Icon of the choose button. |
+| uploadIcon | string | - | Icon of the upload button. |
+| cancelIcon | string | - | Icon of the cancel button. |
+| showUploadButton | boolean | - | Whether to show the upload button. |
+| showCancelButton | boolean | - | Whether to show the cancel button. |
+| mode | "advanced" \| "basic" | - | Defines the UI of the component. |
+| headers | HttpHeaders | - | HttpHeaders class represents the header configuration options for an HTTP request. |
+| customUpload | boolean | - | Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration. |
+| fileLimit | number | - | Maximum number of files that can be uploaded. |
+| uploadStyleClass | string | - | Style class of the upload button. |
+| cancelStyleClass | string | - | Style class of the cancel button. |
+| removeStyleClass | string | - | Style class of the remove button. |
+| chooseStyleClass | string | - | Style class of the choose button. |
+| chooseButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the choose button inside the component. |
+| uploadButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the upload button inside the component. |
+| cancelButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the cancel button inside the component. |
+| filesInput | File[] | - | Files input. |
 
 ### Emits
 

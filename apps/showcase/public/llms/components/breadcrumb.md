@@ -103,15 +103,15 @@ Breadcrumb provides contextual information about page hierarchy.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<BreadcrumbPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | InputSignal<MenuItem[]> | ... | An array of menuitems. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
-| styleClass | InputSignal<string> | ... | Style class of the component. |
-| home | InputSignal<MenuItem> | ... | MenuItem configuration for the home icon. |
-| homeAriaLabel | InputSignal<string> | ... | Defines a string that labels the home icon for accessibility. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, BreadcrumbPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| model | MenuItem[] | - | An array of menuitems. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the component. |
+| styleClass | string | - | Style class of the component. |
+| home | MenuItem | - | MenuItem configuration for the home icon. |
+| homeAriaLabel | string | - | Defines a string that labels the home icon for accessibility. |
 
 ### Emits
 

@@ -483,30 +483,30 @@ When pressed, a floating action button can display multiple primary actions that
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<SpeedDialPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| id | InputSignal<string> | ... | List of items id. |
-| $model | InputSignal<MenuItem[]> | ... | MenuModel instance to define the action items. |
-| visible | ModelSignal<boolean> | false | Specifies the visibility of the overlay. |
-| transitionDelay | InputSignalWithTransform<number, unknown> | ... | Transition delay step for each action item. |
-| type | InputSignal<SpeedDialType> | ... | Specifies the opening type of actions. |
-| radius | InputSignalWithTransform<number, unknown> | ... | Radius for *circle types. |
-| mask | InputSignalWithTransform<boolean, unknown> | ... | Whether to show a mask element behind the speeddial. |
-| disabled | InputSignalWithTransform<boolean, unknown> | ... | Whether the component is disabled. |
-| hideOnClickOutside | InputSignalWithTransform<boolean, unknown> | ... | Whether the actions close when clicked outside. |
-| buttonStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the button element. |
-| buttonClassName | InputSignal<string> | ... | Style class of the button element. |
-| maskStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the mask element. |
-| maskClassName | InputSignal<string> | ... | Style class of the mask element. |
-| showIcon | InputSignal<string> | ... | Show icon of the button element. |
-| hideIcon | InputSignal<string> | ... | Hide icon of the button element. |
-| rotateAnimation | InputSignalWithTransform<boolean, unknown> | ... | Defined to rotate showIcon when hideIcon is not present. |
-| ariaLabel | InputSignal<string> | ... | Defines a string value that labels an interactive element. |
-| ariaLabelledBy | InputSignal<string> | ... | Identifier of the underlying input element. |
-| tooltipOptions | InputSignal<TooltipOptions> | ... | Whether to display the tooltip on items. The modifiers of Tooltip can be used like an object in it. Valid keys are 'event' and 'position'. |
-| buttonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, SpeedDialPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| id | string | - | List of items id. |
+| $model | MenuItem[] | - | MenuModel instance to define the action items. |
+| visible | boolean | false | Specifies the visibility of the overlay. |
+| transitionDelay | number | - | Transition delay step for each action item. |
+| type | "linear" \| "circle" \| "semi-circle" \| "quarter-circle" | - | Specifies the opening type of actions. |
+| radius | number | - | Radius for *circle types. |
+| mask | boolean | - | Whether to show a mask element behind the speeddial. |
+| disabled | boolean | - | Whether the component is disabled. |
+| hideOnClickOutside | boolean | - | Whether the actions close when clicked outside. |
+| buttonStyle | Partial<CSSStyleDeclaration> | - | Inline style of the button element. |
+| buttonClassName | string | - | Style class of the button element. |
+| maskStyle | Partial<CSSStyleDeclaration> | - | Inline style of the mask element. |
+| maskClassName | string | - | Style class of the mask element. |
+| showIcon | string | - | Show icon of the button element. |
+| hideIcon | string | - | Hide icon of the button element. |
+| rotateAnimation | boolean | - | Defined to rotate showIcon when hideIcon is not present. |
+| ariaLabel | string | - | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | string | - | Identifier of the underlying input element. |
+| tooltipOptions | TooltipOptions | - | Whether to display the tooltip on items. The modifiers of Tooltip can be used like an object in it. Valid keys are 'event' and 'position'. |
+| buttonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
 
 ### Emits
 

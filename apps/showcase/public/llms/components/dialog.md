@@ -495,47 +495,47 @@ Dialog is a container to display content in an overlay window.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<DialogPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| header | InputSignal<string> | ... | Title text of the dialog. |
-| draggable | InputSignalWithTransform<boolean, unknown> | ... | Enables dragging to change the position using header. |
-| resizable | InputSignalWithTransform<boolean, unknown> | ... | Enables resizing of the content. |
-| contentStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Style of the content section. |
-| contentStyleClass | InputSignal<string> | ... | Style class of the content. |
-| modal | InputSignalWithTransform<boolean, unknown> | ... | Defines if background should be blocked when dialog is displayed. |
-| closeOnEscape | InputSignalWithTransform<boolean, unknown> | ... | Specifies if pressing escape key should hide the dialog. |
-| dismissableMask | InputSignalWithTransform<boolean, unknown> | ... | Specifies if clicking the modal background should hide the dialog. |
-| rtl | InputSignalWithTransform<boolean, unknown> | ... | When enabled dialog is displayed in RTL direction. |
-| closable | InputSignalWithTransform<boolean, unknown> | ... | Adds a close icon to the header to hide the dialog. |
-| breakpoints | InputSignal<Record<string, string>> | ... | Object literal to define widths per screen size. |
-| styleClass | InputSignal<string> | ... | Style class of the component. |
-| maskStyleClass | InputSignal<string> | ... | Style class of the mask. |
-| maskStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Style of the mask. |
-| showHeader | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the header or not. |
-| blockScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether background scroll should be blocked when dialog is visible. |
-| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
-| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
-| minX | InputSignalWithTransform<number, unknown> | ... | Minimum value for the left coordinate of dialog in dragging. |
-| minY | InputSignalWithTransform<number, unknown> | ... | Minimum value for the top coordinate of dialog in dragging. |
-| focusOnShow | InputSignalWithTransform<boolean, unknown> | ... | When enabled, first focusable element receives focus on show. |
-| maximizable | InputSignalWithTransform<boolean, unknown> | ... | Whether the dialog can be displayed full screen. |
-| keepInViewport | InputSignalWithTransform<boolean, unknown> | ... | Keeps dialog in the viewport. |
-| focusTrap | InputSignalWithTransform<boolean, unknown> | ... | When enabled, can only focus on elements inside the dialog. |
-| maskMotionOptions | InputSignal<MotionOptions> | ... | The motion options for the mask. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| closeIcon | InputSignal<string> | ... | Name of the close icon. |
-| closeAriaLabel | InputSignal<string> | ... | Defines a string that labels the close button for accessibility. |
-| closeTabindex | InputSignal<string> | ... | Index of the close button in tabbing order. |
-| minimizeIcon | InputSignal<string> | ... | Name of the minimize icon. |
-| maximizeIcon | InputSignal<string> | ... | Name of the maximize icon. |
-| closeButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
-| maximizeButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
-| visible | ModelSignal<boolean> | ... | Specifies the visibility of the dialog. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
-| position | InputSignal<DialogPosition> | ... | Position of the dialog, options are "center", "top", "bottom", "left", "right", "topleft", "topright", "bottomleft" or "bottomright". |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, DialogPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| header | string | - | Title text of the dialog. |
+| draggable | boolean | - | Enables dragging to change the position using header. |
+| resizable | boolean | - | Enables resizing of the content. |
+| contentStyle | Partial<CSSStyleDeclaration> | - | Style of the content section. |
+| contentStyleClass | string | - | Style class of the content. |
+| modal | boolean | - | Defines if background should be blocked when dialog is displayed. |
+| closeOnEscape | boolean | - | Specifies if pressing escape key should hide the dialog. |
+| dismissableMask | boolean | - | Specifies if clicking the modal background should hide the dialog. |
+| rtl | boolean | - | When enabled dialog is displayed in RTL direction. |
+| closable | boolean | - | Adds a close icon to the header to hide the dialog. |
+| breakpoints | Record<string, string> | - | Object literal to define widths per screen size. |
+| styleClass | string | - | Style class of the component. |
+| maskStyleClass | string | - | Style class of the mask. |
+| maskStyle | Partial<CSSStyleDeclaration> | - | Style of the mask. |
+| showHeader | boolean | - | Whether to show the header or not. |
+| blockScroll | boolean | - | Whether background scroll should be blocked when dialog is visible. |
+| autoZIndex | boolean | - | Whether to automatically manage layering. |
+| baseZIndex | number | - | Base zIndex value to use in layering. |
+| minX | number | - | Minimum value for the left coordinate of dialog in dragging. |
+| minY | number | - | Minimum value for the top coordinate of dialog in dragging. |
+| focusOnShow | boolean | - | When enabled, first focusable element receives focus on show. |
+| maximizable | boolean | - | Whether the dialog can be displayed full screen. |
+| keepInViewport | boolean | - | Keeps dialog in the viewport. |
+| focusTrap | boolean | - | When enabled, can only focus on elements inside the dialog. |
+| maskMotionOptions | MotionOptions | - | The motion options for the mask. |
+| motionOptions | MotionOptions | - | The motion options. |
+| closeIcon | string | - | Name of the close icon. |
+| closeAriaLabel | string | - | Defines a string that labels the close button for accessibility. |
+| closeTabindex | string | - | Index of the close button in tabbing order. |
+| minimizeIcon | string | - | Name of the minimize icon. |
+| maximizeIcon | string | - | Name of the maximize icon. |
+| closeButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
+| maximizeButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
+| visible | boolean | - | Specifies the visibility of the dialog. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the component. |
+| position | "center" \| "top" \| "bottom" \| "left" \| "right" \| "topleft" \| "topright" \| "bottomleft" \| "bottomright" | - | Position of the dialog, options are "center", "top", "bottom", "left", "right", "topleft", "topright", "bottomleft" or "bottomright". |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 
 ### Emits
 

@@ -242,13 +242,13 @@ Timeline visualizes a series of chained events.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<TimelinePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| value | InputSignal<any[]> | ... | An array of events to display. |
-| align | InputSignal<TimelineAlign> | ... | Position of the timeline bar relative to the content. Valid values are "left", "right" for vertical layout and "top", "bottom" for horizontal layout. |
-| layout | InputSignal<TimelineLayout> | ... | Orientation of the timeline. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, TimelinePassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| value | any[] | - | An array of events to display. |
+| align | "left" \| "right" \| "top" \| "bottom" \| "alternate" | - | Position of the timeline bar relative to the content. Valid values are "left", "right" for vertical layout and "top", "bottom" for horizontal layout. |
+| layout | "vertical" \| "horizontal" | - | Orientation of the timeline. |
 
 ### Templates
 

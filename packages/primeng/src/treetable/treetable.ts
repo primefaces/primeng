@@ -27,10 +27,16 @@ import {
     TreeTableLazyLoadEvent,
     TreeTableNodeCollapseEvent,
     TreeTableNodeExpandEvent,
+    TreeTableColumnResizeMode,
+    TreeTableCompareSelectionBy,
+    TreeTableFilterMode,
     TreeTableNodeUnSelectEvent,
+    TreeTablePaginatorPosition,
     TreeTablePaginatorState,
     TreeTablePassThrough,
+    TreeTableSelectionMode,
     TreeTableSortEvent,
+    TreeTableSortMode,
     TreeTableSortIconTemplateContext,
     TreeTableTogglerIconTemplateContext
 } from 'primeng/types/treetable';
@@ -316,7 +322,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
      * Position of the paginator.
      * @group Props
      */
-    paginatorPosition = input<'top' | 'bottom' | 'both'>('bottom');
+    paginatorPosition = input<TreeTablePaginatorPosition>('bottom');
     /**
      * Custom style class for paginator
      * @group Props
@@ -361,7 +367,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
      * Defines whether sorting works on single column or on multiple columns.
      * @group Props
      */
-    sortMode = input<'single' | 'multiple'>('single');
+    sortMode = input<TreeTableSortMode>('single');
     /**
      * When true, resets paginator to first page after sorting.
      * @group Props
@@ -376,7 +382,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
      * Specifies the selection mode, valid values are "single" and "multiple".
      * @group Props
      */
-    selectionMode = input<string>();
+    selectionMode = input<TreeTableSelectionMode>();
     /**
      * Selected row with a context menu.
      * @group Props
@@ -396,7 +402,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
      * Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields.
      * @group Props
      */
-    compareSelectionBy = input('deepEquals');
+    compareSelectionBy = input<TreeTableCompareSelectionBy>('deepEquals');
     /**
      * Adds hover effect to rows without the need for selectionMode.
      * @group Props
@@ -466,7 +472,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
      * Defines whether the overall table width should change on column resize, valid values are "fit" and "expand".
      * @group Props
      */
-    columnResizeMode = input('fit');
+    columnResizeMode = input<TreeTableColumnResizeMode>('fit');
     /**
      * When enabled, columns can be reordered using drag and drop.
      * @group Props
@@ -501,7 +507,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
      * Mode for filtering valid values are "lenient" and "strict". Default is lenient.
      * @group Props
      */
-    filterMode = input('lenient');
+    filterMode = input<TreeTableFilterMode>('lenient');
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props

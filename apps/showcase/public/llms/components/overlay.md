@@ -166,25 +166,25 @@ This API allows overlay components to be controlled from the PrimeNG. In this wa
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| visible | ModelSignal<boolean> | false | The visible property is an input that determines the visibility of the component. |
-| mode | InputSignal<string> | null | The mode property is an input that determines the overlay mode type or string. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | null | The style property is an input that determines the style object for the component. |
-| styleClass | InputSignal<string> | null | The styleClass property is an input that determines the CSS class(es) for the component. |
-| contentStyle | InputSignal<Partial<CSSStyleDeclaration>> | null | The contentStyle property is an input that determines the style object for the content of the component. |
-| contentStyleClass | InputSignal<string> | null | The contentStyleClass property is an input that determines the CSS class(es) for the content of the component. |
-| target | InputSignal<string> | null | The target property is an input that specifies the target element or selector for the component. |
-| autoZIndex | InputSignal<boolean> | false | The autoZIndex determines whether to automatically manage layering. Its default value is 'false'. |
-| baseZIndex | InputSignal<number> | null | The baseZIndex is base zIndex value to use in layering. |
-| listener | InputSignal<any> | null | The listener property is an input that specifies the listener object for the component. |
-| responsive | InputSignal<ResponsiveOverlayOptions> | null | It is the option used to determine in which mode it should appear according to the given media or breakpoint. |
-| options | InputSignal<OverlayOptions> | null | The options property is an input that specifies the overlay options for the component. |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| inline | InputSignal<boolean> | false | Specifies whether the overlay should be rendered inline within the current component's template. |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| visible | boolean | false | The visible property is an input that determines the visibility of the component. |
+| mode | string | null | The mode property is an input that determines the overlay mode type or string. |
+| style | Partial<CSSStyleDeclaration> | null | The style property is an input that determines the style object for the component. |
+| styleClass | string | null | The styleClass property is an input that determines the CSS class(es) for the component. |
+| contentStyle | Partial<CSSStyleDeclaration> | null | The contentStyle property is an input that determines the style object for the content of the component. |
+| contentStyleClass | string | null | The contentStyleClass property is an input that determines the CSS class(es) for the content of the component. |
+| target | string | null | The target property is an input that specifies the target element or selector for the component. |
+| autoZIndex | boolean | false | The autoZIndex determines whether to automatically manage layering. Its default value is 'false'. |
+| baseZIndex | number | null | The baseZIndex is base zIndex value to use in layering. |
+| listener | any | null | The listener property is an input that specifies the listener object for the component. |
+| responsive | ResponsiveOverlayOptions | null | It is the option used to determine in which mode it should appear according to the given media or breakpoint. |
+| options | OverlayOptions | null | The options property is an input that specifies the overlay options for the component. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| inline | boolean | false | Specifies whether the overlay should be rendered inline within the current component's template. |
+| motionOptions | MotionOptions | - | The motion options. |
 
 ### Emits
 

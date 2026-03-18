@@ -449,46 +449,46 @@ Password displays strength indicator for password fields.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<PasswordPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| fluid | InputSignalWithTransform<boolean, unknown> | false | Spans 100% width of the container when enabled. |
-| variant | InputSignal<"filled" \| "outlined"> | 'outlined' | Specifies the input variant of the component. |
-| size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
-| inputSize | InputSignal<number> | undefined | Specifies the visible width of the input element in characters. |
-| pattern | InputSignal<string> | undefined | Specifies the value must match the pattern. |
-| min | InputSignal<number> | undefined | The value must be greater than or equal to the value. |
-| max | InputSignal<number> | undefined | The value must be less than or equal to the value. |
-| step | InputSignal<number> | undefined | Unless the step is set to the any literal, the value must be min + an integral multiple of the step. |
-| minlength | InputSignal<number> | undefined | The number of characters (code points) must not be less than the value of the attribute, if non-empty. |
-| maxlength | InputSignal<number> | undefined | The number of characters (code points) must not exceed the value of the attribute. |
-| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
-| ariaLabelledBy | InputSignal<string> | ... | Specifies one or more IDs in the DOM that labels the input field. |
-| label | InputSignal<string> | ... | Label of the input for accessibility. |
-| promptLabel | InputSignal<string> | ... | Text to prompt password entry. Defaults to PrimeNG I18N API configuration. |
-| mediumRegex | InputSignal<string> | ... | Regex value for medium regex. |
-| strongRegex | InputSignal<string> | ... | Regex value for strong regex. |
-| weakLabel | InputSignal<string> | ... | Text for a weak password. Defaults to PrimeNG I18N API configuration. |
-| mediumLabel | InputSignal<string> | ... | Text for a medium password. Defaults to PrimeNG I18N API configuration. |
-| strongLabel | InputSignal<string> | ... | Text for a strong password. Defaults to PrimeNG I18N API configuration. |
-| inputId | InputSignal<string> | ... | Identifier of the accessible input element. |
-| feedback | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the strength indicator or not. |
-| toggleMask | InputSignalWithTransform<boolean, unknown> | ... | Whether to show an icon to display the password as plain text. |
-| inputStyleClass | InputSignal<string> | ... | Style class of the input field. |
-| inputStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the input field. |
-| autocomplete | InputSignal<string> | ... | Specify automated assistance in filling out password by browser. |
-| placeholder | InputSignal<string> | ... | Advisory information to display on input. |
-| showClear | InputSignalWithTransform<boolean, unknown> | ... | When enabled, a clear icon is displayed to clear the value. |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
-| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| overlayOptions | InputSignal<OverlayOptions> | ... | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, PasswordPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| fluid | boolean | false | Spans 100% width of the container when enabled. |
+| variant | "filled" \| "outlined" | 'outlined' | Specifies the input variant of the component. |
+| size | "small" \| "large" | undefined | Specifies the size of the component. |
+| inputSize | number | undefined | Specifies the visible width of the input element in characters. |
+| pattern | string | undefined | Specifies the value must match the pattern. |
+| min | number | undefined | The value must be greater than or equal to the value. |
+| max | number | undefined | The value must be less than or equal to the value. |
+| step | number | undefined | Unless the step is set to the any literal, the value must be min + an integral multiple of the step. |
+| minlength | number | undefined | The number of characters (code points) must not be less than the value of the attribute, if non-empty. |
+| maxlength | number | undefined | The number of characters (code points) must not exceed the value of the attribute. |
+| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
+| ariaLabelledBy | string | - | Specifies one or more IDs in the DOM that labels the input field. |
+| label | string | - | Label of the input for accessibility. |
+| promptLabel | string | - | Text to prompt password entry. Defaults to PrimeNG I18N API configuration. |
+| mediumRegex | string | - | Regex value for medium regex. |
+| strongRegex | string | - | Regex value for strong regex. |
+| weakLabel | string | - | Text for a weak password. Defaults to PrimeNG I18N API configuration. |
+| mediumLabel | string | - | Text for a medium password. Defaults to PrimeNG I18N API configuration. |
+| strongLabel | string | - | Text for a strong password. Defaults to PrimeNG I18N API configuration. |
+| inputId | string | - | Identifier of the accessible input element. |
+| feedback | boolean | - | Whether to show the strength indicator or not. |
+| toggleMask | boolean | - | Whether to show an icon to display the password as plain text. |
+| inputStyleClass | string | - | Style class of the input field. |
+| inputStyle | Partial<CSSStyleDeclaration> | - | Inline style of the input field. |
+| autocomplete | string | - | Specify automated assistance in filling out password by browser. |
+| placeholder | string | - | Advisory information to display on input. |
+| showClear | boolean | - | When enabled, a clear icon is displayed to clear the value. |
+| autofocus | boolean | - | When present, it specifies that the component should automatically get focus on load. |
+| tabindex | number | - | Index of the element in tabbing order. |
+| appendTo | HTMLElement \| ElementRef \| TemplateRef<any> \| "self" \| "body" \| null \| undefined | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | MotionOptions | - | The motion options. |
+| overlayOptions | OverlayOptions | - | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
 
 ### Emits
 

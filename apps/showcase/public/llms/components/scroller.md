@@ -50,35 +50,35 @@ Scroller is a performance-approach to handle huge data efficiently.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<VirtualScrollerPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| id | InputSignal<string> | ... | Unique identifier of the element. |
-| style | InputSignal<any> | ... | Inline style of the component. |
-| styleClass | InputSignal<string> | ... | Style class of the element. |
-| tabindex | InputSignal<number> | ... | Index of the element in tabbing order. |
-| items | InputSignal<any[]> | ... | An array of objects to display. |
-| itemSize | InputSignal<number \| number[]> | ... | The height/width of item according to orientation. |
-| scrollHeight | InputSignal<string> | ... | Height of the scroll viewport. |
-| scrollWidth | InputSignal<string> | ... | Width of the scroll viewport. |
-| orientation | InputSignal<"both" \| "vertical" \| "horizontal"> | ... | The orientation of scrollbar. |
-| step | InputSignal<number> | ... | Used to specify how many items to load in each load method in lazy mode. |
-| delay | InputSignal<number> | ... | Delay in scroll before new data is loaded. |
-| resizeDelay | InputSignal<number> | ... | Delay after window's resize finishes. |
-| appendOnly | InputSignal<boolean> | ... | Used to append each loaded item to top without removing any items from the DOM. Using very large data may cause the browser to crash. |
-| inline | InputSignal<boolean> | ... | Specifies whether the scroller should be displayed inline or not. |
-| lazy | InputSignal<boolean> | ... | Defines if data is loaded and interacted with in lazy manner. |
-| disabled | InputSignal<boolean> | ... | If disabled, the scroller feature is eliminated and the content is displayed directly. |
-| loaderDisabled | InputSignal<boolean> | ... | Used to implement a custom loader instead of using the loader feature in the scroller. |
-| columns | InputSignal<any[]> | ... | Columns to display. |
-| showSpacer | InputSignal<boolean> | ... | Used to implement a custom spacer instead of using the spacer feature in the scroller. |
-| showLoader | InputSignal<boolean> | ... | Defines whether to show loader. |
-| numToleratedItems | InputSignal<any> | ... | Determines how many additional elements to add to the DOM outside of the view. According to the scrolls made up and down, extra items are added in a certain algorithm in the form of multiples of this number. Default value is half the number of items shown in the view. |
-| loading | InputSignal<boolean> | ... | Defines whether the data is loaded. |
-| autoSize | InputSignal<boolean> | ... | Defines whether to dynamically change the height or width of scrollable container. |
-| trackBy | InputSignal<Function> | ... | Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity. |
-| options | InputSignal<ScrollerOptions> | ... | Defines whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, VirtualScrollerPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| id | string | - | Unique identifier of the element. |
+| style | any | - | Inline style of the component. |
+| styleClass | string | - | Style class of the element. |
+| tabindex | number | - | Index of the element in tabbing order. |
+| items | any[] | - | An array of objects to display. |
+| itemSize | number \| number[] | - | The height/width of item according to orientation. |
+| scrollHeight | string | - | Height of the scroll viewport. |
+| scrollWidth | string | - | Width of the scroll viewport. |
+| orientation | "both" \| "vertical" \| "horizontal" | - | The orientation of scrollbar. |
+| step | number | - | Used to specify how many items to load in each load method in lazy mode. |
+| delay | number | - | Delay in scroll before new data is loaded. |
+| resizeDelay | number | - | Delay after window's resize finishes. |
+| appendOnly | boolean | - | Used to append each loaded item to top without removing any items from the DOM. Using very large data may cause the browser to crash. |
+| inline | boolean | - | Specifies whether the scroller should be displayed inline or not. |
+| lazy | boolean | - | Defines if data is loaded and interacted with in lazy manner. |
+| disabled | boolean | - | If disabled, the scroller feature is eliminated and the content is displayed directly. |
+| loaderDisabled | boolean | - | Used to implement a custom loader instead of using the loader feature in the scroller. |
+| columns | any[] | - | Columns to display. |
+| showSpacer | boolean | - | Used to implement a custom spacer instead of using the spacer feature in the scroller. |
+| showLoader | boolean | - | Defines whether to show loader. |
+| numToleratedItems | any | - | Determines how many additional elements to add to the DOM outside of the view. According to the scrolls made up and down, extra items are added in a certain algorithm in the form of multiples of this number. Default value is half the number of items shown in the view. |
+| loading | boolean | - | Defines whether the data is loaded. |
+| autoSize | boolean | - | Defines whether to dynamically change the height or width of scrollable container. |
+| trackBy | Function | - | Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity. |
+| options | ScrollerOptions | - | Defines whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
 
 ### Emits
 

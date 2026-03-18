@@ -182,22 +182,22 @@ Editor groups a collection of contents in tabs.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<EditorPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the container. |
-| placeholder | InputSignal<string> | ... | Placeholder text to show when editor is empty. |
-| formats | InputSignal<string[]> | ... | Whitelist of formats to display, see [here](https://quilljs.com/docs/formats/) for available options. |
-| modules | InputSignal<object> | ... | Modules configuration of Editor, see [here](https://quilljs.com/docs/modules/) for available options. |
-| bounds | InputSignal<string \| HTMLElement> | ... | DOM Element or a CSS selector for a DOM Element, within which the editor's p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries. |
-| scrollingContainer | InputSignal<string \| HTMLElement> | ... | DOM Element or a CSS selector for a DOM Element, specifying which container has the scrollbars (i.e. overflow-y: auto), if is has been changed from the default ql-editor with custom CSS. Necessary to fix scroll jumping bugs when Quill is set to auto grow its height, and another ancestor container is responsible from the scrolling.. |
-| debug | InputSignal<string> | ... | Shortcut for debug. Note debug is a static method and will affect other instances of Quill editors on the page. Only warning and error messages are enabled by default. |
-| readonly | InputSignal<boolean> | ... | Whether to instantiate the editor to read-only mode. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, EditorPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| style | Partial<CSSStyleDeclaration> | - | Inline style of the container. |
+| placeholder | string | - | Placeholder text to show when editor is empty. |
+| formats | string[] | - | Whitelist of formats to display, see [here](https://quilljs.com/docs/formats/) for available options. |
+| modules | object | - | Modules configuration of Editor, see [here](https://quilljs.com/docs/modules/) for available options. |
+| bounds | string \| HTMLElement | - | DOM Element or a CSS selector for a DOM Element, within which the editor's p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries. |
+| scrollingContainer | string \| HTMLElement | - | DOM Element or a CSS selector for a DOM Element, specifying which container has the scrollbars (i.e. overflow-y: auto), if is has been changed from the default ql-editor with custom CSS. Necessary to fix scroll jumping bugs when Quill is set to auto grow its height, and another ancestor container is responsible from the scrolling.. |
+| debug | string | - | Shortcut for debug. Note debug is a static method and will affect other instances of Quill editors on the page. Only warning and error messages are enabled by default. |
+| readonly | boolean | - | Whether to instantiate the editor to read-only mode. |
 
 ### Emits
 

@@ -467,19 +467,19 @@ MegaMenu is navigation component that displays submenus together.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<MegaMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | InputSignal<MegaMenuItem[]> | ... | An array of menuitems. |
-| orientation | InputSignal<MegaMenuOrientation> | ... | Defines the orientation. |
-| id | InputSignal<string> | ... | Current id state as a string. |
-| ariaLabel | InputSignal<string> | ... | Defines a string value that labels an interactive element. |
-| ariaLabelledBy | InputSignal<string> | ... | Identifier of the underlying input element. |
-| breakpoint | InputSignal<string> | ... | The breakpoint to define the maximum width boundary. |
-| scrollHeight | InputSignal<string> | ... | Height of the viewport, a scrollbar is defined if height of list exceeds this value. |
-| disabled | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should be disabled. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, MegaMenuPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| model | MegaMenuItem[] | - | An array of menuitems. |
+| orientation | "horizontal" \| "vertical" | - | Defines the orientation. |
+| id | string | - | Current id state as a string. |
+| ariaLabel | string | - | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | string | - | Identifier of the underlying input element. |
+| breakpoint | string | - | The breakpoint to define the maximum width boundary. |
+| scrollHeight | string | - | Height of the viewport, a scrollbar is defined if height of list exceeds this value. |
+| disabled | boolean | - | When present, it specifies that the component should be disabled. |
+| tabindex | number | - | Index of the element in tabbing order. |
 
 ### Templates
 

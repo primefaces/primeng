@@ -263,24 +263,24 @@ Slider is a component to provide input with a drag handle.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
-| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pt | InputSignal<SliderPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
-| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
-| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
-| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| animate | InputSignalWithTransform<boolean, unknown> | ... | When enabled, displays an animation on click of the slider bar. |
-| min | InputSignalWithTransform<number, unknown> | ... | Mininum boundary value. |
-| max | InputSignalWithTransform<number, unknown> | ... | Maximum boundary value. |
-| orientation | InputSignal<SliderOrientation> | ... | Orientation of the slider. |
-| step | InputSignalWithTransform<number, unknown> | ... | Step factor to increment/decrement the value. |
-| range | InputSignalWithTransform<boolean, unknown> | ... | When specified, allows two boundary values to be picked. |
-| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
-| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
-| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, SliderPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| required | boolean | false | There must be a value (if set). |
+| invalid | boolean | false | When present, it specifies that the component should have invalid state style. |
+| disabled | boolean | false | When present, it specifies that the component should have disabled state style. |
+| name | string | undefined | When present, it specifies that the name of the input. |
+| animate | boolean | - | When enabled, displays an animation on click of the slider bar. |
+| min | number | - | Mininum boundary value. |
+| max | number | - | Maximum boundary value. |
+| orientation | "horizontal" \| "vertical" | - | Orientation of the slider. |
+| step | number | - | Step factor to increment/decrement the value. |
+| range | boolean | - | When specified, allows two boundary values to be picked. |
+| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
+| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| tabindex | number | - | Index of the element in tabbing order. |
+| autofocus | boolean | - | When present, it specifies that the component should automatically get focus on load. |
 
 ### Emits
 
