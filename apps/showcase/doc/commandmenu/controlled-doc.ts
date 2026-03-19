@@ -14,42 +14,40 @@ import { CommandMenuModule } from 'primeng/commandmenu';
             <p>The search value can be controlled with two-way binding using <i>[(search)]</i>. An <i>empty</i> template customizes the message when no results are found.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-commandmenu
-                    [options]="commands"
-                    optionLabel="label"
-                    optionValue="value"
-                    [group]="true"
-                    optionGroupLabel="group"
-                    optionGroupChildren="items"
-                    optionKeywords="keywords"
-                    [(search)]="searchValue"
-                    placeholder="Search for commands..."
-                    class="mx-auto"
-                    (onItemSelect)="onSelect($event)"
-                >
-                    <ng-template #empty let-search>
-                        No results found for <span class="text-surface-900 dark:text-surface-0">"{{ search }}"</span>
-                    </ng-template>
-                    <ng-template #footer>
-                        <div class="flex items-center justify-end gap-3">
-                            <span class="flex items-center gap-1 text-surface-500 text-xs">
-                                <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
-                                    <i class="pi pi-arrow-up text-[0.5rem]"></i>
-                                </kbd>
-                                <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
-                                    <i class="pi pi-arrow-down text-[0.5rem]"></i>
-                                </kbd>
-                                Navigate
-                            </span>
-                            <span class="flex items-center gap-1 text-surface-500 text-xs">
-                                <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700"> &#x21B5; </kbd>
-                                Select
-                            </span>
-                        </div>
-                    </ng-template>
-                </p-commandmenu>
-            </div>
+            <p-commandmenu
+                [options]="commands"
+                optionLabel="label"
+                optionValue="value"
+                [group]="true"
+                optionGroupLabel="group"
+                optionGroupChildren="items"
+                optionKeywords="keywords"
+                [(search)]="searchValue"
+                placeholder="Search for commands..."
+                class="mx-auto"
+                (onItemSelect)="onSelect($event)"
+            >
+                <ng-template #empty let-search>
+                    No results found for <span class="text-surface-900 dark:text-surface-0">"{{ search }}"</span>
+                </ng-template>
+                <ng-template #footer>
+                    <div class="flex items-center justify-end gap-3">
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-up text-[0.5rem]"></i>
+                            </kbd>
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-down text-[0.5rem]"></i>
+                            </kbd>
+                            Navigate
+                        </span>
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700"> &#x21B5; </kbd>
+                            Select
+                        </span>
+                    </div>
+                </ng-template>
+            </p-commandmenu>
             <app-code></app-code>
         </app-demo-wrapper>
     `

@@ -314,10 +314,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             }
         </div>
         @if (hasFooter()) {
-            <div>
-                <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate(); context: footerTemplateContext()"></ng-container>
-            </div>
+            <ng-content select="p-footer"></ng-content>
+            <ng-container *ngTemplateOutlet="footerTemplate(); context: footerTemplateContext()"></ng-container>
         }
         @if (isEmpty()) {
             <span role="status" aria-live="polite" class="p-hidden-accessible" [pBind]="ptm('hiddenEmptyMessage')">

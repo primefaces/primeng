@@ -13,40 +13,38 @@ import { CommandMenuModule } from 'primeng/commandmenu';
             <p>A custom filter function can be provided with the <i>filter</i> property. The function receives the label, search term, and optional keywords, and should return a score (0 means no match).</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-commandmenu
-                    [options]="commands"
-                    optionLabel="label"
-                    optionValue="value"
-                    [group]="true"
-                    optionGroupLabel="group"
-                    optionGroupChildren="items"
-                    optionKeywords="keywords"
-                    [filter]="fuzzyFilter"
-                    placeholder="Search for commands..."
-                    class="mx-auto"
-                    (onItemSelect)="onSelect($event)"
-                >
-                    <ng-template #empty>No results found.</ng-template>
-                    <ng-template #footer>
-                        <div class="flex items-center justify-end gap-3">
-                            <span class="flex items-center gap-1 text-surface-500 text-xs">
-                                <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
-                                    <i class="pi pi-arrow-up text-[0.5rem]"></i>
-                                </kbd>
-                                <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
-                                    <i class="pi pi-arrow-down text-[0.5rem]"></i>
-                                </kbd>
-                                Navigate
-                            </span>
-                            <span class="flex items-center gap-1 text-surface-500 text-xs">
-                                <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700"> &#x21B5; </kbd>
-                                Select
-                            </span>
-                        </div>
-                    </ng-template>
-                </p-commandmenu>
-            </div>
+            <p-commandmenu
+                [options]="commands"
+                optionLabel="label"
+                optionValue="value"
+                [group]="true"
+                optionGroupLabel="group"
+                optionGroupChildren="items"
+                optionKeywords="keywords"
+                [filter]="fuzzyFilter"
+                placeholder="Search for commands..."
+                class="mx-auto"
+                (onItemSelect)="onSelect($event)"
+            >
+                <ng-template #empty>No results found.</ng-template>
+                <ng-template #footer>
+                    <div class="flex items-center justify-end gap-3">
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-up text-[0.5rem]"></i>
+                            </kbd>
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-down text-[0.5rem]"></i>
+                            </kbd>
+                            Navigate
+                        </span>
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700"> &#x21B5; </kbd>
+                            Select
+                        </span>
+                    </div>
+                </ng-template>
+            </p-commandmenu>
             <app-code></app-code>
         </app-demo-wrapper>
     `

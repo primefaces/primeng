@@ -3,54 +3,63 @@ import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
     .p-commandmenu {
-        display: flex;
-        flex-direction: column;
-        border: 1px solid var(--p-content-border-color);
-        border-radius: var(--p-content-border-radius);
-        background: var(--p-content-background);
-        color: var(--p-content-color);
+        position: relative;
         overflow: hidden;
+        border: 1px solid light-dark(var(--p-surface-200), var(--p-surface-700));
+        background-color: light-dark(var(--p-surface-0), var(--p-surface-950));
+        border-radius: 0.5rem;
+        max-width: 36rem;
+        height: 25rem;
+        display:flex;
+        flex-direction: column;
     }
 
     .p-commandmenu-header {
-        padding: 0.5rem 0.75rem;
-        border-bottom: 1px solid var(--p-content-border-color);
+        border-bottom: 1px solid light-dark(var(--p-surface-200), var(--p-surface-700));
+        padding: 0.375rem 1.125rem;
     }
 
-    .p-commandmenu-input {
+    .p-commandmenu-input{
         width: 100%;
-        padding: 0.5rem 0.75rem;
-        border: none;
-        outline: none;
-        background: transparent;
-        color: inherit;
-        font-family: inherit;
+        outline:none;
+        padding: 0.375rem 0;
         font-size: 1rem;
+        background-color: transparent;
     }
 
-    .p-commandmenu-input::placeholder {
-        color: var(--p-text-muted-color);
+    .p-commandmenu-footer {
+        background-color: light-dark(var(--p-surface-50), var(--p-surface-900));
+        border-top: 1px solid light-dark(var(--p-surface-200), var(--p-surface-700));
+        padding: 0.625rem 1.125rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
     }
 
+    .p-commandmenu-empty{
+        text-align: center;
+        padding: 2rem 0;
+        color: light-dark(var(--p-surface-500), var(--p-surface-400));
+    }
+
+    /* For PrimeNG */
     .p-commandmenu .p-listbox {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
         border: 0;
         border-radius: 0;
         background: transparent;
     }
 
     .p-commandmenu .p-listbox-list-container {
-        max-height: 18rem;
+        flex: 1;
+        overflow: auto;
     }
 
-    .p-commandmenu-empty {
-        padding: 0.5rem 0.75rem;
-        text-align: center;
-        color: var(--p-text-muted-color);
-    }
-
-    .p-commandmenu-footer {
-        padding: 0.5rem 0.75rem;
-        border-top: 1px solid var(--p-content-border-color);
+    .p-commandmenu .p-listbox .p-commandmenu-footer {
+        display: block;
     }
 `;
 
