@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2026-03-18
+Generated: 2026-03-19
 
 ---
 
@@ -1892,7 +1892,7 @@ AccordionHeader is a helper component for Accordion component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| toggleicon | Signal<TemplateRef<AccordionToggleIconTemplateContext>> | Toggle icon template. |
+| toggleicon | TemplateRef<AccordionToggleIconTemplateContext> | Toggle icon template. |
 
 ## Accordion Panel
 
@@ -3245,17 +3245,17 @@ AutoComplete is an input component that provides real-time suggestions when bein
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<AutoCompleteItemTemplateContext<any>>> | Custom item template. |
-| empty | Signal<TemplateRef<void>> | Custom empty message template. |
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| selecteditem | Signal<TemplateRef<AutoCompleteSelectedItemTemplateContext<any>>> | Custom selected item template. |
-| group | Signal<TemplateRef<AutoCompleteGroupTemplateContext<any>>> | Custom group template. |
-| loader | Signal<TemplateRef<AutoCompleteLoaderTemplateContext>> | Custom loader template. |
-| removeicon | Signal<TemplateRef<AutoCompleteRemoveIconTemplateContext>> | Custom remove icon template. |
-| loadingicon | Signal<TemplateRef<void>> | Custom loading icon template. |
-| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
-| dropdownicon | Signal<TemplateRef<void>> | Custom dropdown icon template. |
+| item | TemplateRef<AutoCompleteItemTemplateContext<any>> | Custom item template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| selecteditem | TemplateRef<AutoCompleteSelectedItemTemplateContext<any>> | Custom selected item template. |
+| group | TemplateRef<AutoCompleteGroupTemplateContext<any>> | Custom group template. |
+| loader | TemplateRef<AutoCompleteLoaderTemplateContext> | Custom loader template. |
+| removeicon | TemplateRef<AutoCompleteRemoveIconTemplateContext> | Custom remove icon template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| dropdownicon | TemplateRef<void> | Custom dropdown icon template. |
 
 ## Pass Through Options
 
@@ -4183,7 +4183,7 @@ BlockUI can either block other components or the whole page.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<any>> | Template of the content. |
+| content | TemplateRef<any> | Template of the content. |
 
 ## Pass Through Options
 
@@ -4339,8 +4339,8 @@ Breadcrumb provides contextual information about page hierarchy.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<BreadcrumbItemTemplateContext>> | Custom item template. |
-| separator | Signal<TemplateRef<void>> | Custom separator template. |
+| item | TemplateRef<BreadcrumbItemTemplateContext> | Custom item template. |
+| separator | TemplateRef<void> | Custom separator template. |
 
 ## Pass Through Options
 
@@ -5028,9 +5028,9 @@ Button is an extension to standard button element with icons and theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<void>> | Custom content template. |
-| loadingicon | Signal<TemplateRef<ButtonLoadingIconTemplateContext>> | Custom loading icon template. |
-| icon | Signal<TemplateRef<ButtonIconTemplateContext>> | Custom icon template. |
+| content | TemplateRef<void> | Custom content template. |
+| loadingicon | TemplateRef<ButtonLoadingIconTemplateContext> | Custom loading icon template. |
+| icon | TemplateRef<ButtonIconTemplateContext> | Custom icon template. |
 
 ## Pass Through Options
 
@@ -5330,11 +5330,11 @@ Card is a flexible container component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| title | Signal<TemplateRef<void>> | Custom title template. |
-| subtitle | Signal<TemplateRef<void>> | Custom subtitle template. |
-| content | Signal<TemplateRef<void>> | Custom content template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
+| header | TemplateRef<void> | Custom header template. |
+| title | TemplateRef<void> | Custom title template. |
+| subtitle | TemplateRef<void> | Custom subtitle template. |
+| content | TemplateRef<void> | Custom content template. |
+| footer | TemplateRef<void> | Custom footer template. |
 
 ## Pass Through Options
 
@@ -5756,11 +5756,11 @@ Carousel is a content slider featuring various customization options.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<CarouselItemTemplateContext<any>>> | Custom item template. |
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| previousicon | Signal<TemplateRef<void>> | Custom previous icon template. |
-| nexticon | Signal<TemplateRef<void>> | Custom next icon template. |
+| item | TemplateRef<CarouselItemTemplateContext<any>> | Custom item template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| previousicon | TemplateRef<void> | Custom previous icon template. |
+| nexticon | TemplateRef<void> | Custom next icon template. |
 
 ## Pass Through Options
 
@@ -7228,14 +7228,14 @@ CascadeSelect is a form component to select a value from a nested structure of o
 
 | Name | Type | Description |
 |------|------|-------------|
-| value | Signal<TemplateRef<CascadeSelectValueTemplateContext<any>>> | Custom value template. |
-| option | Signal<TemplateRef<CascadeSelectOptionTemplateContext<any>>> | Custom option template. |
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| triggericon | Signal<TemplateRef<void>> | Custom trigger icon template. |
-| loadingicon | Signal<TemplateRef<void>> | Custom loading icon template. |
-| groupicon | Signal<TemplateRef<void>> | Custom option group icon template. |
-| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
+| value | TemplateRef<CascadeSelectValueTemplateContext<any>> | Custom value template. |
+| option | TemplateRef<CascadeSelectOptionTemplateContext<any>> | Custom option template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| triggericon | TemplateRef<void> | Custom trigger icon template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| groupicon | TemplateRef<void> | Custom option group icon template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
 
 ## Pass Through Options
 
@@ -9073,7 +9073,7 @@ Checkbox is an extension to standard checkbox element with theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | Signal<TemplateRef<CheckboxIconTemplateContext>> | Custom checkbox icon template. |
+| icon | TemplateRef<CheckboxIconTemplateContext> | Custom checkbox icon template. |
 
 ## Pass Through Options
 
@@ -9274,7 +9274,7 @@ Chip represents people using icons, labels and images.
 
 | Name | Type | Description |
 |------|------|-------------|
-| removeicon | Signal<TemplateRef<void>> | Custom remove icon template. |
+| removeicon | TemplateRef<void> | Custom remove icon template. |
 
 ## Pass Through Options
 
@@ -9637,6 +9637,884 @@ ColorPicker groups a collection of contents in tabs.
 
 ---
 
+# Angular CommandMenu Component
+
+CommandMenu is a search-driven command palette component.
+
+## Accessibility
+
+Screen Reader The search input has a combobox role with aria-expanded , aria-controls and aria-activedescendant attributes. The list element uses the listbox role and each item has an option role. Value to describe the component can be provided via ariaLabel prop.
+
+## Basic
+
+CommandMenu requires a collection of options via the options property. Use group to display grouped commands with optionGroupLabel and optionGroupChildren .
+
+**Example:**
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="flex justify-center">
+            <p-commandmenu
+                [options]="commands"
+                optionLabel="label"
+                optionValue="value"
+                [group]="true"
+                optionGroupLabel="group"
+                optionGroupChildren="items"
+                optionKeywords="keywords"
+                placeholder="Search for commands..."
+                class="mx-auto"
+                (onItemSelect)="onSelect($event)"
+            >
+                <ng-template #empty>No results found</ng-template>
+                <ng-template #footer>
+                    <div class="flex items-center justify-end gap-3">
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-up text-[0.5rem]"></i>
+                            </kbd>
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-down text-[0.5rem]"></i>
+                            </kbd>
+                            Navigate
+                        </span>
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700"> &#x21B5; </kbd>
+                            Select
+                        </span>
+                    </div>
+                </ng-template>
+            </p-commandmenu>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class CommandmenuBasicDemo implements OnInit {
+    commands!: any[];
+
+    ngOnInit() {
+        this.commands = [
+            {
+                group: 'Recents',
+                items: [
+                    { label: 'Check For Updates', value: 'check for updates', keywords: ['check', 'updates'] },
+                    { label: 'Open Settings', value: 'open settings' },
+                    { label: 'Search Files', value: 'search files' },
+                    { label: 'Open Terminal', value: 'open terminal' },
+                    { label: 'View History', value: 'view history', keywords: ['history', 'recent'] },
+                    { label: 'Open Chat', value: 'open chat' }
+                ]
+            },
+            {
+                group: 'Files',
+                items: [
+                    { label: 'New File', value: 'new file' },
+                    { label: 'New Folder', value: 'new folder' },
+                    { label: 'Save All', value: 'save-all' },
+                    { label: 'Change Theme', value: 'change theme' },
+                    { label: 'Run Task', value: 'run-task' },
+                    { label: 'Stop Task', value: 'stop task' },
+                    { label: 'Export Project', value: 'export project' },
+                    { label: 'Import Project', value: 'import project' },
+                    { label: 'Delete File', value: 'delete file' },
+                    { label: 'Duplicate File', value: 'duplicate file' }
+                ]
+            },
+            {
+                group: 'Source',
+                items: [
+                    { label: 'Git: Commit', value: 'git commit' },
+                    { label: 'Git: Push', value: 'git push' },
+                    { label: 'Git: Pull', value: 'git pull' },
+                    { label: 'Switch Account', value: 'switch account' },
+                    { label: 'Open Documentation', value: 'open documentation' },
+                    { label: 'Git: Sync', value: 'git sync' },
+                    { label: 'Git: Create Branch', value: 'git create branch' },
+                    { label: 'Git: Create Tag', value: 'git create tag' }
+                ]
+            },
+            {
+                group: 'Editor',
+                items: [
+                    { label: 'Align Left', value: 'align left' },
+                    { label: 'Align Center', value: 'align center' },
+                    { label: 'Align Right', value: 'align right' },
+                    { label: 'Toggle Bold', value: 'toggle bold' },
+                    { label: 'Toggle Italic', value: 'toggle italic' },
+                    { label: 'Insert Link', value: 'insert link' },
+                    { label: 'Insert Image', value: 'insert image' },
+                    { label: 'Insert List', value: 'insert list' }
+                ]
+            },
+            {
+                group: 'Navigation',
+                items: [
+                    { label: 'Go to Home', value: 'go to home' },
+                    { label: 'Go Back', value: 'go back' },
+                    { label: 'Go Forward', value: 'go forward' },
+                    { label: 'Open Explorer', value: 'open explorer' },
+                    { label: 'View Bookmarks', value: 'view bookmarks' },
+                    { label: 'Open Minimap', value: 'open minimap' }
+                ]
+            },
+            {
+                group: 'View',
+                items: [
+                    { label: 'Toggle Preview', value: 'toggle preview' },
+                    { label: 'Maximize Window', value: 'maximize window' },
+                    { label: 'Minimize Window', value: 'minimize window' },
+                    { label: 'Grid View', value: 'grid view' },
+                    { label: 'List View', value: 'list view' },
+                    { label: 'Light Mode', value: 'light mode' },
+                    { label: 'Dark Mode', value: 'dark mode' }
+                ]
+            },
+            {
+                group: 'Tools',
+                items: [
+                    { label: 'Open Calculator', value: 'open calculator' },
+                    { label: 'Open Calendar', value: 'open calendar' },
+                    { label: 'Open Timer', value: 'open timer' },
+                    { label: 'View Analytics', value: 'view analytics' },
+                    { label: 'View Trends', value: 'view trends' },
+                    { label: 'Open Database', value: 'open database' }
+                ]
+            }
+        ];
+    }
+
+    onSelect(event: any) {
+        console.log('Selected:', event.value);
+    }
+}
+```
+
+## Controlled
+
+The search value can be controlled with two-way binding using [(search)] . An empty template customizes the message when no results are found.
+
+**Example:**
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="flex justify-center">
+            <p-commandmenu
+                [options]="commands"
+                optionLabel="label"
+                optionValue="value"
+                [group]="true"
+                optionGroupLabel="group"
+                optionGroupChildren="items"
+                optionKeywords="keywords"
+                [(search)]="searchValue"
+                placeholder="Search for commands..."
+                class="mx-auto"
+                (onItemSelect)="onSelect($event)"
+            >
+                <ng-template #empty let-search>
+                    No results found for <span class="text-surface-900 dark:text-surface-0">"{{ search }}"</span>
+                </ng-template>
+                <ng-template #footer>
+                    <div class="flex items-center justify-end gap-3">
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-up text-[0.5rem]"></i>
+                            </kbd>
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-down text-[0.5rem]"></i>
+                            </kbd>
+                            Navigate
+                        </span>
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700"> &#x21B5; </kbd>
+                            Select
+                        </span>
+                    </div>
+                </ng-template>
+            </p-commandmenu>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class CommandmenuControlledDemo implements OnInit {
+    commands!: any[];
+    searchValue: string = '';
+
+    ngOnInit() {
+        this.commands = [
+            {
+                group: 'Recents',
+                items: [
+                    { label: 'Check For Updates', value: 'check for updates', keywords: ['check', 'updates'] },
+                    { label: 'Open Settings', value: 'open settings' },
+                    { label: 'Search Files', value: 'search files' },
+                    { label: 'Open Terminal', value: 'open terminal' },
+                    { label: 'View History', value: 'view history', keywords: ['history', 'recent'] },
+                    { label: 'Open Chat', value: 'open chat' }
+                ]
+            },
+            {
+                group: 'Files',
+                items: [
+                    { label: 'New File', value: 'new file' },
+                    { label: 'New Folder', value: 'new folder' },
+                    { label: 'Save All', value: 'save-all' },
+                    { label: 'Change Theme', value: 'change theme' },
+                    { label: 'Run Task', value: 'run-task' },
+                    { label: 'Stop Task', value: 'stop task' },
+                    { label: 'Export Project', value: 'export project' },
+                    { label: 'Import Project', value: 'import project' },
+                    { label: 'Delete File', value: 'delete file' },
+                    { label: 'Duplicate File', value: 'duplicate file' }
+                ]
+            },
+            {
+                group: 'Source',
+                items: [
+                    { label: 'Git: Commit', value: 'git commit' },
+                    { label: 'Git: Push', value: 'git push' },
+                    { label: 'Git: Pull', value: 'git pull' },
+                    { label: 'Switch Account', value: 'switch account' },
+                    { label: 'Open Documentation', value: 'open documentation' },
+                    { label: 'Git: Sync', value: 'git sync' },
+                    { label: 'Git: Create Branch', value: 'git create branch' },
+                    { label: 'Git: Create Tag', value: 'git create tag' }
+                ]
+            },
+            {
+                group: 'Editor',
+                items: [
+                    { label: 'Align Left', value: 'align left' },
+                    { label: 'Align Center', value: 'align center' },
+                    { label: 'Align Right', value: 'align right' },
+                    { label: 'Toggle Bold', value: 'toggle bold' },
+                    { label: 'Toggle Italic', value: 'toggle italic' },
+                    { label: 'Insert Link', value: 'insert link' },
+                    { label: 'Insert Image', value: 'insert image' },
+                    { label: 'Insert List', value: 'insert list' }
+                ]
+            },
+            {
+                group: 'Navigation',
+                items: [
+                    { label: 'Go to Home', value: 'go to home' },
+                    { label: 'Go Back', value: 'go back' },
+                    { label: 'Go Forward', value: 'go forward' },
+                    { label: 'Open Explorer', value: 'open explorer' },
+                    { label: 'View Bookmarks', value: 'view bookmarks' },
+                    { label: 'Open Minimap', value: 'open minimap' }
+                ]
+            },
+            {
+                group: 'View',
+                items: [
+                    { label: 'Toggle Preview', value: 'toggle preview' },
+                    { label: 'Maximize Window', value: 'maximize window' },
+                    { label: 'Minimize Window', value: 'minimize window' },
+                    { label: 'Grid View', value: 'grid view' },
+                    { label: 'List View', value: 'list view' },
+                    { label: 'Light Mode', value: 'light mode' },
+                    { label: 'Dark Mode', value: 'dark mode' }
+                ]
+            },
+            {
+                group: 'Tools',
+                items: [
+                    { label: 'Open Calculator', value: 'open calculator' },
+                    { label: 'Open Calendar', value: 'open calendar' },
+                    { label: 'Open Timer', value: 'open timer' },
+                    { label: 'View Analytics', value: 'view analytics' },
+                    { label: 'View Trends', value: 'view trends' },
+                    { label: 'Open Database', value: 'open database' }
+                ]
+            }
+        ];
+    }
+
+    onSelect(event: any) {
+        console.log('Selected:', event.value);
+    }
+}
+```
+
+## Custom
+
+Custom content can be displayed for each item using the item template.
+
+**Example:**
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="flex justify-center">
+            <p-commandmenu
+                [options]="commands"
+                optionLabel="label"
+                optionValue="value"
+                [group]="true"
+                optionGroupLabel="group"
+                optionGroupChildren="items"
+                optionKeywords="keywords"
+                placeholder="Search for commands..."
+                class="mx-auto"
+                (onItemSelect)="onSelect($event)"
+            >
+                <ng-template #item let-item>
+                    <div class="flex items-center gap-3.5 w-full">
+                        <span [class]="'w-5 h-5 rounded-md flex items-center justify-center text-white ' + item.color">
+                            <i [class]="'pi ' + item.icon + ' text-xs font-bold'"></i>
+                        </span>
+                        <span>{{ item.label }}</span>
+                        <span class="opacity-50 ml-auto">{{ item.category }}</span>
+                    </div>
+                </ng-template>
+                <ng-template #empty>No results found</ng-template>
+                <ng-template #footer>
+                    <div class="flex items-center justify-end gap-3">
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-up text-[0.5rem]"></i>
+                            </kbd>
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-down text-[0.5rem]"></i>
+                            </kbd>
+                            Navigate
+                        </span>
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700"> &#x21B5; </kbd>
+                            Select
+                        </span>
+                    </div>
+                </ng-template>
+            </p-commandmenu>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class CommandmenuCustomDemo implements OnInit {
+    commands!: any[];
+
+    ngOnInit() {
+        this.commands = [
+            {
+                group: 'Recents',
+                items: [
+                    { icon: 'pi-refresh', label: 'Check For Updates', category: 'Command', color: 'bg-[linear-gradient(rgb(245,83,84),rgb(235,70,70))]', value: 'check for updates', keywords: ['check', 'updates'] },
+                    { icon: 'pi-cog', label: 'Open Settings', category: 'Command', color: 'bg-[linear-gradient(rgb(96,165,250),rgb(59,130,246))]', value: 'open settings' },
+                    { icon: 'pi-search', label: 'Search Files', category: 'Command', color: 'bg-[linear-gradient(rgb(167,139,250),rgb(139,92,246))]', value: 'search files' },
+                    { icon: 'pi-terminal', label: 'Open Terminal', category: 'View', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'open terminal' },
+                    { icon: 'pi-history', label: 'View History', category: 'View', color: 'bg-[linear-gradient(rgb(192,132,252),rgb(168,85,247))]', value: 'view history', keywords: ['history', 'recent'] },
+                    { icon: 'pi-comments', label: 'Open Chat', category: 'Communication', color: 'bg-[linear-gradient(rgb(34,211,238),rgb(6,182,212))]', value: 'open chat' }
+                ]
+            },
+            {
+                group: 'Files',
+                items: [
+                    { icon: 'pi-file', label: 'New File', category: 'File', color: 'bg-[linear-gradient(rgb(52,211,153),rgb(16,185,129))]', value: 'new file' },
+                    { icon: 'pi-folder', label: 'New Folder', category: 'File', color: 'bg-[linear-gradient(rgb(251,191,36),rgb(245,158,11))]', value: 'new folder' },
+                    { icon: 'pi-save', label: 'Save All', category: 'File', color: 'bg-[linear-gradient(rgb(34,197,94),rgb(22,163,74))]', value: 'save-all' },
+                    { icon: 'pi-palette', label: 'Change Theme', category: 'Appearance', color: 'bg-[linear-gradient(rgb(251,146,60),rgb(249,115,22))]', value: 'change theme' },
+                    { icon: 'pi-play', label: 'Run Task', category: 'Command', color: 'bg-[linear-gradient(rgb(34,197,94),rgb(21,128,61))]', value: 'run-task' },
+                    { icon: 'pi-stop', label: 'Stop Task', category: 'Command', color: 'bg-[linear-gradient(rgb(239,68,68),rgb(220,38,38))]', value: 'stop task' },
+                    { icon: 'pi-file-export', label: 'Export Project', category: 'File', color: 'bg-[linear-gradient(rgb(147,51,234),rgb(126,34,206))]', value: 'export project' },
+                    { icon: 'pi-file-import', label: 'Import Project', category: 'File', color: 'bg-[linear-gradient(rgb(99,102,241),rgb(79,70,229))]', value: 'import project' },
+                    { icon: 'pi-trash', label: 'Delete File', category: 'File', color: 'bg-[linear-gradient(rgb(239,68,68),rgb(185,28,28))]', value: 'delete file' },
+                    { icon: 'pi-copy', label: 'Duplicate File', category: 'File', color: 'bg-[linear-gradient(rgb(156,163,175),rgb(107,114,128))]', value: 'duplicate file' }
+                ]
+            },
+            {
+                group: 'Source',
+                items: [
+                    { icon: 'pi-git', label: 'Git: Commit', category: 'Source Control', color: 'bg-[linear-gradient(rgb(249,115,22),rgb(234,88,12))]', value: 'git commit' },
+                    { icon: 'pi-upload', label: 'Git: Push', category: 'Source Control', color: 'bg-[linear-gradient(rgb(14,165,233),rgb(2,132,199))]', value: 'git push' },
+                    { icon: 'pi-download', label: 'Git: Pull', category: 'Source Control', color: 'bg-[linear-gradient(rgb(59,130,246),rgb(37,99,235))]', value: 'git pull' },
+                    { icon: 'pi-users', label: 'Switch Account', category: 'Account', color: 'bg-[linear-gradient(rgb(236,72,153),rgb(219,39,119))]', value: 'switch account' },
+                    { icon: 'pi-book', label: 'Open Documentation', category: 'Help', color: 'bg-[linear-gradient(rgb(147,197,253),rgb(96,165,250))]', value: 'open documentation' },
+                    { icon: 'pi-sync', label: 'Git: Sync', category: 'Source Control', color: 'bg-[linear-gradient(rgb(74,222,128),rgb(34,197,94))]', value: 'git sync' },
+                    { icon: 'pi-code-branch', label: 'Git: Create Branch', category: 'Source Control', color: 'bg-[linear-gradient(rgb(251,146,60),rgb(249,115,22))]', value: 'git create branch' },
+                    { icon: 'pi-tag', label: 'Git: Create Tag', category: 'Source Control', color: 'bg-[linear-gradient(rgb(196,181,253),rgb(167,139,250))]', value: 'git create tag' }
+                ]
+            },
+            {
+                group: 'Editor',
+                items: [
+                    { icon: 'pi-align-left', label: 'Align Left', category: 'Editor', color: 'bg-[linear-gradient(rgb(147,197,253),rgb(59,130,246))]', value: 'align left' },
+                    { icon: 'pi-align-center', label: 'Align Center', category: 'Editor', color: 'bg-[linear-gradient(rgb(147,197,253),rgb(59,130,246))]', value: 'align center' },
+                    { icon: 'pi-align-right', label: 'Align Right', category: 'Editor', color: 'bg-[linear-gradient(rgb(147,197,253),rgb(59,130,246))]', value: 'align right' },
+                    { icon: 'pi-bold', label: 'Toggle Bold', category: 'Editor', color: 'bg-[linear-gradient(rgb(30,41,59),rgb(15,23,42))]', value: 'toggle bold' },
+                    { icon: 'pi-italic', label: 'Toggle Italic', category: 'Editor', color: 'bg-[linear-gradient(rgb(71,85,105),rgb(51,65,85))]', value: 'toggle italic' },
+                    { icon: 'pi-link', label: 'Insert Link', category: 'Editor', color: 'bg-[linear-gradient(rgb(59,130,246),rgb(37,99,235))]', value: 'insert link' },
+                    { icon: 'pi-image', label: 'Insert Image', category: 'Editor', color: 'bg-[linear-gradient(rgb(168,85,247),rgb(147,51,234))]', value: 'insert image' },
+                    { icon: 'pi-list', label: 'Insert List', category: 'Editor', color: 'bg-[linear-gradient(rgb(34,197,94),rgb(22,163,74))]', value: 'insert list' }
+                ]
+            },
+            {
+                group: 'Navigation',
+                items: [
+                    { icon: 'pi-home', label: 'Go to Home', category: 'Navigation', color: 'bg-[linear-gradient(rgb(96,165,250),rgb(59,130,246))]', value: 'go to home' },
+                    { icon: 'pi-arrow-left', label: 'Go Back', category: 'Navigation', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'go back' },
+                    { icon: 'pi-arrow-right', label: 'Go Forward', category: 'Navigation', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'go forward' },
+                    { icon: 'pi-compass', label: 'Open Explorer', category: 'Navigation', color: 'bg-[linear-gradient(rgb(251,191,36),rgb(245,158,11))]', value: 'open explorer' },
+                    { icon: 'pi-bookmark', label: 'View Bookmarks', category: 'Navigation', color: 'bg-[linear-gradient(rgb(249,115,22),rgb(234,88,12))]', value: 'view bookmarks' },
+                    { icon: 'pi-map', label: 'Open Minimap', category: 'Navigation', color: 'bg-[linear-gradient(rgb(52,211,153),rgb(16,185,129))]', value: 'open minimap' }
+                ]
+            },
+            {
+                group: 'View',
+                items: [
+                    { icon: 'pi-eye', label: 'Toggle Preview', category: 'View', color: 'bg-[linear-gradient(rgb(147,51,234),rgb(126,34,206))]', value: 'toggle preview' },
+                    { icon: 'pi-window-maximize', label: 'Maximize Window', category: 'View', color: 'bg-[linear-gradient(rgb(100,116,139),rgb(71,85,105))]', value: 'maximize window' },
+                    { icon: 'pi-window-minimize', label: 'Minimize Window', category: 'View', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'minimize window' },
+                    { icon: 'pi-th-large', label: 'Grid View', category: 'View', color: 'bg-[linear-gradient(rgb(34,197,94),rgb(22,163,74))]', value: 'grid view' },
+                    { icon: 'pi-bars', label: 'List View', category: 'View', color: 'bg-[linear-gradient(rgb(59,130,246),rgb(37,99,235))]', value: 'list view' },
+                    { icon: 'pi-sun', label: 'Light Mode', category: 'View', color: 'bg-[linear-gradient(rgb(253,224,71),rgb(250,204,21))]', value: 'light mode' },
+                    { icon: 'pi-moon', label: 'Dark Mode', category: 'View', color: 'bg-[linear-gradient(rgb(30,41,59),rgb(15,23,42))]', value: 'dark mode' }
+                ]
+            },
+            {
+                group: 'Tools',
+                items: [
+                    { icon: 'pi-calculator', label: 'Open Calculator', category: 'Tools', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'open calculator' },
+                    { icon: 'pi-calendar', label: 'Open Calendar', category: 'Tools', color: 'bg-[linear-gradient(rgb(96,165,250),rgb(59,130,246))]', value: 'open calendar' },
+                    { icon: 'pi-clock', label: 'Open Timer', category: 'Tools', color: 'bg-[linear-gradient(rgb(251,146,60),rgb(249,115,22))]', value: 'open timer' },
+                    { icon: 'pi-chart-bar', label: 'View Analytics', category: 'Tools', color: 'bg-[linear-gradient(rgb(34,197,94),rgb(22,163,74))]', value: 'view analytics' },
+                    { icon: 'pi-chart-line', label: 'View Trends', category: 'Tools', color: 'bg-[linear-gradient(rgb(59,130,246),rgb(37,99,235))]', value: 'view trends' },
+                    { icon: 'pi-database', label: 'Open Database', category: 'Tools', color: 'bg-[linear-gradient(rgb(168,85,247),rgb(147,51,234))]', value: 'open database' }
+                ]
+            }
+        ];
+    }
+
+    onSelect(event: any) {
+        console.log('Selected:', event.value);
+    }
+}
+```
+
+## Filter
+
+A custom filter function can be provided with the filter property. The function receives the label, search term, and optional keywords, and should return a score (0 means no match).
+
+**Example:**
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="flex justify-center">
+            <p-commandmenu
+                [options]="commands"
+                optionLabel="label"
+                optionValue="value"
+                [group]="true"
+                optionGroupLabel="group"
+                optionGroupChildren="items"
+                optionKeywords="keywords"
+                [filter]="fuzzyFilter"
+                placeholder="Search for commands..."
+                class="mx-auto"
+                (onItemSelect)="onSelect($event)"
+            >
+                <ng-template #empty>No results found.</ng-template>
+                <ng-template #footer>
+                    <div class="flex items-center justify-end gap-3">
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-up text-[0.5rem]"></i>
+                            </kbd>
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-down text-[0.5rem]"></i>
+                            </kbd>
+                            Navigate
+                        </span>
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700"> &#x21B5; </kbd>
+                            Select
+                        </span>
+                    </div>
+                </ng-template>
+            </p-commandmenu>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class CommandmenuFilterDemo implements OnInit {
+    commands!: any[];
+
+    ngOnInit() {
+        this.commands = [
+            {
+                group: 'Recents',
+                items: [
+                    { label: 'Check For Updates', value: 'check for updates', keywords: ['check', 'updates'] },
+                    { label: 'Open Settings', value: 'open settings' },
+                    { label: 'Search Files', value: 'search files' },
+                    { label: 'Open Terminal', value: 'open terminal' },
+                    { label: 'View History', value: 'view history', keywords: ['history', 'recent'] },
+                    { label: 'Open Chat', value: 'open chat' }
+                ]
+            },
+            {
+                group: 'Files',
+                items: [
+                    { label: 'New File', value: 'new file' },
+                    { label: 'New Folder', value: 'new folder' },
+                    { label: 'Save All', value: 'save-all' },
+                    { label: 'Change Theme', value: 'change theme' },
+                    { label: 'Run Task', value: 'run-task' },
+                    { label: 'Stop Task', value: 'stop task' },
+                    { label: 'Export Project', value: 'export project' },
+                    { label: 'Import Project', value: 'import project' },
+                    { label: 'Delete File', value: 'delete file' },
+                    { label: 'Duplicate File', value: 'duplicate file' }
+                ]
+            },
+            {
+                group: 'Source',
+                items: [
+                    { label: 'Git: Commit', value: 'git commit' },
+                    { label: 'Git: Push', value: 'git push' },
+                    { label: 'Git: Pull', value: 'git pull' },
+                    { label: 'Switch Account', value: 'switch account' },
+                    { label: 'Open Documentation', value: 'open documentation' },
+                    { label: 'Git: Sync', value: 'git sync' },
+                    { label: 'Git: Create Branch', value: 'git create branch' },
+                    { label: 'Git: Create Tag', value: 'git create tag' }
+                ]
+            },
+            {
+                group: 'Editor',
+                items: [
+                    { label: 'Align Left', value: 'align left' },
+                    { label: 'Align Center', value: 'align center' },
+                    { label: 'Align Right', value: 'align right' },
+                    { label: 'Toggle Bold', value: 'toggle bold' },
+                    { label: 'Toggle Italic', value: 'toggle italic' },
+                    { label: 'Insert Link', value: 'insert link' },
+                    { label: 'Insert Image', value: 'insert image' },
+                    { label: 'Insert List', value: 'insert list' }
+                ]
+            },
+            {
+                group: 'Navigation',
+                items: [
+                    { label: 'Go to Home', value: 'go to home' },
+                    { label: 'Go Back', value: 'go back' },
+                    { label: 'Go Forward', value: 'go forward' },
+                    { label: 'Open Explorer', value: 'open explorer' },
+                    { label: 'View Bookmarks', value: 'view bookmarks' },
+                    { label: 'Open Minimap', value: 'open minimap' }
+                ]
+            },
+            {
+                group: 'View',
+                items: [
+                    { label: 'Toggle Preview', value: 'toggle preview' },
+                    { label: 'Maximize Window', value: 'maximize window' },
+                    { label: 'Minimize Window', value: 'minimize window' },
+                    { label: 'Grid View', value: 'grid view' },
+                    { label: 'List View', value: 'list view' },
+                    { label: 'Light Mode', value: 'light mode' },
+                    { label: 'Dark Mode', value: 'dark mode' }
+                ]
+            },
+            {
+                group: 'Tools',
+                items: [
+                    { label: 'Open Calculator', value: 'open calculator' },
+                    { label: 'Open Calendar', value: 'open calendar' },
+                    { label: 'Open Timer', value: 'open timer' },
+                    { label: 'View Analytics', value: 'view analytics' },
+                    { label: 'View Trends', value: 'view trends' },
+                    { label: 'Open Database', value: 'open database' }
+                ]
+            }
+        ];
+    }
+
+    fuzzyFilter(value: string, search: string): number {
+        if (!search) return 1;
+        
+        value = value.toLowerCase();
+        search = search.toLowerCase();
+        
+        let tIndex = 0;
+        let sIndex = 0;
+        let score = 0;
+        
+        while (tIndex < value.length && sIndex < search.length) {
+            if (value[tIndex] === search[sIndex]) {
+                score += 1;
+                sIndex++;
+            }
+        
+            tIndex++;
+        }
+        
+        return sIndex === search.length ? score / value.length : 0;
+    }
+
+    onSelect(event: any) {
+        console.log('Selected:', event.value);
+    }
+}
+```
+
+## With Dialog
+
+CommandMenu can be used inside a Dialog to create a command palette experience. Press Ctrl+K (or Cmd+K on Mac) to open.
+
+**Example:**
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Dialog, DialogModule } from 'primeng/dialog';
+
+@Component({
+    template: `
+        <div class="flex items-center justify-center py-8">
+            <span class="cursor-pointer" (click)="visible = true">
+                Press
+                <kbd class="bg-surface-100 dark:bg-surface-950 px-2 py-1 rounded-md border border-surface-200 dark:border-surface-700/50 text-sm ml-2"> CTRL/⌘ + K </kbd>
+            </span>
+        </div>
+        <p-dialog [(visible)]="visible" [modal]="true" [showHeader]="false" styleClass="overflow-hidden max-w-md w-full" [dismissableMask]="true" [contentStyle]="{ padding: '0' }" (onShow)="onDialogShow()">
+            <p-commandmenu
+                [options]="commands"
+                optionLabel="label"
+                optionValue="value"
+                [group]="true"
+                optionGroupLabel="group"
+                optionGroupChildren="items"
+                optionKeywords="keywords"
+                [(search)]="searchValue"
+                placeholder="Search for commands..."
+                class="w-full rounded-none border-none"
+            >
+                <ng-template #empty let-search>
+                    No results found for <span class="text-surface-900 dark:text-surface-0">"{{ search }}"</span>
+                </ng-template>
+                <ng-template #footer>
+                    <div class="flex items-center justify-end gap-3">
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-up text-[0.5rem]"></i>
+                            </kbd>
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
+                                <i class="pi pi-arrow-down text-[0.5rem]"></i>
+                            </kbd>
+                            Navigate
+                        </span>
+                        <span class="flex items-center gap-1 text-surface-500 text-xs">
+                            <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700"> &#x21B5; </kbd>
+                            Select
+                        </span>
+                    </div>
+                </ng-template>
+            </p-commandmenu>
+        </p-dialog>
+    `,
+    standalone: true,
+    imports: [DialogModule]
+})
+export class CommandmenuWithDialogDemo implements OnInit {
+    visible: boolean = false;
+    searchValue: string = '';
+    commands!: any[];
+
+    ngOnInit() {
+        this.commands = [
+            {
+                group: 'Recents',
+                items: [
+                    { label: 'Check For Updates', value: 'check for updates', keywords: ['check', 'updates'] },
+                    { label: 'Open Settings', value: 'open settings' },
+                    { label: 'Search Files', value: 'search files' },
+                    { label: 'Open Terminal', value: 'open terminal' },
+                    { label: 'View History', value: 'view history', keywords: ['history', 'recent'] },
+                    { label: 'Open Chat', value: 'open chat' }
+                ]
+            },
+            {
+                group: 'Files',
+                items: [
+                    { label: 'New File', value: 'new file' },
+                    { label: 'New Folder', value: 'new folder' },
+                    { label: 'Save All', value: 'save-all' },
+                    { label: 'Change Theme', value: 'change theme' },
+                    { label: 'Run Task', value: 'run-task' },
+                    { label: 'Stop Task', value: 'stop task' },
+                    { label: 'Export Project', value: 'export project' },
+                    { label: 'Import Project', value: 'import project' },
+                    { label: 'Delete File', value: 'delete file' },
+                    { label: 'Duplicate File', value: 'duplicate file' }
+                ]
+            },
+            {
+                group: 'Source',
+                items: [
+                    { label: 'Git: Commit', value: 'git commit' },
+                    { label: 'Git: Push', value: 'git push' },
+                    { label: 'Git: Pull', value: 'git pull' },
+                    { label: 'Switch Account', value: 'switch account' },
+                    { label: 'Open Documentation', value: 'open documentation' },
+                    { label: 'Git: Sync', value: 'git sync' },
+                    { label: 'Git: Create Branch', value: 'git create branch' },
+                    { label: 'Git: Create Tag', value: 'git create tag' }
+                ]
+            },
+            {
+                group: 'Editor',
+                items: [
+                    { label: 'Align Left', value: 'align left' },
+                    { label: 'Align Center', value: 'align center' },
+                    { label: 'Align Right', value: 'align right' },
+                    { label: 'Toggle Bold', value: 'toggle bold' },
+                    { label: 'Toggle Italic', value: 'toggle italic' },
+                    { label: 'Insert Link', value: 'insert link' },
+                    { label: 'Insert Image', value: 'insert image' },
+                    { label: 'Insert List', value: 'insert list' }
+                ]
+            },
+            {
+                group: 'Navigation',
+                items: [
+                    { label: 'Go to Home', value: 'go to home' },
+                    { label: 'Go Back', value: 'go back' },
+                    { label: 'Go Forward', value: 'go forward' },
+                    { label: 'Open Explorer', value: 'open explorer' },
+                    { label: 'View Bookmarks', value: 'view bookmarks' },
+                    { label: 'Open Minimap', value: 'open minimap' }
+                ]
+            },
+            {
+                group: 'View',
+                items: [
+                    { label: 'Toggle Preview', value: 'toggle preview' },
+                    { label: 'Maximize Window', value: 'maximize window' },
+                    { label: 'Minimize Window', value: 'minimize window' },
+                    { label: 'Grid View', value: 'grid view' },
+                    { label: 'List View', value: 'list view' },
+                    { label: 'Light Mode', value: 'light mode' },
+                    { label: 'Dark Mode', value: 'dark mode' }
+                ]
+            },
+            {
+                group: 'Tools',
+                items: [
+                    { label: 'Open Calculator', value: 'open calculator' },
+                    { label: 'Open Calendar', value: 'open calendar' },
+                    { label: 'Open Timer', value: 'open timer' },
+                    { label: 'View Analytics', value: 'view analytics' },
+                    { label: 'View Trends', value: 'view trends' },
+                    { label: 'Open Database', value: 'open database' }
+                ]
+            }
+        ];
+    }
+
+    handleKeyboardEvent(event: KeyboardEvent) {
+        if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+            event.preventDefault();
+            this.visible = !this.visible;
+        }
+    }
+
+    onDialogShow() {
+        this.commandmenu.focusInput();
+    }
+}
+```
+
+## Command Menu
+
+CommandMenu is a search-driven command palette component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, CommandMenuPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| options | any[] | - | An array of objects to display. |
+| optionLabel | string | - | Name of the label field of an option. |
+| optionValue | string | - | Name of the value field of an option. |
+| optionDisabled | string \| ((item: any) => boolean) | - | Name of the disabled field of an option or function to determine disabled state. |
+| optionGroupLabel | string | 'label' | Name of the label field of an option group. |
+| optionGroupChildren | string | 'items' | Name of the options field of an option group. |
+| optionKeywords | string | - | Name of the keywords field of an option used for searching. |
+| search | string | - | Two-way bound search value. |
+| selectOnHover | boolean | true | Whether to highlight option on hover. |
+| loop | boolean | false | Whether keyboard navigation should loop from end to start. |
+| group | boolean | - | Whether to display options as grouped. |
+| emptyMessage | string | 'No results found.' | Text to display when there are no results. |
+| filter | (label: string, search: string, keywords?: string[]) => number | - | Custom filter function. Receives (label, search, keywords?) and returns a number (0 = no match). |
+| placeholder | string | - | Placeholder text for the search input. |
+| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
+
+### Emits
+
+| Name | Parameters | Description |
+|------|------------|-------------|
+| onItemSelect | event: CommandMenuItemSelectEvent | Callback to invoke when an item is selected. |
+| onSearchChange | event: CommandMenuSearchChangeEvent | Callback to invoke when the search value changes. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| item | TemplateRef<CommandMenuItemTemplateContext<any>> | Custom item template. |
+| group | TemplateRef<CommandMenuGroupTemplateContext<any>> | Custom group template. |
+| header | TemplateRef<CommandMenuHeaderTemplateContext> | Custom header template. |
+| footer | TemplateRef<CommandMenuFooterTemplateContext> | Custom footer template. |
+| empty | TemplateRef<CommandMenuEmptyTemplateContext> | Custom empty template. |
+
+### Methods
+
+| Name | Parameters | Return Type | Description |
+|------|------------|-------------|-------------|
+| focusInput |  | void | Focuses the search input. |
+
+## Pass Through Options
+
+| Name | Type | Description |
+|------|------|-------------|
+| root | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the root's DOM element. |
+| header | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the header's DOM element. |
+| input | PassThroughOption<HTMLInputElement, I> | Used to pass attributes to the input's DOM element. |
+| pcListbox | any | Used to pass attributes to the Listbox component. |
+| empty | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the empty message's DOM element. |
+| footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
+
+## Theming
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| p-commandmenu | Class name of the root element |
+| p-commandmenu-header | Class name of the header element |
+| p-commandmenu-input | Class name of the input element |
+| p-commandmenu-empty | Class name of the empty message element |
+| p-commandmenu-footer | Class name of the footer element |
+
+---
+
 # Angular ConfirmDialog Component
 
 ConfirmDialog is backed by a service utilizing Observables to display confirmation windows easily that can be shared by multiple actions on the same component.
@@ -9850,13 +10728,13 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| rejecticon | Signal<TemplateRef<void>> | Custom reject icon template. |
-| accepticon | Signal<TemplateRef<void>> | Custom accept icon template. |
-| message | Signal<TemplateRef<ConfirmDialogMessageTemplateContext>> | Custom message template. |
-| icon | Signal<TemplateRef<void>> | Custom icon template. |
-| headless | Signal<TemplateRef<ConfirmDialogHeadlessTemplateContext>> | Custom headless template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| rejecticon | TemplateRef<void> | Custom reject icon template. |
+| accepticon | TemplateRef<void> | Custom accept icon template. |
+| message | TemplateRef<ConfirmDialogMessageTemplateContext> | Custom message template. |
+| icon | TemplateRef<void> | Custom icon template. |
+| headless | TemplateRef<ConfirmDialogHeadlessTemplateContext> | Custom headless template. |
 
 ## Pass Through Options
 
@@ -10253,10 +11131,10 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<ConfirmPopupContentTemplateContext>> | Custom content template. |
-| accepticon | Signal<TemplateRef<void>> | Custom accept icon template. |
-| rejecticon | Signal<TemplateRef<void>> | Custom reject icon template. |
-| headless | Signal<TemplateRef<ConfirmPopupHeadlessTemplateContext>> | Custom headless template. |
+| content | TemplateRef<ConfirmPopupContentTemplateContext> | Custom content template. |
+| accepticon | TemplateRef<void> | Custom accept icon template. |
+| rejecticon | TemplateRef<void> | Custom reject icon template. |
+| headless | TemplateRef<ConfirmPopupHeadlessTemplateContext> | Custom headless template. |
 
 ## Pass Through Options
 
@@ -10817,8 +11695,8 @@ ContextMenu displays an overlay menu on right click of its target. Note that com
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<ContextMenuItemTemplateContext>> | Custom item template. |
-| submenuicon | Signal<TemplateRef<ContextMenuSubmenuIconTemplateContext>> | Custom submenu icon template. |
+| item | TemplateRef<ContextMenuItemTemplateContext> | Custom item template. |
+| submenuicon | TemplateRef<ContextMenuSubmenuIconTemplateContext> | Custom submenu icon template. |
 
 ## Pass Through Options
 
@@ -11440,17 +12318,17 @@ DataView displays data in grid or list layout with pagination and sorting featur
 
 | Name | Type | Description |
 |------|------|-------------|
-| list | Signal<TemplateRef<DataViewListTemplateContext<any>>> | Template for the list layout. |
-| grid | Signal<TemplateRef<DataViewGridTemplateContext<any>>> | Template for grid layout. |
-| header | Signal<TemplateRef<void>> | Template for the header section. |
-| emptymessage | Signal<TemplateRef<void>> | Template for the empty message section. |
-| footer | Signal<TemplateRef<void>> | Template for the footer section. |
-| paginatorleft | Signal<TemplateRef<DataViewPaginatorLeftTemplateContext>> | Template for the left side of paginator. |
-| paginatorright | Signal<TemplateRef<DataViewPaginatorRightTemplateContext>> | Template for the right side of paginator. |
-| paginatordropdownitem | Signal<TemplateRef<DataViewPaginatorDropdownItemTemplateContext>> | Template for items in paginator dropdown. |
-| loadingicon | Signal<TemplateRef<void>> | Template for loading icon. |
-| listicon | Signal<TemplateRef<void>> | Template for list icon. |
-| gridicon | Signal<TemplateRef<void>> | Template for grid icon. |
+| list | TemplateRef<DataViewListTemplateContext<any>> | Template for the list layout. |
+| grid | TemplateRef<DataViewGridTemplateContext<any>> | Template for grid layout. |
+| header | TemplateRef<void> | Template for the header section. |
+| emptymessage | TemplateRef<void> | Template for the empty message section. |
+| footer | TemplateRef<void> | Template for the footer section. |
+| paginatorleft | TemplateRef<DataViewPaginatorLeftTemplateContext> | Template for the left side of paginator. |
+| paginatorright | TemplateRef<DataViewPaginatorRightTemplateContext> | Template for the right side of paginator. |
+| paginatordropdownitem | TemplateRef<DataViewPaginatorDropdownItemTemplateContext> | Template for items in paginator dropdown. |
+| loadingicon | TemplateRef<void> | Template for loading icon. |
+| listicon | TemplateRef<void> | Template for list icon. |
+| gridicon | TemplateRef<void> | Template for grid icon. |
 
 ## Pass Through Options
 
@@ -12631,19 +13509,19 @@ DatePicker is a form component to work with dates.
 
 | Name | Type | Description |
 |------|------|-------------|
-| date | Signal<TemplateRef<DatePickerDateTemplateContext>> | Custom template for date cells. |
-| header | Signal<TemplateRef<void>> | Custom template for header section. |
-| footer | Signal<TemplateRef<void>> | Custom template for footer section. |
-| disableddate | Signal<TemplateRef<DatePickerDisabledDateTemplateContext>> | Custom template for disabled date cells. |
-| decade | Signal<TemplateRef<DatePickerDecadeTemplateContext>> | Custom template for decade view. |
-| previousicon | Signal<TemplateRef<void>> | Custom template for previous month icon. |
-| nexticon | Signal<TemplateRef<void>> | Custom template for next month icon. |
-| triggericon | Signal<TemplateRef<void>> | Custom template for trigger icon. |
-| clearicon | Signal<TemplateRef<void>> | Custom template for clear icon. |
-| decrementicon | Signal<TemplateRef<void>> | Custom template for decrement icon. |
-| incrementicon | Signal<TemplateRef<void>> | Custom template for increment icon. |
-| inputicon | Signal<TemplateRef<DatePickerInputIconTemplateContext>> | Custom template for input icon. |
-| buttonbar | Signal<TemplateRef<DatePickerButtonBarTemplateContext>> | Custom template for button bar. |
+| date | TemplateRef<DatePickerDateTemplateContext> | Custom template for date cells. |
+| header | TemplateRef<void> | Custom template for header section. |
+| footer | TemplateRef<void> | Custom template for footer section. |
+| disableddate | TemplateRef<DatePickerDisabledDateTemplateContext> | Custom template for disabled date cells. |
+| decade | TemplateRef<DatePickerDecadeTemplateContext> | Custom template for decade view. |
+| previousicon | TemplateRef<void> | Custom template for previous month icon. |
+| nexticon | TemplateRef<void> | Custom template for next month icon. |
+| triggericon | TemplateRef<void> | Custom template for trigger icon. |
+| clearicon | TemplateRef<void> | Custom template for clear icon. |
+| decrementicon | TemplateRef<void> | Custom template for decrement icon. |
+| incrementicon | TemplateRef<void> | Custom template for increment icon. |
+| inputicon | TemplateRef<DatePickerInputIconTemplateContext> | Custom template for input icon. |
+| buttonbar | TemplateRef<DatePickerButtonBarTemplateContext> | Custom template for button bar. |
 
 ## Pass Through Options
 
@@ -13422,13 +14300,13 @@ Dialog is a container to display content in an overlay window.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| content | Signal<TemplateRef<void>> | Custom content template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
-| maximizeicon | Signal<TemplateRef<void>> | Custom maximize icon template. |
-| minimizeicon | Signal<TemplateRef<void>> | Custom minimize icon template. |
-| headless | Signal<TemplateRef<void>> | Custom headless template. |
+| header | TemplateRef<void> | Custom header template. |
+| content | TemplateRef<void> | Custom content template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| maximizeicon | TemplateRef<void> | Custom maximize icon template. |
+| minimizeicon | TemplateRef<void> | Custom minimize icon template. |
+| headless | TemplateRef<void> | Custom headless template. |
 
 ## Pass Through Options
 
@@ -14213,7 +15091,7 @@ Dock is a navigation component consisting of menuitems.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<DockItemTemplateContext>> | Custom item template. |
+| item | TemplateRef<DockItemTemplateContext> | Custom item template. |
 
 ## Pass Through Options
 
@@ -15091,11 +15969,11 @@ Sidebar is a panel component displayed as an overlay at the edges of the screen.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| content | Signal<TemplateRef<void>> | Custom content template. |
-| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
-| headless | Signal<TemplateRef<void>> | Custom headless template to replace the entire drawer content. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| content | TemplateRef<void> | Custom content template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| headless | TemplateRef<void> | Custom headless template to replace the entire drawer content. |
 
 ## Pass Through Options
 
@@ -15536,7 +16414,7 @@ Editor groups a collection of contents in tabs.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<any>> | Custom item template. |
+| header | TemplateRef<any> | Custom item template. |
 
 ## Pass Through Options
 
@@ -15719,10 +16597,10 @@ Fieldset is a grouping component with the optional content toggle feature.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| expandicon | Signal<TemplateRef<void>> | Custom expand icon template. |
-| collapseicon | Signal<TemplateRef<void>> | Custom collapse icon template. |
-| content | Signal<TemplateRef<void>> | Custom content template. |
+| header | TemplateRef<void> | Custom header template. |
+| expandicon | TemplateRef<void> | Custom expand icon template. |
+| collapseicon | TemplateRef<void> | Custom collapse icon template. |
+| content | TemplateRef<void> | Custom content template. |
 
 ## Pass Through Options
 
@@ -16118,15 +16996,15 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 
 | Name | Type | Description |
 |------|------|-------------|
-| file | Signal<TemplateRef<void>> | Custom file template. |
-| header | Signal<TemplateRef<FileUploadHeaderTemplateContext>> | Custom header template. |
-| content | Signal<TemplateRef<FileUploadContentTemplateContext>> | Custom content template. |
-| toolbar | Signal<TemplateRef<void>> | Custom toolbar template. |
-| chooseicon | Signal<TemplateRef<void>> | Custom choose icon template. |
-| filelabel | Signal<TemplateRef<FileUploadFileLabelTemplateContext>> | Custom file label template. |
-| uploadicon | Signal<TemplateRef<void>> | Custom upload icon template. |
-| cancelicon | Signal<TemplateRef<void>> | Custom cancel icon template. |
-| empty | Signal<TemplateRef<void>> | Custom empty state template. |
+| file | TemplateRef<void> | Custom file template. |
+| header | TemplateRef<FileUploadHeaderTemplateContext> | Custom header template. |
+| content | TemplateRef<FileUploadContentTemplateContext> | Custom content template. |
+| toolbar | TemplateRef<void> | Custom toolbar template. |
+| chooseicon | TemplateRef<void> | Custom choose icon template. |
+| filelabel | TemplateRef<FileUploadFileLabelTemplateContext> | Custom file label template. |
+| uploadicon | TemplateRef<void> | Custom upload icon template. |
+| cancelicon | TemplateRef<void> | Custom cancel icon template. |
+| empty | TemplateRef<void> | Custom empty state template. |
 
 ### Methods
 
@@ -17084,17 +17962,17 @@ Galleria is an advanced content gallery component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| indicator | Signal<TemplateRef<GalleriaIndicatorTemplateContext>> | Custom indicator template. |
-| caption | Signal<TemplateRef<GalleriaCaptionTemplateContext<any>>> | Custom caption template. |
-| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
-| previousthumbnailicon | Signal<TemplateRef<void>> | Custom previous thumbnail icon template. |
-| nextthumbnailicon | Signal<TemplateRef<void>> | Custom next thumbnail icon template. |
-| itempreviousicon | Signal<TemplateRef<void>> | Custom item previous icon template. |
-| itemnexticon | Signal<TemplateRef<void>> | Custom item next icon template. |
-| item | Signal<TemplateRef<GalleriaItemTemplateContext<any>>> | Custom item template. |
-| thumbnail | Signal<TemplateRef<GalleriaThumbnailTemplateContext<any>>> | Custom thumbnail template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| indicator | TemplateRef<GalleriaIndicatorTemplateContext> | Custom indicator template. |
+| caption | TemplateRef<GalleriaCaptionTemplateContext<any>> | Custom caption template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| previousthumbnailicon | TemplateRef<void> | Custom previous thumbnail icon template. |
+| nextthumbnailicon | TemplateRef<void> | Custom next thumbnail icon template. |
+| itempreviousicon | TemplateRef<void> | Custom item previous icon template. |
+| itemnexticon | TemplateRef<void> | Custom item next icon template. |
+| item | TemplateRef<GalleriaItemTemplateContext<any>> | Custom item template. |
+| thumbnail | TemplateRef<GalleriaThumbnailTemplateContext<any>> | Custom thumbnail template. |
 
 ## Pass Through Options
 
@@ -17757,14 +18635,14 @@ Displays an image with preview and tranformation options. For multiple image, se
 
 | Name | Type | Description |
 |------|------|-------------|
-| indicator | Signal<TemplateRef<void>> | Custom indicator template. |
-| rotaterighticon | Signal<TemplateRef<void>> | Custom rotate right icon template. |
-| rotatelefticon | Signal<TemplateRef<void>> | Custom rotate left icon template. |
-| zoomouticon | Signal<TemplateRef<void>> | Custom zoom out icon template. |
-| zoominicon | Signal<TemplateRef<void>> | Custom zoom in icon template. |
-| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
-| preview | Signal<TemplateRef<ImagePreviewTemplateContext>> | Custom preview template. |
-| image | Signal<TemplateRef<ImageImageTemplateContext>> | Custom image template. |
+| indicator | TemplateRef<void> | Custom indicator template. |
+| rotaterighticon | TemplateRef<void> | Custom rotate right icon template. |
+| rotatelefticon | TemplateRef<void> | Custom rotate left icon template. |
+| zoomouticon | TemplateRef<void> | Custom zoom out icon template. |
+| zoominicon | TemplateRef<void> | Custom zoom in icon template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| preview | TemplateRef<ImagePreviewTemplateContext> | Custom preview template. |
+| image | TemplateRef<ImageImageTemplateContext> | Custom image template. |
 
 ## Pass Through Options
 
@@ -17922,8 +18800,8 @@ Compare two images side by side with a slider.
 
 | Name | Type | Description |
 |------|------|-------------|
-| left | Signal<TemplateRef<void>> | Custom left side template. |
-| right | Signal<TemplateRef<void>> | Custom right side template. |
+| left | TemplateRef<void> | Custom left side template. |
+| right | TemplateRef<void> | Custom right side template. |
 
 ## Pass Through Options
 
@@ -18146,8 +19024,8 @@ Inplace provides an easy to do editing and display at the same time where clicki
 
 | Name | Type | Description |
 |------|------|-------------|
-| display | Signal<TemplateRef<void>> | Custom display template. |
-| content | Signal<TemplateRef<InplaceContentTemplateContext>> | Custom content template. |
+| display | TemplateRef<void> | Custom display template. |
+| content | TemplateRef<InplaceContentTemplateContext> | Custom content template. |
 
 ### Methods
 
@@ -19856,7 +20734,7 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 | Name | Type | Description |
 |------|------|-------------|
-| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
 
 ## Pass Through Options
 
@@ -20530,9 +21408,9 @@ InputNumber is an input component to provide numerical input.
 
 | Name | Type | Description |
 |------|------|-------------|
-| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
-| incrementbuttonicon | Signal<TemplateRef<void>> | Custom increment button icon template. |
-| decrementbuttonicon | Signal<TemplateRef<void>> | Custom decrement button icon template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| incrementbuttonicon | TemplateRef<void> | Custom increment button icon template. |
+| decrementbuttonicon | TemplateRef<void> | Custom decrement button icon template. |
 
 ## Pass Through Options
 
@@ -20903,7 +21781,7 @@ Input Otp is used to enter one time passwords.
 
 | Name | Type | Description |
 |------|------|-------------|
-| input | Signal<TemplateRef<InputOtpInputTemplateContext>> | Custom input template. |
+| input | TemplateRef<InputOtpInputTemplateContext> | Custom input template. |
 
 ## Pass Through Options
 
@@ -22766,17 +23644,17 @@ ListBox is used to select one or more values from a list of items.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<ListboxItemTemplateContext<any>>> | Custom item template. |
-| group | Signal<TemplateRef<ListboxGroupTemplateContext<any>>> | Custom group template. |
-| header | Signal<TemplateRef<ListboxHeaderTemplateContext<any>>> | Custom header template. |
-| filter | Signal<TemplateRef<ListboxFilterTemplateContext>> | Custom filter template. |
-| footer | Signal<TemplateRef<ListboxFooterTemplateContext<any>>> | Custom footer template. |
-| emptyfilter | Signal<TemplateRef<void>> | Custom empty filter message template. |
-| empty | Signal<TemplateRef<void>> | Custom empty message template. |
-| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
-| checkicon | Signal<TemplateRef<ListboxCheckIconTemplateContext>> | Custom check icon template. |
-| checkmark | Signal<TemplateRef<ListboxCheckmarkTemplateContext>> | Custom checkmark icon template. |
-| loader | Signal<TemplateRef<ListboxLoaderTemplateContext>> | Custom loader template. |
+| item | TemplateRef<ListboxItemTemplateContext<any>> | Custom item template. |
+| group | TemplateRef<ListboxGroupTemplateContext<any>> | Custom group template. |
+| header | TemplateRef<ListboxHeaderTemplateContext<any>> | Custom header template. |
+| filter | TemplateRef<ListboxFilterTemplateContext> | Custom filter template. |
+| footer | TemplateRef<ListboxFooterTemplateContext<any>> | Custom footer template. |
+| emptyfilter | TemplateRef<void> | Custom empty filter message template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| checkicon | TemplateRef<ListboxCheckIconTemplateContext> | Custom check icon template. |
+| checkmark | TemplateRef<ListboxCheckmarkTemplateContext> | Custom checkmark icon template. |
+| loader | TemplateRef<ListboxLoaderTemplateContext> | Custom loader template. |
 
 ### Methods
 
@@ -23422,13 +24300,13 @@ MegaMenu is navigation component that displays submenus together.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | Signal<TemplateRef<void>> | Defines template option for start. |
-| end | Signal<TemplateRef<void>> | Defines template option for end. |
-| menuicon | Signal<TemplateRef<void>> | Defines template option for menu icon. |
-| submenuicon | Signal<TemplateRef<void>> | Defines template option for submenu icon. |
-| item | Signal<TemplateRef<MegaMenuItemTemplateContext>> | Custom item template. |
-| button | Signal<TemplateRef<void>> | Custom menu button template on responsive mode. |
-| buttonicon | Signal<TemplateRef<void>> | Custom menu button icon template on responsive mode. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| menuicon | TemplateRef<void> | Defines template option for menu icon. |
+| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
+| item | TemplateRef<MegaMenuItemTemplateContext> | Custom item template. |
+| button | TemplateRef<void> | Custom menu button template on responsive mode. |
+| buttonicon | TemplateRef<void> | Custom menu button icon template on responsive mode. |
 
 ## Pass Through Options
 
@@ -23960,10 +24838,10 @@ Menu is a navigation / command component that supports dynamic and static positi
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | Signal<TemplateRef<void>> | Defines template option for start. |
-| end | Signal<TemplateRef<void>> | Defines template option for end. |
-| item | Signal<TemplateRef<MenuItemTemplateContext>> | Custom item template. |
-| submenuheader | Signal<TemplateRef<MenuSubmenuHeaderTemplateContext>> | Custom submenu header template. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| item | TemplateRef<MenuItemTemplateContext> | Custom item template. |
+| submenuheader | TemplateRef<MenuSubmenuHeaderTemplateContext> | Custom submenu header template. |
 
 ### Methods
 
@@ -24415,11 +25293,11 @@ Menubar is a horizontal menu component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | Signal<TemplateRef<void>> | Defines template option for start. |
-| end | Signal<TemplateRef<void>> | Defines template option for end. |
-| item | Signal<TemplateRef<MenubarItemTemplateContext>> | Custom item template. |
-| menuicon | Signal<TemplateRef<void>> | Defines template option for menu icon. |
-| submenuicon | Signal<TemplateRef<void>> | Defines template option for submenu icon. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| item | TemplateRef<MenubarItemTemplateContext> | Custom item template. |
+| menuicon | TemplateRef<void> | Defines template option for menu icon. |
+| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
 
 ## Pass Through Options
 
@@ -24848,9 +25726,9 @@ Message groups a collection of contents in tabs.
 
 | Name | Type | Description |
 |------|------|-------------|
-| container | Signal<TemplateRef<MessageContainerTemplateContext>> | Custom template of the message container. |
-| icon | Signal<TemplateRef<void>> | Custom template of the message icon. |
-| closeicon | Signal<TemplateRef<void>> | Custom template of the close icon. |
+| container | TemplateRef<MessageContainerTemplateContext> | Custom template of the message container. |
+| icon | TemplateRef<void> | Custom template of the message icon. |
+| closeicon | TemplateRef<void> | Custom template of the close icon. |
 
 ### Methods
 
@@ -25230,11 +26108,11 @@ MeterGroup displays scalar measurements within a known range.
 
 | Name | Type | Description |
 |------|------|-------------|
-| label | Signal<TemplateRef<MeterGroupLabelTemplateContext>> | Custom label template. |
-| meter | Signal<TemplateRef<MeterGroupMeterTemplateContext>> | Custom meter template. |
-| end | Signal<TemplateRef<MeterGroupLabelTemplateContext>> | Custom end template. |
-| start | Signal<TemplateRef<MeterGroupLabelTemplateContext>> | Custom start template. |
-| icon | Signal<TemplateRef<MeterGroupIconTemplateContext>> | Custom icon template. |
+| label | TemplateRef<MeterGroupLabelTemplateContext> | Custom label template. |
+| meter | TemplateRef<MeterGroupMeterTemplateContext> | Custom meter template. |
+| end | TemplateRef<MeterGroupLabelTemplateContext> | Custom end template. |
+| start | TemplateRef<MeterGroupLabelTemplateContext> | Custom start template. |
+| icon | TemplateRef<MeterGroupIconTemplateContext> | Custom icon template. |
 
 ## Pass Through Options
 
@@ -26243,23 +27121,23 @@ MultiSelect is used to select multiple items from a collection.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<MultiSelectItemTemplateContext<any>>> | Custom item template. |
-| group | Signal<TemplateRef<MultiSelectGroupTemplateContext<any>>> | Custom group template. |
-| loader | Signal<TemplateRef<MultiSelectLoaderTemplateContext>> | Custom loader template. |
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| filter | Signal<TemplateRef<MultiSelectFilterTemplateContext>> | Custom filter template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| emptyfilter | Signal<TemplateRef<void>> | Custom empty filter template. |
-| empty | Signal<TemplateRef<void>> | Custom empty template. |
-| selecteditems | Signal<TemplateRef<MultiSelectSelectedItemsTemplateContext<any>>> | Custom selected items template. |
-| loadingicon | Signal<TemplateRef<void>> | Custom loading icon template. |
-| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
-| removetokenicon | Signal<TemplateRef<MultiSelectChipIconTemplateContext>> | Custom remove token icon template. |
-| chipicon | Signal<TemplateRef<MultiSelectChipIconTemplateContext>> | Custom chip icon template. |
-| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
-| dropdownicon | Signal<TemplateRef<MultiSelectDropdownIconTemplateContext>> | Custom dropdown icon template. |
-| itemcheckboxicon | Signal<TemplateRef<MultiSelectItemCheckboxIconTemplateContext>> | Custom item checkbox icon template. |
-| headercheckboxicon | Signal<TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext>> | Custom header checkbox icon template. |
+| item | TemplateRef<MultiSelectItemTemplateContext<any>> | Custom item template. |
+| group | TemplateRef<MultiSelectGroupTemplateContext<any>> | Custom group template. |
+| loader | TemplateRef<MultiSelectLoaderTemplateContext> | Custom loader template. |
+| header | TemplateRef<void> | Custom header template. |
+| filter | TemplateRef<MultiSelectFilterTemplateContext> | Custom filter template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| emptyfilter | TemplateRef<void> | Custom empty filter template. |
+| empty | TemplateRef<void> | Custom empty template. |
+| selecteditems | TemplateRef<MultiSelectSelectedItemsTemplateContext<any>> | Custom selected items template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| removetokenicon | TemplateRef<MultiSelectChipIconTemplateContext> | Custom remove token icon template. |
+| chipicon | TemplateRef<MultiSelectChipIconTemplateContext> | Custom chip icon template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| dropdownicon | TemplateRef<MultiSelectDropdownIconTemplateContext> | Custom dropdown icon template. |
+| itemcheckboxicon | TemplateRef<MultiSelectItemCheckboxIconTemplateContext> | Custom item checkbox icon template. |
+| headercheckboxicon | TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext> | Custom header checkbox icon template. |
 
 ### Methods
 
@@ -26695,16 +27573,16 @@ OrderList is used to manage the order of a collection.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<OrderListItemTemplateContext>> | Custom item template. |
-| emptymessage | Signal<TemplateRef<void>> | Custom empty template. |
-| emptyfiltermessage | Signal<TemplateRef<void>> | Custom empty filter template. |
-| filter | Signal<TemplateRef<OrderListFilterTemplateContext>> | Custom filter template. |
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| moveupicon | Signal<TemplateRef<void>> | Custom move up icon template. |
-| movetopicon | Signal<TemplateRef<void>> | Custom move top icon template. |
-| movedownicon | Signal<TemplateRef<void>> | Custom move down icon template. |
-| movebottomicon | Signal<TemplateRef<void>> | Custom move bottom icon template. |
-| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
+| item | TemplateRef<OrderListItemTemplateContext> | Custom item template. |
+| emptymessage | TemplateRef<void> | Custom empty template. |
+| emptyfiltermessage | TemplateRef<void> | Custom empty filter template. |
+| filter | TemplateRef<OrderListFilterTemplateContext> | Custom filter template. |
+| header | TemplateRef<void> | Custom header template. |
+| moveupicon | TemplateRef<void> | Custom move up icon template. |
+| movetopicon | TemplateRef<void> | Custom move top icon template. |
+| movedownicon | TemplateRef<void> | Custom move down icon template. |
+| movebottomicon | TemplateRef<void> | Custom move bottom icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
 
 ### Methods
 
@@ -27077,8 +27955,8 @@ OrganizationChart visualizes hierarchical organization data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| togglericon | Signal<TemplateRef<any>> | Custom toggler icon template. |
-| node | Signal<TemplateRef<any>> | Custom node template. |
+| togglericon | TemplateRef<any> | Custom toggler icon template. |
+| node | TemplateRef<any> | Custom node template. |
 
 ## Pass Through Options
 
@@ -27370,7 +28248,7 @@ This API allows overlay components to be controlled from the PrimeNG. In this wa
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<OverlayContentTemplateContext>> | Content template of the component. |
+| content | TemplateRef<OverlayContentTemplateContext> | Content template of the component. |
 
 ## Pass Through Options
 
@@ -27629,11 +28507,11 @@ Paginator is a generic component to display content in paged format.
 
 | Name | Type | Description |
 |------|------|-------------|
-| dropdownicon | Signal<TemplateRef<void>> | Template for the dropdown icon. |
-| firstpagelinkicon | Signal<TemplateRef<void>> | Template for the first page link icon. |
-| previouspagelinkicon | Signal<TemplateRef<void>> | Template for the previous page link icon. |
-| lastpagelinkicon | Signal<TemplateRef<void>> | Template for the last page link icon. |
-| nextpagelinkicon | Signal<TemplateRef<void>> | Template for the next page link icon. |
+| dropdownicon | TemplateRef<void> | Template for the dropdown icon. |
+| firstpagelinkicon | TemplateRef<void> | Template for the first page link icon. |
+| previouspagelinkicon | TemplateRef<void> | Template for the previous page link icon. |
+| lastpagelinkicon | TemplateRef<void> | Template for the last page link icon. |
+| nextpagelinkicon | TemplateRef<void> | Template for the next page link icon. |
 
 ## Pass Through Options
 
@@ -27874,11 +28752,11 @@ Panel is a container with the optional content toggle feature.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Defines template option for header. |
-| icon | Signal<TemplateRef<void>> | Defines template option for icon. |
-| content | Signal<TemplateRef<void>> | Defines template option for content. |
-| footer | Signal<TemplateRef<void>> | Defines template option for footer. |
-| headericons | Signal<TemplateRef<PanelHeaderIconsTemplateContext>> | Defines template option for headerIcon. |
+| header | TemplateRef<void> | Defines template option for header. |
+| icon | TemplateRef<void> | Defines template option for icon. |
+| content | TemplateRef<void> | Defines template option for content. |
+| footer | TemplateRef<void> | Defines template option for footer. |
+| headericons | TemplateRef<PanelHeaderIconsTemplateContext> | Defines template option for headerIcon. |
 
 ## Pass Through Options
 
@@ -28560,9 +29438,9 @@ PanelMenu is a hybrid of Accordion and Tree components.
 
 | Name | Type | Description |
 |------|------|-------------|
-| submenuicon | Signal<TemplateRef<void>> | Template option of submenu icon. |
-| headericon | Signal<TemplateRef<void>> | Template option of header icon. |
-| item | Signal<TemplateRef<PanelMenuItemTemplateContext>> | Template option of item. |
+| submenuicon | TemplateRef<void> | Template option of submenu icon. |
+| headericon | TemplateRef<void> | Template option of header icon. |
+| item | TemplateRef<PanelMenuItemTemplateContext> | Template option of item. |
 
 ### Methods
 
@@ -29215,12 +30093,12 @@ Password displays strength indicator for password fields.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<void>> | Custom template of content. |
-| footer | Signal<TemplateRef<void>> | Custom template of footer. |
-| header | Signal<TemplateRef<void>> | Custom template of header. |
-| clearicon | Signal<TemplateRef<void>> | Custom template of clear icon. |
-| hideicon | Signal<TemplateRef<PasswordIconTemplateContext>> | Custom template of hide icon. |
-| showicon | Signal<TemplateRef<PasswordIconTemplateContext>> | Custom template of show icon. |
+| content | TemplateRef<void> | Custom template of content. |
+| footer | TemplateRef<void> | Custom template of footer. |
+| header | TemplateRef<void> | Custom template of header. |
+| clearicon | TemplateRef<void> | Custom template of clear icon. |
+| hideicon | TemplateRef<PasswordIconTemplateContext> | Custom template of hide icon. |
+| showicon | TemplateRef<PasswordIconTemplateContext> | Custom template of show icon. |
 
 ## Pass Through Options
 
@@ -29636,25 +30514,25 @@ PickList is used to reorder items between different lists.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<PickListItemTemplateContext>> | Custom item template. |
-| sourceheader | Signal<TemplateRef<void>> | Custom source header template. |
-| targetheader | Signal<TemplateRef<void>> | Custom target header template. |
-| sourcefilter | Signal<TemplateRef<PickListFilterTemplateContext>> | Custom source filter template. |
-| targetfilter | Signal<TemplateRef<PickListFilterTemplateContext>> | Custom target filter template. |
-| emptymessagesource | Signal<TemplateRef<void>> | Custom empty message when source is empty template. |
-| emptyfiltermessagesource | Signal<TemplateRef<void>> | Custom empty filter message when source is empty template. |
-| emptymessagetarget | Signal<TemplateRef<void>> | Custom empty message when target is empty template. |
-| emptyfiltermessagetarget | Signal<TemplateRef<void>> | Custom empty filter message when target is empty template. |
-| moveupicon | Signal<TemplateRef<void>> | Custom move up icon template. |
-| movetopicon | Signal<TemplateRef<void>> | Custom move top icon template. |
-| movedownicon | Signal<TemplateRef<void>> | Custom move down icon template. |
-| movebottomicon | Signal<TemplateRef<void>> | Custom move bottom icon template. |
-| movetotargeticon | Signal<TemplateRef<PickListTransferIconTemplateContext>> | Custom move to target icon template. |
-| movealltotargeticon | Signal<TemplateRef<PickListTransferIconTemplateContext>> | Custom move all to target icon template. |
-| movetosourceicon | Signal<TemplateRef<PickListTransferIconTemplateContext>> | Custom move to source icon template. |
-| movealltosourceicon | Signal<TemplateRef<PickListTransferIconTemplateContext>> | Custom move all to source icon template. |
-| targetfiltericon | Signal<TemplateRef<void>> | Custom target filter icon template. |
-| sourcefiltericon | Signal<TemplateRef<void>> | Custom source filter icon template. |
+| item | TemplateRef<PickListItemTemplateContext> | Custom item template. |
+| sourceheader | TemplateRef<void> | Custom source header template. |
+| targetheader | TemplateRef<void> | Custom target header template. |
+| sourcefilter | TemplateRef<PickListFilterTemplateContext> | Custom source filter template. |
+| targetfilter | TemplateRef<PickListFilterTemplateContext> | Custom target filter template. |
+| emptymessagesource | TemplateRef<void> | Custom empty message when source is empty template. |
+| emptyfiltermessagesource | TemplateRef<void> | Custom empty filter message when source is empty template. |
+| emptymessagetarget | TemplateRef<void> | Custom empty message when target is empty template. |
+| emptyfiltermessagetarget | TemplateRef<void> | Custom empty filter message when target is empty template. |
+| moveupicon | TemplateRef<void> | Custom move up icon template. |
+| movetopicon | TemplateRef<void> | Custom move top icon template. |
+| movedownicon | TemplateRef<void> | Custom move down icon template. |
+| movebottomicon | TemplateRef<void> | Custom move bottom icon template. |
+| movetotargeticon | TemplateRef<PickListTransferIconTemplateContext> | Custom move to target icon template. |
+| movealltotargeticon | TemplateRef<PickListTransferIconTemplateContext> | Custom move all to target icon template. |
+| movetosourceicon | TemplateRef<PickListTransferIconTemplateContext> | Custom move to source icon template. |
+| movealltosourceicon | TemplateRef<PickListTransferIconTemplateContext> | Custom move all to source icon template. |
+| targetfiltericon | TemplateRef<void> | Custom target filter icon template. |
+| sourcefiltericon | TemplateRef<void> | Custom source filter icon template. |
 
 ## Pass Through Options
 
@@ -30070,7 +30948,7 @@ Popover is a container component that can overlay other components on page.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<PopoverContentTemplateContext>> | Custom content template. |
+| content | TemplateRef<PopoverContentTemplateContext> | Custom content template. |
 
 ### Methods
 
@@ -30252,7 +31130,7 @@ ProgressBar is a process status indicator.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<ProgressBarContentTemplateContext>> | Template of the content. |
+| content | TemplateRef<ProgressBarContentTemplateContext> | Template of the content. |
 
 ## Pass Through Options
 
@@ -31137,8 +32015,8 @@ Rating is an extension to standard radio button element with theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| onicon | Signal<TemplateRef<RatingIconTemplateContext>> | Custom on icon template. |
-| officon | Signal<TemplateRef<RatingIconTemplateContext>> | Custom off icon template. |
+| onicon | TemplateRef<RatingIconTemplateContext> | Custom on icon template. |
+| officon | TemplateRef<RatingIconTemplateContext> | Custom off icon template. |
 
 ## Pass Through Options
 
@@ -31370,10 +32248,10 @@ Scroller is a performance-approach to handle huge data efficiently.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<ScrollerContentTemplateContext>> | Content template of the component. |
-| item | Signal<TemplateRef<ScrollerItemTemplateContext>> | Item template of the component. |
-| loader | Signal<TemplateRef<ScrollerLoaderTemplateContext>> | Loader template of the component. |
-| loadericon | Signal<TemplateRef<ScrollerLoaderIconTemplateContext>> | Loader icon template of the component. |
+| content | TemplateRef<ScrollerContentTemplateContext> | Content template of the component. |
+| item | TemplateRef<ScrollerItemTemplateContext> | Item template of the component. |
+| loader | TemplateRef<ScrollerLoaderTemplateContext> | Loader template of the component. |
+| loadericon | TemplateRef<ScrollerLoaderIconTemplateContext> | Loader icon template of the component. |
 
 ## Pass Through Options
 
@@ -31504,7 +32382,7 @@ ScrollPanel is a cross browser, lightweight and themable alternative to native b
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<void>> | Custom content template. |
+| content | TemplateRef<void> | Custom content template. |
 
 ### Methods
 
@@ -31640,7 +32518,7 @@ ScrollTop gets displayed after a certain scroll position and used to navigates t
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | Signal<TemplateRef<ScrollTopIconTemplateContext>> | Custom icon template. |
+| icon | TemplateRef<ScrollTopIconTemplateContext> | Custom icon template. |
 
 ## Pass Through Options
 
@@ -32784,22 +33662,22 @@ Select is used to choose an item from a collection of options.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<SelectItemTemplateContext<any>>> | Custom item template. |
-| group | Signal<TemplateRef<SelectGroupTemplateContext<any>>> | Custom group template. |
-| loader | Signal<TemplateRef<SelectLoaderTemplateContext>> | Custom loader template. |
-| selecteditem | Signal<TemplateRef<SelectSelectedItemTemplateContext<any>>> | Custom selected item template. |
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| filter | Signal<TemplateRef<SelectFilterTemplateContext>> | Custom filter template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| emptyfilter | Signal<TemplateRef<void>> | Custom empty filter template. |
-| empty | Signal<TemplateRef<void>> | Custom empty template. |
-| dropdownicon | Signal<TemplateRef<SelectIconTemplateContext>> | Custom dropdown icon template. |
-| loadingicon | Signal<TemplateRef<void>> | Custom loading icon template. |
-| clearicon | Signal<TemplateRef<SelectIconTemplateContext>> | Custom clear icon template. |
-| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
-| onicon | Signal<TemplateRef<void>> | Custom on icon template. |
-| officon | Signal<TemplateRef<void>> | Custom off icon template. |
-| cancelicon | Signal<TemplateRef<void>> | Custom cancel icon template. |
+| item | TemplateRef<SelectItemTemplateContext<any>> | Custom item template. |
+| group | TemplateRef<SelectGroupTemplateContext<any>> | Custom group template. |
+| loader | TemplateRef<SelectLoaderTemplateContext> | Custom loader template. |
+| selecteditem | TemplateRef<SelectSelectedItemTemplateContext<any>> | Custom selected item template. |
+| header | TemplateRef<void> | Custom header template. |
+| filter | TemplateRef<SelectFilterTemplateContext> | Custom filter template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| emptyfilter | TemplateRef<void> | Custom empty filter template. |
+| empty | TemplateRef<void> | Custom empty template. |
+| dropdownicon | TemplateRef<SelectIconTemplateContext> | Custom dropdown icon template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| clearicon | TemplateRef<SelectIconTemplateContext> | Custom clear icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| onicon | TemplateRef<void> | Custom on icon template. |
+| officon | TemplateRef<void> | Custom off icon template. |
+| cancelicon | TemplateRef<void> | Custom cancel icon template. |
 
 ### Methods
 
@@ -33314,7 +34192,7 @@ SelectButton is used to choose single or multiple items from a list using button
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<SelectButtonItemTemplateContext>> | Custom item template. |
+| item | TemplateRef<SelectButtonItemTemplateContext> | Custom item template. |
 
 ## Pass Through Options
 
@@ -34477,9 +35355,9 @@ When pressed, a floating action button can display multiple primary actions that
 
 | Name | Type | Description |
 |------|------|-------------|
-| button | Signal<TemplateRef<SpeedDialButtonTemplateContext>> | Custom button template. |
-| item | Signal<TemplateRef<SpeedDialItemTemplateContext>> | Custom item template. |
-| icon | Signal<TemplateRef<void>> | Custom icon template. |
+| button | TemplateRef<SpeedDialButtonTemplateContext> | Custom button template. |
+| item | TemplateRef<SpeedDialItemTemplateContext> | Custom item template. |
+| icon | TemplateRef<void> | Custom icon template. |
 
 ## Pass Through Options
 
@@ -35433,8 +36311,8 @@ SplitButton groups a set of commands in an overlay with a default command.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<void>> | Custom content template. |
-| dropdownicon | Signal<TemplateRef<void>> | Custom dropdown icon template. |
+| content | TemplateRef<void> | Custom content template. |
+| dropdownicon | TemplateRef<void> | Custom dropdown icon template. |
 
 ## Pass Through Options
 
@@ -36056,7 +36934,7 @@ StepPanel is a helper component for Stepper component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<StepPanelContentTemplateContext>> | Content template. |
+| content | TemplateRef<StepPanelContentTemplateContext> | Content template. |
 
 ## Step
 
@@ -36077,7 +36955,7 @@ Step is a helper component for Stepper component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<StepContentTemplateContext>> | Content template. |
+| content | TemplateRef<StepContentTemplateContext> | Content template. |
 
 ## Stepper Separator
 
@@ -40852,12 +41730,12 @@ Column Filter Component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<any>> | Custom header template. |
-| filter | Signal<TemplateRef<any>> | Custom filter template. |
-| footer | Signal<TemplateRef<any>> | Custom footer template. |
-| filtericon | Signal<TemplateRef<any>> | Custom filter icon template. |
-| removeruleicon | Signal<TemplateRef<any>> | Custom remove rule button icon template. |
-| addruleicon | Signal<TemplateRef<any>> | Custom add rule button icon template. |
+| header | TemplateRef<any> | Custom header template. |
+| filter | TemplateRef<any> | Custom filter template. |
+| footer | TemplateRef<any> | Custom footer template. |
+| filtericon | TemplateRef<any> | Custom filter icon template. |
+| removeruleicon | TemplateRef<any> | Custom remove rule button icon template. |
+| addruleicon | TemplateRef<any> | Custom add rule button icon template. |
 
 ## Pass Through Options
 
@@ -41388,8 +42266,8 @@ TabList is a helper component for Tabs component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| previcon | Signal<TemplateRef<any>> | A template reference variable that represents the previous icon in a UI component. |
-| nexticon | Signal<TemplateRef<any>> | A template reference variable that represents the next icon in a UI component. |
+| previcon | TemplateRef<any> | A template reference variable that represents the previous icon in a UI component. |
+| nexticon | TemplateRef<any> | A template reference variable that represents the next icon in a UI component. |
 
 ## Tab Panel
 
@@ -41410,7 +42288,7 @@ TabPanel is a helper component for Tabs component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<unknown> | Template for initializing complex content when lazy is enabled. |
+| content | unknown | Template for initializing complex content when lazy is enabled. |
 
 ## Tab Panels
 
@@ -41662,7 +42540,7 @@ Tag component is used to categorize content.
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | Signal<TemplateRef<void>> | Custom icon template. |
+| icon | TemplateRef<void> | Custom icon template. |
 
 ## Pass Through Options
 
@@ -42792,8 +43670,8 @@ TieredMenu displays submenus in nested overlays.
 
 | Name | Type | Description |
 |------|------|-------------|
-| submenuicon | Signal<TemplateRef<void>> | Custom submenu icon template. |
-| item | Signal<TemplateRef<TieredMenuItemTemplateContext>> | Custom item template. |
+| submenuicon | TemplateRef<void> | Custom submenu icon template. |
+| item | TemplateRef<TieredMenuItemTemplateContext> | Custom item template. |
 
 ### Methods
 
@@ -43139,9 +44017,9 @@ Timeline visualizes a series of chained events.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<TimelineItemTemplateContext<any>>> | Custom content template. |
-| opposite | Signal<TemplateRef<TimelineItemTemplateContext<any>>> | Custom opposite item template. |
-| marker | Signal<TemplateRef<TimelineItemTemplateContext<any>>> | Custom marker template. |
+| content | TemplateRef<TimelineItemTemplateContext<any>> | Custom content template. |
+| opposite | TemplateRef<TimelineItemTemplateContext<any>> | Custom opposite item template. |
+| marker | TemplateRef<TimelineItemTemplateContext<any>> | Custom marker template. |
 
 ## Pass Through Options
 
@@ -43646,8 +44524,8 @@ Toast is used to display messages in an overlay.
 
 | Name | Type | Description |
 |------|------|-------------|
-| message | Signal<TemplateRef<ToastMessageTemplateContext>> | Custom message template. |
-| headless | Signal<TemplateRef<ToastHeadlessTemplateContext>> | Custom headless template. |
+| message | TemplateRef<ToastMessageTemplateContext> | Custom message template. |
+| headless | TemplateRef<ToastHeadlessTemplateContext> | Custom headless template. |
 
 ## Pass Through Options
 
@@ -44060,8 +44938,8 @@ ToggleButton is used to select a boolean value using a button.
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | Signal<TemplateRef<ToggleButtonIconTemplateContext>> | Custom icon template. |
-| content | Signal<TemplateRef<ToggleButtonContentTemplateContext>> | Custom content template. |
+| icon | TemplateRef<ToggleButtonIconTemplateContext> | Custom icon template. |
+| content | TemplateRef<ToggleButtonContentTemplateContext> | Custom content template. |
 
 ## Pass Through Options
 
@@ -44401,7 +45279,7 @@ ToggleSwitch is used to select a boolean value.
 
 | Name | Type | Description |
 |------|------|-------------|
-| handle | Signal<TemplateRef<ToggleSwitchHandleTemplateContext>> | Custom handle template. |
+| handle | TemplateRef<ToggleSwitchHandleTemplateContext> | Custom handle template. |
 
 ## Pass Through Options
 
@@ -44610,9 +45488,9 @@ Toolbar is a grouping component for buttons and other content.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | Signal<TemplateRef<void>> | Custom start template. |
-| end | Signal<TemplateRef<void>> | Custom end template. |
-| center | Signal<TemplateRef<void>> | Custom center template. |
+| start | TemplateRef<void> | Custom start template. |
+| end | TemplateRef<void> | Custom end template. |
+| center | TemplateRef<void> | Custom center template. |
 
 ## Pass Through Options
 
@@ -45541,16 +46419,16 @@ Tree is used to display hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| filter | Signal<TemplateRef<TreeFilterTemplateContext>> | Custom filter template. |
-| node | Signal<TemplateRef<any>> | Custom node template. |
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| loader | Signal<TemplateRef<TreeLoaderTemplateContext>> | Custom loader template. |
-| empty | Signal<TemplateRef<void>> | Custom empty message template. |
-| togglericon | Signal<TemplateRef<TreeTogglerIconTemplateContext>> | Custom toggler icon template. |
-| checkboxicon | Signal<TemplateRef<TreeCheckboxIconTemplateContext>> | Custom checkbox icon template. |
-| loadingicon | Signal<TemplateRef<void>> | Custom loading icon template. |
-| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
+| filter | TemplateRef<TreeFilterTemplateContext> | Custom filter template. |
+| node | TemplateRef<any> | Custom node template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| loader | TemplateRef<TreeLoaderTemplateContext> | Custom loader template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| togglericon | TemplateRef<TreeTogglerIconTemplateContext> | Custom toggler icon template. |
+| checkboxicon | TemplateRef<TreeCheckboxIconTemplateContext> | Custom checkbox icon template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
 
 ### Methods
 
@@ -46498,18 +47376,18 @@ TreeSelect is a form component to choose from hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| value | Signal<TemplateRef<TreeSelectValueTemplateContext>> | Custom value template. |
-| header | Signal<TemplateRef<TreeSelectHeaderTemplateContext>> | Custom header template. |
-| empty | Signal<TemplateRef<void>> | Custom empty message template. |
-| footer | Signal<TemplateRef<TreeSelectHeaderTemplateContext>> | Custom footer template. |
-| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
-| triggericon | Signal<TemplateRef<void>> | Custom trigger icon template. |
-| dropdownicon | Signal<TemplateRef<void>> | Custom dropdown icon template. |
-| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
-| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
-| itemtogglericon | Signal<TemplateRef<TreeSelectItemTogglerIconTemplateContext>> | Custom item toggler icon template. |
-| itemcheckboxicon | Signal<TemplateRef<TreeSelectItemCheckboxIconTemplateContext>> | Custom item checkbox icon template. |
-| itemloadingicon | Signal<TemplateRef<void>> | Custom item loading icon template. |
+| value | TemplateRef<TreeSelectValueTemplateContext> | Custom value template. |
+| header | TemplateRef<TreeSelectHeaderTemplateContext> | Custom header template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| footer | TemplateRef<TreeSelectHeaderTemplateContext> | Custom footer template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| triggericon | TemplateRef<void> | Custom trigger icon template. |
+| dropdownicon | TemplateRef<void> | Custom dropdown icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| itemtogglericon | TemplateRef<TreeSelectItemTogglerIconTemplateContext> | Custom item toggler icon template. |
+| itemcheckboxicon | TemplateRef<TreeSelectItemCheckboxIconTemplateContext> | Custom item checkbox icon template. |
+| itemloadingicon | TemplateRef<void> | Custom item loading icon template. |
 
 ## Pass Through Options
 
@@ -49325,32 +50203,32 @@ TreeTable is used to display hierarchical data in tabular format.
 
 | Name | Type | Description |
 |------|------|-------------|
-| colgroup | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| caption | Signal<TemplateRef<void>> |  |
-| header | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| body | Signal<TemplateRef<TreeTableBodyTemplateContext>> |  |
-| footer | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| summary | Signal<TemplateRef<void>> |  |
-| emptymessage | Signal<TemplateRef<TreeTableEmptyMessageTemplateContext>> |  |
-| paginatorleft | Signal<TemplateRef<void>> |  |
-| paginatorright | Signal<TemplateRef<void>> |  |
-| paginatordropdownitem | Signal<TemplateRef<void>> |  |
-| frozenheader | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| frozenbody | Signal<TemplateRef<void>> |  |
-| frozenfooter | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| frozencolgroup | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| loadingicon | Signal<TemplateRef<void>> |  |
-| reorderindicatorupicon | Signal<TemplateRef<void>> |  |
-| reorderindicatordownicon | Signal<TemplateRef<void>> |  |
-| sorticon | Signal<TemplateRef<TreeTableSortIconTemplateContext>> |  |
-| checkboxicon | Signal<TemplateRef<TreeTableCheckboxIconTemplateContext>> |  |
-| headercheckboxicon | Signal<TemplateRef<TreeTableHeaderCheckboxIconTemplateContext>> |  |
-| togglericon | Signal<TemplateRef<TreeTableTogglerIconTemplateContext>> |  |
-| paginatorfirstpagelinkicon | Signal<TemplateRef<void>> |  |
-| paginatorlastpagelinkicon | Signal<TemplateRef<void>> |  |
-| paginatorpreviouspagelinkicon | Signal<TemplateRef<void>> |  |
-| paginatornextpagelinkicon | Signal<TemplateRef<void>> |  |
-| loader | Signal<TemplateRef<void>> |  |
+| colgroup | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| caption | TemplateRef<void> |  |
+| header | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| body | TemplateRef<TreeTableBodyTemplateContext> |  |
+| footer | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| summary | TemplateRef<void> |  |
+| emptymessage | TemplateRef<TreeTableEmptyMessageTemplateContext> |  |
+| paginatorleft | TemplateRef<void> |  |
+| paginatorright | TemplateRef<void> |  |
+| paginatordropdownitem | TemplateRef<void> |  |
+| frozenheader | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| frozenbody | TemplateRef<void> |  |
+| frozenfooter | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| frozencolgroup | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| loadingicon | TemplateRef<void> |  |
+| reorderindicatorupicon | TemplateRef<void> |  |
+| reorderindicatordownicon | TemplateRef<void> |  |
+| sorticon | TemplateRef<TreeTableSortIconTemplateContext> |  |
+| checkboxicon | TemplateRef<TreeTableCheckboxIconTemplateContext> |  |
+| headercheckboxicon | TemplateRef<TreeTableHeaderCheckboxIconTemplateContext> |  |
+| togglericon | TemplateRef<TreeTableTogglerIconTemplateContext> |  |
+| paginatorfirstpagelinkicon | TemplateRef<void> |  |
+| paginatorlastpagelinkicon | TemplateRef<void> |  |
+| paginatorpreviouspagelinkicon | TemplateRef<void> |  |
+| paginatornextpagelinkicon | TemplateRef<void> |  |
+| loader | TemplateRef<void> |  |
 
 ### Methods
 

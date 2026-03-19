@@ -139,14 +139,14 @@ Displays an image with preview and tranformation options. For multiple image, se
 
 | Name | Type | Description |
 |------|------|-------------|
-| indicator | Signal<TemplateRef<void>> | Custom indicator template. |
-| rotaterighticon | Signal<TemplateRef<void>> | Custom rotate right icon template. |
-| rotatelefticon | Signal<TemplateRef<void>> | Custom rotate left icon template. |
-| zoomouticon | Signal<TemplateRef<void>> | Custom zoom out icon template. |
-| zoominicon | Signal<TemplateRef<void>> | Custom zoom in icon template. |
-| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
-| preview | Signal<TemplateRef<ImagePreviewTemplateContext>> | Custom preview template. |
-| image | Signal<TemplateRef<ImageImageTemplateContext>> | Custom image template. |
+| indicator | TemplateRef<void> | Custom indicator template. |
+| rotaterighticon | TemplateRef<void> | Custom rotate right icon template. |
+| rotatelefticon | TemplateRef<void> | Custom rotate left icon template. |
+| zoomouticon | TemplateRef<void> | Custom zoom out icon template. |
+| zoominicon | TemplateRef<void> | Custom zoom in icon template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| preview | TemplateRef<ImagePreviewTemplateContext> | Custom preview template. |
+| image | TemplateRef<ImageImageTemplateContext> | Custom image template. |
 
 ## Pass Through Options
 

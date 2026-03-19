@@ -128,7 +128,7 @@ Chip represents people using icons, labels and images.
 
 | Name | Type | Description |
 |------|------|-------------|
-| removeicon | Signal<TemplateRef<void>> | Custom remove icon template. |
+| removeicon | TemplateRef<void> | Custom remove icon template. |
 
 ## Pass Through Options
 

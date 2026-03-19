@@ -553,13 +553,13 @@ Dialog is a container to display content in an overlay window.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| content | Signal<TemplateRef<void>> | Custom content template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
-| maximizeicon | Signal<TemplateRef<void>> | Custom maximize icon template. |
-| minimizeicon | Signal<TemplateRef<void>> | Custom minimize icon template. |
-| headless | Signal<TemplateRef<void>> | Custom headless template. |
+| header | TemplateRef<void> | Custom header template. |
+| content | TemplateRef<void> | Custom content template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| maximizeicon | TemplateRef<void> | Custom maximize icon template. |
+| minimizeicon | TemplateRef<void> | Custom minimize icon template. |
+| headless | TemplateRef<void> | Custom headless template. |
 
 ## Pass Through Options
 

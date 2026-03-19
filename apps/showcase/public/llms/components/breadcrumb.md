@@ -123,8 +123,8 @@ Breadcrumb provides contextual information about page hierarchy.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<BreadcrumbItemTemplateContext>> | Custom item template. |
-| separator | Signal<TemplateRef<void>> | Custom separator template. |
+| item | TemplateRef<BreadcrumbItemTemplateContext> | Custom item template. |
+| separator | TemplateRef<void> | Custom separator template. |
 
 ## Pass Through Options
 

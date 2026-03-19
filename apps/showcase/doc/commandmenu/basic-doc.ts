@@ -56,7 +56,7 @@ export class BasicDoc implements OnInit {
     ngOnInit() {
         this.commands = [
             {
-                group: 'recents',
+                group: 'Recents',
                 items: [
                     { label: 'Check For Updates', value: 'check for updates', keywords: ['check', 'updates'] },
                     { label: 'Open Settings', value: 'open settings' },
@@ -67,7 +67,7 @@ export class BasicDoc implements OnInit {
                 ]
             },
             {
-                group: 'files',
+                group: 'Files',
                 items: [
                     { label: 'New File', value: 'new file' },
                     { label: 'New Folder', value: 'new folder' },
@@ -82,7 +82,7 @@ export class BasicDoc implements OnInit {
                 ]
             },
             {
-                group: 'source',
+                group: 'Source',
                 items: [
                     { label: 'Git: Commit', value: 'git commit' },
                     { label: 'Git: Push', value: 'git push' },
@@ -95,7 +95,7 @@ export class BasicDoc implements OnInit {
                 ]
             },
             {
-                group: 'editor',
+                group: 'Editor',
                 items: [
                     { label: 'Align Left', value: 'align left' },
                     { label: 'Align Center', value: 'align center' },
@@ -108,7 +108,7 @@ export class BasicDoc implements OnInit {
                 ]
             },
             {
-                group: 'navigation',
+                group: 'Navigation',
                 items: [
                     { label: 'Go to Home', value: 'go to home' },
                     { label: 'Go Back', value: 'go back' },
@@ -119,7 +119,7 @@ export class BasicDoc implements OnInit {
                 ]
             },
             {
-                group: 'view',
+                group: 'View',
                 items: [
                     { label: 'Toggle Preview', value: 'toggle preview' },
                     { label: 'Maximize Window', value: 'maximize window' },
@@ -131,7 +131,7 @@ export class BasicDoc implements OnInit {
                 ]
             },
             {
-                group: 'tools',
+                group: 'Tools',
                 items: [
                     { label: 'Open Calculator', value: 'open calculator' },
                     { label: 'Open Calendar', value: 'open calendar' },

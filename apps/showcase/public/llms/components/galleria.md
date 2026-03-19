@@ -538,17 +538,17 @@ Galleria is an advanced content gallery component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| indicator | Signal<TemplateRef<GalleriaIndicatorTemplateContext>> | Custom indicator template. |
-| caption | Signal<TemplateRef<GalleriaCaptionTemplateContext<any>>> | Custom caption template. |
-| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
-| previousthumbnailicon | Signal<TemplateRef<void>> | Custom previous thumbnail icon template. |
-| nextthumbnailicon | Signal<TemplateRef<void>> | Custom next thumbnail icon template. |
-| itempreviousicon | Signal<TemplateRef<void>> | Custom item previous icon template. |
-| itemnexticon | Signal<TemplateRef<void>> | Custom item next icon template. |
-| item | Signal<TemplateRef<GalleriaItemTemplateContext<any>>> | Custom item template. |
-| thumbnail | Signal<TemplateRef<GalleriaThumbnailTemplateContext<any>>> | Custom thumbnail template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| indicator | TemplateRef<GalleriaIndicatorTemplateContext> | Custom indicator template. |
+| caption | TemplateRef<GalleriaCaptionTemplateContext<any>> | Custom caption template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| previousthumbnailicon | TemplateRef<void> | Custom previous thumbnail icon template. |
+| nextthumbnailicon | TemplateRef<void> | Custom next thumbnail icon template. |
+| itempreviousicon | TemplateRef<void> | Custom item previous icon template. |
+| itemnexticon | TemplateRef<void> | Custom item next icon template. |
+| item | TemplateRef<GalleriaItemTemplateContext<any>> | Custom item template. |
+| thumbnail | TemplateRef<GalleriaThumbnailTemplateContext<any>> | Custom thumbnail template. |
 
 ## Pass Through Options
 

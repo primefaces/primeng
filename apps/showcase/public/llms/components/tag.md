@@ -151,7 +151,7 @@ Tag component is used to categorize content.
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | Signal<TemplateRef<void>> | Custom icon template. |
+| icon | TemplateRef<void> | Custom icon template. |
 
 ## Pass Through Options
 

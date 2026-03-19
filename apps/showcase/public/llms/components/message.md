@@ -313,9 +313,9 @@ Message groups a collection of contents in tabs.
 
 | Name | Type | Description |
 |------|------|-------------|
-| container | Signal<TemplateRef<MessageContainerTemplateContext>> | Custom template of the message container. |
-| icon | Signal<TemplateRef<void>> | Custom template of the message icon. |
-| closeicon | Signal<TemplateRef<void>> | Custom template of the close icon. |
+| container | TemplateRef<MessageContainerTemplateContext> | Custom template of the message container. |
+| icon | TemplateRef<void> | Custom template of the message icon. |
+| closeicon | TemplateRef<void> | Custom template of the close icon. |
 
 ### Methods
 

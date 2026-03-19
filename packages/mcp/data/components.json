@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-18",
+  "generatedAt": "2026-03-19",
   "components": [
     {
       "name": "accordion",
@@ -1180,57 +1180,57 @@
         "templates": [
           {
             "name": "item",
-            "type": "Signal<TemplateRef<AutoCompleteItemTemplateContext<any>>>",
+            "type": "TemplateRef<AutoCompleteItemTemplateContext<any>>",
             "description": "Custom item template."
           },
           {
             "name": "empty",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty message template."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "selecteditem",
-            "type": "Signal<TemplateRef<AutoCompleteSelectedItemTemplateContext<any>>>",
+            "type": "TemplateRef<AutoCompleteSelectedItemTemplateContext<any>>",
             "description": "Custom selected item template."
           },
           {
             "name": "group",
-            "type": "Signal<TemplateRef<AutoCompleteGroupTemplateContext<any>>>",
+            "type": "TemplateRef<AutoCompleteGroupTemplateContext<any>>",
             "description": "Custom group template."
           },
           {
             "name": "loader",
-            "type": "Signal<TemplateRef<AutoCompleteLoaderTemplateContext>>",
+            "type": "TemplateRef<AutoCompleteLoaderTemplateContext>",
             "description": "Custom loader template."
           },
           {
             "name": "removeicon",
-            "type": "Signal<TemplateRef<AutoCompleteRemoveIconTemplateContext>>",
+            "type": "TemplateRef<AutoCompleteRemoveIconTemplateContext>",
             "description": "Custom remove icon template."
           },
           {
             "name": "loadingicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom loading icon template."
           },
           {
             "name": "clearicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom clear icon template."
           },
           {
             "name": "dropdownicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom dropdown icon template."
           }
         ],
@@ -2668,7 +2668,7 @@
         "templates": [
           {
             "name": "content",
-            "type": "Signal<TemplateRef<any>>",
+            "type": "TemplateRef<any>",
             "description": "Template of the content."
           }
         ],
@@ -2806,12 +2806,12 @@
         "templates": [
           {
             "name": "item",
-            "type": "Signal<TemplateRef<BreadcrumbItemTemplateContext>>",
+            "type": "TemplateRef<BreadcrumbItemTemplateContext>",
             "description": "Custom item template."
           },
           {
             "name": "separator",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom separator template."
           }
         ],
@@ -3373,17 +3373,17 @@
         "templates": [
           {
             "name": "content",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom content template."
           },
           {
             "name": "loadingicon",
-            "type": "Signal<TemplateRef<ButtonLoadingIconTemplateContext>>",
+            "type": "TemplateRef<ButtonLoadingIconTemplateContext>",
             "description": "Custom loading icon template."
           },
           {
             "name": "icon",
-            "type": "Signal<TemplateRef<ButtonIconTemplateContext>>",
+            "type": "TemplateRef<ButtonIconTemplateContext>",
             "description": "Custom icon template."
           }
         ],
@@ -4430,27 +4430,27 @@
         "templates": [
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "title",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom title template."
           },
           {
             "name": "subtitle",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom subtitle template."
           },
           {
             "name": "content",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom content template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           }
         ],
@@ -4795,27 +4795,27 @@
         "templates": [
           {
             "name": "item",
-            "type": "Signal<TemplateRef<CarouselItemTemplateContext<any>>>",
+            "type": "TemplateRef<CarouselItemTemplateContext<any>>",
             "description": "Custom item template."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "previousicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom previous icon template."
           },
           {
             "name": "nexticon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom next icon template."
           }
         ],
@@ -5478,42 +5478,42 @@
         "templates": [
           {
             "name": "value",
-            "type": "Signal<TemplateRef<CascadeSelectValueTemplateContext<any>>>",
+            "type": "TemplateRef<CascadeSelectValueTemplateContext<any>>",
             "description": "Custom value template."
           },
           {
             "name": "option",
-            "type": "Signal<TemplateRef<CascadeSelectOptionTemplateContext<any>>>",
+            "type": "TemplateRef<CascadeSelectOptionTemplateContext<any>>",
             "description": "Custom option template."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "triggericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom trigger icon template."
           },
           {
             "name": "loadingicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom loading icon template."
           },
           {
             "name": "groupicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom option group icon template."
           },
           {
             "name": "clearicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom clear icon template."
           }
         ],
@@ -6584,7 +6584,7 @@
         "templates": [
           {
             "name": "icon",
-            "type": "Signal<TemplateRef<CheckboxIconTemplateContext>>",
+            "type": "TemplateRef<CheckboxIconTemplateContext>",
             "description": "Custom checkbox icon template."
           }
         ],
@@ -6969,7 +6969,7 @@
         "templates": [
           {
             "name": "removeicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom remove icon template."
           }
         ],
@@ -7543,6 +7543,308 @@
       }
     },
     {
+      "name": "commandmenu",
+      "title": "Angular CommandMenu Component",
+      "description": "CommandMenu is a search-driven command palette component.",
+      "sections": [
+        {
+          "id": "accessibility",
+          "label": "Accessibility",
+          "description": "Screen Reader The search input has a combobox role with aria-expanded , aria-controls and aria-activedescendant attributes. The list element uses the listbox role and each item has an option role. Value to describe the component can be provided via ariaLabel prop.",
+          "examples": null
+        },
+        {
+          "id": "basic",
+          "label": "Basic",
+          "description": "CommandMenu requires a collection of options via the options property. Use group to display grouped commands with optionGroupLabel and optionGroupChildren .",
+          "examples": {
+            "typescript": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-commandmenu\n                [options]=\"commands\"\n                optionLabel=\"label\"\n                optionValue=\"value\"\n                [group]=\"true\"\n                optionGroupLabel=\"group\"\n                optionGroupChildren=\"items\"\n                optionKeywords=\"keywords\"\n                placeholder=\"Search for commands...\"\n                class=\"mx-auto\"\n                (onItemSelect)=\"onSelect($event)\"\n            >\n                <ng-template #empty>No results found</ng-template>\n                <ng-template #footer>\n                    <div class=\"flex items-center justify-end gap-3\">\n                        <span class=\"flex items-center gap-1 text-surface-500 text-xs\">\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\">\n                                <i class=\"pi pi-arrow-up text-[0.5rem]\"></i>\n                            </kbd>\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\">\n                                <i class=\"pi pi-arrow-down text-[0.5rem]\"></i>\n                            </kbd>\n                            Navigate\n                        </span>\n                        <span class=\"flex items-center gap-1 text-surface-500 text-xs\">\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\"> &#x21B5; </kbd>\n                            Select\n                        </span>\n                    </div>\n                </ng-template>\n            </p-commandmenu>\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class CommandmenuBasicDemo implements OnInit {\n    commands!: any[];\n\n    ngOnInit() {\n        this.commands = [\n            {\n                group: 'Recents',\n                items: [\n                    { label: 'Check For Updates', value: 'check for updates', keywords: ['check', 'updates'] },\n                    { label: 'Open Settings', value: 'open settings' },\n                    { label: 'Search Files', value: 'search files' },\n                    { label: 'Open Terminal', value: 'open terminal' },\n                    { label: 'View History', value: 'view history', keywords: ['history', 'recent'] },\n                    { label: 'Open Chat', value: 'open chat' }\n                ]\n            },\n            {\n                group: 'Files',\n                items: [\n                    { label: 'New File', value: 'new file' },\n                    { label: 'New Folder', value: 'new folder' },\n                    { label: 'Save All', value: 'save-all' },\n                    { label: 'Change Theme', value: 'change theme' },\n                    { label: 'Run Task', value: 'run-task' },\n                    { label: 'Stop Task', value: 'stop task' },\n                    { label: 'Export Project', value: 'export project' },\n                    { label: 'Import Project', value: 'import project' },\n                    { label: 'Delete File', value: 'delete file' },\n                    { label: 'Duplicate File', value: 'duplicate file' }\n                ]\n            },\n            {\n                group: 'Source',\n                items: [\n                    { label: 'Git: Commit', value: 'git commit' },\n                    { label: 'Git: Push', value: 'git push' },\n                    { label: 'Git: Pull', value: 'git pull' },\n                    { label: 'Switch Account', value: 'switch account' },\n                    { label: 'Open Documentation', value: 'open documentation' },\n                    { label: 'Git: Sync', value: 'git sync' },\n                    { label: 'Git: Create Branch', value: 'git create branch' },\n                    { label: 'Git: Create Tag', value: 'git create tag' }\n                ]\n            },\n            {\n                group: 'Editor',\n                items: [\n                    { label: 'Align Left', value: 'align left' },\n                    { label: 'Align Center', value: 'align center' },\n                    { label: 'Align Right', value: 'align right' },\n                    { label: 'Toggle Bold', value: 'toggle bold' },\n                    { label: 'Toggle Italic', value: 'toggle italic' },\n                    { label: 'Insert Link', value: 'insert link' },\n                    { label: 'Insert Image', value: 'insert image' },\n                    { label: 'Insert List', value: 'insert list' }\n                ]\n            },\n            {\n                group: 'Navigation',\n                items: [\n                    { label: 'Go to Home', value: 'go to home' },\n                    { label: 'Go Back', value: 'go back' },\n                    { label: 'Go Forward', value: 'go forward' },\n                    { label: 'Open Explorer', value: 'open explorer' },\n                    { label: 'View Bookmarks', value: 'view bookmarks' },\n                    { label: 'Open Minimap', value: 'open minimap' }\n                ]\n            },\n            {\n                group: 'View',\n                items: [\n                    { label: 'Toggle Preview', value: 'toggle preview' },\n                    { label: 'Maximize Window', value: 'maximize window' },\n                    { label: 'Minimize Window', value: 'minimize window' },\n                    { label: 'Grid View', value: 'grid view' },\n                    { label: 'List View', value: 'list view' },\n                    { label: 'Light Mode', value: 'light mode' },\n                    { label: 'Dark Mode', value: 'dark mode' }\n                ]\n            },\n            {\n                group: 'Tools',\n                items: [\n                    { label: 'Open Calculator', value: 'open calculator' },\n                    { label: 'Open Calendar', value: 'open calendar' },\n                    { label: 'Open Timer', value: 'open timer' },\n                    { label: 'View Analytics', value: 'view analytics' },\n                    { label: 'View Trends', value: 'view trends' },\n                    { label: 'Open Database', value: 'open database' }\n                ]\n            }\n        ];\n    }\n\n    onSelect(event: any) {\n        console.log('Selected:', event.value);\n    }\n}"
+          }
+        },
+        {
+          "id": "controlled",
+          "label": "Controlled",
+          "description": "The search value can be controlled with two-way binding using [(search)] . An empty template customizes the message when no results are found.",
+          "examples": {
+            "typescript": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-commandmenu\n                [options]=\"commands\"\n                optionLabel=\"label\"\n                optionValue=\"value\"\n                [group]=\"true\"\n                optionGroupLabel=\"group\"\n                optionGroupChildren=\"items\"\n                optionKeywords=\"keywords\"\n                [(search)]=\"searchValue\"\n                placeholder=\"Search for commands...\"\n                class=\"mx-auto\"\n                (onItemSelect)=\"onSelect($event)\"\n            >\n                <ng-template #empty let-search>\n                    No results found for <span class=\"text-surface-900 dark:text-surface-0\">\"{{ search }}\"</span>\n                </ng-template>\n                <ng-template #footer>\n                    <div class=\"flex items-center justify-end gap-3\">\n                        <span class=\"flex items-center gap-1 text-surface-500 text-xs\">\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\">\n                                <i class=\"pi pi-arrow-up text-[0.5rem]\"></i>\n                            </kbd>\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\">\n                                <i class=\"pi pi-arrow-down text-[0.5rem]\"></i>\n                            </kbd>\n                            Navigate\n                        </span>\n                        <span class=\"flex items-center gap-1 text-surface-500 text-xs\">\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\"> &#x21B5; </kbd>\n                            Select\n                        </span>\n                    </div>\n                </ng-template>\n            </p-commandmenu>\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class CommandmenuControlledDemo implements OnInit {\n    commands!: any[];\n    searchValue: string = '';\n\n    ngOnInit() {\n        this.commands = [\n            {\n                group: 'Recents',\n                items: [\n                    { label: 'Check For Updates', value: 'check for updates', keywords: ['check', 'updates'] },\n                    { label: 'Open Settings', value: 'open settings' },\n                    { label: 'Search Files', value: 'search files' },\n                    { label: 'Open Terminal', value: 'open terminal' },\n                    { label: 'View History', value: 'view history', keywords: ['history', 'recent'] },\n                    { label: 'Open Chat', value: 'open chat' }\n                ]\n            },\n            {\n                group: 'Files',\n                items: [\n                    { label: 'New File', value: 'new file' },\n                    { label: 'New Folder', value: 'new folder' },\n                    { label: 'Save All', value: 'save-all' },\n                    { label: 'Change Theme', value: 'change theme' },\n                    { label: 'Run Task', value: 'run-task' },\n                    { label: 'Stop Task', value: 'stop task' },\n                    { label: 'Export Project', value: 'export project' },\n                    { label: 'Import Project', value: 'import project' },\n                    { label: 'Delete File', value: 'delete file' },\n                    { label: 'Duplicate File', value: 'duplicate file' }\n                ]\n            },\n            {\n                group: 'Source',\n                items: [\n                    { label: 'Git: Commit', value: 'git commit' },\n                    { label: 'Git: Push', value: 'git push' },\n                    { label: 'Git: Pull', value: 'git pull' },\n                    { label: 'Switch Account', value: 'switch account' },\n                    { label: 'Open Documentation', value: 'open documentation' },\n                    { label: 'Git: Sync', value: 'git sync' },\n                    { label: 'Git: Create Branch', value: 'git create branch' },\n                    { label: 'Git: Create Tag', value: 'git create tag' }\n                ]\n            },\n            {\n                group: 'Editor',\n                items: [\n                    { label: 'Align Left', value: 'align left' },\n                    { label: 'Align Center', value: 'align center' },\n                    { label: 'Align Right', value: 'align right' },\n                    { label: 'Toggle Bold', value: 'toggle bold' },\n                    { label: 'Toggle Italic', value: 'toggle italic' },\n                    { label: 'Insert Link', value: 'insert link' },\n                    { label: 'Insert Image', value: 'insert image' },\n                    { label: 'Insert List', value: 'insert list' }\n                ]\n            },\n            {\n                group: 'Navigation',\n                items: [\n                    { label: 'Go to Home', value: 'go to home' },\n                    { label: 'Go Back', value: 'go back' },\n                    { label: 'Go Forward', value: 'go forward' },\n                    { label: 'Open Explorer', value: 'open explorer' },\n                    { label: 'View Bookmarks', value: 'view bookmarks' },\n                    { label: 'Open Minimap', value: 'open minimap' }\n                ]\n            },\n            {\n                group: 'View',\n                items: [\n                    { label: 'Toggle Preview', value: 'toggle preview' },\n                    { label: 'Maximize Window', value: 'maximize window' },\n                    { label: 'Minimize Window', value: 'minimize window' },\n                    { label: 'Grid View', value: 'grid view' },\n                    { label: 'List View', value: 'list view' },\n                    { label: 'Light Mode', value: 'light mode' },\n                    { label: 'Dark Mode', value: 'dark mode' }\n                ]\n            },\n            {\n                group: 'Tools',\n                items: [\n                    { label: 'Open Calculator', value: 'open calculator' },\n                    { label: 'Open Calendar', value: 'open calendar' },\n                    { label: 'Open Timer', value: 'open timer' },\n                    { label: 'View Analytics', value: 'view analytics' },\n                    { label: 'View Trends', value: 'view trends' },\n                    { label: 'Open Database', value: 'open database' }\n                ]\n            }\n        ];\n    }\n\n    onSelect(event: any) {\n        console.log('Selected:', event.value);\n    }\n}"
+          }
+        },
+        {
+          "id": "custom",
+          "label": "Custom",
+          "description": "Custom content can be displayed for each item using the item template.",
+          "examples": {
+            "typescript": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-commandmenu\n                [options]=\"commands\"\n                optionLabel=\"label\"\n                optionValue=\"value\"\n                [group]=\"true\"\n                optionGroupLabel=\"group\"\n                optionGroupChildren=\"items\"\n                optionKeywords=\"keywords\"\n                placeholder=\"Search for commands...\"\n                class=\"mx-auto\"\n                (onItemSelect)=\"onSelect($event)\"\n            >\n                <ng-template #item let-item>\n                    <div class=\"flex items-center gap-3.5 w-full\">\n                        <span [class]=\"'w-5 h-5 rounded-md flex items-center justify-center text-white ' + item.color\">\n                            <i [class]=\"'pi ' + item.icon + ' text-xs font-bold'\"></i>\n                        </span>\n                        <span>{{ item.label }}</span>\n                        <span class=\"opacity-50 ml-auto\">{{ item.category }}</span>\n                    </div>\n                </ng-template>\n                <ng-template #empty>No results found</ng-template>\n                <ng-template #footer>\n                    <div class=\"flex items-center justify-end gap-3\">\n                        <span class=\"flex items-center gap-1 text-surface-500 text-xs\">\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\">\n                                <i class=\"pi pi-arrow-up text-[0.5rem]\"></i>\n                            </kbd>\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\">\n                                <i class=\"pi pi-arrow-down text-[0.5rem]\"></i>\n                            </kbd>\n                            Navigate\n                        </span>\n                        <span class=\"flex items-center gap-1 text-surface-500 text-xs\">\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\"> &#x21B5; </kbd>\n                            Select\n                        </span>\n                    </div>\n                </ng-template>\n            </p-commandmenu>\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class CommandmenuCustomDemo implements OnInit {\n    commands!: any[];\n\n    ngOnInit() {\n        this.commands = [\n            {\n                group: 'Recents',\n                items: [\n                    { icon: 'pi-refresh', label: 'Check For Updates', category: 'Command', color: 'bg-[linear-gradient(rgb(245,83,84),rgb(235,70,70))]', value: 'check for updates', keywords: ['check', 'updates'] },\n                    { icon: 'pi-cog', label: 'Open Settings', category: 'Command', color: 'bg-[linear-gradient(rgb(96,165,250),rgb(59,130,246))]', value: 'open settings' },\n                    { icon: 'pi-search', label: 'Search Files', category: 'Command', color: 'bg-[linear-gradient(rgb(167,139,250),rgb(139,92,246))]', value: 'search files' },\n                    { icon: 'pi-terminal', label: 'Open Terminal', category: 'View', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'open terminal' },\n                    { icon: 'pi-history', label: 'View History', category: 'View', color: 'bg-[linear-gradient(rgb(192,132,252),rgb(168,85,247))]', value: 'view history', keywords: ['history', 'recent'] },\n                    { icon: 'pi-comments', label: 'Open Chat', category: 'Communication', color: 'bg-[linear-gradient(rgb(34,211,238),rgb(6,182,212))]', value: 'open chat' }\n                ]\n            },\n            {\n                group: 'Files',\n                items: [\n                    { icon: 'pi-file', label: 'New File', category: 'File', color: 'bg-[linear-gradient(rgb(52,211,153),rgb(16,185,129))]', value: 'new file' },\n                    { icon: 'pi-folder', label: 'New Folder', category: 'File', color: 'bg-[linear-gradient(rgb(251,191,36),rgb(245,158,11))]', value: 'new folder' },\n                    { icon: 'pi-save', label: 'Save All', category: 'File', color: 'bg-[linear-gradient(rgb(34,197,94),rgb(22,163,74))]', value: 'save-all' },\n                    { icon: 'pi-palette', label: 'Change Theme', category: 'Appearance', color: 'bg-[linear-gradient(rgb(251,146,60),rgb(249,115,22))]', value: 'change theme' },\n                    { icon: 'pi-play', label: 'Run Task', category: 'Command', color: 'bg-[linear-gradient(rgb(34,197,94),rgb(21,128,61))]', value: 'run-task' },\n                    { icon: 'pi-stop', label: 'Stop Task', category: 'Command', color: 'bg-[linear-gradient(rgb(239,68,68),rgb(220,38,38))]', value: 'stop task' },\n                    { icon: 'pi-file-export', label: 'Export Project', category: 'File', color: 'bg-[linear-gradient(rgb(147,51,234),rgb(126,34,206))]', value: 'export project' },\n                    { icon: 'pi-file-import', label: 'Import Project', category: 'File', color: 'bg-[linear-gradient(rgb(99,102,241),rgb(79,70,229))]', value: 'import project' },\n                    { icon: 'pi-trash', label: 'Delete File', category: 'File', color: 'bg-[linear-gradient(rgb(239,68,68),rgb(185,28,28))]', value: 'delete file' },\n                    { icon: 'pi-copy', label: 'Duplicate File', category: 'File', color: 'bg-[linear-gradient(rgb(156,163,175),rgb(107,114,128))]', value: 'duplicate file' }\n                ]\n            },\n            {\n                group: 'Source',\n                items: [\n                    { icon: 'pi-git', label: 'Git: Commit', category: 'Source Control', color: 'bg-[linear-gradient(rgb(249,115,22),rgb(234,88,12))]', value: 'git commit' },\n                    { icon: 'pi-upload', label: 'Git: Push', category: 'Source Control', color: 'bg-[linear-gradient(rgb(14,165,233),rgb(2,132,199))]', value: 'git push' },\n                    { icon: 'pi-download', label: 'Git: Pull', category: 'Source Control', color: 'bg-[linear-gradient(rgb(59,130,246),rgb(37,99,235))]', value: 'git pull' },\n                    { icon: 'pi-users', label: 'Switch Account', category: 'Account', color: 'bg-[linear-gradient(rgb(236,72,153),rgb(219,39,119))]', value: 'switch account' },\n                    { icon: 'pi-book', label: 'Open Documentation', category: 'Help', color: 'bg-[linear-gradient(rgb(147,197,253),rgb(96,165,250))]', value: 'open documentation' },\n                    { icon: 'pi-sync', label: 'Git: Sync', category: 'Source Control', color: 'bg-[linear-gradient(rgb(74,222,128),rgb(34,197,94))]', value: 'git sync' },\n                    { icon: 'pi-code-branch', label: 'Git: Create Branch', category: 'Source Control', color: 'bg-[linear-gradient(rgb(251,146,60),rgb(249,115,22))]', value: 'git create branch' },\n                    { icon: 'pi-tag', label: 'Git: Create Tag', category: 'Source Control', color: 'bg-[linear-gradient(rgb(196,181,253),rgb(167,139,250))]', value: 'git create tag' }\n                ]\n            },\n            {\n                group: 'Editor',\n                items: [\n                    { icon: 'pi-align-left', label: 'Align Left', category: 'Editor', color: 'bg-[linear-gradient(rgb(147,197,253),rgb(59,130,246))]', value: 'align left' },\n                    { icon: 'pi-align-center', label: 'Align Center', category: 'Editor', color: 'bg-[linear-gradient(rgb(147,197,253),rgb(59,130,246))]', value: 'align center' },\n                    { icon: 'pi-align-right', label: 'Align Right', category: 'Editor', color: 'bg-[linear-gradient(rgb(147,197,253),rgb(59,130,246))]', value: 'align right' },\n                    { icon: 'pi-bold', label: 'Toggle Bold', category: 'Editor', color: 'bg-[linear-gradient(rgb(30,41,59),rgb(15,23,42))]', value: 'toggle bold' },\n                    { icon: 'pi-italic', label: 'Toggle Italic', category: 'Editor', color: 'bg-[linear-gradient(rgb(71,85,105),rgb(51,65,85))]', value: 'toggle italic' },\n                    { icon: 'pi-link', label: 'Insert Link', category: 'Editor', color: 'bg-[linear-gradient(rgb(59,130,246),rgb(37,99,235))]', value: 'insert link' },\n                    { icon: 'pi-image', label: 'Insert Image', category: 'Editor', color: 'bg-[linear-gradient(rgb(168,85,247),rgb(147,51,234))]', value: 'insert image' },\n                    { icon: 'pi-list', label: 'Insert List', category: 'Editor', color: 'bg-[linear-gradient(rgb(34,197,94),rgb(22,163,74))]', value: 'insert list' }\n                ]\n            },\n            {\n                group: 'Navigation',\n                items: [\n                    { icon: 'pi-home', label: 'Go to Home', category: 'Navigation', color: 'bg-[linear-gradient(rgb(96,165,250),rgb(59,130,246))]', value: 'go to home' },\n                    { icon: 'pi-arrow-left', label: 'Go Back', category: 'Navigation', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'go back' },\n                    { icon: 'pi-arrow-right', label: 'Go Forward', category: 'Navigation', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'go forward' },\n                    { icon: 'pi-compass', label: 'Open Explorer', category: 'Navigation', color: 'bg-[linear-gradient(rgb(251,191,36),rgb(245,158,11))]', value: 'open explorer' },\n                    { icon: 'pi-bookmark', label: 'View Bookmarks', category: 'Navigation', color: 'bg-[linear-gradient(rgb(249,115,22),rgb(234,88,12))]', value: 'view bookmarks' },\n                    { icon: 'pi-map', label: 'Open Minimap', category: 'Navigation', color: 'bg-[linear-gradient(rgb(52,211,153),rgb(16,185,129))]', value: 'open minimap' }\n                ]\n            },\n            {\n                group: 'View',\n                items: [\n                    { icon: 'pi-eye', label: 'Toggle Preview', category: 'View', color: 'bg-[linear-gradient(rgb(147,51,234),rgb(126,34,206))]', value: 'toggle preview' },\n                    { icon: 'pi-window-maximize', label: 'Maximize Window', category: 'View', color: 'bg-[linear-gradient(rgb(100,116,139),rgb(71,85,105))]', value: 'maximize window' },\n                    { icon: 'pi-window-minimize', label: 'Minimize Window', category: 'View', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'minimize window' },\n                    { icon: 'pi-th-large', label: 'Grid View', category: 'View', color: 'bg-[linear-gradient(rgb(34,197,94),rgb(22,163,74))]', value: 'grid view' },\n                    { icon: 'pi-bars', label: 'List View', category: 'View', color: 'bg-[linear-gradient(rgb(59,130,246),rgb(37,99,235))]', value: 'list view' },\n                    { icon: 'pi-sun', label: 'Light Mode', category: 'View', color: 'bg-[linear-gradient(rgb(253,224,71),rgb(250,204,21))]', value: 'light mode' },\n                    { icon: 'pi-moon', label: 'Dark Mode', category: 'View', color: 'bg-[linear-gradient(rgb(30,41,59),rgb(15,23,42))]', value: 'dark mode' }\n                ]\n            },\n            {\n                group: 'Tools',\n                items: [\n                    { icon: 'pi-calculator', label: 'Open Calculator', category: 'Tools', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'open calculator' },\n                    { icon: 'pi-calendar', label: 'Open Calendar', category: 'Tools', color: 'bg-[linear-gradient(rgb(96,165,250),rgb(59,130,246))]', value: 'open calendar' },\n                    { icon: 'pi-clock', label: 'Open Timer', category: 'Tools', color: 'bg-[linear-gradient(rgb(251,146,60),rgb(249,115,22))]', value: 'open timer' },\n                    { icon: 'pi-chart-bar', label: 'View Analytics', category: 'Tools', color: 'bg-[linear-gradient(rgb(34,197,94),rgb(22,163,74))]', value: 'view analytics' },\n                    { icon: 'pi-chart-line', label: 'View Trends', category: 'Tools', color: 'bg-[linear-gradient(rgb(59,130,246),rgb(37,99,235))]', value: 'view trends' },\n                    { icon: 'pi-database', label: 'Open Database', category: 'Tools', color: 'bg-[linear-gradient(rgb(168,85,247),rgb(147,51,234))]', value: 'open database' }\n                ]\n            }\n        ];\n    }\n\n    onSelect(event: any) {\n        console.log('Selected:', event.value);\n    }\n}"
+          }
+        },
+        {
+          "id": "filter",
+          "label": "Filter",
+          "description": "A custom filter function can be provided with the filter property. The function receives the label, search term, and optional keywords, and should return a score (0 means no match).",
+          "examples": {
+            "typescript": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-commandmenu\n                [options]=\"commands\"\n                optionLabel=\"label\"\n                optionValue=\"value\"\n                [group]=\"true\"\n                optionGroupLabel=\"group\"\n                optionGroupChildren=\"items\"\n                optionKeywords=\"keywords\"\n                [filter]=\"fuzzyFilter\"\n                placeholder=\"Search for commands...\"\n                class=\"mx-auto\"\n                (onItemSelect)=\"onSelect($event)\"\n            >\n                <ng-template #empty>No results found.</ng-template>\n                <ng-template #footer>\n                    <div class=\"flex items-center justify-end gap-3\">\n                        <span class=\"flex items-center gap-1 text-surface-500 text-xs\">\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\">\n                                <i class=\"pi pi-arrow-up text-[0.5rem]\"></i>\n                            </kbd>\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\">\n                                <i class=\"pi pi-arrow-down text-[0.5rem]\"></i>\n                            </kbd>\n                            Navigate\n                        </span>\n                        <span class=\"flex items-center gap-1 text-surface-500 text-xs\">\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\"> &#x21B5; </kbd>\n                            Select\n                        </span>\n                    </div>\n                </ng-template>\n            </p-commandmenu>\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class CommandmenuFilterDemo implements OnInit {\n    commands!: any[];\n\n    ngOnInit() {\n        this.commands = [\n            {\n                group: 'Recents',\n                items: [\n                    { label: 'Check For Updates', value: 'check for updates', keywords: ['check', 'updates'] },\n                    { label: 'Open Settings', value: 'open settings' },\n                    { label: 'Search Files', value: 'search files' },\n                    { label: 'Open Terminal', value: 'open terminal' },\n                    { label: 'View History', value: 'view history', keywords: ['history', 'recent'] },\n                    { label: 'Open Chat', value: 'open chat' }\n                ]\n            },\n            {\n                group: 'Files',\n                items: [\n                    { label: 'New File', value: 'new file' },\n                    { label: 'New Folder', value: 'new folder' },\n                    { label: 'Save All', value: 'save-all' },\n                    { label: 'Change Theme', value: 'change theme' },\n                    { label: 'Run Task', value: 'run-task' },\n                    { label: 'Stop Task', value: 'stop task' },\n                    { label: 'Export Project', value: 'export project' },\n                    { label: 'Import Project', value: 'import project' },\n                    { label: 'Delete File', value: 'delete file' },\n                    { label: 'Duplicate File', value: 'duplicate file' }\n                ]\n            },\n            {\n                group: 'Source',\n                items: [\n                    { label: 'Git: Commit', value: 'git commit' },\n                    { label: 'Git: Push', value: 'git push' },\n                    { label: 'Git: Pull', value: 'git pull' },\n                    { label: 'Switch Account', value: 'switch account' },\n                    { label: 'Open Documentation', value: 'open documentation' },\n                    { label: 'Git: Sync', value: 'git sync' },\n                    { label: 'Git: Create Branch', value: 'git create branch' },\n                    { label: 'Git: Create Tag', value: 'git create tag' }\n                ]\n            },\n            {\n                group: 'Editor',\n                items: [\n                    { label: 'Align Left', value: 'align left' },\n                    { label: 'Align Center', value: 'align center' },\n                    { label: 'Align Right', value: 'align right' },\n                    { label: 'Toggle Bold', value: 'toggle bold' },\n                    { label: 'Toggle Italic', value: 'toggle italic' },\n                    { label: 'Insert Link', value: 'insert link' },\n                    { label: 'Insert Image', value: 'insert image' },\n                    { label: 'Insert List', value: 'insert list' }\n                ]\n            },\n            {\n                group: 'Navigation',\n                items: [\n                    { label: 'Go to Home', value: 'go to home' },\n                    { label: 'Go Back', value: 'go back' },\n                    { label: 'Go Forward', value: 'go forward' },\n                    { label: 'Open Explorer', value: 'open explorer' },\n                    { label: 'View Bookmarks', value: 'view bookmarks' },\n                    { label: 'Open Minimap', value: 'open minimap' }\n                ]\n            },\n            {\n                group: 'View',\n                items: [\n                    { label: 'Toggle Preview', value: 'toggle preview' },\n                    { label: 'Maximize Window', value: 'maximize window' },\n                    { label: 'Minimize Window', value: 'minimize window' },\n                    { label: 'Grid View', value: 'grid view' },\n                    { label: 'List View', value: 'list view' },\n                    { label: 'Light Mode', value: 'light mode' },\n                    { label: 'Dark Mode', value: 'dark mode' }\n                ]\n            },\n            {\n                group: 'Tools',\n                items: [\n                    { label: 'Open Calculator', value: 'open calculator' },\n                    { label: 'Open Calendar', value: 'open calendar' },\n                    { label: 'Open Timer', value: 'open timer' },\n                    { label: 'View Analytics', value: 'view analytics' },\n                    { label: 'View Trends', value: 'view trends' },\n                    { label: 'Open Database', value: 'open database' }\n                ]\n            }\n        ];\n    }\n\n    fuzzyFilter(value: string, search: string): number {\n        if (!search) return 1;\n        \n        value = value.toLowerCase();\n        search = search.toLowerCase();\n        \n        let tIndex = 0;\n        let sIndex = 0;\n        let score = 0;\n        \n        while (tIndex < value.length && sIndex < search.length) {\n            if (value[tIndex] === search[sIndex]) {\n                score += 1;\n                sIndex++;\n            }\n        \n            tIndex++;\n        }\n        \n        return sIndex === search.length ? score / value.length : 0;\n    }\n\n    onSelect(event: any) {\n        console.log('Selected:', event.value);\n    }\n}"
+          }
+        },
+        {
+          "id": "with-dialog",
+          "label": "With Dialog",
+          "description": "CommandMenu can be used inside a Dialog to create a command palette experience. Press Ctrl+K (or Cmd+K on Mac) to open.",
+          "examples": {
+            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { Dialog, DialogModule } from 'primeng/dialog';\n\n@Component({\n    template: `\n        <div class=\"flex items-center justify-center py-8\">\n            <span class=\"cursor-pointer\" (click)=\"visible = true\">\n                Press\n                <kbd class=\"bg-surface-100 dark:bg-surface-950 px-2 py-1 rounded-md border border-surface-200 dark:border-surface-700/50 text-sm ml-2\"> CTRL/⌘ + K </kbd>\n            </span>\n        </div>\n        <p-dialog [(visible)]=\"visible\" [modal]=\"true\" [showHeader]=\"false\" styleClass=\"overflow-hidden max-w-md w-full\" [dismissableMask]=\"true\" [contentStyle]=\"{ padding: '0' }\" (onShow)=\"onDialogShow()\">\n            <p-commandmenu\n                [options]=\"commands\"\n                optionLabel=\"label\"\n                optionValue=\"value\"\n                [group]=\"true\"\n                optionGroupLabel=\"group\"\n                optionGroupChildren=\"items\"\n                optionKeywords=\"keywords\"\n                [(search)]=\"searchValue\"\n                placeholder=\"Search for commands...\"\n                class=\"w-full rounded-none border-none\"\n            >\n                <ng-template #empty let-search>\n                    No results found for <span class=\"text-surface-900 dark:text-surface-0\">\"{{ search }}\"</span>\n                </ng-template>\n                <ng-template #footer>\n                    <div class=\"flex items-center justify-end gap-3\">\n                        <span class=\"flex items-center gap-1 text-surface-500 text-xs\">\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\">\n                                <i class=\"pi pi-arrow-up text-[0.5rem]\"></i>\n                            </kbd>\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\">\n                                <i class=\"pi pi-arrow-down text-[0.5rem]\"></i>\n                            </kbd>\n                            Navigate\n                        </span>\n                        <span class=\"flex items-center gap-1 text-surface-500 text-xs\">\n                            <kbd class=\"bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700\"> &#x21B5; </kbd>\n                            Select\n                        </span>\n                    </div>\n                </ng-template>\n            </p-commandmenu>\n        </p-dialog>\n    `,\n    standalone: true,\n    imports: [DialogModule]\n})\nexport class CommandmenuWithDialogDemo implements OnInit {\n    visible: boolean = false;\n    searchValue: string = '';\n    commands!: any[];\n\n    ngOnInit() {\n        this.commands = [\n            {\n                group: 'Recents',\n                items: [\n                    { label: 'Check For Updates', value: 'check for updates', keywords: ['check', 'updates'] },\n                    { label: 'Open Settings', value: 'open settings' },\n                    { label: 'Search Files', value: 'search files' },\n                    { label: 'Open Terminal', value: 'open terminal' },\n                    { label: 'View History', value: 'view history', keywords: ['history', 'recent'] },\n                    { label: 'Open Chat', value: 'open chat' }\n                ]\n            },\n            {\n                group: 'Files',\n                items: [\n                    { label: 'New File', value: 'new file' },\n                    { label: 'New Folder', value: 'new folder' },\n                    { label: 'Save All', value: 'save-all' },\n                    { label: 'Change Theme', value: 'change theme' },\n                    { label: 'Run Task', value: 'run-task' },\n                    { label: 'Stop Task', value: 'stop task' },\n                    { label: 'Export Project', value: 'export project' },\n                    { label: 'Import Project', value: 'import project' },\n                    { label: 'Delete File', value: 'delete file' },\n                    { label: 'Duplicate File', value: 'duplicate file' }\n                ]\n            },\n            {\n                group: 'Source',\n                items: [\n                    { label: 'Git: Commit', value: 'git commit' },\n                    { label: 'Git: Push', value: 'git push' },\n                    { label: 'Git: Pull', value: 'git pull' },\n                    { label: 'Switch Account', value: 'switch account' },\n                    { label: 'Open Documentation', value: 'open documentation' },\n                    { label: 'Git: Sync', value: 'git sync' },\n                    { label: 'Git: Create Branch', value: 'git create branch' },\n                    { label: 'Git: Create Tag', value: 'git create tag' }\n                ]\n            },\n            {\n                group: 'Editor',\n                items: [\n                    { label: 'Align Left', value: 'align left' },\n                    { label: 'Align Center', value: 'align center' },\n                    { label: 'Align Right', value: 'align right' },\n                    { label: 'Toggle Bold', value: 'toggle bold' },\n                    { label: 'Toggle Italic', value: 'toggle italic' },\n                    { label: 'Insert Link', value: 'insert link' },\n                    { label: 'Insert Image', value: 'insert image' },\n                    { label: 'Insert List', value: 'insert list' }\n                ]\n            },\n            {\n                group: 'Navigation',\n                items: [\n                    { label: 'Go to Home', value: 'go to home' },\n                    { label: 'Go Back', value: 'go back' },\n                    { label: 'Go Forward', value: 'go forward' },\n                    { label: 'Open Explorer', value: 'open explorer' },\n                    { label: 'View Bookmarks', value: 'view bookmarks' },\n                    { label: 'Open Minimap', value: 'open minimap' }\n                ]\n            },\n            {\n                group: 'View',\n                items: [\n                    { label: 'Toggle Preview', value: 'toggle preview' },\n                    { label: 'Maximize Window', value: 'maximize window' },\n                    { label: 'Minimize Window', value: 'minimize window' },\n                    { label: 'Grid View', value: 'grid view' },\n                    { label: 'List View', value: 'list view' },\n                    { label: 'Light Mode', value: 'light mode' },\n                    { label: 'Dark Mode', value: 'dark mode' }\n                ]\n            },\n            {\n                group: 'Tools',\n                items: [\n                    { label: 'Open Calculator', value: 'open calculator' },\n                    { label: 'Open Calendar', value: 'open calendar' },\n                    { label: 'Open Timer', value: 'open timer' },\n                    { label: 'View Analytics', value: 'view analytics' },\n                    { label: 'View Trends', value: 'view trends' },\n                    { label: 'Open Database', value: 'open database' }\n                ]\n            }\n        ];\n    }\n\n    handleKeyboardEvent(event: KeyboardEvent) {\n        if ((event.metaKey || event.ctrlKey) && event.key === 'k') {\n            event.preventDefault();\n            this.visible = !this.visible;\n        }\n    }\n\n    onDialogShow() {\n        this.commandmenu.focusInput();\n    }\n}"
+          }
+        }
+      ],
+      "api": {
+        "props": [
+          {
+            "name": "dt",
+            "type": "Object",
+            "default": "undefined",
+            "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "boolean",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
+            "name": "pt",
+            "type": "PassThrough<I, CommandMenuPassThroughOptions<I>>",
+            "default": "undefined",
+            "description": "Used to pass attributes to DOM elements inside the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "ptOptions",
+            "type": "PassThroughOptions",
+            "default": "undefined",
+            "description": "Used to configure passthrough(pt) options of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "options",
+            "type": "any[]",
+            "default": "-",
+            "description": "An array of objects to display.",
+            "deprecated": ""
+          },
+          {
+            "name": "optionLabel",
+            "type": "string",
+            "default": "-",
+            "description": "Name of the label field of an option.",
+            "deprecated": ""
+          },
+          {
+            "name": "optionValue",
+            "type": "string",
+            "default": "-",
+            "description": "Name of the value field of an option.",
+            "deprecated": ""
+          },
+          {
+            "name": "optionDisabled",
+            "type": "string | ((item: any) => boolean)",
+            "default": "-",
+            "description": "Name of the disabled field of an option or function to determine disabled state.",
+            "deprecated": ""
+          },
+          {
+            "name": "optionGroupLabel",
+            "type": "string",
+            "default": "'label'",
+            "description": "Name of the label field of an option group.",
+            "deprecated": ""
+          },
+          {
+            "name": "optionGroupChildren",
+            "type": "string",
+            "default": "'items'",
+            "description": "Name of the options field of an option group.",
+            "deprecated": ""
+          },
+          {
+            "name": "optionKeywords",
+            "type": "string",
+            "default": "-",
+            "description": "Name of the keywords field of an option used for searching.",
+            "deprecated": ""
+          },
+          {
+            "name": "search",
+            "type": "string",
+            "default": "-",
+            "description": "Two-way bound search value.",
+            "deprecated": ""
+          },
+          {
+            "name": "selectOnHover",
+            "type": "boolean",
+            "default": "true",
+            "description": "Whether to highlight option on hover.",
+            "deprecated": ""
+          },
+          {
+            "name": "loop",
+            "type": "boolean",
+            "default": "false",
+            "description": "Whether keyboard navigation should loop from end to start.",
+            "deprecated": ""
+          },
+          {
+            "name": "group",
+            "type": "boolean",
+            "default": "-",
+            "description": "Whether to display options as grouped.",
+            "deprecated": ""
+          },
+          {
+            "name": "emptyMessage",
+            "type": "string",
+            "default": "'No results found.'",
+            "description": "Text to display when there are no results.",
+            "deprecated": ""
+          },
+          {
+            "name": "filter",
+            "type": "(label: string, search: string, keywords?: string[]) => number",
+            "default": "-",
+            "description": "Custom filter function. Receives (label, search, keywords?) and returns a number (0 = no match).",
+            "deprecated": ""
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "default": "-",
+            "description": "Placeholder text for the search input.",
+            "deprecated": ""
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string",
+            "default": "-",
+            "description": "Defines a string that labels the input for accessibility.",
+            "deprecated": ""
+          }
+        ],
+        "templates": [
+          {
+            "name": "item",
+            "type": "TemplateRef<CommandMenuItemTemplateContext<any>>",
+            "description": "Custom item template."
+          },
+          {
+            "name": "group",
+            "type": "TemplateRef<CommandMenuGroupTemplateContext<any>>",
+            "description": "Custom group template."
+          },
+          {
+            "name": "header",
+            "type": "TemplateRef<CommandMenuHeaderTemplateContext>",
+            "description": "Custom header template."
+          },
+          {
+            "name": "footer",
+            "type": "TemplateRef<CommandMenuFooterTemplateContext>",
+            "description": "Custom footer template."
+          },
+          {
+            "name": "empty",
+            "type": "TemplateRef<CommandMenuEmptyTemplateContext>",
+            "description": "Custom empty template."
+          }
+        ],
+        "emits": [
+          {
+            "name": "onItemSelect",
+            "parameters": [
+              {
+                "name": "event",
+                "type": "CommandMenuItemSelectEvent"
+              }
+            ],
+            "description": "Callback to invoke when an item is selected."
+          },
+          {
+            "name": "onSearchChange",
+            "parameters": [
+              {
+                "name": "event",
+                "type": "CommandMenuSearchChangeEvent"
+              }
+            ],
+            "description": "Callback to invoke when the search value changes."
+          }
+        ],
+        "methods": [
+          {
+            "name": "focusInput",
+            "parameters": [],
+            "returnType": "void",
+            "description": "Focuses the search input."
+          }
+        ],
+        "pt": [
+          {
+            "name": "root",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the root's DOM element."
+          },
+          {
+            "name": "header",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the header's DOM element."
+          },
+          {
+            "name": "input",
+            "type": "PassThroughOption<HTMLInputElement, I>",
+            "description": "Used to pass attributes to the input's DOM element."
+          },
+          {
+            "name": "pcListbox",
+            "type": "any",
+            "description": "Used to pass attributes to the Listbox component."
+          },
+          {
+            "name": "empty",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the empty message's DOM element."
+          },
+          {
+            "name": "footer",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the footer's DOM element."
+          }
+        ],
+        "styles": [
+          {
+            "class": "p-commandmenu",
+            "description": "Class name of the root element"
+          },
+          {
+            "class": "p-commandmenu-header",
+            "description": "Class name of the header element"
+          },
+          {
+            "class": "p-commandmenu-input",
+            "description": "Class name of the input element"
+          },
+          {
+            "class": "p-commandmenu-empty",
+            "description": "Class name of the empty message element"
+          },
+          {
+            "class": "p-commandmenu-footer",
+            "description": "Class name of the footer element"
+          }
+        ],
+        "tokens": null
+      }
+    },
+    {
       "name": "confirmdialog",
       "title": "Angular ConfirmDialog Component",
       "description": "ConfirmDialog is backed by a service utilizing Observables to display confirmation windows easily that can be shared by multiple actions on the same component.",
@@ -7865,37 +8167,37 @@
         "templates": [
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "rejecticon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom reject icon template."
           },
           {
             "name": "accepticon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom accept icon template."
           },
           {
             "name": "message",
-            "type": "Signal<TemplateRef<ConfirmDialogMessageTemplateContext>>",
+            "type": "TemplateRef<ConfirmDialogMessageTemplateContext>",
             "description": "Custom message template."
           },
           {
             "name": "icon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom icon template."
           },
           {
             "name": "headless",
-            "type": "Signal<TemplateRef<ConfirmDialogHeadlessTemplateContext>>",
+            "type": "TemplateRef<ConfirmDialogHeadlessTemplateContext>",
             "description": "Custom headless template."
           }
         ],
@@ -8207,22 +8509,22 @@
         "templates": [
           {
             "name": "content",
-            "type": "Signal<TemplateRef<ConfirmPopupContentTemplateContext>>",
+            "type": "TemplateRef<ConfirmPopupContentTemplateContext>",
             "description": "Custom content template."
           },
           {
             "name": "accepticon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom accept icon template."
           },
           {
             "name": "rejecticon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom reject icon template."
           },
           {
             "name": "headless",
-            "type": "Signal<TemplateRef<ConfirmPopupHeadlessTemplateContext>>",
+            "type": "TemplateRef<ConfirmPopupHeadlessTemplateContext>",
             "description": "Custom headless template."
           }
         ],
@@ -8586,12 +8888,12 @@
         "templates": [
           {
             "name": "item",
-            "type": "Signal<TemplateRef<ContextMenuItemTemplateContext>>",
+            "type": "TemplateRef<ContextMenuItemTemplateContext>",
             "description": "Custom item template."
           },
           {
             "name": "submenuicon",
-            "type": "Signal<TemplateRef<ContextMenuSubmenuIconTemplateContext>>",
+            "type": "TemplateRef<ContextMenuSubmenuIconTemplateContext>",
             "description": "Custom submenu icon template."
           }
         ],
@@ -9150,57 +9452,57 @@
         "templates": [
           {
             "name": "list",
-            "type": "Signal<TemplateRef<DataViewListTemplateContext<any>>>",
+            "type": "TemplateRef<DataViewListTemplateContext<any>>",
             "description": "Template for the list layout."
           },
           {
             "name": "grid",
-            "type": "Signal<TemplateRef<DataViewGridTemplateContext<any>>>",
+            "type": "TemplateRef<DataViewGridTemplateContext<any>>",
             "description": "Template for grid layout."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template for the header section."
           },
           {
             "name": "emptymessage",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template for the empty message section."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template for the footer section."
           },
           {
             "name": "paginatorleft",
-            "type": "Signal<TemplateRef<DataViewPaginatorLeftTemplateContext>>",
+            "type": "TemplateRef<DataViewPaginatorLeftTemplateContext>",
             "description": "Template for the left side of paginator."
           },
           {
             "name": "paginatorright",
-            "type": "Signal<TemplateRef<DataViewPaginatorRightTemplateContext>>",
+            "type": "TemplateRef<DataViewPaginatorRightTemplateContext>",
             "description": "Template for the right side of paginator."
           },
           {
             "name": "paginatordropdownitem",
-            "type": "Signal<TemplateRef<DataViewPaginatorDropdownItemTemplateContext>>",
+            "type": "TemplateRef<DataViewPaginatorDropdownItemTemplateContext>",
             "description": "Template for items in paginator dropdown."
           },
           {
             "name": "loadingicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template for loading icon."
           },
           {
             "name": "listicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template for list icon."
           },
           {
             "name": "gridicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template for grid icon."
           }
         ],
@@ -10252,67 +10554,67 @@
         "templates": [
           {
             "name": "date",
-            "type": "Signal<TemplateRef<DatePickerDateTemplateContext>>",
+            "type": "TemplateRef<DatePickerDateTemplateContext>",
             "description": "Custom template for date cells."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for header section."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for footer section."
           },
           {
             "name": "disableddate",
-            "type": "Signal<TemplateRef<DatePickerDisabledDateTemplateContext>>",
+            "type": "TemplateRef<DatePickerDisabledDateTemplateContext>",
             "description": "Custom template for disabled date cells."
           },
           {
             "name": "decade",
-            "type": "Signal<TemplateRef<DatePickerDecadeTemplateContext>>",
+            "type": "TemplateRef<DatePickerDecadeTemplateContext>",
             "description": "Custom template for decade view."
           },
           {
             "name": "previousicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for previous month icon."
           },
           {
             "name": "nexticon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for next month icon."
           },
           {
             "name": "triggericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for trigger icon."
           },
           {
             "name": "clearicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for clear icon."
           },
           {
             "name": "decrementicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for decrement icon."
           },
           {
             "name": "incrementicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for increment icon."
           },
           {
             "name": "inputicon",
-            "type": "Signal<TemplateRef<DatePickerInputIconTemplateContext>>",
+            "type": "TemplateRef<DatePickerInputIconTemplateContext>",
             "description": "Custom template for input icon."
           },
           {
             "name": "buttonbar",
-            "type": "Signal<TemplateRef<DatePickerButtonBarTemplateContext>>",
+            "type": "TemplateRef<DatePickerButtonBarTemplateContext>",
             "description": "Custom template for button bar."
           }
         ],
@@ -11708,37 +12010,37 @@
         "templates": [
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "content",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom content template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "closeicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom close icon template."
           },
           {
             "name": "maximizeicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom maximize icon template."
           },
           {
             "name": "minimizeicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom minimize icon template."
           },
           {
             "name": "headless",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom headless template."
           }
         ],
@@ -12266,7 +12568,7 @@
         "templates": [
           {
             "name": "item",
-            "type": "Signal<TemplateRef<DockItemTemplateContext>>",
+            "type": "TemplateRef<DockItemTemplateContext>",
             "description": "Custom item template."
           }
         ],
@@ -12745,27 +13047,27 @@
         "templates": [
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "content",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom content template."
           },
           {
             "name": "closeicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom close icon template."
           },
           {
             "name": "headless",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom headless template to replace the entire drawer content."
           }
         ],
@@ -13450,7 +13752,7 @@
         "templates": [
           {
             "name": "header",
-            "type": "Signal<TemplateRef<any>>",
+            "type": "TemplateRef<any>",
             "description": "Custom item template."
           }
         ],
@@ -13844,22 +14146,22 @@
         "templates": [
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "expandicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom expand icon template."
           },
           {
             "name": "collapseicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom collapse icon template."
           },
           {
             "name": "content",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom content template."
           }
         ],
@@ -14444,47 +14746,47 @@
         "templates": [
           {
             "name": "file",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom file template."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<FileUploadHeaderTemplateContext>>",
+            "type": "TemplateRef<FileUploadHeaderTemplateContext>",
             "description": "Custom header template."
           },
           {
             "name": "content",
-            "type": "Signal<TemplateRef<FileUploadContentTemplateContext>>",
+            "type": "TemplateRef<FileUploadContentTemplateContext>",
             "description": "Custom content template."
           },
           {
             "name": "toolbar",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom toolbar template."
           },
           {
             "name": "chooseicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom choose icon template."
           },
           {
             "name": "filelabel",
-            "type": "Signal<TemplateRef<FileUploadFileLabelTemplateContext>>",
+            "type": "TemplateRef<FileUploadFileLabelTemplateContext>",
             "description": "Custom file label template."
           },
           {
             "name": "uploadicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom upload icon template."
           },
           {
             "name": "cancelicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom cancel icon template."
           },
           {
             "name": "empty",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty state template."
           }
         ],
@@ -15575,57 +15877,57 @@
         "templates": [
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "indicator",
-            "type": "Signal<TemplateRef<GalleriaIndicatorTemplateContext>>",
+            "type": "TemplateRef<GalleriaIndicatorTemplateContext>",
             "description": "Custom indicator template."
           },
           {
             "name": "caption",
-            "type": "Signal<TemplateRef<GalleriaCaptionTemplateContext<any>>>",
+            "type": "TemplateRef<GalleriaCaptionTemplateContext<any>>",
             "description": "Custom caption template."
           },
           {
             "name": "closeicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom close icon template."
           },
           {
             "name": "previousthumbnailicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom previous thumbnail icon template."
           },
           {
             "name": "nextthumbnailicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom next thumbnail icon template."
           },
           {
             "name": "itempreviousicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom item previous icon template."
           },
           {
             "name": "itemnexticon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom item next icon template."
           },
           {
             "name": "item",
-            "type": "Signal<TemplateRef<GalleriaItemTemplateContext<any>>>",
+            "type": "TemplateRef<GalleriaItemTemplateContext<any>>",
             "description": "Custom item template."
           },
           {
             "name": "thumbnail",
-            "type": "Signal<TemplateRef<GalleriaThumbnailTemplateContext<any>>>",
+            "type": "TemplateRef<GalleriaThumbnailTemplateContext<any>>",
             "description": "Custom thumbnail template."
           }
         ],
@@ -16700,42 +17002,42 @@
         "templates": [
           {
             "name": "indicator",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom indicator template."
           },
           {
             "name": "rotaterighticon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom rotate right icon template."
           },
           {
             "name": "rotatelefticon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom rotate left icon template."
           },
           {
             "name": "zoomouticon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom zoom out icon template."
           },
           {
             "name": "zoominicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom zoom in icon template."
           },
           {
             "name": "closeicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom close icon template."
           },
           {
             "name": "preview",
-            "type": "Signal<TemplateRef<ImagePreviewTemplateContext>>",
+            "type": "TemplateRef<ImagePreviewTemplateContext>",
             "description": "Custom preview template."
           },
           {
             "name": "image",
-            "type": "Signal<TemplateRef<ImageImageTemplateContext>>",
+            "type": "TemplateRef<ImageImageTemplateContext>",
             "description": "Custom image template."
           }
         ],
@@ -17107,12 +17409,12 @@
         "templates": [
           {
             "name": "left",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom left side template."
           },
           {
             "name": "right",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom right side template."
           }
         ],
@@ -17313,12 +17615,12 @@
         "templates": [
           {
             "name": "display",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom display template."
           },
           {
             "name": "content",
-            "type": "Signal<TemplateRef<InplaceContentTemplateContext>>",
+            "type": "TemplateRef<InplaceContentTemplateContext>",
             "description": "Custom content template."
           }
         ],
@@ -18227,7 +18529,7 @@
         "templates": [
           {
             "name": "clearicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom clear icon template."
           }
         ],
@@ -18825,17 +19127,17 @@
         "templates": [
           {
             "name": "clearicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom clear icon template."
           },
           {
             "name": "incrementbuttonicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom increment button icon template."
           },
           {
             "name": "decrementbuttonicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom decrement button icon template."
           }
         ],
@@ -19235,7 +19537,7 @@
         "templates": [
           {
             "name": "input",
-            "type": "Signal<TemplateRef<InputOtpInputTemplateContext>>",
+            "type": "TemplateRef<InputOtpInputTemplateContext>",
             "description": "Custom input template."
           }
         ],
@@ -20648,57 +20950,57 @@
         "templates": [
           {
             "name": "item",
-            "type": "Signal<TemplateRef<ListboxItemTemplateContext<any>>>",
+            "type": "TemplateRef<ListboxItemTemplateContext<any>>",
             "description": "Custom item template."
           },
           {
             "name": "group",
-            "type": "Signal<TemplateRef<ListboxGroupTemplateContext<any>>>",
+            "type": "TemplateRef<ListboxGroupTemplateContext<any>>",
             "description": "Custom group template."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<ListboxHeaderTemplateContext<any>>>",
+            "type": "TemplateRef<ListboxHeaderTemplateContext<any>>",
             "description": "Custom header template."
           },
           {
             "name": "filter",
-            "type": "Signal<TemplateRef<ListboxFilterTemplateContext>>",
+            "type": "TemplateRef<ListboxFilterTemplateContext>",
             "description": "Custom filter template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<ListboxFooterTemplateContext<any>>>",
+            "type": "TemplateRef<ListboxFooterTemplateContext<any>>",
             "description": "Custom footer template."
           },
           {
             "name": "emptyfilter",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty filter message template."
           },
           {
             "name": "empty",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty message template."
           },
           {
             "name": "filtericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom filter icon template."
           },
           {
             "name": "checkicon",
-            "type": "Signal<TemplateRef<ListboxCheckIconTemplateContext>>",
+            "type": "TemplateRef<ListboxCheckIconTemplateContext>",
             "description": "Custom check icon template."
           },
           {
             "name": "checkmark",
-            "type": "Signal<TemplateRef<ListboxCheckmarkTemplateContext>>",
+            "type": "TemplateRef<ListboxCheckmarkTemplateContext>",
             "description": "Custom checkmark icon template."
           },
           {
             "name": "loader",
-            "type": "Signal<TemplateRef<ListboxLoaderTemplateContext>>",
+            "type": "TemplateRef<ListboxLoaderTemplateContext>",
             "description": "Custom loader template."
           }
         ],
@@ -21380,37 +21682,37 @@
         "templates": [
           {
             "name": "start",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for start."
           },
           {
             "name": "end",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for end."
           },
           {
             "name": "menuicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for menu icon."
           },
           {
             "name": "submenuicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for submenu icon."
           },
           {
             "name": "item",
-            "type": "Signal<TemplateRef<MegaMenuItemTemplateContext>>",
+            "type": "TemplateRef<MegaMenuItemTemplateContext>",
             "description": "Custom item template."
           },
           {
             "name": "button",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom menu button template on responsive mode."
           },
           {
             "name": "buttonicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom menu button icon template on responsive mode."
           }
         ],
@@ -22035,22 +22337,22 @@
         "templates": [
           {
             "name": "start",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for start."
           },
           {
             "name": "end",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for end."
           },
           {
             "name": "item",
-            "type": "Signal<TemplateRef<MenuItemTemplateContext>>",
+            "type": "TemplateRef<MenuItemTemplateContext>",
             "description": "Custom item template."
           },
           {
             "name": "submenuheader",
-            "type": "Signal<TemplateRef<MenuSubmenuHeaderTemplateContext>>",
+            "type": "TemplateRef<MenuSubmenuHeaderTemplateContext>",
             "description": "Custom submenu header template."
           }
         ],
@@ -22513,27 +22815,27 @@
         "templates": [
           {
             "name": "start",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for start."
           },
           {
             "name": "end",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for end."
           },
           {
             "name": "item",
-            "type": "Signal<TemplateRef<MenubarItemTemplateContext>>",
+            "type": "TemplateRef<MenubarItemTemplateContext>",
             "description": "Custom item template."
           },
           {
             "name": "menuicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for menu icon."
           },
           {
             "name": "submenuicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for submenu icon."
           }
         ],
@@ -23095,17 +23397,17 @@
         "templates": [
           {
             "name": "container",
-            "type": "Signal<TemplateRef<MessageContainerTemplateContext>>",
+            "type": "TemplateRef<MessageContainerTemplateContext>",
             "description": "Custom template of the message container."
           },
           {
             "name": "icon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template of the message icon."
           },
           {
             "name": "closeicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template of the close icon."
           }
         ],
@@ -23781,27 +24083,27 @@
         "templates": [
           {
             "name": "label",
-            "type": "Signal<TemplateRef<MeterGroupLabelTemplateContext>>",
+            "type": "TemplateRef<MeterGroupLabelTemplateContext>",
             "description": "Custom label template."
           },
           {
             "name": "meter",
-            "type": "Signal<TemplateRef<MeterGroupMeterTemplateContext>>",
+            "type": "TemplateRef<MeterGroupMeterTemplateContext>",
             "description": "Custom meter template."
           },
           {
             "name": "end",
-            "type": "Signal<TemplateRef<MeterGroupLabelTemplateContext>>",
+            "type": "TemplateRef<MeterGroupLabelTemplateContext>",
             "description": "Custom end template."
           },
           {
             "name": "start",
-            "type": "Signal<TemplateRef<MeterGroupLabelTemplateContext>>",
+            "type": "TemplateRef<MeterGroupLabelTemplateContext>",
             "description": "Custom start template."
           },
           {
             "name": "icon",
-            "type": "Signal<TemplateRef<MeterGroupIconTemplateContext>>",
+            "type": "TemplateRef<MeterGroupIconTemplateContext>",
             "description": "Custom icon template."
           }
         ],
@@ -24605,87 +24907,87 @@
         "templates": [
           {
             "name": "item",
-            "type": "Signal<TemplateRef<MultiSelectItemTemplateContext<any>>>",
+            "type": "TemplateRef<MultiSelectItemTemplateContext<any>>",
             "description": "Custom item template."
           },
           {
             "name": "group",
-            "type": "Signal<TemplateRef<MultiSelectGroupTemplateContext<any>>>",
+            "type": "TemplateRef<MultiSelectGroupTemplateContext<any>>",
             "description": "Custom group template."
           },
           {
             "name": "loader",
-            "type": "Signal<TemplateRef<MultiSelectLoaderTemplateContext>>",
+            "type": "TemplateRef<MultiSelectLoaderTemplateContext>",
             "description": "Custom loader template."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "filter",
-            "type": "Signal<TemplateRef<MultiSelectFilterTemplateContext>>",
+            "type": "TemplateRef<MultiSelectFilterTemplateContext>",
             "description": "Custom filter template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "emptyfilter",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty filter template."
           },
           {
             "name": "empty",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty template."
           },
           {
             "name": "selecteditems",
-            "type": "Signal<TemplateRef<MultiSelectSelectedItemsTemplateContext<any>>>",
+            "type": "TemplateRef<MultiSelectSelectedItemsTemplateContext<any>>",
             "description": "Custom selected items template."
           },
           {
             "name": "loadingicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom loading icon template."
           },
           {
             "name": "filtericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom filter icon template."
           },
           {
             "name": "removetokenicon",
-            "type": "Signal<TemplateRef<MultiSelectChipIconTemplateContext>>",
+            "type": "TemplateRef<MultiSelectChipIconTemplateContext>",
             "description": "Custom remove token icon template."
           },
           {
             "name": "chipicon",
-            "type": "Signal<TemplateRef<MultiSelectChipIconTemplateContext>>",
+            "type": "TemplateRef<MultiSelectChipIconTemplateContext>",
             "description": "Custom chip icon template."
           },
           {
             "name": "clearicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom clear icon template."
           },
           {
             "name": "dropdownicon",
-            "type": "Signal<TemplateRef<MultiSelectDropdownIconTemplateContext>>",
+            "type": "TemplateRef<MultiSelectDropdownIconTemplateContext>",
             "description": "Custom dropdown icon template."
           },
           {
             "name": "itemcheckboxicon",
-            "type": "Signal<TemplateRef<MultiSelectItemCheckboxIconTemplateContext>>",
+            "type": "TemplateRef<MultiSelectItemCheckboxIconTemplateContext>",
             "description": "Custom item checkbox icon template."
           },
           {
             "name": "headercheckboxicon",
-            "type": "Signal<TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext>>",
+            "type": "TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext>",
             "description": "Custom header checkbox icon template."
           }
         ],
@@ -25618,52 +25920,52 @@
         "templates": [
           {
             "name": "item",
-            "type": "Signal<TemplateRef<OrderListItemTemplateContext>>",
+            "type": "TemplateRef<OrderListItemTemplateContext>",
             "description": "Custom item template."
           },
           {
             "name": "emptymessage",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty template."
           },
           {
             "name": "emptyfiltermessage",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty filter template."
           },
           {
             "name": "filter",
-            "type": "Signal<TemplateRef<OrderListFilterTemplateContext>>",
+            "type": "TemplateRef<OrderListFilterTemplateContext>",
             "description": "Custom filter template."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "moveupicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom move up icon template."
           },
           {
             "name": "movetopicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom move top icon template."
           },
           {
             "name": "movedownicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom move down icon template."
           },
           {
             "name": "movebottomicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom move bottom icon template."
           },
           {
             "name": "filtericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom filter icon template."
           }
         ],
@@ -25899,12 +26201,12 @@
         "templates": [
           {
             "name": "togglericon",
-            "type": "Signal<TemplateRef<any>>",
+            "type": "TemplateRef<any>",
             "description": "Custom toggler icon template."
           },
           {
             "name": "node",
-            "type": "Signal<TemplateRef<any>>",
+            "type": "TemplateRef<any>",
             "description": "Custom node template."
           }
         ],
@@ -26430,7 +26732,7 @@
         "templates": [
           {
             "name": "content",
-            "type": "Signal<TemplateRef<OverlayContentTemplateContext>>",
+            "type": "TemplateRef<OverlayContentTemplateContext>",
             "description": "Content template of the component."
           }
         ],
@@ -26789,27 +27091,27 @@
         "templates": [
           {
             "name": "dropdownicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template for the dropdown icon."
           },
           {
             "name": "firstpagelinkicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template for the first page link icon."
           },
           {
             "name": "previouspagelinkicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template for the previous page link icon."
           },
           {
             "name": "lastpagelinkicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template for the last page link icon."
           },
           {
             "name": "nextpagelinkicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template for the next page link icon."
           }
         ],
@@ -27248,27 +27550,27 @@
         "templates": [
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for header."
           },
           {
             "name": "icon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for icon."
           },
           {
             "name": "content",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for content."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for footer."
           },
           {
             "name": "headericons",
-            "type": "Signal<TemplateRef<PanelHeaderIconsTemplateContext>>",
+            "type": "TemplateRef<PanelHeaderIconsTemplateContext>",
             "description": "Defines template option for headerIcon."
           }
         ],
@@ -27598,17 +27900,17 @@
         "templates": [
           {
             "name": "submenuicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template option of submenu icon."
           },
           {
             "name": "headericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Template option of header icon."
           },
           {
             "name": "item",
-            "type": "Signal<TemplateRef<PanelMenuItemTemplateContext>>",
+            "type": "TemplateRef<PanelMenuItemTemplateContext>",
             "description": "Template option of item."
           }
         ],
@@ -28349,32 +28651,32 @@
         "templates": [
           {
             "name": "content",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template of content."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template of footer."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template of header."
           },
           {
             "name": "clearicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom template of clear icon."
           },
           {
             "name": "hideicon",
-            "type": "Signal<TemplateRef<PasswordIconTemplateContext>>",
+            "type": "TemplateRef<PasswordIconTemplateContext>",
             "description": "Custom template of hide icon."
           },
           {
             "name": "showicon",
-            "type": "Signal<TemplateRef<PasswordIconTemplateContext>>",
+            "type": "TemplateRef<PasswordIconTemplateContext>",
             "description": "Custom template of show icon."
           }
         ],
@@ -29049,97 +29351,97 @@
         "templates": [
           {
             "name": "item",
-            "type": "Signal<TemplateRef<PickListItemTemplateContext>>",
+            "type": "TemplateRef<PickListItemTemplateContext>",
             "description": "Custom item template."
           },
           {
             "name": "sourceheader",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom source header template."
           },
           {
             "name": "targetheader",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom target header template."
           },
           {
             "name": "sourcefilter",
-            "type": "Signal<TemplateRef<PickListFilterTemplateContext>>",
+            "type": "TemplateRef<PickListFilterTemplateContext>",
             "description": "Custom source filter template."
           },
           {
             "name": "targetfilter",
-            "type": "Signal<TemplateRef<PickListFilterTemplateContext>>",
+            "type": "TemplateRef<PickListFilterTemplateContext>",
             "description": "Custom target filter template."
           },
           {
             "name": "emptymessagesource",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty message when source is empty template."
           },
           {
             "name": "emptyfiltermessagesource",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty filter message when source is empty template."
           },
           {
             "name": "emptymessagetarget",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty message when target is empty template."
           },
           {
             "name": "emptyfiltermessagetarget",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty filter message when target is empty template."
           },
           {
             "name": "moveupicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom move up icon template."
           },
           {
             "name": "movetopicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom move top icon template."
           },
           {
             "name": "movedownicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom move down icon template."
           },
           {
             "name": "movebottomicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom move bottom icon template."
           },
           {
             "name": "movetotargeticon",
-            "type": "Signal<TemplateRef<PickListTransferIconTemplateContext>>",
+            "type": "TemplateRef<PickListTransferIconTemplateContext>",
             "description": "Custom move to target icon template."
           },
           {
             "name": "movealltotargeticon",
-            "type": "Signal<TemplateRef<PickListTransferIconTemplateContext>>",
+            "type": "TemplateRef<PickListTransferIconTemplateContext>",
             "description": "Custom move all to target icon template."
           },
           {
             "name": "movetosourceicon",
-            "type": "Signal<TemplateRef<PickListTransferIconTemplateContext>>",
+            "type": "TemplateRef<PickListTransferIconTemplateContext>",
             "description": "Custom move to source icon template."
           },
           {
             "name": "movealltosourceicon",
-            "type": "Signal<TemplateRef<PickListTransferIconTemplateContext>>",
+            "type": "TemplateRef<PickListTransferIconTemplateContext>",
             "description": "Custom move all to source icon template."
           },
           {
             "name": "targetfiltericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom target filter icon template."
           },
           {
             "name": "sourcefiltericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom source filter icon template."
           }
         ],
@@ -29566,7 +29868,7 @@
         "templates": [
           {
             "name": "content",
-            "type": "Signal<TemplateRef<PopoverContentTemplateContext>>",
+            "type": "TemplateRef<PopoverContentTemplateContext>",
             "description": "Custom content template."
           }
         ],
@@ -29821,7 +30123,7 @@
         "templates": [
           {
             "name": "content",
-            "type": "Signal<TemplateRef<ProgressBarContentTemplateContext>>",
+            "type": "TemplateRef<ProgressBarContentTemplateContext>",
             "description": "Template of the content."
           }
         ],
@@ -30682,12 +30984,12 @@
         "templates": [
           {
             "name": "onicon",
-            "type": "Signal<TemplateRef<RatingIconTemplateContext>>",
+            "type": "TemplateRef<RatingIconTemplateContext>",
             "description": "Custom on icon template."
           },
           {
             "name": "officon",
-            "type": "Signal<TemplateRef<RatingIconTemplateContext>>",
+            "type": "TemplateRef<RatingIconTemplateContext>",
             "description": "Custom off icon template."
           }
         ],
@@ -31191,22 +31493,22 @@
         "templates": [
           {
             "name": "content",
-            "type": "Signal<TemplateRef<ScrollerContentTemplateContext>>",
+            "type": "TemplateRef<ScrollerContentTemplateContext>",
             "description": "Content template of the component."
           },
           {
             "name": "item",
-            "type": "Signal<TemplateRef<ScrollerItemTemplateContext>>",
+            "type": "TemplateRef<ScrollerItemTemplateContext>",
             "description": "Item template of the component."
           },
           {
             "name": "loader",
-            "type": "Signal<TemplateRef<ScrollerLoaderTemplateContext>>",
+            "type": "TemplateRef<ScrollerLoaderTemplateContext>",
             "description": "Loader template of the component."
           },
           {
             "name": "loadericon",
-            "type": "Signal<TemplateRef<ScrollerLoaderIconTemplateContext>>",
+            "type": "TemplateRef<ScrollerLoaderIconTemplateContext>",
             "description": "Loader icon template of the component."
           }
         ],
@@ -31369,7 +31671,7 @@
         "templates": [
           {
             "name": "content",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom content template."
           }
         ],
@@ -31617,7 +31919,7 @@
         "templates": [
           {
             "name": "icon",
-            "type": "Signal<TemplateRef<ScrollTopIconTemplateContext>>",
+            "type": "TemplateRef<ScrollTopIconTemplateContext>",
             "description": "Custom icon template."
           }
         ],
@@ -32319,82 +32621,82 @@
         "templates": [
           {
             "name": "item",
-            "type": "Signal<TemplateRef<SelectItemTemplateContext<any>>>",
+            "type": "TemplateRef<SelectItemTemplateContext<any>>",
             "description": "Custom item template."
           },
           {
             "name": "group",
-            "type": "Signal<TemplateRef<SelectGroupTemplateContext<any>>>",
+            "type": "TemplateRef<SelectGroupTemplateContext<any>>",
             "description": "Custom group template."
           },
           {
             "name": "loader",
-            "type": "Signal<TemplateRef<SelectLoaderTemplateContext>>",
+            "type": "TemplateRef<SelectLoaderTemplateContext>",
             "description": "Custom loader template."
           },
           {
             "name": "selecteditem",
-            "type": "Signal<TemplateRef<SelectSelectedItemTemplateContext<any>>>",
+            "type": "TemplateRef<SelectSelectedItemTemplateContext<any>>",
             "description": "Custom selected item template."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "filter",
-            "type": "Signal<TemplateRef<SelectFilterTemplateContext>>",
+            "type": "TemplateRef<SelectFilterTemplateContext>",
             "description": "Custom filter template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "emptyfilter",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty filter template."
           },
           {
             "name": "empty",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty template."
           },
           {
             "name": "dropdownicon",
-            "type": "Signal<TemplateRef<SelectIconTemplateContext>>",
+            "type": "TemplateRef<SelectIconTemplateContext>",
             "description": "Custom dropdown icon template."
           },
           {
             "name": "loadingicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom loading icon template."
           },
           {
             "name": "clearicon",
-            "type": "Signal<TemplateRef<SelectIconTemplateContext>>",
+            "type": "TemplateRef<SelectIconTemplateContext>",
             "description": "Custom clear icon template."
           },
           {
             "name": "filtericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom filter icon template."
           },
           {
             "name": "onicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom on icon template."
           },
           {
             "name": "officon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom off icon template."
           },
           {
             "name": "cancelicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom cancel icon template."
           }
         ],
@@ -33311,7 +33613,7 @@
         "templates": [
           {
             "name": "item",
-            "type": "Signal<TemplateRef<SelectButtonItemTemplateContext>>",
+            "type": "TemplateRef<SelectButtonItemTemplateContext>",
             "description": "Custom item template."
           }
         ],
@@ -34153,17 +34455,17 @@
         "templates": [
           {
             "name": "button",
-            "type": "Signal<TemplateRef<SpeedDialButtonTemplateContext>>",
+            "type": "TemplateRef<SpeedDialButtonTemplateContext>",
             "description": "Custom button template."
           },
           {
             "name": "item",
-            "type": "Signal<TemplateRef<SpeedDialItemTemplateContext>>",
+            "type": "TemplateRef<SpeedDialItemTemplateContext>",
             "description": "Custom item template."
           },
           {
             "name": "icon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom icon template."
           }
         ],
@@ -34614,12 +34916,12 @@
         "templates": [
           {
             "name": "content",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom content template."
           },
           {
             "name": "dropdownicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom dropdown icon template."
           }
         ],
@@ -37449,7 +37751,7 @@
         "templates": [
           {
             "name": "icon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom icon template."
           }
         ],
@@ -38389,12 +38691,12 @@
         "templates": [
           {
             "name": "submenuicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom submenu icon template."
           },
           {
             "name": "item",
-            "type": "Signal<TemplateRef<TieredMenuItemTemplateContext>>",
+            "type": "TemplateRef<TieredMenuItemTemplateContext>",
             "description": "Custom item template."
           }
         ],
@@ -38823,17 +39125,17 @@
         "templates": [
           {
             "name": "content",
-            "type": "Signal<TemplateRef<TimelineItemTemplateContext<any>>>",
+            "type": "TemplateRef<TimelineItemTemplateContext<any>>",
             "description": "Custom content template."
           },
           {
             "name": "opposite",
-            "type": "Signal<TemplateRef<TimelineItemTemplateContext<any>>>",
+            "type": "TemplateRef<TimelineItemTemplateContext<any>>",
             "description": "Custom opposite item template."
           },
           {
             "name": "marker",
-            "type": "Signal<TemplateRef<TimelineItemTemplateContext<any>>>",
+            "type": "TemplateRef<TimelineItemTemplateContext<any>>",
             "description": "Custom marker template."
           }
         ],
@@ -39182,12 +39484,12 @@
         "templates": [
           {
             "name": "message",
-            "type": "Signal<TemplateRef<ToastMessageTemplateContext>>",
+            "type": "TemplateRef<ToastMessageTemplateContext>",
             "description": "Custom message template."
           },
           {
             "name": "headless",
-            "type": "Signal<TemplateRef<ToastHeadlessTemplateContext>>",
+            "type": "TemplateRef<ToastHeadlessTemplateContext>",
             "description": "Custom headless template."
           }
         ],
@@ -39872,12 +40174,12 @@
         "templates": [
           {
             "name": "icon",
-            "type": "Signal<TemplateRef<ToggleButtonIconTemplateContext>>",
+            "type": "TemplateRef<ToggleButtonIconTemplateContext>",
             "description": "Custom icon template."
           },
           {
             "name": "content",
-            "type": "Signal<TemplateRef<ToggleButtonContentTemplateContext>>",
+            "type": "TemplateRef<ToggleButtonContentTemplateContext>",
             "description": "Custom content template."
           }
         ],
@@ -40320,7 +40622,7 @@
         "templates": [
           {
             "name": "handle",
-            "type": "Signal<TemplateRef<ToggleSwitchHandleTemplateContext>>",
+            "type": "TemplateRef<ToggleSwitchHandleTemplateContext>",
             "description": "Custom handle template."
           }
         ],
@@ -40616,17 +40918,17 @@
         "templates": [
           {
             "name": "start",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom start template."
           },
           {
             "name": "end",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom end template."
           },
           {
             "name": "center",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom center template."
           }
         ],
@@ -41421,52 +41723,52 @@
         "templates": [
           {
             "name": "filter",
-            "type": "Signal<TemplateRef<TreeFilterTemplateContext>>",
+            "type": "TemplateRef<TreeFilterTemplateContext>",
             "description": "Custom filter template."
           },
           {
             "name": "node",
-            "type": "Signal<TemplateRef<any>>",
+            "type": "TemplateRef<any>",
             "description": "Custom node template."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "loader",
-            "type": "Signal<TemplateRef<TreeLoaderTemplateContext>>",
+            "type": "TemplateRef<TreeLoaderTemplateContext>",
             "description": "Custom loader template."
           },
           {
             "name": "empty",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty message template."
           },
           {
             "name": "togglericon",
-            "type": "Signal<TemplateRef<TreeTogglerIconTemplateContext>>",
+            "type": "TemplateRef<TreeTogglerIconTemplateContext>",
             "description": "Custom toggler icon template."
           },
           {
             "name": "checkboxicon",
-            "type": "Signal<TemplateRef<TreeCheckboxIconTemplateContext>>",
+            "type": "TemplateRef<TreeCheckboxIconTemplateContext>",
             "description": "Custom checkbox icon template."
           },
           {
             "name": "loadingicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom loading icon template."
           },
           {
             "name": "filtericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom filter icon template."
           }
         ],
@@ -42461,62 +42763,62 @@
         "templates": [
           {
             "name": "value",
-            "type": "Signal<TemplateRef<TreeSelectValueTemplateContext>>",
+            "type": "TemplateRef<TreeSelectValueTemplateContext>",
             "description": "Custom value template."
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<TreeSelectHeaderTemplateContext>>",
+            "type": "TemplateRef<TreeSelectHeaderTemplateContext>",
             "description": "Custom header template."
           },
           {
             "name": "empty",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty message template."
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<TreeSelectHeaderTemplateContext>>",
+            "type": "TemplateRef<TreeSelectHeaderTemplateContext>",
             "description": "Custom footer template."
           },
           {
             "name": "clearicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom clear icon template."
           },
           {
             "name": "triggericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom trigger icon template."
           },
           {
             "name": "dropdownicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom dropdown icon template."
           },
           {
             "name": "filtericon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom filter icon template."
           },
           {
             "name": "closeicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom close icon template."
           },
           {
             "name": "itemtogglericon",
-            "type": "Signal<TemplateRef<TreeSelectItemTogglerIconTemplateContext>>",
+            "type": "TemplateRef<TreeSelectItemTogglerIconTemplateContext>",
             "description": "Custom item toggler icon template."
           },
           {
             "name": "itemcheckboxicon",
-            "type": "Signal<TemplateRef<TreeSelectItemCheckboxIconTemplateContext>>",
+            "type": "TemplateRef<TreeSelectItemCheckboxIconTemplateContext>",
             "description": "Custom item checkbox icon template."
           },
           {
             "name": "itemloadingicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": "Custom item loading icon template."
           }
         ],
@@ -43692,132 +43994,132 @@
         "templates": [
           {
             "name": "colgroup",
-            "type": "Signal<TemplateRef<TreeTableColumnsTemplateContext>>",
+            "type": "TemplateRef<TreeTableColumnsTemplateContext>",
             "description": ""
           },
           {
             "name": "caption",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "header",
-            "type": "Signal<TemplateRef<TreeTableColumnsTemplateContext>>",
+            "type": "TemplateRef<TreeTableColumnsTemplateContext>",
             "description": ""
           },
           {
             "name": "body",
-            "type": "Signal<TemplateRef<TreeTableBodyTemplateContext>>",
+            "type": "TemplateRef<TreeTableBodyTemplateContext>",
             "description": ""
           },
           {
             "name": "footer",
-            "type": "Signal<TemplateRef<TreeTableColumnsTemplateContext>>",
+            "type": "TemplateRef<TreeTableColumnsTemplateContext>",
             "description": ""
           },
           {
             "name": "summary",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "emptymessage",
-            "type": "Signal<TemplateRef<TreeTableEmptyMessageTemplateContext>>",
+            "type": "TemplateRef<TreeTableEmptyMessageTemplateContext>",
             "description": ""
           },
           {
             "name": "paginatorleft",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "paginatorright",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "paginatordropdownitem",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "frozenheader",
-            "type": "Signal<TemplateRef<TreeTableColumnsTemplateContext>>",
+            "type": "TemplateRef<TreeTableColumnsTemplateContext>",
             "description": ""
           },
           {
             "name": "frozenbody",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "frozenfooter",
-            "type": "Signal<TemplateRef<TreeTableColumnsTemplateContext>>",
+            "type": "TemplateRef<TreeTableColumnsTemplateContext>",
             "description": ""
           },
           {
             "name": "frozencolgroup",
-            "type": "Signal<TemplateRef<TreeTableColumnsTemplateContext>>",
+            "type": "TemplateRef<TreeTableColumnsTemplateContext>",
             "description": ""
           },
           {
             "name": "loadingicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "reorderindicatorupicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "reorderindicatordownicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "sorticon",
-            "type": "Signal<TemplateRef<TreeTableSortIconTemplateContext>>",
+            "type": "TemplateRef<TreeTableSortIconTemplateContext>",
             "description": ""
           },
           {
             "name": "checkboxicon",
-            "type": "Signal<TemplateRef<TreeTableCheckboxIconTemplateContext>>",
+            "type": "TemplateRef<TreeTableCheckboxIconTemplateContext>",
             "description": ""
           },
           {
             "name": "headercheckboxicon",
-            "type": "Signal<TemplateRef<TreeTableHeaderCheckboxIconTemplateContext>>",
+            "type": "TemplateRef<TreeTableHeaderCheckboxIconTemplateContext>",
             "description": ""
           },
           {
             "name": "togglericon",
-            "type": "Signal<TemplateRef<TreeTableTogglerIconTemplateContext>>",
+            "type": "TemplateRef<TreeTableTogglerIconTemplateContext>",
             "description": ""
           },
           {
             "name": "paginatorfirstpagelinkicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "paginatorlastpagelinkicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "paginatorpreviouspagelinkicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "paginatornextpagelinkicon",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           },
           {
             "name": "loader",
-            "type": "Signal<TemplateRef<void>>",
+            "type": "TemplateRef<void>",
             "description": ""
           }
         ],

@@ -3,7 +3,7 @@ import { AccessibilityDoc } from '@/doc/commandmenu/accessibility-doc';
 import { BasicDoc } from '@/doc/commandmenu/basic-doc';
 import { ControlledDoc } from '@/doc/commandmenu/controlled-doc';
 import { CustomDoc } from '@/doc/commandmenu/custom-doc';
-import { DialogDoc } from '@/doc/commandmenu/dialog-doc';
+import { WithDialogDoc } from '@/doc/commandmenu/with-dialog-doc';
 import { FilterDoc } from '@/doc/commandmenu/filter-doc';
 import { UsageDoc } from '@/doc/commandmenu/usage-doc';
 import { Component } from '@angular/core';
@@ -40,24 +40,24 @@ export class CommandMenuDemo {
                     component: BasicDoc
                 },
                 {
+                    id: 'filter',
+                    label: 'Filter',
+                    component: FilterDoc
+                },
+                {
                     id: 'controlled',
                     label: 'Controlled',
                     component: ControlledDoc
                 },
                 {
+                    id: 'with-dialog',
+                    label: 'With Dialog',
+                    component: WithDialogDoc
+                },
+                {
                     id: 'custom',
-                    label: 'Custom Content',
+                    label: 'Custom',
                     component: CustomDoc
-                },
-                {
-                    id: 'filter',
-                    label: 'Custom Filter',
-                    component: FilterDoc
-                },
-                {
-                    id: 'dialog',
-                    label: 'Dialog',
-                    component: DialogDoc
                 }
             ]
         },

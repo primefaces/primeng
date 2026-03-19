@@ -335,10 +335,10 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<ConfirmPopupContentTemplateContext>> | Custom content template. |
-| accepticon | Signal<TemplateRef<void>> | Custom accept icon template. |
-| rejecticon | Signal<TemplateRef<void>> | Custom reject icon template. |
-| headless | Signal<TemplateRef<ConfirmPopupHeadlessTemplateContext>> | Custom headless template. |
+| content | TemplateRef<ConfirmPopupContentTemplateContext> | Custom content template. |
+| accepticon | TemplateRef<void> | Custom accept icon template. |
+| rejecticon | TemplateRef<void> | Custom reject icon template. |
+| headless | TemplateRef<ConfirmPopupHeadlessTemplateContext> | Custom headless template. |
 
 ## Pass Through Options
 

@@ -322,15 +322,15 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 
 | Name | Type | Description |
 |------|------|-------------|
-| file | Signal<TemplateRef<void>> | Custom file template. |
-| header | Signal<TemplateRef<FileUploadHeaderTemplateContext>> | Custom header template. |
-| content | Signal<TemplateRef<FileUploadContentTemplateContext>> | Custom content template. |
-| toolbar | Signal<TemplateRef<void>> | Custom toolbar template. |
-| chooseicon | Signal<TemplateRef<void>> | Custom choose icon template. |
-| filelabel | Signal<TemplateRef<FileUploadFileLabelTemplateContext>> | Custom file label template. |
-| uploadicon | Signal<TemplateRef<void>> | Custom upload icon template. |
-| cancelicon | Signal<TemplateRef<void>> | Custom cancel icon template. |
-| empty | Signal<TemplateRef<void>> | Custom empty state template. |
+| file | TemplateRef<void> | Custom file template. |
+| header | TemplateRef<FileUploadHeaderTemplateContext> | Custom header template. |
+| content | TemplateRef<FileUploadContentTemplateContext> | Custom content template. |
+| toolbar | TemplateRef<void> | Custom toolbar template. |
+| chooseicon | TemplateRef<void> | Custom choose icon template. |
+| filelabel | TemplateRef<FileUploadFileLabelTemplateContext> | Custom file label template. |
+| uploadicon | TemplateRef<void> | Custom upload icon template. |
+| cancelicon | TemplateRef<void> | Custom cancel icon template. |
+| empty | TemplateRef<void> | Custom empty state template. |
 
 ### Methods
 

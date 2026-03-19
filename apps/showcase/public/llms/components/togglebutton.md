@@ -286,8 +286,8 @@ ToggleButton is used to select a boolean value using a button.
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | Signal<TemplateRef<ToggleButtonIconTemplateContext>> | Custom icon template. |
-| content | Signal<TemplateRef<ToggleButtonContentTemplateContext>> | Custom content template. |
+| icon | TemplateRef<ToggleButtonIconTemplateContext> | Custom icon template. |
+| content | TemplateRef<ToggleButtonContentTemplateContext> | Custom content template. |
 
 ## Pass Through Options
 

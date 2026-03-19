@@ -304,7 +304,7 @@ Input Otp is used to enter one time passwords.
 
 | Name | Type | Description |
 |------|------|-------------|
-| input | Signal<TemplateRef<InputOtpInputTemplateContext>> | Custom input template. |
+| input | TemplateRef<InputOtpInputTemplateContext> | Custom input template. |
 
 ## Pass Through Options
 

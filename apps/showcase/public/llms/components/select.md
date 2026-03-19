@@ -1080,22 +1080,22 @@ Select is used to choose an item from a collection of options.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<SelectItemTemplateContext<any>>> | Custom item template. |
-| group | Signal<TemplateRef<SelectGroupTemplateContext<any>>> | Custom group template. |
-| loader | Signal<TemplateRef<SelectLoaderTemplateContext>> | Custom loader template. |
-| selecteditem | Signal<TemplateRef<SelectSelectedItemTemplateContext<any>>> | Custom selected item template. |
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| filter | Signal<TemplateRef<SelectFilterTemplateContext>> | Custom filter template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| emptyfilter | Signal<TemplateRef<void>> | Custom empty filter template. |
-| empty | Signal<TemplateRef<void>> | Custom empty template. |
-| dropdownicon | Signal<TemplateRef<SelectIconTemplateContext>> | Custom dropdown icon template. |
-| loadingicon | Signal<TemplateRef<void>> | Custom loading icon template. |
-| clearicon | Signal<TemplateRef<SelectIconTemplateContext>> | Custom clear icon template. |
-| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
-| onicon | Signal<TemplateRef<void>> | Custom on icon template. |
-| officon | Signal<TemplateRef<void>> | Custom off icon template. |
-| cancelicon | Signal<TemplateRef<void>> | Custom cancel icon template. |
+| item | TemplateRef<SelectItemTemplateContext<any>> | Custom item template. |
+| group | TemplateRef<SelectGroupTemplateContext<any>> | Custom group template. |
+| loader | TemplateRef<SelectLoaderTemplateContext> | Custom loader template. |
+| selecteditem | TemplateRef<SelectSelectedItemTemplateContext<any>> | Custom selected item template. |
+| header | TemplateRef<void> | Custom header template. |
+| filter | TemplateRef<SelectFilterTemplateContext> | Custom filter template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| emptyfilter | TemplateRef<void> | Custom empty filter template. |
+| empty | TemplateRef<void> | Custom empty template. |
+| dropdownicon | TemplateRef<SelectIconTemplateContext> | Custom dropdown icon template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| clearicon | TemplateRef<SelectIconTemplateContext> | Custom clear icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| onicon | TemplateRef<void> | Custom on icon template. |
+| officon | TemplateRef<void> | Custom off icon template. |
+| cancelicon | TemplateRef<void> | Custom cancel icon template. |
 
 ### Methods
 

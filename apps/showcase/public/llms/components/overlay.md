@@ -207,7 +207,7 @@ This API allows overlay components to be controlled from the PrimeNG. In this wa
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<OverlayContentTemplateContext>> | Content template of the component. |
+| content | TemplateRef<OverlayContentTemplateContext> | Content template of the component. |
 
 ## Pass Through Options
 

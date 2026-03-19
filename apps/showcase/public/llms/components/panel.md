@@ -151,11 +151,11 @@ Panel is a container with the optional content toggle feature.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Defines template option for header. |
-| icon | Signal<TemplateRef<void>> | Defines template option for icon. |
-| content | Signal<TemplateRef<void>> | Defines template option for content. |
-| footer | Signal<TemplateRef<void>> | Defines template option for footer. |
-| headericons | Signal<TemplateRef<PanelHeaderIconsTemplateContext>> | Defines template option for headerIcon. |
+| header | TemplateRef<void> | Defines template option for header. |
+| icon | TemplateRef<void> | Defines template option for icon. |
+| content | TemplateRef<void> | Defines template option for content. |
+| footer | TemplateRef<void> | Defines template option for footer. |
+| headericons | TemplateRef<PanelHeaderIconsTemplateContext> | Defines template option for headerIcon. |
 
 ## Pass Through Options
 

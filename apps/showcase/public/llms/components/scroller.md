@@ -92,10 +92,10 @@ Scroller is a performance-approach to handle huge data efficiently.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<ScrollerContentTemplateContext>> | Content template of the component. |
-| item | Signal<TemplateRef<ScrollerItemTemplateContext>> | Item template of the component. |
-| loader | Signal<TemplateRef<ScrollerLoaderTemplateContext>> | Loader template of the component. |
-| loadericon | Signal<TemplateRef<ScrollerLoaderIconTemplateContext>> | Loader icon template of the component. |
+| content | TemplateRef<ScrollerContentTemplateContext> | Content template of the component. |
+| item | TemplateRef<ScrollerItemTemplateContext> | Item template of the component. |
+| loader | TemplateRef<ScrollerLoaderTemplateContext> | Loader template of the component. |
+| loadericon | TemplateRef<ScrollerLoaderIconTemplateContext> | Loader icon template of the component. |
 
 ## Pass Through Options
 

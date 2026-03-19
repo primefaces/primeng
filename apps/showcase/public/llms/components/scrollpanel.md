@@ -98,7 +98,7 @@ ScrollPanel is a cross browser, lightweight and themable alternative to native b
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<void>> | Custom content template. |
+| content | TemplateRef<void> | Custom content template. |
 
 ### Methods
 

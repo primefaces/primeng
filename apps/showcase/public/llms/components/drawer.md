@@ -472,11 +472,11 @@ Sidebar is a panel component displayed as an overlay at the edges of the screen.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| content | Signal<TemplateRef<void>> | Custom content template. |
-| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
-| headless | Signal<TemplateRef<void>> | Custom headless template to replace the entire drawer content. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| content | TemplateRef<void> | Custom content template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| headless | TemplateRef<void> | Custom headless template to replace the entire drawer content. |
 
 ## Pass Through Options
 

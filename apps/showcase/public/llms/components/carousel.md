@@ -364,11 +364,11 @@ Carousel is a content slider featuring various customization options.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<CarouselItemTemplateContext<any>>> | Custom item template. |
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| previousicon | Signal<TemplateRef<void>> | Custom previous icon template. |
-| nexticon | Signal<TemplateRef<void>> | Custom next icon template. |
+| item | TemplateRef<CarouselItemTemplateContext<any>> | Custom item template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| previousicon | TemplateRef<void> | Custom previous icon template. |
+| nexticon | TemplateRef<void> | Custom next icon template. |
 
 ## Pass Through Options
 

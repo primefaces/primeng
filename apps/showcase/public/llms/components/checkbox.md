@@ -474,7 +474,7 @@ Checkbox is an extension to standard checkbox element with theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | Signal<TemplateRef<CheckboxIconTemplateContext>> | Custom checkbox icon template. |
+| icon | TemplateRef<CheckboxIconTemplateContext> | Custom checkbox icon template. |
 
 ## Pass Through Options
 

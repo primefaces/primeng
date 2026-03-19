@@ -569,9 +569,9 @@ Button is an extension to standard button element with icons and theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<void>> | Custom content template. |
-| loadingicon | Signal<TemplateRef<ButtonLoadingIconTemplateContext>> | Custom loading icon template. |
-| icon | Signal<TemplateRef<ButtonIconTemplateContext>> | Custom icon template. |
+| content | TemplateRef<void> | Custom content template. |
+| loadingicon | TemplateRef<ButtonLoadingIconTemplateContext> | Custom loading icon template. |
+| icon | TemplateRef<ButtonIconTemplateContext> | Custom icon template. |
 
 ## Pass Through Options
 

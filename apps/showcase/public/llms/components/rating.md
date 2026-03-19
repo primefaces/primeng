@@ -287,8 +287,8 @@ Rating is an extension to standard radio button element with theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| onicon | Signal<TemplateRef<RatingIconTemplateContext>> | Custom on icon template. |
-| officon | Signal<TemplateRef<RatingIconTemplateContext>> | Custom off icon template. |
+| onicon | TemplateRef<RatingIconTemplateContext> | Custom on icon template. |
+| officon | TemplateRef<RatingIconTemplateContext> | Custom off icon template. |
 
 ## Pass Through Options
 

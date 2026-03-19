@@ -609,16 +609,16 @@ Tree is used to display hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| filter | Signal<TemplateRef<TreeFilterTemplateContext>> | Custom filter template. |
-| node | Signal<TemplateRef<any>> | Custom node template. |
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| loader | Signal<TemplateRef<TreeLoaderTemplateContext>> | Custom loader template. |
-| empty | Signal<TemplateRef<void>> | Custom empty message template. |
-| togglericon | Signal<TemplateRef<TreeTogglerIconTemplateContext>> | Custom toggler icon template. |
-| checkboxicon | Signal<TemplateRef<TreeCheckboxIconTemplateContext>> | Custom checkbox icon template. |
-| loadingicon | Signal<TemplateRef<void>> | Custom loading icon template. |
-| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
+| filter | TemplateRef<TreeFilterTemplateContext> | Custom filter template. |
+| node | TemplateRef<any> | Custom node template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| loader | TemplateRef<TreeLoaderTemplateContext> | Custom loader template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| togglericon | TemplateRef<TreeTogglerIconTemplateContext> | Custom toggler icon template. |
+| checkboxicon | TemplateRef<TreeCheckboxIconTemplateContext> | Custom checkbox icon template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
 
 ### Methods
 

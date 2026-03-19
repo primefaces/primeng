@@ -508,8 +508,8 @@ TieredMenu displays submenus in nested overlays.
 
 | Name | Type | Description |
 |------|------|-------------|
-| submenuicon | Signal<TemplateRef<void>> | Custom submenu icon template. |
-| item | Signal<TemplateRef<TieredMenuItemTemplateContext>> | Custom item template. |
+| submenuicon | TemplateRef<void> | Custom submenu icon template. |
+| item | TemplateRef<TieredMenuItemTemplateContext> | Custom item template. |
 
 ### Methods
 

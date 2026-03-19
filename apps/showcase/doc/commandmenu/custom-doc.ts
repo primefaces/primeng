@@ -27,11 +27,13 @@ import { CommandMenuModule } from 'primeng/commandmenu';
                     (onItemSelect)="onSelect($event)"
                 >
                     <ng-template #item let-item>
-                        <span [class]="'w-5 h-5 rounded-md flex items-center justify-center text-white ' + item.color">
-                            <i [class]="'pi ' + item.icon + ' text-xs font-bold'"></i>
-                        </span>
-                        <span>{{ item.label }}</span>
-                        <span class="opacity-50 ml-auto">{{ item.category }}</span>
+                        <div class="flex items-center gap-3.5 w-full">
+                            <span [class]="'w-5 h-5 rounded-md flex items-center justify-center text-white ' + item.color">
+                                <i [class]="'pi ' + item.icon + ' text-xs font-bold'"></i>
+                            </span>
+                            <span>{{ item.label }}</span>
+                            <span class="opacity-50 ml-auto">{{ item.category }}</span>
+                        </div>
                     </ng-template>
                     <ng-template #empty>No results found</ng-template>
                     <ng-template #footer>
@@ -63,7 +65,7 @@ export class CustomDoc implements OnInit {
     ngOnInit() {
         this.commands = [
             {
-                group: 'recents',
+                group: 'Recents',
                 items: [
                     { icon: 'pi-refresh', label: 'Check For Updates', category: 'Command', color: 'bg-[linear-gradient(rgb(245,83,84),rgb(235,70,70))]', value: 'check for updates', keywords: ['check', 'updates'] },
                     { icon: 'pi-cog', label: 'Open Settings', category: 'Command', color: 'bg-[linear-gradient(rgb(96,165,250),rgb(59,130,246))]', value: 'open settings' },
@@ -74,7 +76,7 @@ export class CustomDoc implements OnInit {
                 ]
             },
             {
-                group: 'files',
+                group: 'Files',
                 items: [
                     { icon: 'pi-file', label: 'New File', category: 'File', color: 'bg-[linear-gradient(rgb(52,211,153),rgb(16,185,129))]', value: 'new file' },
                     { icon: 'pi-folder', label: 'New Folder', category: 'File', color: 'bg-[linear-gradient(rgb(251,191,36),rgb(245,158,11))]', value: 'new folder' },
@@ -89,7 +91,7 @@ export class CustomDoc implements OnInit {
                 ]
             },
             {
-                group: 'source',
+                group: 'Source',
                 items: [
                     { icon: 'pi-git', label: 'Git: Commit', category: 'Source Control', color: 'bg-[linear-gradient(rgb(249,115,22),rgb(234,88,12))]', value: 'git commit' },
                     { icon: 'pi-upload', label: 'Git: Push', category: 'Source Control', color: 'bg-[linear-gradient(rgb(14,165,233),rgb(2,132,199))]', value: 'git push' },
@@ -102,7 +104,7 @@ export class CustomDoc implements OnInit {
                 ]
             },
             {
-                group: 'editor',
+                group: 'Editor',
                 items: [
                     { icon: 'pi-align-left', label: 'Align Left', category: 'Editor', color: 'bg-[linear-gradient(rgb(147,197,253),rgb(59,130,246))]', value: 'align left' },
                     { icon: 'pi-align-center', label: 'Align Center', category: 'Editor', color: 'bg-[linear-gradient(rgb(147,197,253),rgb(59,130,246))]', value: 'align center' },
@@ -115,7 +117,7 @@ export class CustomDoc implements OnInit {
                 ]
             },
             {
-                group: 'navigation',
+                group: 'Navigation',
                 items: [
                     { icon: 'pi-home', label: 'Go to Home', category: 'Navigation', color: 'bg-[linear-gradient(rgb(96,165,250),rgb(59,130,246))]', value: 'go to home' },
                     { icon: 'pi-arrow-left', label: 'Go Back', category: 'Navigation', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'go back' },
@@ -126,7 +128,7 @@ export class CustomDoc implements OnInit {
                 ]
             },
             {
-                group: 'view',
+                group: 'View',
                 items: [
                     { icon: 'pi-eye', label: 'Toggle Preview', category: 'View', color: 'bg-[linear-gradient(rgb(147,51,234),rgb(126,34,206))]', value: 'toggle preview' },
                     { icon: 'pi-window-maximize', label: 'Maximize Window', category: 'View', color: 'bg-[linear-gradient(rgb(100,116,139),rgb(71,85,105))]', value: 'maximize window' },
@@ -138,7 +140,7 @@ export class CustomDoc implements OnInit {
                 ]
             },
             {
-                group: 'tools',
+                group: 'Tools',
                 items: [
                     { icon: 'pi-calculator', label: 'Open Calculator', category: 'Tools', color: 'bg-[linear-gradient(rgb(148,163,184),rgb(100,116,139))]', value: 'open calculator' },
                     { icon: 'pi-calendar', label: 'Open Calendar', category: 'Tools', color: 'bg-[linear-gradient(rgb(96,165,250),rgb(59,130,246))]', value: 'open calendar' },

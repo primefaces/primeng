@@ -365,11 +365,11 @@ Menubar is a horizontal menu component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | Signal<TemplateRef<void>> | Defines template option for start. |
-| end | Signal<TemplateRef<void>> | Defines template option for end. |
-| item | Signal<TemplateRef<MenubarItemTemplateContext>> | Custom item template. |
-| menuicon | Signal<TemplateRef<void>> | Defines template option for menu icon. |
-| submenuicon | Signal<TemplateRef<void>> | Defines template option for submenu icon. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| item | TemplateRef<MenubarItemTemplateContext> | Custom item template. |
+| menuicon | TemplateRef<void> | Defines template option for menu icon. |
+| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
 
 ## Pass Through Options
 

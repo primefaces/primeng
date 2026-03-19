@@ -891,8 +891,8 @@ SplitButton groups a set of commands in an overlay with a default command.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<void>> | Custom content template. |
-| dropdownicon | Signal<TemplateRef<void>> | Custom dropdown icon template. |
+| content | TemplateRef<void> | Custom content template. |
+| dropdownicon | TemplateRef<void> | Custom dropdown icon template. |
 
 ## Pass Through Options
 

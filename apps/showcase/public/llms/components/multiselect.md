@@ -924,23 +924,23 @@ MultiSelect is used to select multiple items from a collection.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<MultiSelectItemTemplateContext<any>>> | Custom item template. |
-| group | Signal<TemplateRef<MultiSelectGroupTemplateContext<any>>> | Custom group template. |
-| loader | Signal<TemplateRef<MultiSelectLoaderTemplateContext>> | Custom loader template. |
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| filter | Signal<TemplateRef<MultiSelectFilterTemplateContext>> | Custom filter template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
-| emptyfilter | Signal<TemplateRef<void>> | Custom empty filter template. |
-| empty | Signal<TemplateRef<void>> | Custom empty template. |
-| selecteditems | Signal<TemplateRef<MultiSelectSelectedItemsTemplateContext<any>>> | Custom selected items template. |
-| loadingicon | Signal<TemplateRef<void>> | Custom loading icon template. |
-| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
-| removetokenicon | Signal<TemplateRef<MultiSelectChipIconTemplateContext>> | Custom remove token icon template. |
-| chipicon | Signal<TemplateRef<MultiSelectChipIconTemplateContext>> | Custom chip icon template. |
-| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
-| dropdownicon | Signal<TemplateRef<MultiSelectDropdownIconTemplateContext>> | Custom dropdown icon template. |
-| itemcheckboxicon | Signal<TemplateRef<MultiSelectItemCheckboxIconTemplateContext>> | Custom item checkbox icon template. |
-| headercheckboxicon | Signal<TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext>> | Custom header checkbox icon template. |
+| item | TemplateRef<MultiSelectItemTemplateContext<any>> | Custom item template. |
+| group | TemplateRef<MultiSelectGroupTemplateContext<any>> | Custom group template. |
+| loader | TemplateRef<MultiSelectLoaderTemplateContext> | Custom loader template. |
+| header | TemplateRef<void> | Custom header template. |
+| filter | TemplateRef<MultiSelectFilterTemplateContext> | Custom filter template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| emptyfilter | TemplateRef<void> | Custom empty filter template. |
+| empty | TemplateRef<void> | Custom empty template. |
+| selecteditems | TemplateRef<MultiSelectSelectedItemsTemplateContext<any>> | Custom selected items template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| removetokenicon | TemplateRef<MultiSelectChipIconTemplateContext> | Custom remove token icon template. |
+| chipicon | TemplateRef<MultiSelectChipIconTemplateContext> | Custom chip icon template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| dropdownicon | TemplateRef<MultiSelectDropdownIconTemplateContext> | Custom dropdown icon template. |
+| itemcheckboxicon | TemplateRef<MultiSelectItemCheckboxIconTemplateContext> | Custom item checkbox icon template. |
+| headercheckboxicon | TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext> | Custom header checkbox icon template. |
 
 ### Methods
 

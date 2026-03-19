@@ -237,11 +237,11 @@ Paginator is a generic component to display content in paged format.
 
 | Name | Type | Description |
 |------|------|-------------|
-| dropdownicon | Signal<TemplateRef<void>> | Template for the dropdown icon. |
-| firstpagelinkicon | Signal<TemplateRef<void>> | Template for the first page link icon. |
-| previouspagelinkicon | Signal<TemplateRef<void>> | Template for the previous page link icon. |
-| lastpagelinkicon | Signal<TemplateRef<void>> | Template for the last page link icon. |
-| nextpagelinkicon | Signal<TemplateRef<void>> | Template for the next page link icon. |
+| dropdownicon | TemplateRef<void> | Template for the dropdown icon. |
+| firstpagelinkicon | TemplateRef<void> | Template for the first page link icon. |
+| previouspagelinkicon | TemplateRef<void> | Template for the previous page link icon. |
+| lastpagelinkicon | TemplateRef<void> | Template for the last page link icon. |
+| nextpagelinkicon | TemplateRef<void> | Template for the next page link icon. |
 
 ## Pass Through Options
 

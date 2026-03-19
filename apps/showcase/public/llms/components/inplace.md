@@ -174,8 +174,8 @@ Inplace provides an easy to do editing and display at the same time where clicki
 
 | Name | Type | Description |
 |------|------|-------------|
-| display | Signal<TemplateRef<void>> | Custom display template. |
-| content | Signal<TemplateRef<InplaceContentTemplateContext>> | Custom content template. |
+| display | TemplateRef<void> | Custom display template. |
+| content | TemplateRef<InplaceContentTemplateContext> | Custom content template. |
 
 ### Methods
 

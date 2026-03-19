@@ -356,7 +356,7 @@ Popover is a container component that can overlay other components on page.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<PopoverContentTemplateContext>> | Custom content template. |
+| content | TemplateRef<PopoverContentTemplateContext> | Custom content template. |
 
 ### Methods
 

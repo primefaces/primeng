@@ -54,7 +54,7 @@ import { CommandMenuModule } from 'primeng/commandmenu';
 export class FilterDoc implements OnInit {
     commands!: any[];
 
-    fuzzyFilter = (value: string, search: string): number => {
+    fuzzyFilter(value: string, search: string): number {
         if (!search) return 1;
 
         value = value.toLowerCase();
@@ -74,12 +74,12 @@ export class FilterDoc implements OnInit {
         }
 
         return sIndex === search.length ? score / value.length : 0;
-    };
+    }
 
     ngOnInit() {
         this.commands = [
             {
-                group: 'recents',
+                group: 'Recents',
                 items: [
                     { label: 'Check For Updates', value: 'check for updates', keywords: ['check', 'updates'] },
                     { label: 'Open Settings', value: 'open settings' },
@@ -90,7 +90,7 @@ export class FilterDoc implements OnInit {
                 ]
             },
             {
-                group: 'files',
+                group: 'Files',
                 items: [
                     { label: 'New File', value: 'new file' },
                     { label: 'New Folder', value: 'new folder' },
@@ -105,7 +105,7 @@ export class FilterDoc implements OnInit {
                 ]
             },
             {
-                group: 'source',
+                group: 'Source',
                 items: [
                     { label: 'Git: Commit', value: 'git commit' },
                     { label: 'Git: Push', value: 'git push' },
@@ -118,7 +118,7 @@ export class FilterDoc implements OnInit {
                 ]
             },
             {
-                group: 'editor',
+                group: 'Editor',
                 items: [
                     { label: 'Align Left', value: 'align left' },
                     { label: 'Align Center', value: 'align center' },
@@ -131,7 +131,7 @@ export class FilterDoc implements OnInit {
                 ]
             },
             {
-                group: 'navigation',
+                group: 'Navigation',
                 items: [
                     { label: 'Go to Home', value: 'go to home' },
                     { label: 'Go Back', value: 'go back' },
@@ -142,7 +142,7 @@ export class FilterDoc implements OnInit {
                 ]
             },
             {
-                group: 'view',
+                group: 'View',
                 items: [
                     { label: 'Toggle Preview', value: 'toggle preview' },
                     { label: 'Maximize Window', value: 'maximize window' },
@@ -154,7 +154,7 @@ export class FilterDoc implements OnInit {
                 ]
             },
             {
-                group: 'tools',
+                group: 'Tools',
                 items: [
                     { label: 'Open Calculator', value: 'open calculator' },
                     { label: 'Open Calendar', value: 'open calendar' },

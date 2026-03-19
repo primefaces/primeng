@@ -9465,6 +9465,552 @@
             }
         }
     },
+    "commandmenu": {
+        "components": {
+            "CommandMenu": {
+                "description": "CommandMenu is a search-driven command palette component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThrough<I, CommandMenuPassThroughOptions<I>>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "options",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any[]",
+                            "description": "An array of objects to display."
+                        },
+                        {
+                            "name": "optionLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Name of the label field of an option."
+                        },
+                        {
+                            "name": "optionValue",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Name of the value field of an option."
+                        },
+                        {
+                            "name": "optionDisabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | ((item: any) => boolean)",
+                            "description": "Name of the disabled field of an option or function to determine disabled state."
+                        },
+                        {
+                            "name": "optionGroupLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "'label'",
+                            "description": "Name of the label field of an option group."
+                        },
+                        {
+                            "name": "optionGroupChildren",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "'items'",
+                            "description": "Name of the options field of an option group."
+                        },
+                        {
+                            "name": "optionKeywords",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Name of the keywords field of an option used for searching."
+                        },
+                        {
+                            "name": "search",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Two-way bound search value."
+                        },
+                        {
+                            "name": "selectOnHover",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to highlight option on hover."
+                        },
+                        {
+                            "name": "loop",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether keyboard navigation should loop from end to start."
+                        },
+                        {
+                            "name": "group",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether to display options as grouped."
+                        },
+                        {
+                            "name": "emptyMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "'No results found.'",
+                            "description": "Text to display when there are no results."
+                        },
+                        {
+                            "name": "filter",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "(label: string, search: string, keywords?: string[]) => number",
+                            "description": "Custom filter function. Receives (label, search, keywords?) and returns a number (0 = no match)."
+                        },
+                        {
+                            "name": "placeholder",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Placeholder text for the search input."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onItemSelect",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "CommandMenuItemSelectEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when an item is selected."
+                        },
+                        {
+                            "name": "onSearchChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "CommandMenuSearchChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when the search value changes."
+                        }
+                    ]
+                },
+                "methods": {
+                    "description": "Defines methods that can be accessed by the component's reference.",
+                    "values": [
+                        {
+                            "name": "focusInput",
+                            "parameters": [],
+                            "description": "Focuses the search input."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "item",
+                            "description": "Custom item template.",
+                            "type": "TemplateRef<CommandMenuItemTemplateContext<any>>",
+                            "parameters": [
+                                {
+                                    "name": "context",
+                                    "description": "item context.",
+                                    "type": "CommandMenuItemTemplateContext<any>"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "group",
+                            "description": "Custom group template.",
+                            "type": "TemplateRef<CommandMenuGroupTemplateContext<any>>",
+                            "parameters": [
+                                {
+                                    "name": "context",
+                                    "description": "group context.",
+                                    "type": "CommandMenuGroupTemplateContext<any>"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "header",
+                            "description": "Custom header template.",
+                            "type": "TemplateRef<CommandMenuHeaderTemplateContext>",
+                            "parameters": [
+                                {
+                                    "name": "context",
+                                    "description": "header context.",
+                                    "type": "CommandMenuHeaderTemplateContext"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Custom footer template.",
+                            "type": "TemplateRef<CommandMenuFooterTemplateContext>",
+                            "parameters": [
+                                {
+                                    "name": "context",
+                                    "description": "footer context.",
+                                    "type": "CommandMenuFooterTemplateContext"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "empty",
+                            "description": "Custom empty template.",
+                            "type": "TemplateRef<CommandMenuEmptyTemplateContext>",
+                            "parameters": [
+                                {
+                                    "name": "context",
+                                    "description": "empty context.",
+                                    "type": "CommandMenuEmptyTemplateContext"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-commandmenu",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-commandmenu-header",
+                        "description": "Class name of the header element"
+                    },
+                    {
+                        "class": "p-commandmenu-input",
+                        "description": "Class name of the input element"
+                    },
+                    {
+                        "class": "p-commandmenu-empty",
+                        "description": "Class name of the empty message element"
+                    },
+                    {
+                        "class": "p-commandmenu-footer",
+                        "description": "Class name of the footer element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "events": {
+                "description": "Defines the custom events used by the component's emitters.",
+                "values": [
+                    {
+                        "name": "CommandMenuItemSelectEvent",
+                        "description": "Custom item select event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Selected option value."
+                            },
+                            {
+                                "name": "option",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Selected option data."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CommandMenuSearchChangeEvent",
+                        "description": "Custom search change event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "query",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Search query value."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "CommandMenuItemTemplateContext",
+                                "description": "item data."
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "group",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "CommandMenuGroupTemplateContext",
+                                "description": "group data."
+                            }
+                        ],
+                        "description": "Custom group template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "header",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "CommandMenuHeaderTemplateContext",
+                                "description": "header context."
+                            }
+                        ],
+                        "description": "Custom header template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "footer",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "CommandMenuFooterTemplateContext",
+                                "description": "footer context."
+                            }
+                        ],
+                        "description": "Custom footer template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "empty",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "CommandMenuEmptyTemplateContext",
+                                "description": "empty context."
+                            }
+                        ],
+                        "description": "Custom empty template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "CommandMenuPassThroughOptions",
+                        "description": "Defines valid pass-through options in CommandMenu component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "header",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header's DOM element."
+                            },
+                            {
+                                "name": "input",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLInputElement, I>",
+                                "description": "Used to pass attributes to the input's DOM element."
+                            },
+                            {
+                                "name": "pcListbox",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Used to pass attributes to the Listbox component."
+                            },
+                            {
+                                "name": "empty",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the empty message's DOM element."
+                            },
+                            {
+                                "name": "footer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the footer's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CommandMenuItemTemplateContext",
+                        "description": "Custom item template context.",
+                        "props": [
+                            {
+                                "name": "$implicit",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "unknown",
+                                "description": "Data of the option."
+                            },
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Index of the option."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CommandMenuGroupTemplateContext",
+                        "description": "Custom group template context.",
+                        "props": [
+                            {
+                                "name": "$implicit",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "unknown",
+                                "description": "Group option data."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CommandMenuHeaderTemplateContext",
+                        "description": "Custom header template context.",
+                        "props": [
+                            {
+                                "name": "$implicit",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Current search value."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CommandMenuFooterTemplateContext",
+                        "description": "Custom footer template context.",
+                        "props": [
+                            {
+                                "name": "$implicit",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Current search value."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CommandMenuEmptyTemplateContext",
+                        "description": "Custom empty template context.",
+                        "props": [
+                            {
+                                "name": "$implicit",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Current search value."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CommandMenuContext",
+                        "description": "Defines context options for CommandMenu passthrough.",
+                        "props": [
+                            {
+                                "name": "focused",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the option is focused."
+                            },
+                            {
+                                "name": "disabled",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the option is disabled."
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
     "primeng": {
         "components": {},
         "types": {

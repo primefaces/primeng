@@ -697,17 +697,17 @@ ListBox is used to select one or more values from a list of items.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<ListboxItemTemplateContext<any>>> | Custom item template. |
-| group | Signal<TemplateRef<ListboxGroupTemplateContext<any>>> | Custom group template. |
-| header | Signal<TemplateRef<ListboxHeaderTemplateContext<any>>> | Custom header template. |
-| filter | Signal<TemplateRef<ListboxFilterTemplateContext>> | Custom filter template. |
-| footer | Signal<TemplateRef<ListboxFooterTemplateContext<any>>> | Custom footer template. |
-| emptyfilter | Signal<TemplateRef<void>> | Custom empty filter message template. |
-| empty | Signal<TemplateRef<void>> | Custom empty message template. |
-| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
-| checkicon | Signal<TemplateRef<ListboxCheckIconTemplateContext>> | Custom check icon template. |
-| checkmark | Signal<TemplateRef<ListboxCheckmarkTemplateContext>> | Custom checkmark icon template. |
-| loader | Signal<TemplateRef<ListboxLoaderTemplateContext>> | Custom loader template. |
+| item | TemplateRef<ListboxItemTemplateContext<any>> | Custom item template. |
+| group | TemplateRef<ListboxGroupTemplateContext<any>> | Custom group template. |
+| header | TemplateRef<ListboxHeaderTemplateContext<any>> | Custom header template. |
+| filter | TemplateRef<ListboxFilterTemplateContext> | Custom filter template. |
+| footer | TemplateRef<ListboxFooterTemplateContext<any>> | Custom footer template. |
+| emptyfilter | TemplateRef<void> | Custom empty filter message template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| checkicon | TemplateRef<ListboxCheckIconTemplateContext> | Custom check icon template. |
+| checkmark | TemplateRef<ListboxCheckmarkTemplateContext> | Custom checkmark icon template. |
+| loader | TemplateRef<ListboxLoaderTemplateContext> | Custom loader template. |
 
 ### Methods
 

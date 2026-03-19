@@ -39,6 +39,7 @@
 - [Angular Checkbox Component](https://primeng.org/checkbox): Checkbox is an extension to standard checkbox element with theming.
 - [Angular Chip Component](https://primeng.org/chip): Chip represents entities using icons, labels and images.
 - [Angular ColorPicker Component](https://primeng.org/colorpicker): ColorPicker is an input component to select a color.
+- [Angular CommandMenu Component](https://primeng.org/commandmenu): CommandMenu is a search-driven command palette component.
 - [Angular ConfirmDialog Component](https://primeng.org/confirmdialog): ConfirmDialog is backed by a service utilizing Observables to display confirmation windows easily that can be shared by multiple actions on the same component.
 - [Angular ConfirmPopup Component](https://primeng.org/confirmpopup): ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 - [Angular ContextMenu Component](https://primeng.org/contextmenu): ContextMenu displays an overlay menu on right click of its target.

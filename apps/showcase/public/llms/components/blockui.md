@@ -79,7 +79,7 @@ BlockUI can either block other components or the whole page.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<any>> | Template of the content. |
+| content | TemplateRef<any> | Template of the content. |
 
 ## Pass Through Options
 

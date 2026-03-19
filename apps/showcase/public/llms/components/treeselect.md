@@ -807,18 +807,18 @@ TreeSelect is a form component to choose from hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| value | Signal<TemplateRef<TreeSelectValueTemplateContext>> | Custom value template. |
-| header | Signal<TemplateRef<TreeSelectHeaderTemplateContext>> | Custom header template. |
-| empty | Signal<TemplateRef<void>> | Custom empty message template. |
-| footer | Signal<TemplateRef<TreeSelectHeaderTemplateContext>> | Custom footer template. |
-| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
-| triggericon | Signal<TemplateRef<void>> | Custom trigger icon template. |
-| dropdownicon | Signal<TemplateRef<void>> | Custom dropdown icon template. |
-| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
-| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
-| itemtogglericon | Signal<TemplateRef<TreeSelectItemTogglerIconTemplateContext>> | Custom item toggler icon template. |
-| itemcheckboxicon | Signal<TemplateRef<TreeSelectItemCheckboxIconTemplateContext>> | Custom item checkbox icon template. |
-| itemloadingicon | Signal<TemplateRef<void>> | Custom item loading icon template. |
+| value | TemplateRef<TreeSelectValueTemplateContext> | Custom value template. |
+| header | TemplateRef<TreeSelectHeaderTemplateContext> | Custom header template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| footer | TemplateRef<TreeSelectHeaderTemplateContext> | Custom footer template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| triggericon | TemplateRef<void> | Custom trigger icon template. |
+| dropdownicon | TemplateRef<void> | Custom dropdown icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| itemtogglericon | TemplateRef<TreeSelectItemTogglerIconTemplateContext> | Custom item toggler icon template. |
+| itemcheckboxicon | TemplateRef<TreeSelectItemCheckboxIconTemplateContext> | Custom item checkbox icon template. |
+| itemloadingicon | TemplateRef<void> | Custom item loading icon template. |
 
 ## Pass Through Options
 

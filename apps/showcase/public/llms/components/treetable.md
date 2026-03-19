@@ -2659,32 +2659,32 @@ TreeTable is used to display hierarchical data in tabular format.
 
 | Name | Type | Description |
 |------|------|-------------|
-| colgroup | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| caption | Signal<TemplateRef<void>> |  |
-| header | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| body | Signal<TemplateRef<TreeTableBodyTemplateContext>> |  |
-| footer | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| summary | Signal<TemplateRef<void>> |  |
-| emptymessage | Signal<TemplateRef<TreeTableEmptyMessageTemplateContext>> |  |
-| paginatorleft | Signal<TemplateRef<void>> |  |
-| paginatorright | Signal<TemplateRef<void>> |  |
-| paginatordropdownitem | Signal<TemplateRef<void>> |  |
-| frozenheader | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| frozenbody | Signal<TemplateRef<void>> |  |
-| frozenfooter | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| frozencolgroup | Signal<TemplateRef<TreeTableColumnsTemplateContext>> |  |
-| loadingicon | Signal<TemplateRef<void>> |  |
-| reorderindicatorupicon | Signal<TemplateRef<void>> |  |
-| reorderindicatordownicon | Signal<TemplateRef<void>> |  |
-| sorticon | Signal<TemplateRef<TreeTableSortIconTemplateContext>> |  |
-| checkboxicon | Signal<TemplateRef<TreeTableCheckboxIconTemplateContext>> |  |
-| headercheckboxicon | Signal<TemplateRef<TreeTableHeaderCheckboxIconTemplateContext>> |  |
-| togglericon | Signal<TemplateRef<TreeTableTogglerIconTemplateContext>> |  |
-| paginatorfirstpagelinkicon | Signal<TemplateRef<void>> |  |
-| paginatorlastpagelinkicon | Signal<TemplateRef<void>> |  |
-| paginatorpreviouspagelinkicon | Signal<TemplateRef<void>> |  |
-| paginatornextpagelinkicon | Signal<TemplateRef<void>> |  |
-| loader | Signal<TemplateRef<void>> |  |
+| colgroup | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| caption | TemplateRef<void> |  |
+| header | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| body | TemplateRef<TreeTableBodyTemplateContext> |  |
+| footer | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| summary | TemplateRef<void> |  |
+| emptymessage | TemplateRef<TreeTableEmptyMessageTemplateContext> |  |
+| paginatorleft | TemplateRef<void> |  |
+| paginatorright | TemplateRef<void> |  |
+| paginatordropdownitem | TemplateRef<void> |  |
+| frozenheader | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| frozenbody | TemplateRef<void> |  |
+| frozenfooter | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| frozencolgroup | TemplateRef<TreeTableColumnsTemplateContext> |  |
+| loadingicon | TemplateRef<void> |  |
+| reorderindicatorupicon | TemplateRef<void> |  |
+| reorderindicatordownicon | TemplateRef<void> |  |
+| sorticon | TemplateRef<TreeTableSortIconTemplateContext> |  |
+| checkboxicon | TemplateRef<TreeTableCheckboxIconTemplateContext> |  |
+| headercheckboxicon | TemplateRef<TreeTableHeaderCheckboxIconTemplateContext> |  |
+| togglericon | TemplateRef<TreeTableTogglerIconTemplateContext> |  |
+| paginatorfirstpagelinkicon | TemplateRef<void> |  |
+| paginatorlastpagelinkicon | TemplateRef<void> |  |
+| paginatorpreviouspagelinkicon | TemplateRef<void> |  |
+| paginatornextpagelinkicon | TemplateRef<void> |  |
+| loader | TemplateRef<void> |  |
 
 ### Methods
 

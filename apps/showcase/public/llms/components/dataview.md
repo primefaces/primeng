@@ -540,17 +540,17 @@ DataView displays data in grid or list layout with pagination and sorting featur
 
 | Name | Type | Description |
 |------|------|-------------|
-| list | Signal<TemplateRef<DataViewListTemplateContext<any>>> | Template for the list layout. |
-| grid | Signal<TemplateRef<DataViewGridTemplateContext<any>>> | Template for grid layout. |
-| header | Signal<TemplateRef<void>> | Template for the header section. |
-| emptymessage | Signal<TemplateRef<void>> | Template for the empty message section. |
-| footer | Signal<TemplateRef<void>> | Template for the footer section. |
-| paginatorleft | Signal<TemplateRef<DataViewPaginatorLeftTemplateContext>> | Template for the left side of paginator. |
-| paginatorright | Signal<TemplateRef<DataViewPaginatorRightTemplateContext>> | Template for the right side of paginator. |
-| paginatordropdownitem | Signal<TemplateRef<DataViewPaginatorDropdownItemTemplateContext>> | Template for items in paginator dropdown. |
-| loadingicon | Signal<TemplateRef<void>> | Template for loading icon. |
-| listicon | Signal<TemplateRef<void>> | Template for list icon. |
-| gridicon | Signal<TemplateRef<void>> | Template for grid icon. |
+| list | TemplateRef<DataViewListTemplateContext<any>> | Template for the list layout. |
+| grid | TemplateRef<DataViewGridTemplateContext<any>> | Template for grid layout. |
+| header | TemplateRef<void> | Template for the header section. |
+| emptymessage | TemplateRef<void> | Template for the empty message section. |
+| footer | TemplateRef<void> | Template for the footer section. |
+| paginatorleft | TemplateRef<DataViewPaginatorLeftTemplateContext> | Template for the left side of paginator. |
+| paginatorright | TemplateRef<DataViewPaginatorRightTemplateContext> | Template for the right side of paginator. |
+| paginatordropdownitem | TemplateRef<DataViewPaginatorDropdownItemTemplateContext> | Template for items in paginator dropdown. |
+| loadingicon | TemplateRef<void> | Template for loading icon. |
+| listicon | TemplateRef<void> | Template for list icon. |
+| gridicon | TemplateRef<void> | Template for grid icon. |
 
 ## Pass Through Options
 

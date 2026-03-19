@@ -312,7 +312,7 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
     });
 
     /**
-     * Filtered options: applies score-based filter matching React's defaultFilter logic.
+     * Filtered options: applies score-based filter with sorting by relevance.
      */
     filteredOptions = computed(() => {
         const searchVal = (this.search() ?? '').trim();

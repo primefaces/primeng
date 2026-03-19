@@ -502,12 +502,12 @@ Password displays strength indicator for password fields.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<void>> | Custom template of content. |
-| footer | Signal<TemplateRef<void>> | Custom template of footer. |
-| header | Signal<TemplateRef<void>> | Custom template of header. |
-| clearicon | Signal<TemplateRef<void>> | Custom template of clear icon. |
-| hideicon | Signal<TemplateRef<PasswordIconTemplateContext>> | Custom template of hide icon. |
-| showicon | Signal<TemplateRef<PasswordIconTemplateContext>> | Custom template of show icon. |
+| content | TemplateRef<void> | Custom template of content. |
+| footer | TemplateRef<void> | Custom template of footer. |
+| header | TemplateRef<void> | Custom template of header. |
+| clearicon | TemplateRef<void> | Custom template of clear icon. |
+| hideicon | TemplateRef<PasswordIconTemplateContext> | Custom template of hide icon. |
+| showicon | TemplateRef<PasswordIconTemplateContext> | Custom template of show icon. |
 
 ## Pass Through Options
 

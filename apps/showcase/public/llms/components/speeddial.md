@@ -521,9 +521,9 @@ When pressed, a floating action button can display multiple primary actions that
 
 | Name | Type | Description |
 |------|------|-------------|
-| button | Signal<TemplateRef<SpeedDialButtonTemplateContext>> | Custom button template. |
-| item | Signal<TemplateRef<SpeedDialItemTemplateContext>> | Custom item template. |
-| icon | Signal<TemplateRef<void>> | Custom icon template. |
+| button | TemplateRef<SpeedDialButtonTemplateContext> | Custom button template. |
+| item | TemplateRef<SpeedDialItemTemplateContext> | Custom item template. |
+| icon | TemplateRef<void> | Custom icon template. |
 
 ## Pass Through Options
 

@@ -485,13 +485,13 @@ MegaMenu is navigation component that displays submenus together.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | Signal<TemplateRef<void>> | Defines template option for start. |
-| end | Signal<TemplateRef<void>> | Defines template option for end. |
-| menuicon | Signal<TemplateRef<void>> | Defines template option for menu icon. |
-| submenuicon | Signal<TemplateRef<void>> | Defines template option for submenu icon. |
-| item | Signal<TemplateRef<MegaMenuItemTemplateContext>> | Custom item template. |
-| button | Signal<TemplateRef<void>> | Custom menu button template on responsive mode. |
-| buttonicon | Signal<TemplateRef<void>> | Custom menu button icon template on responsive mode. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| menuicon | TemplateRef<void> | Defines template option for menu icon. |
+| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
+| item | TemplateRef<MegaMenuItemTemplateContext> | Custom item template. |
+| button | TemplateRef<void> | Custom menu button template on responsive mode. |
+| buttonicon | TemplateRef<void> | Custom menu button icon template on responsive mode. |
 
 ## Pass Through Options
 

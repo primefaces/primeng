@@ -214,7 +214,7 @@ Editor groups a collection of contents in tabs.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<any>> | Custom item template. |
+| header | TemplateRef<any> | Custom item template. |
 
 ## Pass Through Options
 

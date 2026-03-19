@@ -254,9 +254,9 @@ Timeline visualizes a series of chained events.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<TimelineItemTemplateContext<any>>> | Custom content template. |
-| opposite | Signal<TemplateRef<TimelineItemTemplateContext<any>>> | Custom opposite item template. |
-| marker | Signal<TemplateRef<TimelineItemTemplateContext<any>>> | Custom marker template. |
+| content | TemplateRef<TimelineItemTemplateContext<any>> | Custom content template. |
+| opposite | TemplateRef<TimelineItemTemplateContext<any>> | Custom opposite item template. |
+| marker | TemplateRef<TimelineItemTemplateContext<any>> | Custom marker template. |
 
 ## Pass Through Options
 

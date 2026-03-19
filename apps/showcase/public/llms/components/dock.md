@@ -470,7 +470,7 @@ Dock is a navigation component consisting of menuitems.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | Signal<TemplateRef<DockItemTemplateContext>> | Custom item template. |
+| item | TemplateRef<DockItemTemplateContext> | Custom item template. |
 
 ## Pass Through Options
 

@@ -490,7 +490,7 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 | Name | Type | Description |
 |------|------|-------------|
-| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
 
 ## Pass Through Options
 

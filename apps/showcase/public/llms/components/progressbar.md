@@ -136,7 +136,7 @@ ProgressBar is a process status indicator.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | Signal<TemplateRef<ProgressBarContentTemplateContext>> | Template of the content. |
+| content | TemplateRef<ProgressBarContentTemplateContext> | Template of the content. |
 
 ## Pass Through Options
 

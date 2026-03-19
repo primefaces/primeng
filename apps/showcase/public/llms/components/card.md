@@ -87,11 +87,11 @@ Card is a flexible container component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | Signal<TemplateRef<void>> | Custom header template. |
-| title | Signal<TemplateRef<void>> | Custom title template. |
-| subtitle | Signal<TemplateRef<void>> | Custom subtitle template. |
-| content | Signal<TemplateRef<void>> | Custom content template. |
-| footer | Signal<TemplateRef<void>> | Custom footer template. |
+| header | TemplateRef<void> | Custom header template. |
+| title | TemplateRef<void> | Custom title template. |
+| subtitle | TemplateRef<void> | Custom subtitle template. |
+| content | TemplateRef<void> | Custom content template. |
+| footer | TemplateRef<void> | Custom footer template. |
 
 ## Pass Through Options
 
