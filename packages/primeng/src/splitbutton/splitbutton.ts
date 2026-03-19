@@ -313,12 +313,12 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
      * Custom content template.
      * @group Templates
      */
-    contentTemplate = contentChild<TemplateRef<void>>('content');
+    contentTemplate = contentChild<TemplateRef<void>>('content', { descendants: false });
     /**
      * Custom dropdown icon template.
      * @group Templates
      **/
-    dropdownIconTemplate = contentChild<TemplateRef<void>>('dropdownicon');
+    dropdownIconTemplate = contentChild<TemplateRef<void>>('dropdownicon', { descendants: false });
 
     ariaId = uuid('pn_id_');
 

@@ -163,7 +163,10 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
-    splitter = contentChild(forwardRef(() => Splitter));
+    splitter = contentChild(
+        forwardRef(() => Splitter),
+        { descendants: false }
+    );
 
     nestedState = computed(() => this.splitter());
 

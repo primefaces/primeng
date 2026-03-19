@@ -335,65 +335,65 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
      * @param {DataViewListTemplateContext} context - list template context.
      * @group Templates
      */
-    listTemplate = contentChild<TemplateRef<DataViewListTemplateContext>>('list');
+    listTemplate = contentChild<TemplateRef<DataViewListTemplateContext>>('list', { descendants: false });
     /**
      * Template for grid layout.
      * @param {DataViewGridTemplateContext} context - grid template context.
      * @group Templates
      */
-    gridTemplate = contentChild<TemplateRef<DataViewGridTemplateContext>>('grid');
+    gridTemplate = contentChild<TemplateRef<DataViewGridTemplateContext>>('grid', { descendants: false });
     /**
      * Template for the header section.
      * @group Templates
      */
-    headerTemplate = contentChild<TemplateRef<void>>('header');
+    headerTemplate = contentChild<TemplateRef<void>>('header', { descendants: false });
     /**
      * Template for the empty message section.
      * @group Templates
      */
-    emptymessageTemplate = contentChild<TemplateRef<void>>('emptymessage');
+    emptymessageTemplate = contentChild<TemplateRef<void>>('emptymessage', { descendants: false });
     /**
      * Template for the footer section.
      * @group Templates
      */
-    footerTemplate = contentChild<TemplateRef<void>>('footer');
+    footerTemplate = contentChild<TemplateRef<void>>('footer', { descendants: false });
     /**
      * Template for the left side of paginator.
      * @param {DataViewPaginatorLeftTemplateContext} context - paginator left template context.
      * @group Templates
      */
-    paginatorleft = contentChild<TemplateRef<DataViewPaginatorLeftTemplateContext>>('paginatorleft');
+    paginatorleft = contentChild<TemplateRef<DataViewPaginatorLeftTemplateContext>>('paginatorleft', { descendants: false });
     /**
      * Template for the right side of paginator.
      * @param {DataViewPaginatorRightTemplateContext} context - paginator right template context.
      * @group Templates
      */
-    paginatorright = contentChild<TemplateRef<DataViewPaginatorRightTemplateContext>>('paginatorright');
+    paginatorright = contentChild<TemplateRef<DataViewPaginatorRightTemplateContext>>('paginatorright', { descendants: false });
     /**
      * Template for items in paginator dropdown.
      * @param {DataViewPaginatorDropdownItemTemplateContext} context - paginator dropdown item template context.
      * @group Templates
      */
-    paginatordropdownitem = contentChild<TemplateRef<DataViewPaginatorDropdownItemTemplateContext>>('paginatordropdownitem');
+    paginatordropdownitem = contentChild<TemplateRef<DataViewPaginatorDropdownItemTemplateContext>>('paginatordropdownitem', { descendants: false });
     /**
      * Template for loading icon.
      * @group Templates
      */
-    loadingicon = contentChild<TemplateRef<void>>('loadingicon');
+    loadingicon = contentChild<TemplateRef<void>>('loadingicon', { descendants: false });
     /**
      * Template for list icon.
      * @group Templates
      */
-    listicon = contentChild<TemplateRef<void>>('listicon');
+    listicon = contentChild<TemplateRef<void>>('listicon', { descendants: false });
     /**
      * Template for grid icon.
      * @group Templates
      */
-    gridicon = contentChild<TemplateRef<void>>('gridicon');
+    gridicon = contentChild<TemplateRef<void>>('gridicon', { descendants: false });
 
-    header = contentChild(Header);
+    header = contentChild(Header, { descendants: false });
 
-    footer = contentChild(Footer);
+    footer = contentChild(Footer, { descendants: false });
 
     filteredValue = signal<any[] | null>(null);
 

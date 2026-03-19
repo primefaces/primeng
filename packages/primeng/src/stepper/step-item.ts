@@ -49,9 +49,9 @@ export class StepItem extends BaseComponent<StepItemPassThrough> {
 
     isActive = computed(() => this.pcStepper.value() === this.value());
 
-    step = contentChild(Step);
+    step = contentChild(Step, { descendants: false });
 
-    stepPanel = contentChild(StepPanel);
+    stepPanel = contentChild(StepPanel, { descendants: false });
 
     constructor() {
         super();

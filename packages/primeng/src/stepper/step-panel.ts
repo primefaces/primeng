@@ -96,7 +96,7 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
      * @see {@link StepPanelContentTemplateContext}
      * @group Templates
      */
-    contentTemplate = contentChild<TemplateRef<StepPanelContentTemplateContext>>('content');
+    contentTemplate = contentChild<TemplateRef<StepPanelContentTemplateContext>>('content', { descendants: false });
 
     _componentStyle = inject(StepPanelStyle);
 

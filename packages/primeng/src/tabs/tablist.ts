@@ -90,13 +90,13 @@ export class TabList extends BaseComponent<TabListPassThrough> {
      * @type {TemplateRef<any> | undefined}
      * @group Templates
      */
-    prevIconTemplate = contentChild<TemplateRef<any>>('previcon');
+    prevIconTemplate = contentChild<TemplateRef<any>>('previcon', { descendants: false });
     /**
      * A template reference variable that represents the next icon in a UI component.
      * @type {TemplateRef<any> | undefined}
      * @group Templates
      */
-    nextIconTemplate = contentChild<TemplateRef<any>>('nexticon');
+    nextIconTemplate = contentChild<TemplateRef<any>>('nexticon', { descendants: false });
 
     content = viewChild<ElementRef<HTMLDivElement>>('content');
 

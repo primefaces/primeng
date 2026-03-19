@@ -179,7 +179,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      */
     onAfterToggle = output<PanelAfterToggleEvent>();
 
-    footerFacet = contentChild(Footer);
+    footerFacet = contentChild(Footer, { descendants: false });
 
     /**
      * Defines template option for header.

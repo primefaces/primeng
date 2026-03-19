@@ -168,7 +168,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @see {@link PopoverContentTemplateContext}
      * @group Templates
      */
-    contentTemplate = contentChild<TemplateRef<PopoverContentTemplateContext>>('content');
+    contentTemplate = contentChild<TemplateRef<PopoverContentTemplateContext>>('content', { descendants: false });
 
     onCloseClickCallback = this.onCloseClick.bind(this);
 

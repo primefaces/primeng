@@ -78,7 +78,7 @@ export class Stepper extends BaseComponent<StepperPassThrough> {
 
     steps = contentChildren(Step);
 
-    stepList = contentChild(StepList);
+    stepList = contentChild(StepList, { descendants: false });
 
     updateValue(value: number) {
         this.value.set(value);

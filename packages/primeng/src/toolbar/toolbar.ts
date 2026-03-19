@@ -69,19 +69,19 @@ export class Toolbar extends BaseComponent<ToolbarPassThrough> implements Blocka
      * Custom start template.
      * @group Templates
      */
-    startTemplate = contentChild<TemplateRef<void>>('start');
+    startTemplate = contentChild<TemplateRef<void>>('start', { descendants: false });
 
     /**
      * Custom end template.
      * @group Templates
      */
-    endTemplate = contentChild<TemplateRef<void>>('end');
+    endTemplate = contentChild<TemplateRef<void>>('end', { descendants: false });
 
     /**
      * Custom center template.
      * @group Templates
      */
-    centerTemplate = contentChild<TemplateRef<void>>('center');
+    centerTemplate = contentChild<TemplateRef<void>>('center', { descendants: false });
 }
 
 @NgModule({

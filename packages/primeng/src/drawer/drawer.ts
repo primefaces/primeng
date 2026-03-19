@@ -281,27 +281,27 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      * Custom header template.
      * @group Templates
      */
-    headerTemplate = contentChild<TemplateRef<void>>('header');
+    headerTemplate = contentChild<TemplateRef<void>>('header', { descendants: false });
     /**
      * Custom footer template.
      * @group Templates
      */
-    footerTemplate = contentChild<TemplateRef<void>>('footer');
+    footerTemplate = contentChild<TemplateRef<void>>('footer', { descendants: false });
     /**
      * Custom content template.
      * @group Templates
      */
-    contentTemplate = contentChild<TemplateRef<void>>('content');
+    contentTemplate = contentChild<TemplateRef<void>>('content', { descendants: false });
     /**
      * Custom close icon template.
      * @group Templates
      */
-    closeIconTemplate = contentChild<TemplateRef<void>>('closeicon');
+    closeIconTemplate = contentChild<TemplateRef<void>>('closeicon', { descendants: false });
     /**
      * Custom headless template to replace the entire drawer content.
      * @group Templates
      */
-    headlessTemplate = contentChild<TemplateRef<void>>('headless');
+    headlessTemplate = contentChild<TemplateRef<void>>('headless', { descendants: false });
 
     showCloseButton = computed(() => this.showCloseIcon() && this.closable());
 

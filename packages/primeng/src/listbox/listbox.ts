@@ -690,9 +690,9 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     containerViewChild = viewChild<ElementRef>('container');
 
-    headerFacet = contentChild(Header);
+    headerFacet = contentChild(Header, { descendants: false });
 
-    footerFacet = contentChild(Footer);
+    footerFacet = contentChild(Footer, { descendants: false });
 
     /**
      * Custom item template.

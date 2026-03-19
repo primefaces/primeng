@@ -290,19 +290,19 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
      * @see {@link SpeedDialButtonTemplateContext}
      * @group Templates
      */
-    buttonTemplate = contentChild<TemplateRef<SpeedDialButtonTemplateContext>>('button');
+    buttonTemplate = contentChild<TemplateRef<SpeedDialButtonTemplateContext>>('button', { descendants: false });
     /**
      * Custom item template.
      * @param {SpeedDialItemTemplateContext} context - item context.
      * @see {@link SpeedDialItemTemplateContext}
      * @group Templates
      */
-    itemTemplate = contentChild<TemplateRef<SpeedDialItemTemplateContext>>('item');
+    itemTemplate = contentChild<TemplateRef<SpeedDialItemTemplateContext>>('item', { descendants: false });
     /**
      * Custom icon template.
      * @group Templates
      */
-    iconTemplate = contentChild<TemplateRef<void>>('icon');
+    iconTemplate = contentChild<TemplateRef<void>>('icon', { descendants: false });
 
     isItemClicked: boolean = false;
 

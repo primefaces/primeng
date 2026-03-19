@@ -69,7 +69,7 @@ export class TabPanel extends BaseComponent<TabPanelPassThrough> {
      * Template for initializing complex content when lazy is enabled.
      * @group Templates
      */
-    content = contentChild('content');
+    content = contentChild('content', { descendants: false });
 
     id = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
 

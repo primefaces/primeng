@@ -92,7 +92,7 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
      * @see {@link AccordionToggleIconTemplateContext}
      * @group Templates
      */
-    toggleicon = contentChild<TemplateRef<AccordionToggleIconTemplateContext>>('toggleicon');
+    toggleicon = contentChild<TemplateRef<AccordionToggleIconTemplateContext>>('toggleicon', { descendants: false });
 
     toggleIconContext = computed<AccordionToggleIconTemplateContext>(() => ({ active: this.active() }));
 

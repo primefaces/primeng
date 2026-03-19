@@ -254,13 +254,13 @@ export class Breadcrumb extends BaseComponent<BreadcrumbPassThrough> {
      * Custom item template.
      * @group Templates
      */
-    itemTemplate = contentChild<TemplateRef<BreadcrumbItemTemplateContext>>('item');
+    itemTemplate = contentChild<TemplateRef<BreadcrumbItemTemplateContext>>('item', { descendants: false });
 
     /**
      * Custom separator template.
      * @group Templates
      */
-    separatorTemplate = contentChild<TemplateRef<void>>('separator');
+    separatorTemplate = contentChild<TemplateRef<void>>('separator', { descendants: false });
 
     showHome = computed(() => this.home() && this.home()!.visible !== false);
 

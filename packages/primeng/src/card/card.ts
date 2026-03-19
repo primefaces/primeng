@@ -81,9 +81,9 @@ export class Card extends BaseComponent<CardPassThrough> implements BlockableUI 
      */
     subheader = input<string>();
 
-    headerFacet = contentChild(Header);
+    headerFacet = contentChild(Header, { descendants: false });
 
-    footerFacet = contentChild(Footer);
+    footerFacet = contentChild(Footer, { descendants: false });
 
     /**
      * Custom header template.

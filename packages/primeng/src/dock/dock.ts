@@ -179,7 +179,7 @@ export class Dock extends BaseComponent<DockPassThrough> {
      * @param {DockItemTemplateContext} context - item template context.
      * @group Templates
      */
-    itemTemplate = contentChild<TemplateRef<DockItemTemplateContext>>('item');
+    itemTemplate = contentChild<TemplateRef<DockItemTemplateContext>>('item', { descendants: false });
 
     listViewChild = viewChild<ElementRef>('list');
 

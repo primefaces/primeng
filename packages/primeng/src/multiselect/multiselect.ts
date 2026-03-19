@@ -822,9 +822,9 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     headerCheckboxViewChild = viewChild<Checkbox>('headerCheckbox');
 
-    footerFacet = contentChild(Footer);
+    footerFacet = contentChild(Footer, { descendants: false });
 
-    headerFacet = contentChild(Header);
+    headerFacet = contentChild(Header, { descendants: false });
 
     _componentStyle = inject(MultiSelectStyle);
 

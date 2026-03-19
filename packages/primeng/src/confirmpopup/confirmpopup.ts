@@ -229,25 +229,25 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      * Custom content template.
      * @group Templates
      */
-    contentTemplate = contentChild<TemplateRef<ConfirmPopupContentTemplateContext>>('content');
+    contentTemplate = contentChild<TemplateRef<ConfirmPopupContentTemplateContext>>('content', { descendants: false });
 
     /**
      * Custom accept icon template.
      * @group Templates
      */
-    acceptIconTemplate = contentChild<TemplateRef<void>>('accepticon');
+    acceptIconTemplate = contentChild<TemplateRef<void>>('accepticon', { descendants: false });
 
     /**
      * Custom reject icon template.
      * @group Templates
      */
-    rejectIconTemplate = contentChild<TemplateRef<void>>('rejecticon');
+    rejectIconTemplate = contentChild<TemplateRef<void>>('rejecticon', { descendants: false });
 
     /**
      * Custom headless template.
      * @group Templates
      */
-    headlessTemplate = contentChild<TemplateRef<ConfirmPopupHeadlessTemplateContext>>('headless');
+    headlessTemplate = contentChild<TemplateRef<ConfirmPopupHeadlessTemplateContext>>('headless', { descendants: false });
 
     acceptButtonViewChild = viewChild('acceptButton', { read: ElementRef });
 

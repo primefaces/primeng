@@ -122,14 +122,14 @@ export class Toast extends BaseComponent<ToastPassThrough> {
      * @see {@link ToastMessageTemplateContext}
      * @group Templates
      */
-    messageTemplate = contentChild<TemplateRef<ToastMessageTemplateContext>>('message');
+    messageTemplate = contentChild<TemplateRef<ToastMessageTemplateContext>>('message', { descendants: false });
     /**
      * Custom headless template.
      * @param {ToastHeadlessTemplateContext} context - headless context.
      * @see {@link ToastHeadlessTemplateContext}
      * @group Templates
      */
-    headlessTemplate = contentChild<TemplateRef<ToastHeadlessTemplateContext>>('headless');
+    headlessTemplate = contentChild<TemplateRef<ToastHeadlessTemplateContext>>('headless', { descendants: false });
 
     messageSubscription: Subscription | undefined;
 

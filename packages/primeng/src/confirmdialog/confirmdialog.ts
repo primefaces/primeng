@@ -332,7 +332,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
      */
     onHide = output<ConfirmEventType | undefined>();
 
-    footer = contentChild(Footer);
+    footer = contentChild(Footer, { descendants: false });
 
     _componentStyle = inject(ConfirmDialogStyle);
 
@@ -340,43 +340,43 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
      * Custom header template.
      * @group Templates
      */
-    headerTemplate = contentChild<TemplateRef<void>>('header');
+    headerTemplate = contentChild<TemplateRef<void>>('header', { descendants: false });
 
     /**
      * Custom footer template.
      * @group Templates
      */
-    footerTemplate = contentChild<TemplateRef<void>>('footer');
+    footerTemplate = contentChild<TemplateRef<void>>('footer', { descendants: false });
 
     /**
      * Custom reject icon template.
      * @group Templates
      */
-    rejectIconTemplate = contentChild<TemplateRef<void>>('rejecticon');
+    rejectIconTemplate = contentChild<TemplateRef<void>>('rejecticon', { descendants: false });
 
     /**
      * Custom accept icon template.
      * @group Templates
      */
-    acceptIconTemplate = contentChild<TemplateRef<void>>('accepticon');
+    acceptIconTemplate = contentChild<TemplateRef<void>>('accepticon', { descendants: false });
 
     /**
      * Custom message template.
      * @group Templates
      */
-    messageTemplate = contentChild<TemplateRef<ConfirmDialogMessageTemplateContext>>('message');
+    messageTemplate = contentChild<TemplateRef<ConfirmDialogMessageTemplateContext>>('message', { descendants: false });
 
     /**
      * Custom icon template.
      * @group Templates
      */
-    iconTemplate = contentChild<TemplateRef<void>>('icon');
+    iconTemplate = contentChild<TemplateRef<void>>('icon', { descendants: false });
 
     /**
      * Custom headless template.
      * @group Templates
      */
-    headlessTemplate = contentChild<TemplateRef<ConfirmDialogHeadlessTemplateContext>>('headless');
+    headlessTemplate = contentChild<TemplateRef<ConfirmDialogHeadlessTemplateContext>>('headless', { descendants: false });
 
     private onAcceptCallback = this.onAccept.bind(this);
 

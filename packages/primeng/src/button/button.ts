@@ -234,9 +234,9 @@ export class ButtonDirective extends BaseComponent {
      */
     fluid = input(undefined, { transform: booleanAttribute });
 
-    private iconSignal = contentChild(ButtonIcon);
+    private iconSignal = contentChild(ButtonIcon, { descendants: false });
 
-    private labelSignal = contentChild(ButtonLabel);
+    private labelSignal = contentChild(ButtonLabel, { descendants: false });
 
     isIconOnly = computed(() => !!(!this.labelSignal() && this.iconSignal()));
 
@@ -608,19 +608,19 @@ export class Button extends BaseComponent<ButtonPassThrough> {
      * Custom content template.
      * @group Templates
      **/
-    contentTemplate = contentChild<TemplateRef<void>>('content');
+    contentTemplate = contentChild<TemplateRef<void>>('content', { descendants: false });
 
     /**
      * Custom loading icon template.
      * @group Templates
      **/
-    loadingIconTemplate = contentChild<TemplateRef<ButtonLoadingIconTemplateContext>>('loadingicon');
+    loadingIconTemplate = contentChild<TemplateRef<ButtonLoadingIconTemplateContext>>('loadingicon', { descendants: false });
 
     /**
      * Custom icon template.
      * @group Templates
      **/
-    iconTemplate = contentChild<TemplateRef<ButtonIconTemplateContext>>('icon');
+    iconTemplate = contentChild<TemplateRef<ButtonIconTemplateContext>>('icon', { descendants: false });
 
     pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 

@@ -174,7 +174,7 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
      */
     onBlur = output<EditorBlurEvent>();
 
-    toolbar = contentChild(Header);
+    toolbar = contentChild(Header, { descendants: false });
 
     /**
      * Custom item template.

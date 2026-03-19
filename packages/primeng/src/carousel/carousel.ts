@@ -299,9 +299,9 @@ export class Carousel extends BaseComponent {
 
     indicatorContent = viewChild<ElementRef>('indicatorContent');
 
-    headerFacet = contentChild(Header);
+    headerFacet = contentChild(Header, { descendants: false });
 
-    footerFacet = contentChild(Footer);
+    footerFacet = contentChild(Footer, { descendants: false });
 
     /**
      * Custom item template.

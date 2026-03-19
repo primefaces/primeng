@@ -29,9 +29,9 @@ export class TreeTableCellEditor extends BaseComponent {
         this.bindDirectiveInstance.setAttrs(this.ptm('cellEditor'));
     }
 
-    inputTemplate = contentChild<TemplateRef<any>>('input');
+    inputTemplate = contentChild<TemplateRef<any>>('input', { descendants: false });
 
-    outputTemplate = contentChild<TemplateRef<any>>('output');
+    outputTemplate = contentChild<TemplateRef<any>>('output', { descendants: false });
 
     tt = inject<TreeTable>(TREETABLE_INSTANCE);
 

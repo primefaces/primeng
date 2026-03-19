@@ -21,9 +21,9 @@ import type { Table } from './table';
     encapsulation: ViewEncapsulation.None
 })
 export class CellEditor extends BaseComponent {
-    _inputTemplate = contentChild<TemplateRef<any>>('input');
+    _inputTemplate = contentChild<TemplateRef<any>>('input', { descendants: false });
 
-    _outputTemplate = contentChild<TemplateRef<any>>('output');
+    _outputTemplate = contentChild<TemplateRef<any>>('output', { descendants: false });
 
     public dataTable = inject<Table>(TABLE_INSTANCE);
 

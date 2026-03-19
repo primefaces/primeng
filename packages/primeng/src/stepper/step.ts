@@ -102,7 +102,7 @@ export class Step extends BaseComponent<StepPassThrough> {
      * @type {TemplateRef<StepContentTemplateContext>}
      * @group Templates
      */
-    content = contentChild<TemplateRef<StepContentTemplateContext>>('content');
+    content = contentChild<TemplateRef<StepContentTemplateContext>>('content', { descendants: false });
 
     _componentStyle = inject(StepStyle);
 
