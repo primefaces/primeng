@@ -29,6 +29,33 @@ export class ToggleswitchBasicDemo {
 }
 ```
 
+## Size
+
+ToggleSwitch provides `small` and `large` sizes as alternatives to the standard.
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+
+@Component({
+    template: `
+        <div class="card flex justify-center gap-4 items-center">
+            <p-toggleswitch [(ngModel)]="checked1" size="small" />
+            <p-toggleswitch [(ngModel)]="checked2" />
+            <p-toggleswitch [(ngModel)]="checked3" size="large" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ToggleSwitchModule, FormsModule]
+})
+export class ToggleswitchSizeDemo {
+    checked1: boolean = false;
+    checked2: boolean = false;
+    checked3: boolean = false;
+}
+```
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
@@ -241,6 +268,8 @@ export class ToggleswitchTemplatedrivenformsDemo {
 | Class | Description |
 |-------|-------------|
 | p-toggleswitch | Class name of the root element |
+| p-toggleswitch-sm | Class name of the root element when size is small |
+| p-toggleswitch-lg | Class name of the root element when size is large |
 | p-toggleswitch-input | Class name of the input element |
 | p-toggleswitch-slider | Class name of the slider element |
 
