@@ -6,12 +6,6 @@ Toolbar is a grouping component for buttons and other content.
 
 Screen Reader Toolbar uses toolbar role for the root element, aria-orientation is not included as it defaults to horizontal . Any valid attribute is passed to the root element so you may add additional properties like aria-labelledby and aria-labelled to define the element if required. Keyboard Support Component does not include any interactive elements. Arbitrary content can be placed with templating and elements like buttons inside should follow the page tab sequence.
 
-```typescript
-<p-toolbar aria-label="Actions">
-    Content
-</p-toolbar>
-```
-
 ## Basic
 
 Toolbar is a grouping component for buttons and other content. Its content can be placed inside the start , center and end sections.

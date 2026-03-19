@@ -27,6 +27,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MotionModule } from 'primeng/motion';
+import { Subscription } from 'rxjs';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { OverlayContentTemplateContext } from 'primeng/types/overlay';
@@ -415,6 +416,8 @@ export class Overlay extends BaseComponent {
 
     private documentKeyboardListener: VoidListener;
 
+    private parentDragSubscription: Subscription | null = null;
+
     private window: Window | null;
 
     protected transformOptions: any = {
@@ -539,6 +542,7 @@ export class Overlay extends BaseComponent {
         this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
         this.appendOverlay();
         this.alignOverlay();
+        this.bindParentDragListener();
         this.setZIndex();
 
         this.handleEvents('onBeforeEnter', event);
@@ -620,6 +624,24 @@ export class Overlay extends BaseComponent {
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindDocumentKeyboardListener();
+        this.unbindParentDragListener();
+    }
+
+    bindParentDragListener() {
+        if (!this.parentDragSubscription && this.$appendTo() !== 'self' && this.targetEl) {
+            this.parentDragSubscription = this.overlayService.parentDragObservable.subscribe((container: Element) => {
+                if (container.contains(this.targetEl)) {
+                    this.hide(this.overlayEl, true);
+                }
+            });
+        }
+    }
+
+    unbindParentDragListener() {
+        if (this.parentDragSubscription) {
+            this.parentDragSubscription.unsubscribe();
+            this.parentDragSubscription = null;
+        }
     }
 
     bindScrollListener() {

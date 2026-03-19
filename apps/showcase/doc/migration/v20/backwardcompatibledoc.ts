@@ -48,11 +48,11 @@ export class BackwardCompatibleDoc {
     };
 
     code2: Code = {
-        typescript: `<input type="text" pattern="email" [invalid]="email.invalid && (email.touched || sampleForm.submitted)" />`
+        html: `<input type="text" pattern="email" [invalid]="email.invalid && (email.touched || sampleForm.submitted)" />`
     };
 
     code3: Code = {
-        typescript: `<!-- Deprecated -->
+        html: `<!-- Deprecated -->
 <p-select styleClass="mx-auto" />
 
 <!-- New -->

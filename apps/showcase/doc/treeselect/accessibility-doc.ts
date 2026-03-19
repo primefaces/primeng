@@ -185,7 +185,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        typescript: `<span id="dd1">Options</span>
+        html: `<span id="dd1">Options</span>
 <p-treeselect ariaLabelledBy="dd1" />
 
 <p-treeselect ariaLabel="Options" />`

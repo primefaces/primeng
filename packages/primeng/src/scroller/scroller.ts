@@ -626,7 +626,6 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
             if (isChanged) {
                 this.init();
-                this.calculateAutoSize();
             }
         }
     }
@@ -702,6 +701,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
                 this.setSpacerSize();
                 this.setSize();
                 this.calculateOptions();
+                this.calculateAutoSize();
                 this.cd.detectChanges();
             }, 1);
         }

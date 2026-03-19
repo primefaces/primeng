@@ -28,7 +28,7 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
@@ -631,6 +631,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     }
     zone: NgZone = inject(NgZone);
 
+    private overlayService: OverlayService = inject(OverlayService);
+
     get maskClass() {
         const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
         const pos = positions.find((item) => item === this.position);
@@ -889,6 +891,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
                 this.lastPageY = event.pageY;
                 this.container()!.style.top = `${topPos}px`;
             }
+
+            this.overlayService.emitParentDrag(this.container()!);
         }
     }
 
