@@ -79,7 +79,7 @@ const theme = ({ dt }) => `
 .p-multiselect-display-chip .p-multiselect-label {
     display: flex;
     align-items: center;
-    gap: calc(dt('multiselect.padding.y') / 2);
+    gap: calc(${dt('multiselect.padding.y')} / 2);
 }
 
 .p-multiselect-label.p-placeholder {
