@@ -71,7 +71,6 @@ export const defaultFilter = (value: string, search: string, keywords?: string[]
             [scrollHeight]="'18rem'"
             [tabindex]="-1"
             (onClick)="onListboxClick($event)"
-            [style.display]="isEmpty() ? 'none' : ''"
             [pt]="ptm('pcListbox')"
         >
             <ng-template #item let-option let-index="index">
@@ -88,23 +87,23 @@ export const defaultFilter = (value: string, search: string, keywords?: string[]
                     {{ getOptionGroupLabel(optionGroup) }}
                 }
             </ng-template>
-        </p-listbox>
-
-        @if (isEmpty()) {
-            <div [class]="cx('empty')" [pBind]="ptm('empty')">
-                @if (emptyTemplate()) {
-                    <ng-container *ngTemplateOutlet="emptyTemplate(); context: { $implicit: search() }"></ng-container>
-                } @else {
-                    {{ emptyMessage() }}
+            <ng-template #empty>
+                <div [class]="cx('empty')" [pBind]="ptm('empty')">
+                    @if (emptyTemplate()) {
+                        <ng-container *ngTemplateOutlet="emptyTemplate(); context: { $implicit: search() }"></ng-container>
+                    } @else {
+                        {{ emptyMessage() }}
+                    }
+                </div>
+            </ng-template>
+            <ng-template #footer>
+                @if (footerTemplate()) {
+                    <div [class]="cx('footer')" [pBind]="ptm('footer')">
+                        <ng-container *ngTemplateOutlet="footerTemplate(); context: { $implicit: search() }"></ng-container>
+                    </div>
                 }
-            </div>
-        }
-
-        @if (footerTemplate()) {
-            <div [class]="cx('footer')" [pBind]="ptm('footer')">
-                <ng-container *ngTemplateOutlet="footerTemplate(); context: { $implicit: search() }"></ng-container>
-            </div>
-        }
+            </ng-template>
+        </p-listbox>
     `,
     providers: [CommandMenuStyle, { provide: PARENT_INSTANCE, useExisting: CommandMenu }],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -363,24 +362,6 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
      * Options passed to the internal Listbox. Same as filteredOptions.
      */
     listboxOptions = computed(() => this.filteredOptions());
-
-    /**
-     * Whether the filtered results are empty.
-     */
-    isEmpty = computed(() => {
-        const opts = this.listboxOptions();
-        if (!opts || opts.length === 0) return true;
-
-        if (this.group()) {
-            const groupChildren = this.optionGroupChildren();
-            return opts.every((g: any) => {
-                const children = groupChildren ? resolveFieldData(g, groupChildren) : g.items;
-                return !children || children.length === 0;
-            });
-        }
-
-        return false;
-    });
 
     constructor() {
         super();
