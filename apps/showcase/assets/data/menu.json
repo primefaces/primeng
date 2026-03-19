@@ -335,6 +335,11 @@
                             "routerLink": "/breadcrumb"
                         },
                         {
+                            "name": "CommandMenu",
+                            "routerLink": "/commandmenu",
+                            "badge": "NEW"
+                        },
+                        {
                             "name": "ContextMenu",
                             "routerLink": "/contextmenu"
                         },

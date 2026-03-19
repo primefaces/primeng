@@ -17,6 +17,7 @@
 /checkbox
 /chip
 /colorpicker
+/commandmenu
 /colors
 /setup
 /confirmdialog

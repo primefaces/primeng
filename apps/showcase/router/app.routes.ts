@@ -57,6 +57,7 @@ export const routes: Routes = [
                 path: 'colorpicker',
                 loadChildren: () => import('@/pages/colorpicker/routes')
             },
+            { path: 'commandmenu', loadChildren: () => import('@/pages/commandmenu/routes') },
             {
                 path: 'confirmdialog',
                 loadChildren: () => import('@/pages/confirmdialog/routes')
