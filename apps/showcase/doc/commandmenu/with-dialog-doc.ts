@@ -4,12 +4,14 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommandMenu, CommandMenuModule } from 'primeng/commandmenu';
+import { ArrowDown } from '@primeicons/angular/arrow-down';
+import { ArrowUp } from '@primeicons/angular/arrow-up';
 import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'with-dialog-doc',
     standalone: true,
-    imports: [FormsModule, CommandMenuModule, DialogModule, AppCode, AppDemoWrapper, AppDocSectionText],
+    imports: [FormsModule, CommandMenuModule, DialogModule, AppCode, AppDemoWrapper, AppDocSectionText, ArrowUp, ArrowDown],
     template: `
         <app-docsectiontext>
             <p>CommandMenu can be used inside a Dialog to create a command palette experience. Press <i>Ctrl+K</i> (or <i>Cmd+K</i> on Mac) to open.</p>
@@ -41,10 +43,10 @@ import { DialogModule } from 'primeng/dialog';
                         <div class="flex items-center justify-end gap-3">
                             <span class="flex items-center gap-1 text-surface-500 text-xs">
                                 <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
-                                    <i class="pi pi-arrow-up text-[0.5rem]"></i>
+                                    <svg data-p-icon="arrow-up"></svg>
                                 </kbd>
                                 <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
-                                    <i class="pi pi-arrow-down text-[0.5rem]"></i>
+                                    <svg data-p-icon="arrow-down"></svg>
                                 </kbd>
                                 Navigate
                             </span>

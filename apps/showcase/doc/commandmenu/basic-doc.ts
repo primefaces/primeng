@@ -3,11 +3,13 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, OnInit } from '@angular/core';
 import { CommandMenuModule } from 'primeng/commandmenu';
+import { ArrowDown } from '@primeicons/angular/arrow-down';
+import { ArrowUp } from '@primeicons/angular/arrow-up';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [CommandMenuModule, AppCode, AppDemoWrapper, AppDocSectionText],
+    imports: [CommandMenuModule, AppCode, AppDemoWrapper, AppDocSectionText, ArrowUp, ArrowDown],
     template: `
         <app-docsectiontext>
             <p>CommandMenu requires a collection of options via the <i>options</i> property. Use <i>group</i> to display grouped commands with <i>optionGroupLabel</i> and <i>optionGroupChildren</i>.</p>
@@ -30,10 +32,10 @@ import { CommandMenuModule } from 'primeng/commandmenu';
                     <div class="flex items-center justify-end gap-3">
                         <span class="flex items-center gap-1 text-surface-500 text-xs">
                             <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
-                                <i class="pi pi-arrow-up text-[0.5rem]"></i>
+                                <svg data-p-icon="arrow-up"></svg>
                             </kbd>
                             <kbd class="bg-surface-100 dark:bg-surface-800 size-5 inline-flex items-center justify-center rounded border border-surface-200 dark:border-surface-700">
-                                <i class="pi pi-arrow-down text-[0.5rem]"></i>
+                                <svg data-p-icon="arrow-down"></svg>
                             </kbd>
                             Navigate
                         </span>
