@@ -1414,21 +1414,21 @@ describe('InputColor Component Tests', () => {
             });
         });
 
-        describe('writeControlValue', () => {
+        describe('writeValue', () => {
             it('should parse hex string', () => {
-                inputColor.writeControlValue('#00ff00');
+                inputColor.writeValue('#00ff00');
                 expect(inputColor._color()).toBeTruthy();
                 expect(inputColor._color()!.toHex()).toBe('#00ff00');
             });
 
             it('should convert to current format', () => {
-                inputColor.writeControlValue('#ff0000');
+                inputColor.writeValue('#ff0000');
                 expect(inputColor._color()).toBeInstanceOf(HSBColor);
             });
 
             it('should set null for falsy value', () => {
-                inputColor.writeControlValue('#ff0000');
-                inputColor.writeControlValue(null);
+                inputColor.writeValue('#ff0000');
+                inputColor.writeValue(null);
                 expect(inputColor._color()).toBeNull();
             });
 
@@ -1436,7 +1436,7 @@ describe('InputColor Component Tests', () => {
                 inputColor.updateColor(new HSBColor(0, 100, 100));
                 const current = inputColor._color();
                 const currentStr = current!.toString(inputColor.format());
-                inputColor.writeControlValue(currentStr);
+                inputColor.writeValue(currentStr);
                 expect(inputColor._color()).toBe(current);
             });
         });

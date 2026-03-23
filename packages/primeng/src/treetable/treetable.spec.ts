@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { TreeNode } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { of } from 'rxjs';
+import type { TreeTableSelectionMode } from 'primeng/types/treetable';
 import { TreeTable } from './treetable';
 import { TreeTableModule } from './treetable.module';
 
@@ -1573,7 +1574,7 @@ describe('TreeTable', () => {
 
             it('should handle selection related properties', async () => {
                 // Test selection modes
-                const selectionModes = ['single', 'multiple', 'checkbox'];
+                const selectionModes = ['single', 'multiple', 'checkbox'] as const;
                 for (const mode of selectionModes) {
                     component.selectionMode = mode;
                     fixture.changeDetectorRef.markForCheck();
@@ -2101,7 +2102,7 @@ describe('TreeTable', () => {
             });
 
             it('should handle observable string properties', async () => {
-                const stringStream$ = of('single', 'multiple', 'single');
+                const stringStream$ = of('single' as TreeTableSelectionMode, 'multiple' as TreeTableSelectionMode, 'single' as TreeTableSelectionMode);
 
                 stringStream$.subscribe((value) => {
                     dynamicComponent.updateSelectionMode(value);
@@ -2318,7 +2319,7 @@ describe('TreeTable', () => {
                     }
 
                     // Test selectionMode
-                    for (const mode of ['single', 'multiple', 'checkbox']) {
+                    for (const mode of ['single', 'multiple', 'checkbox'] as const) {
                         dynamicComponent.updateSelectionMode(mode);
                         dynamicFixture.changeDetectorRef.markForCheck();
                         await dynamicFixture.whenStable();
@@ -2957,7 +2958,7 @@ class TestBasicTreeTableComponent {
     sortMode: 'single' | 'multiple' = 'single';
     resetPageOnSort: boolean = true;
     customSort: boolean | undefined;
-    selectionMode: string | undefined;
+    selectionMode: TreeTableSelectionMode | undefined;
     selection: any;
     contextMenuSelection: any;
     dataKey: string | undefined;
@@ -3120,7 +3121,7 @@ class TestDynamicTreeTableComponent {
     loading: boolean | undefined;
     scrollable: boolean | undefined;
     virtualScroll: boolean | undefined;
-    selectionMode: string | undefined;
+    selectionMode: TreeTableSelectionMode | undefined;
     sortMode: 'single' | 'multiple' = 'single';
     filterMode: string = 'lenient';
     showGridlines: boolean = false;
@@ -3183,7 +3184,7 @@ class TestDynamicTreeTableComponent {
         this.virtualScroll = enabled;
     }
 
-    updateSelectionMode(mode: string) {
+    updateSelectionMode(mode: TreeTableSelectionMode) {
         this.selectionMode = mode;
     }
 
