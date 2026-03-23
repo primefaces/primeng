@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, contentChild, effect, ElementRef, inject, input, model, NgModule, output, TemplateRef, viewChild, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChild, ElementRef, inject, input, model, NgModule, output, TemplateRef, viewChild, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { resolveFieldData, uuid } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -46,6 +46,7 @@ import { CommandMenuStyle } from './style/commandmenustyle';
                 autocorrect="off"
                 spellcheck="false"
                 (input)="onSearchInput($event)"
+                (keydown)="onSearchKeyDown($event)"
                 [pBind]="ptm('input')"
             />
         </div>
@@ -69,7 +70,7 @@ import { CommandMenuStyle } from './style/commandmenustyle';
             [multiple]="multiple()"
             [dataKey]="dataKey()"
             [autoOptionFocus]="autoOptionFocus()"
-            [scrollHeight]="virtualScroll() ? '100%' : scrollHeight()"
+            [scrollHeight]="'100%'"
             [tabindex]="-1"
             (onClick)="onListboxClick($event)"
             [pt]="ptm('pcListbox')"
@@ -212,13 +213,6 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
      * @group Props
      */
     readonly = input(undefined, { transform: booleanAttribute });
-
-    /**
-     * Height of the scroll viewport.
-     * @group Props
-     * @defaultValue 'none'
-     */
-    scrollHeight = input<string>('none');
 
     /**
      * Whether the data should be loaded on demand during scroll.
@@ -431,18 +425,6 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
      */
     listboxOptions = computed(() => this.filteredOptions());
 
-    constructor() {
-        super();
-
-        effect(() => {
-            const opts = this.listboxOptions();
-            const listbox = this.listboxViewChild();
-            if (listbox && opts) {
-                listbox.focused = true;
-            }
-        });
-    }
-
     getOptionLabel(option: any): string {
         const label = this.optionLabel();
         return label ? resolveFieldData(option, label) : option?.label != undefined ? option.label : String(option);
@@ -464,6 +446,14 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
             return resolveFieldData(option, keywords);
         }
         return undefined;
+    }
+
+    onSearchKeyDown(event: KeyboardEvent) {
+        const listbox = this.listboxViewChild();
+        if (listbox) {
+            listbox.focused = true;
+            listbox.onFilterKeyDown(event);
+        }
     }
 
     onSearchInput(event: Event) {
