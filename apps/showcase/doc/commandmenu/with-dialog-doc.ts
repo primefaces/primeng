@@ -75,6 +75,7 @@ export class WithDialogDoc implements OnInit {
     handleKeyboardEvent(event: KeyboardEvent) {
         if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
             event.preventDefault();
+            event.stopPropagation();
             this.visible = !this.visible;
         }
     }
