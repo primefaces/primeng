@@ -27,7 +27,6 @@ import { ArrowUp } from '@primeicons/angular/arrow-up';
                 [(search)]="searchValue"
                 placeholder="Search for commands..."
                 class="mx-auto"
-                (onItemSelect)="onSelect($event)"
             >
                 <ng-template #empty let-search>
                     No results found for <span class="text-surface-900 dark:text-surface-0">"{{ search }}"</span>
@@ -148,9 +147,5 @@ export class ControlledDoc implements OnInit {
                 ]
             }
         ];
-    }
-
-    onSelect(event: any) {
-        console.log('Selected:', event.value);
     }
 }

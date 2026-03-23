@@ -1,5 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, contentChild, effect, ElementRef, inject, input, model, NgModule, output, TemplateRef, viewChild, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { resolveFieldData, uuid } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -45,7 +46,6 @@ import { CommandMenuStyle } from './style/commandmenustyle';
                 autocorrect="off"
                 spellcheck="false"
                 (input)="onSearchInput($event)"
-                (keydown)="onInputKeyDown($event)"
                 [pBind]="ptm('input')"
             />
         </div>
@@ -58,8 +58,17 @@ import { CommandMenuStyle } from './style/commandmenustyle';
             [optionDisabled]="optionDisabled()"
             [optionGroupLabel]="optionGroupLabel()"
             [optionGroupChildren]="optionGroupChildren()"
-            [focusOnHover]="selectOnHover()"
-            [highlightOnSelect]="false"
+            [focusOnHover]="focusOnHover()"
+            [highlightOnSelect]="highlightOnSelect()"
+            [striped]="striped()"
+            [checkmark]="checkmark()"
+            [readonly]="readonly()"
+            [virtualScroll]="virtualScroll()"
+            [virtualScrollItemSize]="virtualScrollItemSize()"
+            [virtualScrollOptions]="virtualScrollOptions()"
+            [multiple]="multiple()"
+            [dataKey]="dataKey()"
+            [autoOptionFocus]="autoOptionFocus()"
             scrollHeight="none"
             [tabindex]="-1"
             (onClick)="onListboxClick($event)"
@@ -85,7 +94,7 @@ import { CommandMenuStyle } from './style/commandmenustyle';
                     @if (emptyTemplate()) {
                         <ng-container *ngTemplateOutlet="emptyTemplate(); context: { $implicit: search() }"></ng-container>
                     } @else {
-                        {{ emptyMessage() }}
+                        {{ emptyMessageText() }}
                     }
                 </div>
             </ng-template>
@@ -103,8 +112,7 @@ import { CommandMenuStyle } from './style/commandmenustyle';
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': '$id()',
-        '[class]': "cx('root')",
-        '(keydown)': 'onHostKeyDown($event)'
+        '[class]': "cx('root')"
     },
     hostDirectives: [Bind]
 })
@@ -168,18 +176,18 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
     search = model<string>('');
 
     /**
-     * Whether to highlight option on hover.
+     * When enabled, the hovered option will be focused.
      * @group Props
      * @defaultValue true
      */
-    selectOnHover = input(true, { transform: booleanAttribute });
+    focusOnHover = input(true, { transform: booleanAttribute });
 
     /**
-     * Whether keyboard navigation should loop from end to start.
+     * Whether to highlight the selected option.
      * @group Props
      * @defaultValue false
      */
-    loop = input(false, { transform: booleanAttribute });
+    highlightOnSelect = input(false, { transform: booleanAttribute });
 
     /**
      * Whether to display options as grouped.
@@ -188,11 +196,67 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
     group = input(undefined, { transform: booleanAttribute });
 
     /**
-     * Text to display when there are no results.
+     * Whether to displays rows with alternating colors.
      * @group Props
-     * @defaultValue 'No results found.'
+     * @defaultValue false
      */
-    emptyMessage = input<string>('No results found.');
+    striped = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether the selected option will be shown with a check mark.
+     * @group Props
+     * @defaultValue false
+     */
+    checkmark = input(false, { transform: booleanAttribute });
+
+    /**
+     * When present, it specifies that the element value cannot be changed.
+     * @group Props
+     */
+    readonly = input(undefined, { transform: booleanAttribute });
+
+    /**
+     * Whether the data should be loaded on demand during scroll.
+     * @group Props
+     */
+    virtualScroll = input(undefined, { transform: booleanAttribute });
+
+    /**
+     * Height of an item in the list for VirtualScrolling.
+     * @group Props
+     */
+    virtualScrollItemSize = input<number>();
+
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
+    virtualScrollOptions = input<any>();
+
+    /**
+     * When specified, allows selecting multiple values.
+     * @group Props
+     */
+    multiple = input(undefined, { transform: booleanAttribute });
+
+    /**
+     * A property to uniquely identify a value in options.
+     * @group Props
+     */
+    dataKey = input<string>();
+
+    /**
+     * Whether to focus on the first visible or selected element.
+     * @group Props
+     * @defaultValue true
+     */
+    autoOptionFocus = input(true, { transform: booleanAttribute });
+
+    /**
+     * Text to display when there are no results. Defaults to global value in i18n translation configuration.
+     * @group Props
+     */
+    emptyMessage = input<string>();
 
     /**
      * Custom filter function. Receives (label, search, keywords?) and returns a number (0 = no match).
@@ -278,6 +342,12 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
      */
     isGrouped = computed(() => this.group());
 
+    private translation = toSignal(this.config.translationObserver, { initialValue: this.config.translation });
+
+    emptyMessageText = computed(() => {
+        return this.emptyMessage() || this.translation()?.emptyMessage || '';
+    });
+
     focusedOptionId = computed(() => {
         const listbox = this.listboxViewChild();
         if (listbox && listbox.focusedOptionIndex() !== -1) {
@@ -359,14 +429,10 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
     constructor() {
         super();
 
-        // Auto-focus first item when filtered options change
         effect(() => {
             const opts = this.listboxOptions();
             const listbox = this.listboxViewChild();
             if (listbox && opts) {
-                // Reset to first valid option
-                const firstIndex = listbox.findFirstOptionIndex();
-                listbox.focusedOptionIndex.set(firstIndex);
                 listbox.focused = true;
             }
         });
@@ -401,72 +467,10 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
         this.onSearchChange.emit({ originalEvent: event, query: value });
     }
 
-    onInputKeyDown(event: KeyboardEvent) {
-        if (event.isComposing) return;
-
-        const listbox = this.listboxViewChild();
-        if (!listbox) return;
-
-        switch (event.key) {
-            case 'ArrowDown': {
-                event.preventDefault();
-                const current = listbox.focusedOptionIndex();
-                const nextIndex = current !== -1 ? this.findNextValidIndex(current) : listbox.findFirstOptionIndex();
-                listbox.changeFocusedOptionIndex(event, nextIndex);
-                break;
-            }
-
-            case 'ArrowUp': {
-                event.preventDefault();
-                const current = listbox.focusedOptionIndex();
-                const prevIndex = current !== -1 ? this.findPrevValidIndex(current) : listbox.findFirstOptionIndex();
-                listbox.changeFocusedOptionIndex(event, prevIndex);
-                break;
-            }
-
-            case 'Home': {
-                event.preventDefault();
-                const firstIndex = listbox.findFirstOptionIndex();
-                if (firstIndex >= 0) {
-                    listbox.changeFocusedOptionIndex(event, firstIndex);
-                }
-                break;
-            }
-
-            case 'End': {
-                event.preventDefault();
-                const lastIndex = listbox.findLastOptionIndex();
-                if (lastIndex >= 0) {
-                    listbox.changeFocusedOptionIndex(event, lastIndex);
-                }
-                break;
-            }
-
-            case 'Enter': {
-                event.preventDefault();
-                const currentIndex = listbox.focusedOptionIndex();
-                if (currentIndex >= 0) {
-                    const option = listbox.visibleOptions()[currentIndex];
-                    if (option && listbox.isValidOption(option)) {
-                        this.onItemSelect.emit({
-                            originalEvent: event,
-                            value: this.getOptionValue(option),
-                            option
-                        });
-                    }
-                }
-                break;
-            }
-        }
-    }
-
-    onHostKeyDown(_event: KeyboardEvent) {
-        // Allow host-level key handling if needed
-    }
-
     onListboxClick(event: any) {
         const option = event.option;
         if (option && !this.listboxViewChild()?.isOptionDisabled(option)) {
+            option?.command?.({ originalEvent: event.originalEvent, item: option });
             this.onItemSelect.emit({
                 originalEvent: event.originalEvent,
                 value: this.getOptionValue(option),
@@ -481,44 +485,6 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
         if (extendValue.toLowerCase().includes(search.toLowerCase())) return 1;
 
         return 0;
-    }
-
-    findNextValidIndex(fromIndex: number): number {
-        const listbox = this.listboxViewChild();
-        if (!listbox) return fromIndex;
-
-        const options = listbox.visibleOptions();
-
-        for (let i = fromIndex + 1; i < options.length; i++) {
-            if (listbox.isValidOption(options[i])) return i;
-        }
-
-        if (this.loop()) {
-            for (let i = 0; i <= fromIndex; i++) {
-                if (listbox.isValidOption(options[i])) return i;
-            }
-        }
-
-        return fromIndex;
-    }
-
-    findPrevValidIndex(fromIndex: number): number {
-        const listbox = this.listboxViewChild();
-        if (!listbox) return fromIndex;
-
-        const options = listbox.visibleOptions();
-
-        for (let i = fromIndex - 1; i >= 0; i--) {
-            if (listbox.isValidOption(options[i])) return i;
-        }
-
-        if (this.loop()) {
-            for (let i = options.length - 1; i >= fromIndex; i--) {
-                if (listbox.isValidOption(options[i])) return i;
-            }
-        }
-
-        return fromIndex;
     }
 
     /**

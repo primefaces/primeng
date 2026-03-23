@@ -15,18 +15,7 @@ import { ArrowUp } from '@primeicons/angular/arrow-up';
             <p>Custom content can be displayed for each item using the <i>item</i> template.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-commandmenu
-                [options]="commands"
-                optionLabel="label"
-                optionValue="value"
-                [group]="true"
-                optionGroupLabel="group"
-                optionGroupChildren="items"
-                optionKeywords="keywords"
-                placeholder="Search for commands..."
-                class="mx-auto"
-                (onItemSelect)="onSelect($event)"
-            >
+            <p-commandmenu [options]="commands" optionLabel="label" optionValue="value" [group]="true" optionGroupLabel="group" optionGroupChildren="items" optionKeywords="keywords" placeholder="Search for commands..." class="mx-auto">
                 <ng-template #item let-item>
                     <div class="flex items-center gap-3.5 w-full">
                         <span [class]="'w-5 h-5 rounded-md flex items-center justify-center text-white ' + item.color">
@@ -151,9 +140,5 @@ export class CustomDoc implements OnInit {
                 ]
             }
         ];
-    }
-
-    onSelect(event: any) {
-        console.log('Selected:', event.value);
     }
 }

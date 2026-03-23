@@ -15,18 +15,7 @@ import { ArrowUp } from '@primeicons/angular/arrow-up';
             <p>CommandMenu requires a collection of options via the <i>options</i> property. Use <i>group</i> to display grouped commands with <i>optionGroupLabel</i> and <i>optionGroupChildren</i>.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-commandmenu
-                [options]="commands"
-                optionLabel="label"
-                optionValue="value"
-                [group]="true"
-                optionGroupLabel="group"
-                optionGroupChildren="items"
-                optionKeywords="keywords"
-                placeholder="Search for commands..."
-                class="mx-auto"
-                (onItemSelect)="onSelect($event)"
-            >
+            <p-commandmenu [options]="commands" optionLabel="label" optionValue="value" [group]="true" optionGroupLabel="group" optionGroupChildren="items" optionKeywords="keywords" placeholder="Search for commands..." class="mx-auto">
                 <ng-template #empty>No results found</ng-template>
                 <ng-template #footer>
                     <div class="flex items-center justify-end gap-3">
@@ -142,9 +131,5 @@ export class BasicDoc implements OnInit {
                 ]
             }
         ];
-    }
-
-    onSelect(event: any) {
-        console.log('Selected:', event.value);
     }
 }

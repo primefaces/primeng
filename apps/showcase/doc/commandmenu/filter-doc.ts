@@ -26,7 +26,6 @@ import { ArrowUp } from '@primeicons/angular/arrow-up';
                 [filter]="fuzzyFilter"
                 placeholder="Search for commands..."
                 class="mx-auto"
-                (onItemSelect)="onSelect($event)"
             >
                 <ng-template #empty>No results found.</ng-template>
                 <ng-template #footer>
@@ -165,9 +164,5 @@ export class FilterDoc implements OnInit {
                 ]
             }
         ];
-    }
-
-    onSelect(event: any) {
-        console.log('Selected:', event.value);
     }
 }
