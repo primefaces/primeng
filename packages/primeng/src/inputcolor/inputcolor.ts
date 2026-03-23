@@ -30,7 +30,7 @@ export const INPUT_COLOR_VALUE_ACCESSOR: Provider = {
  * @group Components
  */
 @Component({
-    selector: 'p-inputcolor',
+    selector: 'p-inputcolor, p-input-color',
     standalone: true,
     imports: [SharedModule],
     template: `<ng-content></ng-content>`,

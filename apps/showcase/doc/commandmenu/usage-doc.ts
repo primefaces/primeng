@@ -17,6 +17,6 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-commandmenu [options]="commands" optionLabel="label" />`
+        html: `<p-commandmenu />`
     };
 }
