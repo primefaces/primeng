@@ -58,7 +58,7 @@ const style = /*css*/ `
         overflow: auto;
     }
 
-    .p-commandmenu .p-listbox .p-commandmenu-footer {
+    .p-commandmenu .p-commandmenu-footer {
         display: block;
     }
 `;

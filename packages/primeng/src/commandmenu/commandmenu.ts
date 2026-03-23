@@ -69,7 +69,7 @@ import { CommandMenuStyle } from './style/commandmenustyle';
             [multiple]="multiple()"
             [dataKey]="dataKey()"
             [autoOptionFocus]="autoOptionFocus()"
-            scrollHeight="none"
+            [scrollHeight]="virtualScroll() ? '100%' : scrollHeight()"
             [tabindex]="-1"
             (onClick)="onListboxClick($event)"
             [pt]="ptm('pcListbox')"
@@ -98,14 +98,12 @@ import { CommandMenuStyle } from './style/commandmenustyle';
                     }
                 </div>
             </ng-template>
-            <ng-template #footer>
-                @if (footerTemplate()) {
-                    <div [class]="cx('footer')" [pBind]="ptm('footer')">
-                        <ng-container *ngTemplateOutlet="footerTemplate(); context: { $implicit: search() }"></ng-container>
-                    </div>
-                }
-            </ng-template>
         </p-listbox>
+        @if (footerTemplate()) {
+            <div [class]="cx('footer')" [pBind]="ptm('footer')">
+                <ng-container *ngTemplateOutlet="footerTemplate(); context: { $implicit: search() }"></ng-container>
+            </div>
+        }
     `,
     providers: [CommandMenuStyle, { provide: PARENT_INSTANCE, useExisting: CommandMenu }],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -214,6 +212,13 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
      * @group Props
      */
     readonly = input(undefined, { transform: booleanAttribute });
+
+    /**
+     * Height of the scroll viewport.
+     * @group Props
+     * @defaultValue 'none'
+     */
+    scrollHeight = input<string>('none');
 
     /**
      * Whether the data should be loaded on demand during scroll.
