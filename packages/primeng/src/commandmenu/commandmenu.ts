@@ -72,6 +72,7 @@ export const defaultFilter = (value: string, search: string, keywords?: string[]
             [tabindex]="-1"
             (onClick)="onListboxClick($event)"
             [pt]="ptm('pcListbox')"
+            [unstyled]="unstyled()"
         >
             <ng-template #item let-option let-index="index">
                 @if (itemTemplate()) {

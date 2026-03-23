@@ -5,6 +5,7 @@ import { ControlledDoc } from '@/doc/commandmenu/controlled-doc';
 import { CustomDoc } from '@/doc/commandmenu/custom-doc';
 import { WithDialogDoc } from '@/doc/commandmenu/with-dialog-doc';
 import { FilterDoc } from '@/doc/commandmenu/filter-doc';
+import { PTComponent } from '@/doc/commandmenu/pt/PTComponent';
 import { UsageDoc } from '@/doc/commandmenu/usage-doc';
 import { Component } from '@angular/core';
 
@@ -16,12 +17,14 @@ import { Component } from '@angular/core';
         [docs]="docs"
         [heroDoc]="heroDoc"
         [apiDocs]="['CommandMenu']"
+        [ptDocs]="ptComponent"
         themeDocs="commandmenu"
     ></app-doc> `,
     standalone: true,
     imports: [AppDoc]
 })
 export class CommandMenuDemo {
+    ptComponent = PTComponent;
     heroDoc = BasicDoc;
 
     docs = [
