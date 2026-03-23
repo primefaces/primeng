@@ -397,6 +397,7 @@ app-code + app-code {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: var(--demo-card-shadow);
+    background: var(--code-figure-background);
     font-size: 0.875rem;
     position: relative;
     z-index: 0;
@@ -408,6 +409,13 @@ app-code + app-code {
     .overflow-auto {
         scrollbar-width: thin;
         scrollbar-color: var(--p-primary-color) transparent;
+    }
+
+    [data-rehype-pretty-code-figure] {
+        border-radius: 0;
+        border: none;
+        background: transparent;
+        overflow: visible;
     }
 }
 

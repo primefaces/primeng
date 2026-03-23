@@ -36,7 +36,9 @@ import { IN_DEMO_WRAPPER } from './demo-mode.token';
                     </div>
                 }
 
-                <div dir="ltr" [style]="{ 'max-height': codeHeight() }" class="overflow-auto" [innerHTML]="highlightedHtml()"></div>
+                <div dir="ltr" [style]="{ 'max-height': codeHeight() }" class="overflow-auto">
+                    <div style="width: max-content; min-width: 100%" [innerHTML]="highlightedHtml()"></div>
+                </div>
             </div>
         }
     `
