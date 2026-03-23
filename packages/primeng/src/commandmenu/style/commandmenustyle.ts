@@ -43,19 +43,13 @@ const style = /*css*/ `
     }
 
     /* For PrimeNG */
+    .p-commandmenu {
+        height: auto;
+    }
     .p-commandmenu .p-listbox {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
         border: 0;
         border-radius: 0;
         background: transparent;
-    }
-
-    .p-commandmenu .p-listbox-list-container {
-        flex: 1;
-        overflow: auto;
     }
 
     .p-commandmenu .p-commandmenu-footer {

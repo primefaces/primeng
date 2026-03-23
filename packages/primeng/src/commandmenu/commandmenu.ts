@@ -70,7 +70,7 @@ import { CommandMenuStyle } from './style/commandmenustyle';
             [multiple]="multiple()"
             [dataKey]="dataKey()"
             [autoOptionFocus]="autoOptionFocus()"
-            [scrollHeight]="'100%'"
+            [scrollHeight]="scrollHeight()"
             [tabindex]="-1"
             (onClick)="onListboxClick($event)"
             [pt]="ptm('pcListbox')"
@@ -99,12 +99,14 @@ import { CommandMenuStyle } from './style/commandmenustyle';
                     }
                 </div>
             </ng-template>
+            @if (footerTemplate()) {
+                <ng-template #footer>
+                    <div [class]="cx('footer')" [pBind]="ptm('footer')">
+                        <ng-container *ngTemplateOutlet="footerTemplate(); context: { $implicit: search() }"></ng-container>
+                    </div>
+                </ng-template>
+            }
         </p-listbox>
-        @if (footerTemplate()) {
-            <div [class]="cx('footer')" [pBind]="ptm('footer')">
-                <ng-container *ngTemplateOutlet="footerTemplate(); context: { $implicit: search() }"></ng-container>
-            </div>
-        }
     `,
     providers: [CommandMenuStyle, { provide: PARENT_INSTANCE, useExisting: CommandMenu }],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -250,6 +252,13 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
      * @defaultValue true
      */
     autoOptionFocus = input(true, { transform: booleanAttribute });
+
+    /**
+     * Height of the viewport, a scrollbar is defined if height of list exceeds this value.
+     * @group Props
+     * @defaultValue '25rem'
+     */
+    scrollHeight = input<string>('25rem');
 
     /**
      * Text to display when there are no results. Defaults to global value in i18n translation configuration.
