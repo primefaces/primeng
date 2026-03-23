@@ -61,14 +61,6 @@ const style = /*css*/ `
     .p-commandmenu .p-listbox .p-commandmenu-footer {
         display: block;
     }
-
-    .p-commandmenu .p-listbox-option-group {
-        padding: 0.375rem 0.75rem;
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: light-dark(var(--p-surface-400), var(--p-surface-500));
-        text-transform: capitalize;
-    }
 `;
 
 const classes = {
