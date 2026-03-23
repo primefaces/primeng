@@ -17,14 +17,6 @@ import type {
 } from 'primeng/types/commandmenu';
 import { CommandMenuStyle } from './style/commandmenustyle';
 
-export const defaultFilter = (value: string, search: string, keywords?: string[]): number => {
-    const extendValue = (value ?? '') + ' ' + (keywords?.join(' ') ?? '');
-
-    if (extendValue.toLowerCase().includes(search.toLowerCase())) return 1;
-
-    return 0;
-};
-
 /**
  * CommandMenu is a search-driven command palette component.
  * @group Components
@@ -320,7 +312,7 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
 
         if (!searchVal) return opts;
 
-        const filterFn = this.filter() ?? defaultFilter;
+        const filterFn = this.filter() ?? this.defaultFilter;
         const isGrouped = !!this.group();
 
         if (isGrouped) {
@@ -483,7 +475,15 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
         }
     }
 
-    private findNextValidIndex(fromIndex: number): number {
+    defaultFilter(value: string, search: string, keywords?: string[]): number {
+        const extendValue = (value ?? '') + ' ' + (keywords?.join(' ') ?? '');
+
+        if (extendValue.toLowerCase().includes(search.toLowerCase())) return 1;
+
+        return 0;
+    }
+
+    findNextValidIndex(fromIndex: number): number {
         const listbox = this.listboxViewChild();
         if (!listbox) return fromIndex;
 
@@ -502,7 +502,7 @@ export class CommandMenu extends BaseComponent<CommandMenuPassThrough> {
         return fromIndex;
     }
 
-    private findPrevValidIndex(fromIndex: number): number {
+    findPrevValidIndex(fromIndex: number): number {
         const listbox = this.listboxViewChild();
         if (!listbox) return fromIndex;
 
