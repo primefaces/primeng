@@ -1,5 +1,5 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { isEmpty } from '@primeuix/utils';
+import { booleanAttribute, ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation } from '@angular/core';
+import { cn } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BaseIconStyle } from './style/baseiconstyle';
 
@@ -10,35 +10,22 @@ import { BaseIconStyle } from './style/baseiconstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [BaseIconStyle],
     host: {
-        class: 'p-component p-iconwrapper'
+        width: '14',
+        height: '14',
+        viewBox: '0 0 14 14',
+        fill: 'none',
+        xmlns: 'http://www.w3.org/2000/svg',
+        '[class]': 'getClassNames()'
     }
 })
-export class BaseIcon extends BaseComponent implements OnInit {
-    @Input() label: string;
-
+export class BaseIcon extends BaseComponent {
     @Input({ transform: booleanAttribute }) spin: boolean = false;
 
-    @Input() styleClass: string;
-
-    role: string;
-
-    ariaLabel: string;
-
-    ariaHidden: boolean;
-
-    ngOnInit() {
-        super.ngOnInit();
-        this.getAttributes();
-    }
-
-    getAttributes() {
-        const isLabelEmpty = isEmpty(this.label);
-        this.role = !isLabelEmpty ? 'img' : undefined;
-        this.ariaLabel = !isLabelEmpty ? this.label : undefined;
-        this.ariaHidden = isLabelEmpty;
-    }
+    _componentStyle = inject(BaseIconStyle);
 
     getClassNames() {
-        return `p-icon ${this.styleClass ? this.styleClass + ' ' : ''}${this.spin ? 'p-icon-spin' : ''}`;
+        return cn('p-icon', {
+            'p-icon-spin': this.spin
+        });
     }
 }

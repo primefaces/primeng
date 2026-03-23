@@ -1,0 +1,101 @@
+import { AppDocSection } from '@/components/doc/app.docsection';
+import { AppDocSectionNav } from '@/components/doc/app.docsection-nav';
+import { BaseDoc } from '@/doc/designer/createtheme/base-doc';
+import { FigmaDoc } from '@/doc/designer/createtheme/figma-doc';
+import { DashboardDoc } from '@/doc/designer/dashboard-doc';
+import { CustomTokensDoc } from '@/doc/designer/editor/customtokens-doc';
+import { IntelligentCompletionDoc } from '@/doc/designer/editor/intelligentcompletion-doc';
+import { TokenCollectionsDoc } from '@/doc/designer/editor/tokencollections-doc';
+import { TypographyDoc } from '@/doc/designer/editor/typography-doc';
+import { LicenseDoc } from '@/doc/designer/license-doc';
+import { LimitationsDoc } from '@/doc/designer/limitations-doc';
+import { MigrationAssistantDoc } from '@/doc/designer/migrationassistant-doc';
+import { OverviewDoc } from '@/doc/designer/overview-doc';
+import { Component } from '@angular/core';
+
+@Component({
+    standalone: true,
+    imports: [AppDocSection, AppDocSectionNav],
+    template: `<div class="doc">
+        <div class="doc-main">
+            <div class="doc-intro">
+                <h1>Designer</h1>
+                <p>Theme Designer is the ultimate tool to customize and design your own themes featuring a visual editor, Figma to theme code, cloud storage, and migration assistant.</p>
+            </div>
+            <app-docsection [docs]="docs" />
+        </div>
+        <app-docsection-nav [docs]="docs" />
+    </div>`
+})
+export class GuideDemo {
+    docs = [
+        {
+            id: 'overview',
+            label: 'Overview',
+            component: OverviewDoc
+        },
+        {
+            id: 'license',
+            label: 'License',
+            component: LicenseDoc
+        },
+        {
+            id: 'dashboard',
+            label: 'Dashboard',
+            component: DashboardDoc
+        },
+        {
+            id: 'create',
+            label: 'Create Theme',
+            description: 'A theme can be initiated from one of the built-in themes or from Figma UI Kit.',
+            children: [
+                {
+                    id: 'base',
+                    label: 'Base',
+                    component: BaseDoc
+                },
+                {
+                    id: 'figma',
+                    label: 'Figma',
+                    component: FigmaDoc
+                }
+            ]
+        },
+        {
+            id: 'editor',
+            label: 'Editor',
+            children: [
+                {
+                    id: 'tokencollections',
+                    label: 'Token Collections',
+                    component: TokenCollectionsDoc
+                },
+                {
+                    id: 'customtokens',
+                    label: 'Custom Tokens',
+                    component: CustomTokensDoc
+                },
+                {
+                    id: 'autocomplete',
+                    label: 'Intelligent Completion',
+                    component: IntelligentCompletionDoc
+                },
+                {
+                    id: 'typography',
+                    label: 'Typography',
+                    component: TypographyDoc
+                }
+            ]
+        },
+        {
+            id: 'migration',
+            label: 'Migration Assistant',
+            component: MigrationAssistantDoc
+        },
+        {
+            id: 'limitations',
+            label: 'Limitations',
+            component: LimitationsDoc
+        }
+    ];
+}

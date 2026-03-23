@@ -1,3 +1,2 @@
-import { PopoverDesignTokens } from '../../types/popover';
-declare const _default: PopoverDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/popover';
+export { default } from '@primeuix/themes/aura/popover';

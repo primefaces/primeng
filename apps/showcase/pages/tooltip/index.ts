@@ -1,13 +1,14 @@
-import { AccessibilityDoc } from '@/doc/tooltip/accessibilitydoc';
-import { AutoHideDoc } from '@/doc/tooltip/autohidedoc';
-import { CustomDoc } from '@/doc/tooltip/customdoc';
-import { DelayDoc } from '@/doc/tooltip/delaydoc';
-import { EventDoc } from '@/doc/tooltip/eventdoc';
-import { ImportDoc } from '@/doc/tooltip/importdoc';
-import { OptionsDoc } from '@/doc/tooltip/optionsdoc';
-import { PositionDoc } from '@/doc/tooltip/positiondoc';
-import { TooltipDocModule } from '@/doc/tooltip/tooltipdoc.module';
+import { AccessibilityDoc } from '@/doc/tooltip/accessibility-doc';
+import { AutoHideDoc } from '@/doc/tooltip/autohide-doc';
+import { CustomDoc } from '@/doc/tooltip/custom-doc';
+import { DelayDoc } from '@/doc/tooltip/delay-doc';
+import { EventDoc } from '@/doc/tooltip/event-doc';
+import { ImportDoc } from '@/doc/tooltip/import-doc';
+import { OptionsDoc } from '@/doc/tooltip/options-doc';
+import { PositionDoc } from '@/doc/tooltip/position-doc';
+import { PTComponent } from '@/doc/tooltip/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -16,10 +17,11 @@ import { Component } from '@angular/core';
         description="Tooltip directive provides advisory information for a component. Tooltip is integrated within various PrimeNG components."
         [docs]="docs"
         [apiDocs]="['Tooltip', 'TooltipOptions']"
+        [ptDocs]="ptComponent"
         themeDocs="tooltip"
     ></app-doc>`,
     standalone: true,
-    imports: [TooltipDocModule]
+    imports: [AppDoc]
 })
 export class TooltipDemo {
     docs = [
@@ -65,4 +67,6 @@ export class TooltipDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

@@ -1,3 +1,2 @@
-import { TooltipDesignTokens } from '../../types/tooltip';
-declare const _default: TooltipDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/tooltip';
+export { default } from '@primeuix/themes/material/tooltip';

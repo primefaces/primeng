@@ -9,6 +9,8 @@ export const routes: Routes = [
         component: AppMainComponent,
         children: [
             { path: 'accessibility', redirectTo: 'guides/accessibility', pathMatch: 'full' },
+            { path: 'theming', redirectTo: 'theming/styled', pathMatch: 'full' },
+            { path: 'uikit/guide', redirectTo: 'uikit/guide/v3', pathMatch: 'full' },
             { path: 'autocomplete', loadChildren: () => import('@/pages/autocomplete/routes') },
             {
                 path: 'installation',
@@ -21,7 +23,6 @@ export const routes: Routes = [
             { path: 'playground', loadChildren: () => import('@/pages/playground/routes') },
             { path: 'roadmap', loadChildren: () => import('@/pages/roadmap/routes') },
             { path: 'team', loadChildren: () => import('@/pages/team/routes') },
-            { path: 'partners', loadChildren: () => import('@/pages/partners/routes') },
             {
                 path: 'theming',
                 loadChildren: () => import('@/pages/theming/routes')
@@ -31,6 +32,7 @@ export const routes: Routes = [
                 path: 'customicons',
                 loadChildren: () => import('@/pages/customicons/routes')
             },
+            { path: 'passthrough', loadChildren: () => import('@/pages/passthrough/routes') },
             { path: 'accordion', loadChildren: () => import('@/pages/accordion/routes') },
             { path: 'avatar', loadChildren: () => import('@/pages/avatar/routes') },
             { path: 'blockui', loadChildren: () => import('@/pages/blockui/routes') },
@@ -54,7 +56,6 @@ export const routes: Routes = [
                 path: 'colorpicker',
                 loadChildren: () => import('@/pages/colorpicker/routes')
             },
-            { path: 'colors', loadChildren: () => import('@/pages/colors/routes') },
             {
                 path: 'confirmdialog',
                 loadChildren: () => import('@/pages/confirmdialog/routes')
@@ -72,7 +73,6 @@ export const routes: Routes = [
                 path: 'dataview',
                 loadChildren: () => import('@/pages/dataview/routes')
             },
-            { path: 'defer', loadChildren: () => import('@/pages/defer/routes') },
             { path: 'dialog', loadChildren: () => import('@/pages/dialog/routes') },
             { path: 'dock', loadChildren: () => import('@/pages/dock/routes') },
             { path: 'divider', loadChildren: () => import('@/pages/divider/routes') },
@@ -243,7 +243,6 @@ export const routes: Routes = [
                 loadChildren: () => import('@/pages/splitter/routes')
             },
             { path: 'stepper', loadChildren: () => import('@/pages/stepper/routes') },
-            { path: 'steps', loadChildren: () => import('@/pages/steps/routes') },
             { path: 'support', loadChildren: () => import('@/pages/support/routes') },
             {
                 path: 'styleclass',
@@ -295,8 +294,26 @@ export const routes: Routes = [
                 path: 'animateonscroll',
                 loadChildren: () => import('@/pages/animateonscroll/routes')
             },
+            {
+                path: 'classnames',
+                loadChildren: () => import('@/pages/classnames/routes')
+            },
+            {
+                path: 'bind',
+                loadChildren: () => import('@/pages/bind/routes')
+            },
             { path: 'templates', loadChildren: () => import('@/pages/templates/templates.module').then((m) => m.TemplatesModule) },
-            { path: 'guides', loadChildren: () => import('@/pages/guides/guides.module').then((m) => m.GuidesModule) }
+            { path: 'guides', loadChildren: () => import('@/pages/guides/routes') },
+            { path: 'llms', loadChildren: () => import('@/pages/llms/routes') },
+            { path: 'mcp', loadChildren: () => import('@/pages/mcp/routes') },
+            {
+                path: 'designer',
+                loadChildren: () => import('@/pages/designer/routes')
+            },
+            {
+                path: 'migration',
+                loadChildren: () => import('@/pages/migration/routes')
+            }
         ]
     },
     { path: 'notfound', loadChildren: () => import('@/pages/notfound/routes') },

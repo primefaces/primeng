@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -8,15 +8,11 @@ import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
 import { DividerModule } from 'primeng/divider';
 import { DrawerModule } from 'primeng/drawer';
-import { DropdownModule } from 'primeng/dropdown';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
-import { Knob } from 'primeng/knob';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { PopoverModule } from 'primeng/popover';
-import { SelectButton } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { Tag } from 'primeng/tag';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -28,9 +24,7 @@ import { TooltipModule } from 'primeng/tooltip';
     imports: [
         CommonModule,
         RouterModule,
-        DropdownModule,
         ChartModule,
-        InputSwitchModule,
         FormsModule,
         DividerModule,
         AvatarModule,

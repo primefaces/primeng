@@ -1,0 +1,22 @@
+import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'sizes-doc',
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ButtonModule],
+    template: `
+        <app-docsectiontext>
+            <p>Button provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
+        </app-docsectiontext>
+        <div class="card flex justify-center flex-wrap gap-4 items-center">
+            <p-button label="Small" icon="pi pi-check" size="small" />
+            <p-button label="Normal" icon="pi pi-check" />
+            <p-button label="Large" icon="pi pi-check" size="large" />
+        </div>
+        <app-code></app-code>
+    `
+})
+export class SizesDoc {}

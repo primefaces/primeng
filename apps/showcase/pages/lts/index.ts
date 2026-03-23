@@ -1,4 +1,4 @@
-import { AppCodeModule } from '@/components/doc/app.code.component';
+import { AppCode } from '@/components/doc/app.code';
 import { Code } from '@/domain/code';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -9,7 +9,7 @@ import { TagModule } from 'primeng/tag';
 
 @Component({
     standalone: true,
-    imports: [CommonModule, TagModule, AppCodeModule, RouterModule, RippleModule],
+    imports: [CommonModule, TagModule, AppCode, RouterModule, RippleModule],
     template: `
         <div>
             <div class="flex flex-col xl:flex-row mb-8 gap-8">
@@ -46,73 +46,91 @@ import { TagModule } from 'primeng/tag';
                                 <th class="text-surface-900 dark:text-surface-0 font-semibold text-xl text-left p-2">Status</th>
                                 <th class="text-surface-900 dark:text-surface-0 font-semibold text-xl text-left p-2">End of STS</th>
                                 <th class="text-surface-900 dark:text-surface-0 font-semibold text-xl text-left p-2">End of LTS</th>
+                                <th class="text-surface-900 dark:text-surface-0 font-semibold text-xl text-left p-2">Changes</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v19" styleClass="text-lg px-4"></p-tag>
+                                    <p-tag value="v20" class="text-lg px-4"></p-tag>
                                 </td>
                                 <td class="p-2">STS</td>
-                                <td class="p-2">After v20 release</td>
-                                <td class="p-2">After v22 release</td>
+                                <td class="p-2">After v21 release</td>
+                                <td class="p-2">After v23 release</td>
+                                <td class="p-2"><a href="https://github.com/primefaces/primeng/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">Changelog</a></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v18" styleClass="text-lg px-4" severity="success"></p-tag>
+                                    <p-tag value="v19" class="text-lg px-4" severity="success"></p-tag>
+                                </td>
+                                <td class="p-2">LTS</td>
+                                <td class="p-2">After v20 release</td>
+                                <td class="p-2">After v22 release</td>
+                                <td class="p-2"><a href="https://github.com/primefaces/primeng/blob/master/changelog-lts/v19-LTS.md" target="_blank" rel="noopener noreferrer">Changelog</a></td>
+                            </tr>
+                            <tr class="text-lg text-surface-800 dark:text-surface-50">
+                                <td class="p-2">
+                                    <p-tag value="v18" class="text-lg px-4" severity="success"></p-tag>
                                 </td>
                                 <td class="p-2">LTS</td>
                                 <td class="p-2">After v19 release</td>
                                 <td class="p-2">After v21 release</td>
+                                <td class="p-2"><a href="https://github.com/primefaces/primeng/blob/master/changelog-lts/v18-LTS.md" target="_blank" rel="noopener noreferrer">Changelog</a></td>
                             </tr>
 
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v17" styleClass="text-lg px-4" severity="success"></p-tag>
+                                    <p-tag value="v17" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
-                                <td class="p-2">LTS</td>
+                                <td class="p-2">Legacy</td>
                                 <td class="p-2">After v18 release</td>
                                 <td class="p-2">After v20 release</td>
+                                <td class="p-2"></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v16" styleClass="text-lg px-4" severity="danger"></p-tag>
+                                    <p-tag value="v16" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v17 release</td>
                                 <td class="p-2">After v19 release</td>
+                                <td class="p-2"></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v15" styleClass="text-lg px-4" severity="danger"></p-tag>
+                                    <p-tag value="v15" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v16 release</td>
                                 <td class="p-2">After v18 release</td>
+                                <td class="p-2"></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v14" styleClass="text-lg px-4" severity="danger"></p-tag>
+                                    <p-tag value="v14" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v15 release</td>
                                 <td class="p-2">After v17 release</td>
+                                <td class="p-2"></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v13" styleClass="text-lg px-4" severity="danger"></p-tag>
+                                    <p-tag value="v13" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v14 release</td>
                                 <td class="p-2">After v16 release</td>
+                                <td class="p-2"></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v12" styleClass="text-lg px-4" severity="danger"></p-tag>
+                                    <p-tag value="v12" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v13 release</td>
                                 <td class="p-2">After v15 release</td>
+                                <td class="p-2"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -192,7 +210,7 @@ import { TagModule } from 'primeng/tag';
                                     </li>
                                 </ul>
                                 <hr class="mb-4 mx-0 border-t border-0 border-surface mt-auto" />
-                                <a href="https://www.primefaces.org/store/lts.xhtml" pRipple class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                                <a href="https://primeui.store/lts" pRipple class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -232,7 +250,7 @@ import { TagModule } from 'primeng/tag';
                                     </li>
                                 </ul>
                                 <hr class="mb-4 mx-0 border-t border-0 border-surface" />
-                                <a href="https://www.primefaces.org/store/lts.xhtml" pRipple class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                                <a href="https://primeui.store/lts" pRipple class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -242,7 +260,7 @@ import { TagModule } from 'primeng/tag';
                 <div class="text-2xl text-surface-900 dark:text-surface-0 font-semibold mb-4">Usage</div>
                 <p class="m-0 leading-normal mb-8 text-secondary text-lg text-surface-800 dark:text-surface-50">
                     LTS versions require a license key and a pass key to be verified at your main app component or main.ts before bootstrap process. The keys would be available at
-                    <a href="https://www.primefaces.org/store/lts.xhtml" class="text-primary font-medium hover:underline">PrimeStore</a>
+                    <a href="https://primeui.store/lts" class="text-primary font-medium hover:underline">PrimeStore</a>
                     under LTS Licenses section.
                 </p>
                 <app-code [code]="code" [hideToggleCode]="true"></app-code>
@@ -314,10 +332,12 @@ import { LicenseManager } from 'primeng/api';
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-    LicenseManager.verify('LICENSE_KEY', 'PASS_KEY');
-
+    ngOnInit() {
+        LicenseManager.verify('LICENSE_KEY', 'PASS_KEY');    
+    }
+        
 }`
     };
 

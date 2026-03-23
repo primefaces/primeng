@@ -1,30 +1,36 @@
-import { AccessibilityDoc } from '@/doc/inputtext/accessibilitydoc';
-import { BasicDoc } from '@/doc/inputtext/basicdoc';
-import { DisabledDoc } from '@/doc/inputtext/disableddoc';
-import { FilledDoc } from '@/doc/inputtext/filleddoc';
-import { FloatLabelDoc } from '@/doc/inputtext/floatlabeldoc';
-import { HelpTextDoc } from '@/doc/inputtext/helptextdoc';
-import { IftaLabelDoc } from '@/doc/inputtext/iftalabeldoc';
-import { ImportDoc } from '@/doc/inputtext/importdoc';
-import { InputtextDocModule } from '@/doc/inputtext/inputtextdoc.module';
-import { InvalidDoc } from '@/doc/inputtext/invaliddoc';
-import { ReactiveFormsDoc } from '@/doc/inputtext/reactiveformsdoc';
-import { SizesDoc } from '@/doc/inputtext/sizesdoc';
+import { AccessibilityDoc } from '@/doc/inputtext/accessibility-doc';
+import { BasicDoc } from '@/doc/inputtext/basic-doc';
+import { DisabledDoc } from '@/doc/inputtext/disabled-doc';
+import { FilledDoc } from '@/doc/inputtext/filled-doc';
+import { FloatLabelDoc } from '@/doc/inputtext/floatlabel-doc';
+import { HelpTextDoc } from '@/doc/inputtext/helptext-doc';
+import { IftaLabelDoc } from '@/doc/inputtext/iftalabel-doc';
+import { ImportDoc } from '@/doc/inputtext/import-doc';
+import { InvalidDoc } from '@/doc/inputtext/invalid-doc';
+import { PTComponent } from '@/doc/inputtext/pt/PTComponent';
+import { ReactiveFormsDoc } from '@/doc/inputtext/reactiveforms-doc';
+import { SizesDoc } from '@/doc/inputtext/sizes-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/inputtext/templatedrivenforms-doc';
+import { FluidDoc } from '@/doc/inputtext/fluid-doc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [InputtextDocModule],
+    imports: [AppDoc],
     template: `<app-doc
         docTitle="Angular InputText Component"
         header="InputText"
         description="InputText is an extension to standard input element with theming and keyfiltering."
         [apiDocs]="['InputText']"
         [docs]="docs"
+        [ptDocs]="ptComponent"
         themeDocs="inputtext"
     ></app-doc> `
 })
 export class InputTextDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
@@ -35,11 +41,6 @@ export class InputTextDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'floatlabel',
@@ -57,6 +58,11 @@ export class InputTextDemo {
             component: SizesDoc
         },
         {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
+        },
+        {
             id: 'helptext',
             label: 'Help Text',
             component: HelpTextDoc
@@ -67,16 +73,23 @@ export class InputTextDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

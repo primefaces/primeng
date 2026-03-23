@@ -1,0 +1,55 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { NodeService } from '@/service/nodeservice';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
+
+@Component({
+    selector: 'basic-doc',
+    standalone: true,
+    imports: [TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
+    template: ` <app-docsectiontext>
+            <p>TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the representation.</p>
+        </app-docsectiontext>
+        <div class="card">
+            <p-deferred-demo (load)="loadDemoData()">
+                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header>
+                        <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData">
+                        <tr [ttRow]="rowNode">
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <span>{{ rowData.name }}</span>
+                                </div>
+                            </td>
+                            <td>{{ rowData.size }}</td>
+                            <td>{{ rowData.type }}</td>
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </p-deferred-demo>
+        </div>
+        <app-code></app-code>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class BasicDoc {
+    files!: TreeNode[];
+
+    constructor(
+        private nodeService: NodeService,
+        private cd: ChangeDetectorRef
+    ) {}
+
+    loadDemoData() {
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
+    }
+}

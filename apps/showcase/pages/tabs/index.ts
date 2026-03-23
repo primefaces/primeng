@@ -1,21 +1,24 @@
-import { AccessibilityDoc } from '@/doc/tabs/accessibilitydoc';
-import { BasicDoc } from '@/doc/tabs/basicdoc';
-import { ControlledDoc } from '@/doc/tabs/controlleddoc';
-import { TemplateDoc } from '@/doc/tabs/customtemplatedoc';
-import { DisabledDoc } from '@/doc/tabs/disableddoc';
-import { DynamicDoc } from '@/doc/tabs/dynamicdoc';
-import { ImportDoc } from '@/doc/tabs/importdoc';
-import { ScrollableDoc } from '@/doc/tabs/scrollabledoc';
-import { TabmenuDoc } from '@/doc/tabs/tabmenudoc';
-import { TabsDocModule } from '@/doc/tabs/tabsdoc.module';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AccessibilityDoc } from '@/doc/tabs/accessibility-doc';
+import { BasicDoc } from '@/doc/tabs/basic-doc';
+import { ControlledDoc } from '@/doc/tabs/controlled-doc';
+import { TemplateDoc } from '@/doc/tabs/customtemplate-doc';
+import { DisabledDoc } from '@/doc/tabs/disabled-doc';
+import { DynamicDoc } from '@/doc/tabs/dynamic-doc';
+import { ImportDoc } from '@/doc/tabs/import-doc';
+import { LazyDoc } from '@/doc/tabs/lazy-doc';
+import { PTComponent } from '@/doc/tabs/pt/PTComponent';
+import { ScrollableDoc } from '@/doc/tabs/scrollable-doc';
+import { TabmenuDoc } from '@/doc/tabs/tabmenu-doc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular Tabs Component" header="Tabs" description="Tabs is a container component to group content with tabs." [docs]="docs" [apiDocs]="['Tabs', 'TabPanel', 'Tab']" themeDocs="tabs"></app-doc>`,
-    imports: [TabsDocModule],
+    template: `<app-doc docTitle="Angular Tabs Component" header="Tabs" description="Tabs is a container component to group content with tabs." [docs]="docs" [apiDocs]="['Tabs']" [ptDocs]="ptComponent" themeDocs="tabs"></app-doc>`,
+    imports: [AppDoc],
     standalone: true
 })
 export class TabsDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',
@@ -41,6 +44,11 @@ export class TabsDemo {
             id: 'scrollable',
             label: 'Scrollable',
             component: ScrollableDoc
+        },
+        {
+            id: 'lazy',
+            label: 'Lazy',
+            component: LazyDoc
         },
         {
             id: 'disabled',

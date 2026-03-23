@@ -1,29 +1,14 @@
-import { TemplateConfigurationModule } from '@/components/template/templateconfiguration';
-import { TemplateFeaturesModule } from '@/components/template/templatefeatures';
-import { TemplateFeaturesAnimationModule } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
-import { TemplateHeroModule } from '@/components/template/templatehero/templatehero';
-import { TemplateLicenseModule } from '@/components/template/templatelicense';
-import { TemplateRelatedModule } from '@/components/template/templaterelated';
-import { TemplateSeparatorModule } from '@/components/template/templateseparator';
-import { TemplateYoutubeModule } from '@/components/template/templateyoutube';
+import { TemplateConfiguration } from '@/components/template/templateconfiguration';
+import { TemplateFeatures } from '@/components/template/templatefeatures';
+import { TemplateFeaturesAnimation } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
+import { TemplateHero } from '@/components/template/templatehero/templatehero';
 import { Component } from '@angular/core';
 import { SakaiLogo } from './sakailogo';
 import { SakaiSeparator } from './sakaiseparator';
 @Component({
     standalone: true,
     selector: 'sakai-page',
-    imports: [
-        TemplateHeroModule,
-        TemplateSeparatorModule,
-        TemplateFeaturesAnimationModule,
-        TemplateFeaturesModule,
-        TemplateConfigurationModule,
-        TemplateFeaturesAnimationModule,
-        TemplateRelatedModule,
-        TemplateYoutubeModule,
-        TemplateLicenseModule,
-        SakaiSeparator
-    ],
+    imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, SakaiSeparator],
     template: `<div class="sakai template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="sakaiLogo"></template-hero>
         <sakai-separator></sakai-separator>
@@ -34,6 +19,7 @@ import { SakaiSeparator } from './sakaiseparator';
         <template-configuration
             title="Angular with CLI"
             description="Sakai is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+            appName="sakai"
         ></template-configuration>
         <sakai-separator></sakai-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
@@ -46,6 +32,7 @@ export class SakaiPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-hero-pattern.png',
+        patternClass: 'select-none absolute z-[6] opacity-60 w-[50rem] h-[18rem] md:w-[52rem] md:h-[20rem] lg:w-[64rem] lg:h-[28rem] bottom-[26rem] md:bottom-0 left-0',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-hero-dashboard2.png',
         description: 'Sakai is an application template for Angular and is distributed as a CLI project.',

@@ -812,4 +812,24 @@ export class NodeService {
     getFilesystem() {
         return Promise.resolve(this.getFileSystemNodesData());
     }
+
+    generateNodes(count: number): TreeNode[] {
+        return this.createNodes(count);
+    }
+
+    createNodes(length: number, parentKey?: string): TreeNode[] {
+        const _createNodes = (length: number, level: number, parentKey?: string): TreeNode[] => {
+            const nodes: TreeNode[] = [];
+            for (let i = 0; i < length; i++) {
+                const key = parentKey ? `${parentKey}-${i}` : `${i}`;
+                nodes.push({
+                    key,
+                    label: `Node ${key}`,
+                    children: level < 2 ? _createNodes(5, level + 1, key) : []
+                });
+            }
+            return nodes;
+        };
+        return _createNodes(length, 0, parentKey);
+    }
 }

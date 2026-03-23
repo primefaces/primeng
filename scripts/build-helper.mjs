@@ -48,7 +48,7 @@ export function updatePackageJson(localPackageJson, callback) {
 
     callback?.(pkg);
 
-    fs.writeFileSync(localPackageJson, JSON.stringify(pkg, null, 4), { encoding: 'utf8' });
+    fs.writeFileSync(localPackageJson, JSON.stringify(pkg, null, 4) + '\n', { encoding: 'utf8' });
 }
 
 export function createPackageJson_For_NG_Packager(localPackageJson, INPUT_PATH, callback) {
@@ -78,7 +78,7 @@ export function clearPackageJson(localPackageJson, callback) {
 
     callback?.(pkg);
 
-    fs.writeFileSync(localPackageJson, JSON.stringify(pkg, null, 4), { encoding: 'utf8' });
+    fs.writeFileSync(localPackageJson, JSON.stringify(pkg, null, 4) + '\n', { encoding: 'utf8' });
 }
 
 export function copyDependencies(inFolder, outFolder, subFolder) {

@@ -1,5 +1,8 @@
 {
     "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "strictNullChecks": true
+    },
     "exclude": [
         "node_modules"
     ],
@@ -14,6 +17,7 @@
         "strictInjectionParameters": true,
         "strictInputAccessModifiers": true,
         "flatModuleOutFile": "primeng.js",
-        "flatModuleId": "primeng"
+        "flatModuleId": "primeng",
+        "compilationMode": "partial"
     }
 }

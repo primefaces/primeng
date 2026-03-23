@@ -76,7 +76,7 @@ export interface TreeNode<T = any> {
      */
     key?: string;
     /**
-     * Mandatory unique key of the node.
+     * Whether the node is loading. Used in lazy loading.
      */
     loading?: boolean;
 }

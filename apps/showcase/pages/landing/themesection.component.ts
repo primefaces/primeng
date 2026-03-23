@@ -178,7 +178,7 @@ export class ThemeSectionComponent {
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;

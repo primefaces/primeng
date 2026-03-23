@@ -1,24 +1,40 @@
-import { AccessibilityDoc } from '@/doc/cascadeselect/accessibilitydoc';
-import { BasicDoc } from '@/doc/cascadeselect/basicdoc';
-import { CascadeSelectDocModule } from '@/doc/cascadeselect/cascasdeselectdoc.module';
-import { DisabledDoc } from '@/doc/cascadeselect/disableddoc';
-import { FilledDoc } from '@/doc/cascadeselect/filleddoc';
-import { FloatLabelDoc } from '@/doc/cascadeselect/floatlabeldoc';
-import { IftaLabelDoc } from '@/doc/cascadeselect/iftalabeldoc';
-import { ImportDoc } from '@/doc/cascadeselect/importdoc';
-import { InvalidDoc } from '@/doc/cascadeselect/invaliddoc';
-import { LoadingDoc } from '@/doc/cascadeselect/loadingdoc';
-import { ReactiveFormsDoc } from '@/doc/cascadeselect/reactiveformsdoc';
-import { SizesDoc } from '@/doc/cascadeselect/sizesdoc';
-import { TemplateDoc } from '@/doc/cascadeselect/templatedoc';
+import { AccessibilityDoc } from '@/doc/cascadeselect/accessibility-doc';
+import { BasicDoc } from '@/doc/cascadeselect/basic-doc';
+import { DisabledDoc } from '@/doc/cascadeselect/disabled-doc';
+import { FilledDoc } from '@/doc/cascadeselect/filled-doc';
+import { FloatLabelDoc } from '@/doc/cascadeselect/floatlabel-doc';
+import { IftaLabelDoc } from '@/doc/cascadeselect/iftalabel-doc';
+import { ImportDoc } from '@/doc/cascadeselect/import-doc';
+import { InvalidDoc } from '@/doc/cascadeselect/invalid-doc';
+import { LoadingDoc } from '@/doc/cascadeselect/loading-doc';
+import { ReactiveFormsDoc } from '@/doc/cascadeselect/reactiveforms-doc';
+import { SizesDoc } from '@/doc/cascadeselect/sizes-doc';
+import { TemplateDoc } from '@/doc/cascadeselect/template-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/cascadeselect/templatedrivenforms-doc';
+import { FluidDoc } from '@/doc/cascadeselect/fluid-doc';
+import { ClearIconDoc } from '@/doc/cascadeselect/clearicon-doc';
+import { PTComponent } from '@/doc/cascadeselect/pt/PTComponent';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
-    imports: [CascadeSelectDocModule],
-    template: ` <app-doc docTitle="Angular CascadeSelect Component" header="CascadeSelect" description="CascadeSelect displays a nested structure of options." [docs]="docs" [apiDocs]="['CascadeSelect']" themeDocs="CascadeSelect"></app-doc> `
+    imports: [AppDoc],
+    template: `
+        <app-doc
+            docTitle="Angular CascadeSelect Component"
+            header="CascadeSelect"
+            description="CascadeSelect displays a nested structure of options."
+            [docs]="docs"
+            [apiDocs]="['CascadeSelect']"
+            [ptDocs]="ptComponent"
+            themeDocs="CascadeSelect"
+        ></app-doc>
+    `
 })
 export class CascadeSelectDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
@@ -29,11 +45,6 @@ export class CascadeSelectDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'template',
@@ -56,9 +67,19 @@ export class CascadeSelectDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',
@@ -66,16 +87,23 @@ export class CascadeSelectDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

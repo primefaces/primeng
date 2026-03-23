@@ -1,29 +1,16 @@
-import { TemplateConfigurationModule } from '@/components/template/templateconfiguration';
-import { TemplateFeaturesModule } from '@/components/template/templatefeatures';
-import { TemplateFeaturesAnimationModule } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
-import { TemplateHeroModule } from '@/components/template/templatehero/templatehero';
-import { TemplateLicenseModule } from '@/components/template/templatelicense';
-import { TemplateRelatedModule } from '@/components/template/templaterelated';
-import { TemplateSeparatorModule } from '@/components/template/templateseparator';
-import { TemplateYoutubeModule } from '@/components/template/templateyoutube';
+import { TemplateConfiguration } from '@/components/template/templateconfiguration';
+import { TemplateFeatures } from '@/components/template/templatefeatures';
+import { TemplateFeaturesAnimation } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
+import { TemplateHero } from '@/components/template/templatehero/templatehero';
+import { TemplateLicense } from '@/components/template/templatelicense';
+import { TemplateYoutube } from '@/components/template/templateyoutube';
 import { Component } from '@angular/core';
 import { FreyaLogo } from './freyalogo';
 import { FreyaSeparator } from './freyaseparator';
 @Component({
     standalone: true,
     selector: 'freya-page',
-    imports: [
-        TemplateHeroModule,
-        TemplateSeparatorModule,
-        TemplateFeaturesAnimationModule,
-        TemplateFeaturesModule,
-        TemplateConfigurationModule,
-        TemplateFeaturesAnimationModule,
-        TemplateRelatedModule,
-        TemplateYoutubeModule,
-        TemplateLicenseModule,
-        FreyaSeparator
-    ],
+    imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, FreyaSeparator],
     template: `<div class="freya template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="freyaLogo"></template-hero>
         <freya-separator></freya-separator>
@@ -38,6 +25,7 @@ import { FreyaSeparator } from './freyaseparator';
         <template-configuration
             title="Angular with CLI"
             description="Freya is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+            appName="freya"
         ></template-configuration>
         <freya-separator></freya-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
@@ -50,69 +38,39 @@ export class FreyaPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-pattern.png',
+        patternClass: 'select-none absolute z-[6] w-[58rem] md:w-[50rem] h-auto top-12 md:top-32 -left-24 md:-left-12 opacity-75',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard2.png',
-        description: 'Freya is a modern and clean application template for PrimeNG featuring a dark mode, attractive themes, customizable menu orientations, CSS widgets and template pages.',
-        liveHref: 'https://www.primefaces.org/freya-ng/',
-        docHref: 'https://freya.primeng.org/documentation'
+        description: 'Freya is a modern and clean application template for PrimeNG featuring a dark mode, attractive themes, customizable menu orientations, widgets, apps and template pages.',
+        liveHref: 'https://freya.primeng.org/',
+        docHref: 'https://freya.primeng.org/documentation',
+        storeHref: 'https://primeui.store/templates/angular/freya'
     };
 
-    relatedData = [
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/diamond-ng.jpg',
-            href: '/templates/diamond'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/atlantis-ng.jpg',
-            href: '/templates/atlantis'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/ultima-ng.jpg',
-            href: '/templates/ultima'
-        }
-    ];
-
-    features1Data = [
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature1.png',
-            title: 'Ready to Use Applications',
-            description: 'Mail, File System, Tasks, Calendar, Blog and Chat are the sample applications to get started with ease.'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature2.png',
-            title: 'E-Commerce Pages',
-            description: 'Avalon offers E-commerce pages to kickstart your e-commerce project powered by PrimeBlocks.'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature3.png',
-            title: 'Ready to Use Pages',
-            description: 'Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.'
-        }
-    ];
     features2Data = [
         {
             title: 'Fully Responsive',
-            description: 'Freya is crafted to provide optimal viewing and interaction experience for a wide range of devices.',
+            description: 'Crafted to provide optimal viewing and interaction experience for a wide range of devices.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-features2-responsive.png'
         },
         {
             title: 'Cross Browser Compatible',
             description: 'First class support for Firefox, Safari, Chrome and Edge.',
-            src: 'https://primefaces.org/cdn/primeng/images/compatible-ng.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/compatible-ng-dark.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser.png',
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser-dark.png'
         },
         {
             title: 'Support',
             description: `PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users
             can seek assistance in our community via our public <a href="https://discord.com/invite/gzKFYnpmCY">Discord</a> and
             <a href="https://github.com/orgs/primefaces/discussions/categories/primeng-templates" class="doc-link">Forum</a>.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/support.png'
         },
         {
             title: 'Customizable Design',
             description: 'Fully customizable with a mixture of Sass and CSS variables.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable.png',
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable-dark.png'
         },
         {
             title: 'Ready to Use Pages',
@@ -129,27 +87,28 @@ export class FreyaPage {
     animationFeaturesData1 = [
         {
             id: 1,
-            title: 'PrimeFlex CSS Utilities',
-            description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid grid-cols-12 gap-4 system, flexbox, spacing, elevation and more.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png'
+            title: 'Tailwind CSS',
+            description: 'The demo content is built with TailwindCSS, while the application shell uses custom CSS, offering flexibility and efficiency for responsive design.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/tailwind.png'
         },
         {
             id: 2,
             title: 'PrimeBlocks',
-            description: 'Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png'
+            description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {
             id: 3,
             title: 'PrimeIcons',
-            description: 'Freya ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png'
+            description: 'Ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeicons.png'
         },
         {
             id: 4,
             title: 'Figma File',
-            description:
-                'Freya uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Freya Figma file as they are available in PrimeOne for Figma only.',
+            description: `Freya uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
+                <a href="https://www.figma.com/design/Mv0xRaU4gDrWAY6uW2vhim/Preview-%7C-Freya-%7C%C2%A03.0.0?node-id=1303-749&t=7vBqlx6EvhdjJgec-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Freya Figma
+                file as they are available in <a hrefo="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/freya/features-animation-figma.png'
         }
     ];
@@ -158,13 +117,13 @@ export class FreyaPage {
         {
             id: 1,
             title: 'Light and Dark Modes',
-            description: 'Impress your users with the Light and Dark modes.',
+            description: '2 color schemes with 8 surface color alternatives for each.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/freya/features-animation-darkmode.png'
         },
         {
             id: 2,
             title: 'Component Themes',
-            description: 'Freya offers 16 built-in component themes with dark and light options. Also if you wanna create your own theme you can do it by just defining couple SASS variables.',
+            description: '17 built-in theme colors with the power of 3 presets: Aura, Lara and Nora.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/freya/features-animation-component-themes.png'
         },
         {
@@ -222,13 +181,13 @@ export class FreyaPage {
                 title: 'Basic License',
                 price: '$59',
                 discount_price: '$39',
-                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates']
+                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates | $19 for +1 year']
             },
             {
                 title: 'Extended License',
                 price: '$590',
                 discount_price: '$390',
-                included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates']
+                included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates | $190 for +1 year']
             }
         ]
     };

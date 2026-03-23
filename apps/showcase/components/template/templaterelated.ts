@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'template-related',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, RouterModule],
     template: `
         <div class="template-related-wrapper">
             <div class="template-related">
@@ -24,10 +24,3 @@ import { SharedModule } from 'primeng/api';
 export class TemplateRelated {
     @Input() relatedData: any[] = [];
 }
-
-@NgModule({
-    imports: [CommonModule, SharedModule, RouterModule],
-    exports: [TemplateRelated, SharedModule],
-    declarations: [TemplateRelated]
-})
-export class TemplateRelatedModule {}

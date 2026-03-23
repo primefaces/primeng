@@ -1,3 +1,2 @@
-import { MegaMenuDesignTokens } from '../../types/megamenu';
-declare const _default: MegaMenuDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/megamenu';
+export { default } from '@primeuix/themes/aura/megamenu';
