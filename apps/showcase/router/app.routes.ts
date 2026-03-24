@@ -116,6 +116,7 @@ export const routes: Routes = [
                 path: 'focustrap',
                 loadChildren: () => import('@/pages/focustrap/routes')
             },
+            { path: 'gallery', loadChildren: () => import('@/pages/gallery/routes') },
             {
                 path: 'galleria',
                 loadChildren: () => import('@/pages/galleria/routes')

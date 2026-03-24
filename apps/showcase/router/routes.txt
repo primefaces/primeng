@@ -38,6 +38,7 @@
 /filterservice
 /floatlabel
 /focustrap
+/gallery
 /galleria
 /guides
 /guides/accessibility

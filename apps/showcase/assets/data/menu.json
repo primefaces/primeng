@@ -399,6 +399,11 @@
                             "routerLink": "/carousel"
                         },
                         {
+                            "name": "Gallery",
+                            "routerLink": "/gallery",
+                            "badge": "NEW"
+                        },
+                        {
                             "name": "Galleria",
                             "routerLink": "/galleria"
                         },

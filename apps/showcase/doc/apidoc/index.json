@@ -9563,20 +9563,20 @@
                             "description": "Two-way bound search value."
                         },
                         {
-                            "name": "selectOnHover",
+                            "name": "focusOnHover",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
                             "default": "true",
-                            "description": "Whether to highlight option on hover."
+                            "description": "When enabled, the hovered option will be focused."
                         },
                         {
-                            "name": "loop",
+                            "name": "highlightOnSelect",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Whether keyboard navigation should loop from end to start."
+                            "description": "Whether to highlight the selected option."
                         },
                         {
                             "name": "group",
@@ -9586,12 +9586,85 @@
                             "description": "Whether to display options as grouped."
                         },
                         {
+                            "name": "striped",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether to displays rows with alternating colors."
+                        },
+                        {
+                            "name": "checkmark",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the selected option will be shown with a check mark."
+                        },
+                        {
+                            "name": "readonly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "When present, it specifies that the element value cannot be changed."
+                        },
+                        {
+                            "name": "virtualScroll",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether the data should be loaded on demand during scroll."
+                        },
+                        {
+                            "name": "virtualScrollItemSize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Height of an item in the list for VirtualScrolling."
+                        },
+                        {
+                            "name": "virtualScrollOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
+                        },
+                        {
+                            "name": "multiple",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "When specified, allows selecting multiple values."
+                        },
+                        {
+                            "name": "dataKey",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "A property to uniquely identify a value in options."
+                        },
+                        {
+                            "name": "autoOptionFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to focus on the first visible or selected element."
+                        },
+                        {
+                            "name": "scrollHeight",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "'25rem'",
+                            "description": "Height of the viewport, a scrollbar is defined if height of list exceeds this value."
+                        },
+                        {
                             "name": "emptyMessage",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "'No results found.'",
-                            "description": "Text to display when there are no results."
+                            "description": "Text to display when there are no results. Defaults to global value in i18n translation configuration."
                         },
                         {
                             "name": "filter",
