@@ -1,6 +1,69 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/carousel';
+import { style as carousel_style } from '@primeuix/styles/carousel';
 import { BaseStyle } from 'primeng/base';
+
+const style = /*css*/ `
+    ${carousel_style}
+
+    /* For PrimeNG - Composition Carousel */
+    p-carousel:has(p-carousel-indicators) .p-carousel-indicator-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: dt('carousel.indicator.list.padding');
+        gap: dt('carousel.indicator.list.gap');
+        margin: 0;
+        list-style: none;
+    }
+
+    p-carousel:has(p-carousel-indicators) .p-carousel-indicator-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: dt('carousel.indicator.background');
+        width: dt('carousel.indicator.width');
+        height: dt('carousel.indicator.height');
+        border: 0 none;
+        transition:
+            background dt('carousel.transition.duration'),
+            color dt('carousel.transition.duration'),
+            outline-color dt('carousel.transition.duration'),
+            box-shadow dt('carousel.transition.duration');
+        outline-color: transparent;
+        border-radius: dt('carousel.indicator.border.radius');
+        padding: 0;
+        margin: 0;
+        user-select: none;
+        cursor: pointer;
+    }
+
+    p-carousel:has(p-carousel-indicators) .p-carousel-indicator-button:focus-visible {
+        box-shadow: dt('carousel.indicator.focus.ring.shadow');
+        outline: dt('carousel.indicator.focus.ring.width') dt('carousel.indicator.focus.ring.style') dt('carousel.indicator.focus.ring.color');
+        outline-offset: dt('carousel.indicator.focus.ring.offset');
+    }
+
+    p-carousel:has(p-carousel-indicators) .p-carousel-indicator-button:hover {
+        background: dt('carousel.indicator.hover.background');
+    }
+
+    p-carousel:has(p-carousel-indicators) .p-carousel-indicator-active.p-carousel-indicator-button {
+        background: dt('carousel.indicator.active.background');
+    }
+
+    p-carousel:has(p-carousel-content) p-carousel-content {
+        display: block;
+    }
+
+    p-carousel:has(p-carousel-item) p-carousel-item {
+        display: block;
+    }
+
+    p-carousel:has(p-carousel-indicators) p-carousel-indicators {
+        display: block;
+    }
+`;
 
 const classes = {
     root: ({ instance }) => [
@@ -51,7 +114,11 @@ const classes = {
         }
     ],
     indicatorButton: ({ instance }) => ['p-carousel-indicator-button', instance.indicatorStyleClass()],
-    footer: 'p-carousel-footer'
+    footer: 'p-carousel-footer',
+    // Composition mode
+    compositionIndicator: ({ instance, index }) => ['p-carousel-indicator-button', { 'p-carousel-indicator-active': instance.pageState() === index }],
+    compositionPrev: ({ instance }) => [{ 'p-disabled': instance.isPrevDisabled() }],
+    compositionNext: ({ instance }) => [{ 'p-disabled': instance.isNextDisabled() }]
 };
 
 @Injectable()

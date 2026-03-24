@@ -58,6 +58,7 @@
 - [Angular Fluid Component](https://primeng.org/fluid): Fluid is a layout component to make descendant components span full width of their container.
 - [Angular Focus Trap Component](https://primeng.org/focustrap): Focus Trap keeps focus within a certain DOM element while tabbing.
 - [Angular Gallery Component](https://primeng.org/galleria): Galleria is an advanced content gallery component.
+- [Angular Gallery Component](https://primeng.org/gallery): Gallery is an image viewer with zoom, rotate, flip and download capabilities.
 - [Angular IconField Component](https://primeng.org/iconfield): IconField wraps an input and an icon.
 - [Angular Ifta Label Component](https://primeng.org/iftalabel): IftaLabel is used to create infield top aligned labels.
 - [Angular Image Component](https://primeng.org/image): Displays an image with preview and tranformation options.

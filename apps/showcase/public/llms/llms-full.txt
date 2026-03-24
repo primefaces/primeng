@@ -5477,6 +5477,256 @@ export class CarouselBasicDemo implements OnInit {
 }
 ```
 
+## Composition Alignment
+
+Use align to control snap alignment and slidesPerPage to show partial slides.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+
+@Component({
+    template: `
+        <div class="mt-8 mb-16">
+            <p-carousel class="max-w-xl mx-auto" align="start" [slidesPerPage]="1.5">
+                <p-carousel-content style="height: 240px">
+                    @for (item of items; track item) {
+                        <p-carousel-item>
+                            <div class="h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface">
+                                <span>{{ item }}</span>
+                            </div>
+                        </p-carousel-item>
+                    }
+                </p-carousel-content>
+                <div class="flex mt-4 gap-4">
+                    <p-carousel-indicators></p-carousel-indicators>
+                    <div class="flex items-center justify-end gap-2 flex-1">
+                        <button
+                            pCarouselPrev
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-left" class="text-lg"></svg>
+                        </button>
+                        <button
+                            pCarouselNext
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-right" class="text-lg"></svg>
+                        </button>
+                    </div>
+                </div>
+            </p-carousel>
+        </div>
+    `,
+    standalone: true,
+    imports: [CarouselModule]
+})
+export class CarouselCarouselAlignmentDemo {
+    items: any[] = [1, 2, 3, 4, 5];
+}
+```
+
+## Composition Basic
+
+Composition-based carousel using native scroll-snap with sub-components for root, content, items, navigation, and indicators.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+
+@Component({
+    template: `
+        <div class="mt-8 mb-16">
+            <p-carousel class="max-w-xl mx-auto" align="center">
+                <p-carousel-content style="height: 240px">
+                    @for (item of items; track item) {
+                        <p-carousel-item>
+                            <div class="h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface">
+                                <span>{{ item }}</span>
+                            </div>
+                        </p-carousel-item>
+                    }
+                </p-carousel-content>
+                <div class="flex mt-4 gap-4">
+                    <p-carousel-indicators></p-carousel-indicators>
+                    <div class="flex items-center justify-end gap-2 flex-1">
+                        <button
+                            pCarouselPrev
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-left" class="text-lg"></svg>
+                        </button>
+                        <button
+                            pCarouselNext
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-right" class="text-lg"></svg>
+                        </button>
+                    </div>
+                </div>
+            </p-carousel>
+        </div>
+    `,
+    standalone: true,
+    imports: [CarouselModule]
+})
+export class CarouselCarouselBasicDemo {
+    items: any[] = [1, 2, 3, 4, 5];
+}
+```
+
+## Composition Loop
+
+Enable continuous looping with the loop property. Use slidesPerPage to show partial slides.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+
+@Component({
+    template: `
+        <div class="mt-8 mb-16">
+            <p-carousel class="max-w-xl mx-auto" align="center" [loop]="true" [slidesPerPage]="1.75">
+                <p-carousel-content style="height: 240px">
+                    @for (item of items; track item) {
+                        <p-carousel-item>
+                            <div class="h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface">
+                                <span>{{ item }}</span>
+                            </div>
+                        </p-carousel-item>
+                    }
+                </p-carousel-content>
+                <div class="flex mt-4 gap-4">
+                    <p-carousel-indicators></p-carousel-indicators>
+                    <div class="flex items-center justify-end gap-2 flex-1">
+                        <button
+                            pCarouselPrev
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-left" class="text-lg"></svg>
+                        </button>
+                        <button
+                            pCarouselNext
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-right" class="text-lg"></svg>
+                        </button>
+                    </div>
+                </div>
+            </p-carousel>
+        </div>
+    `,
+    standalone: true,
+    imports: [CarouselModule]
+})
+export class CarouselCarouselLoopDemo {
+    items: any[] = [1, 2, 3, 4, 5];
+}
+```
+
+## Composition Orientation
+
+Set orientation to vertical for a vertical carousel layout.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+
+@Component({
+    template: `
+        <div class="mt-8 mb-16">
+            <p-carousel class="max-w-sm mx-auto flex flex-col gap-8 items-center" orientation="vertical" [slidesPerPage]="1.3">
+                <button
+                    pCarouselPrev
+                    class="w-10 h-10 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                >
+                    <svg data-p-icon="chevron-up" class="text-lg"></svg>
+                </button>
+                <p-carousel-content style="height: 240px; width: 100%">
+                    @for (item of items; track item) {
+                        <p-carousel-item>
+                            <div class="h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface">
+                                <span>{{ item }}</span>
+                            </div>
+                        </p-carousel-item>
+                    }
+                </p-carousel-content>
+                <button
+                    pCarouselNext
+                    class="w-10 h-10 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                >
+                    <svg data-p-icon="chevron-down" class="text-lg"></svg>
+                </button>
+            </p-carousel>
+        </div>
+    `,
+    standalone: true,
+    imports: [CarouselModule]
+})
+export class CarouselCarouselOrientationDemo {
+    items: any[] = [1, 2, 3, 4, 5];
+}
+```
+
+## Composition Variable Size
+
+Enable autoSize to allow items with variable widths.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+
+@Component({
+    template: `
+        <div class="mt-8 mb-16">
+            <p-carousel class="max-w-xl mx-auto" align="center" [autoSize]="true">
+                <p-carousel-content style="height: 140px">
+                    @for (item of items; track item.width; let i = $index) {
+                        <p-carousel-item [style.width]="item.width">
+                            <div class="h-full text-4xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-lg border border-surface">
+                                <span>{{ i + 1 }}</span>
+                            </div>
+                        </p-carousel-item>
+                    }
+                </p-carousel-content>
+                <div class="flex mt-4 gap-4">
+                    <p-carousel-indicators></p-carousel-indicators>
+                    <div class="flex items-center justify-end gap-2 flex-1">
+                        <button
+                            pCarouselPrev
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-left" class="text-lg"></svg>
+                        </button>
+                        <button
+                            pCarouselNext
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-right" class="text-lg"></svg>
+                        </button>
+                    </div>
+                </div>
+            </p-carousel>
+        </div>
+    `,
+    standalone: true,
+    imports: [CarouselModule]
+})
+export class CarouselCarouselVariableSizeDemo {
+    items: any[] = [{ width: '120px' }, { width: '80px' }, { width: '200px' }, { width: '160px' }, { width: '220px' }, { width: '180px' }, { width: '280px' }, { width: '100px' }];
+}
+```
+
 ## Circular
 
 When autoplayInterval is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling circular property needs to be added which is enabled automatically in auto play mode.
@@ -5727,6 +5977,13 @@ Carousel is a content slider featuring various customization options.
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
 | pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| align | "center" \| "start" \| "end" | 'start' | Alignment of the carousel items (composition mode). |
+| loop | boolean | false | Whether the carousel should loop (composition mode). |
+| snapType | "mandatory" \| "proximity" | 'mandatory' | Scroll snap type applied to the track (composition mode). |
+| spacing | number | 16 | Spacing between carousel items in pixels (composition mode). |
+| autoSize | boolean | false | Whether the carousel should auto size items (composition mode). |
+| slidesPerPage | number | 1 | How many slides are visible per page (composition mode). Supports fractions (e.g. 1.5). |
+| slide | number | - | Index of the active slide (composition mode). |
 | page | number | 0 | Index of the first item. |
 | numVisible | number | 1 | Number of items per page. |
 | numScroll | number | 1 | Number of items to scroll. |
@@ -5750,6 +6007,8 @@ Carousel is a content slider featuring various customization options.
 
 | Name | Parameters | Description |
 |------|------------|-------------|
+| onPageChange | value: { value: number } | Callback fired when the carousel's page changes (composition mode). |
+| onSlideChange | value: { value: number } | Callback fired when the active slide changes (composition mode). |
 | onPage | event: CarouselPageEvent | Callback to invoke after scroll. |
 
 ### Templates
@@ -5761,6 +6020,25 @@ Carousel is a content slider featuring various customization options.
 | footer | TemplateRef<void> | Custom footer template. |
 | previousicon | TemplateRef<void> | Custom previous icon template. |
 | nexticon | TemplateRef<void> | Custom next icon template. |
+
+## Carousel Content
+
+CarouselContent is the scrollable track element that contains carousel items.
+
+## Carousel Indicators
+
+CarouselIndicators renders the list of page indicators.
+Auto-generates button indicators based on snap points.
+
+## Carousel Item
+
+CarouselItem represents an individual item in the composition-based carousel.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| value | unknown | - | The value/identifier of the carousel item. |
 
 ## Pass Through Options
 
@@ -18077,6 +18355,369 @@ Galleria is an advanced content gallery component.
 | galleria.close.button.focus.ring.offset | --p-galleria-close-button-focus-ring-offset | Focus ring offset of close button |
 | galleria.close.button.focus.ring.shadow | --p-galleria-close-button-focus-ring-shadow | Focus ring shadow of close button |
 | galleria.close.button.icon.size | --p-galleria-close-button-icon-size | Size of close button icon |
+
+---
+
+# Angular Gallery Component
+
+Gallery is an image viewer with zoom, rotate, flip and download capabilities.
+
+## Accessibility
+
+Screen Reader Gallery uses semantic button elements for all interactive controls. The data-scope and data-part attributes identify each part of the gallery for assistive technologies. Use aria-label attributes on buttons to provide accessible names.
+
+## Basic
+
+Gallery provides a composition-based API with sub-components for full control over the layout. Each part of the gallery (header, content, footer, toolbar, thumbnails) is a separate component.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    template: `
+        <p-gallery-root style="width: 100%; height: 600px;">
+            <p-gallery-backdrop></p-gallery-backdrop>
+            <p-gallery-prev>
+                <svg data-p-icon="chevron-left"></svg>
+            </p-gallery-prev>
+            <p-gallery-next>
+                <svg data-p-icon="chevron-right"></svg>
+            </p-gallery-next>
+            <p-gallery-header class="justify-end gap-0.5">
+                <p-gallery-rotate-left>
+                    <svg data-p-icon="replay"></svg>
+                </p-gallery-rotate-left>
+                <p-gallery-rotate-right>
+                    <svg data-p-icon="refresh"></svg>
+                </p-gallery-rotate-right>
+                <p-gallery-zoom-in>
+                    <svg data-p-icon="search-plus"></svg>
+                </p-gallery-zoom-in>
+                <p-gallery-zoom-out>
+                    <svg data-p-icon="search-minus"></svg>
+                </p-gallery-zoom-out>
+                <p-gallery-flip-x>
+                    <svg data-p-icon="arrows-h"></svg>
+                </p-gallery-flip-x>
+                <p-gallery-flip-y>
+                    <svg data-p-icon="arrows-v"></svg>
+                </p-gallery-flip-y>
+                <p-gallery-download>
+                    <svg data-p-icon="download"></svg>
+                </p-gallery-download>
+                <p-gallery-full-screen class="group">
+                    <svg data-p-icon="arrow-up-right-and-arrow-down-left-from-center" class="group-data-fullscreen:hidden!"></svg>
+                    <svg data-p-icon="arrow-down-left-and-arrow-up-right-to-center" class="hidden! group-data-fullscreen:block!"></svg>
+                </p-gallery-full-screen>
+            </p-gallery-header>
+            <p-gallery-content>
+                @for (image of images; track image) {
+                    <p-gallery-item>
+                        <img [src]="image" alt="image" />
+                    </p-gallery-item>
+                }
+            </p-gallery-content>
+            <p-gallery-footer>
+                <p-gallery-thumbnail>
+                    <p-gallery-thumbnail-content>
+                        @for (image of images; track image; let i = $index) {
+                            <p-gallery-thumbnail-item [index]="i">
+                                <img [attr.draggable]="false" [src]="image" class="h-full w-full object-cover" />
+                            </p-gallery-thumbnail-item>
+                        }
+                    </p-gallery-thumbnail-content>
+                </p-gallery-thumbnail>
+            </p-gallery-footer>
+        </p-gallery-root>
+    `,
+    standalone: true,
+    imports: []
+})
+export class GalleryBasicDemo {
+    images: any = photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
+}
+```
+
+## Grid
+
+Gallery can be used as a lightbox by combining it with a grid of thumbnails. Click on an image to open the gallery in fullscreen overlay.
+
+**Example:**
+
+```typescript
+import { Component, signal } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-6 gap-2">
+            @for (image of images; track image; let i = $index) {
+                <div class="aspect-square cursor-pointer hover:opacity-75 transition-opacity" (click)="handleOpen(i)">
+                    <img [src]="image" alt="image" class="w-full h-full object-cover rounded-lg" />
+                </div>
+            }
+        </div>
+        @if (open()) {
+            <div class="w-full h-[100dvh] top-0 left-0 !fixed z-[100000] opacity-100 transition-opacity duration-200">
+                <p-gallery-root class="w-full h-full" [(activeIndex)]="activeIndex" (onActiveIndexChange)="onActiveIndexChange($event)">
+                    <p-gallery-backdrop></p-gallery-backdrop>
+                    <p-gallery-prev>
+                        <svg data-p-icon="chevron-left"></svg>
+                    </p-gallery-prev>
+                    <p-gallery-next>
+                        <svg data-p-icon="chevron-right"></svg>
+                    </p-gallery-next>
+                    <p-gallery-header class="justify-end gap-0.5">
+                        <p-gallery-rotate-left>
+                            <svg data-p-icon="replay"></svg>
+                        </p-gallery-rotate-left>
+                        <p-gallery-rotate-right>
+                            <svg data-p-icon="refresh"></svg>
+                        </p-gallery-rotate-right>
+                        <p-gallery-zoom-in>
+                            <svg data-p-icon="search-plus"></svg>
+                        </p-gallery-zoom-in>
+                        <p-gallery-zoom-out>
+                            <svg data-p-icon="search-minus"></svg>
+                        </p-gallery-zoom-out>
+                        <p-gallery-flip-x>
+                            <svg data-p-icon="arrows-h"></svg>
+                        </p-gallery-flip-x>
+                        <p-gallery-flip-y>
+                            <svg data-p-icon="arrows-v"></svg>
+                        </p-gallery-flip-y>
+                        <p-gallery-download>
+                            <svg data-p-icon="download"></svg>
+                        </p-gallery-download>
+                        <button class="p-gallery-action" (click)="close()">
+                            <svg data-p-icon="times"></svg>
+                        </button>
+                    </p-gallery-header>
+                    <p-gallery-content>
+                        @for (image of images; track image) {
+                            <p-gallery-item>
+                                <img [src]="image" alt="image" />
+                            </p-gallery-item>
+                        }
+                    </p-gallery-content>
+                    <p-gallery-footer>
+                        <p-gallery-thumbnail>
+                            <p-gallery-thumbnail-content>
+                                @for (image of images; track image; let i = $index) {
+                                    <p-gallery-thumbnail-item [index]="i">
+                                        <img [attr.draggable]="false" [src]="image" class="h-full w-full object-cover" />
+                                    </p-gallery-thumbnail-item>
+                                }
+                            </p-gallery-thumbnail-content>
+                        </p-gallery-thumbnail>
+                    </p-gallery-footer>
+                </p-gallery-root>
+            </div>
+        }
+    `,
+    standalone: true,
+    imports: []
+})
+export class GalleryGridDemo {
+    images: any = photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
+    activeIndex: number = 0;
+    open = signal(false);
+
+    handleOpen(index: number) {
+        this.activeIndex = index;
+        this.open.set(true);
+    }
+
+    close() {
+        this.open.set(false);
+    }
+
+    onActiveIndexChange(event: GalleryActiveIndexChangeEvent) {
+        this.activeIndex = event.value;
+    }
+}
+```
+
+## Gallery Root
+
+GalleryRoot is the main container component for the Gallery.
+It manages the active index, fullscreen state, pending actions, and item registration.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, GalleryPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| activeIndex | number | 0 | The index of the active item. |
+
+### Emits
+
+| Name | Parameters | Description |
+|------|------------|-------------|
+| onActiveIndexChange | event: GalleryActiveIndexChangeEvent | Callback fired when the gallery's active index changes. |
+
+## Gallery Backdrop
+
+GalleryBackdrop represents the backdrop element for fullscreen mode.
+
+## Gallery Content
+
+GalleryContent represents the main content area of the gallery.
+
+## Gallery Download
+
+GalleryDownload represents the download action button.
+
+## Gallery Flip X
+
+GalleryFlipX represents the horizontal flip action button.
+
+## Gallery Flip Y
+
+GalleryFlipY represents the vertical flip action button.
+
+## Gallery Footer
+
+GalleryFooter represents the footer section of the gallery.
+
+## Gallery Full Screen
+
+GalleryFullScreen represents the fullscreen toggle button.
+Supports a template that receives isFullscreen state.
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| fullscreen | TemplateRef<GalleryFullScreenTemplateContext> | Custom fullscreen content template. |
+
+## Gallery Header
+
+GalleryHeader represents the header section of the gallery.
+
+## Gallery Item
+
+GalleryItem represents an individual item in the gallery.
+It manages its own transform state (zoom, rotate, flip, pan) and gesture handling.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| normalScale | number | 1 | The normal scale of the gallery item. |
+| zoomedScale | number | 3 | The zoomed scale of the gallery item. |
+
+## Gallery Next
+
+GalleryNext represents the next navigation button.
+
+## Gallery Prev
+
+GalleryPrev represents the previous navigation button.
+
+## Gallery Rotate Left
+
+GalleryRotateLeft represents the rotate left action button.
+
+## Gallery Rotate Right
+
+GalleryRotateRight represents the rotate right action button.
+
+## Gallery Thumbnail Content
+
+GalleryThumbnailContent represents the thumbnail carousel content area.
+
+## Gallery Thumbnail Item
+
+GalleryThumbnailItem represents an individual thumbnail item.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| index | number | - | The index of the thumbnail item. |
+
+## Gallery Thumbnail
+
+GalleryThumbnail represents the thumbnail carousel wrapper.
+
+## Gallery Toolbar Item
+
+GalleryToolbarItem represents an individual toolbar item.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| action | string | - | The action to dispatch when the toolbar item is clicked. |
+
+## Gallery Toolbar
+
+GalleryToolbar represents the toolbar container.
+
+## Gallery Zoom In
+
+GalleryZoomIn represents the zoom in action button.
+
+## Gallery Zoom Out
+
+GalleryZoomOut represents the zoom out action button.
+
+## Gallery Zoom Toggle
+
+GalleryZoomToggle represents the zoom toggle action button.
+
+## Pass Through Options
+
+| Name | Type | Description |
+|------|------|-------------|
+| root | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the root's DOM element. |
+| backdrop | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the backdrop's DOM element. |
+| header | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the header's DOM element. |
+| footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
+| content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
+| item | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the item's DOM element. |
+| next | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the next button's DOM element. |
+| prev | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the prev button's DOM element. |
+| toolbar | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the toolbar's DOM element. |
+| toolbarItem | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the toolbar item's DOM element. |
+| thumbnail | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the thumbnail's DOM element. |
+| thumbnailContent | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the thumbnail content's DOM element. |
+| thumbnailItem | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the thumbnail item's DOM element. |
+| zoomIn | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the zoom in button's DOM element. |
+| zoomOut | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the zoom out button's DOM element. |
+| zoomToggle | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the zoom toggle button's DOM element. |
+| rotateLeft | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the rotate left button's DOM element. |
+| rotateRight | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the rotate right button's DOM element. |
+| flipX | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the flip x button's DOM element. |
+| flipY | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the flip y button's DOM element. |
+| download | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the download button's DOM element. |
+| fullScreen | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the fullscreen button's DOM element. |
+
+## Theming
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| p-gallery | Class name of the root element |
+| p-gallery-backdrop | Class name of the backdrop element |
+| p-gallery-header | Class name of the header element |
+| p-gallery-footer | Class name of the footer element |
+| p-gallery-content | Class name of the content element |
+| p-gallery-item | Class name of the item element |
+| p-gallery-next | Class name of the next button element |
+| p-gallery-prev | Class name of the prev button element |
+| p-gallery-toolbar | Class name of the toolbar element |
+| p-gallery-toolbar-item | Class name of the toolbar item element |
+| p-gallery-action | Class name of the action element |
+| p-gallery-thumbnail | Class name of the thumbnail element |
+| p-gallery-thumbnail-content | Class name of the thumbnail content element |
+| p-gallery-thumbnail-item | Class name of the thumbnail item element |
 
 ---
 

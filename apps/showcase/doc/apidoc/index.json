@@ -6866,6 +6866,61 @@
                             "description": "Used to configure passthrough(pt) options of the component."
                         },
                         {
+                            "name": "align",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"center\" | \"start\" | \"end\"",
+                            "default": "'start'",
+                            "description": "Alignment of the carousel items (composition mode)."
+                        },
+                        {
+                            "name": "loop",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the carousel should loop (composition mode)."
+                        },
+                        {
+                            "name": "snapType",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"mandatory\" | \"proximity\"",
+                            "default": "'mandatory'",
+                            "description": "Scroll snap type applied to the track (composition mode)."
+                        },
+                        {
+                            "name": "spacing",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "16",
+                            "description": "Spacing between carousel items in pixels (composition mode)."
+                        },
+                        {
+                            "name": "autoSize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the carousel should auto size items (composition mode)."
+                        },
+                        {
+                            "name": "slidesPerPage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "1",
+                            "description": "How many slides are visible per page (composition mode). Supports fractions (e.g. 1.5)."
+                        },
+                        {
+                            "name": "slide",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the active slide (composition mode)."
+                        },
+                        {
                             "name": "page",
                             "optional": false,
                             "readonly": false,
@@ -7001,6 +7056,26 @@
                     "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
                     "values": [
                         {
+                            "name": "onPageChange",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "{ value: number }"
+                                }
+                            ],
+                            "description": "Callback fired when the carousel's page changes (composition mode)."
+                        },
+                        {
+                            "name": "onSlideChange",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "{ value: number }"
+                                }
+                            ],
+                            "description": "Callback fired when the active slide changes (composition mode)."
+                        },
+                        {
                             "name": "onPage",
                             "parameters": [
                                 {
@@ -7047,10 +7122,35 @@
                         }
                     ]
                 }
+            },
+            "CarouselContent": {
+                "description": "CarouselContent is the scrollable track element that contains carousel items."
+            },
+            "CarouselIndicators": {
+                "description": "CarouselIndicators renders the list of page indicators.\nAuto-generates button indicators based on snap points."
+            },
+            "CarouselItem": {
+                "description": "CarouselItem represents an individual item in the composition-based carousel.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "unknown",
+                            "description": "The value/identifier of the carousel item."
+                        }
+                    ]
+                }
             }
         },
         "style": {
-            "components": {},
+            "components": {
+                "carouselnext": {
+                    "components": {}
+                }
+            },
             "classes": {
                 "values": [
                     {
@@ -7333,6 +7433,9 @@
                 ]
             }
         }
+    },
+    "carousel-token": {
+        "components": {}
     },
     "cascadeselect": {
         "components": {
@@ -19201,6 +19304,552 @@
     },
     "galleria-token": {
         "components": {}
+    },
+    "gallery": {
+        "components": {
+            "GalleryRoot": {
+                "description": "GalleryRoot is the main container component for the Gallery.\nIt manages the active index, fullscreen state, pending actions, and item registration.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThrough<I, GalleryPassThroughOptions<I>>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "activeIndex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "The index of the active item."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onActiveIndexChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "GalleryActiveIndexChangeEvent"
+                                }
+                            ],
+                            "description": "Callback fired when the gallery's active index changes."
+                        }
+                    ]
+                }
+            },
+            "GalleryBackdrop": {
+                "description": "GalleryBackdrop represents the backdrop element for fullscreen mode."
+            },
+            "GalleryContent": {
+                "description": "GalleryContent represents the main content area of the gallery."
+            },
+            "GalleryDownload": {
+                "description": "GalleryDownload represents the download action button."
+            },
+            "GalleryFlipX": {
+                "description": "GalleryFlipX represents the horizontal flip action button."
+            },
+            "GalleryFlipY": {
+                "description": "GalleryFlipY represents the vertical flip action button."
+            },
+            "GalleryFooter": {
+                "description": "GalleryFooter represents the footer section of the gallery."
+            },
+            "GalleryFullScreen": {
+                "description": "GalleryFullScreen represents the fullscreen toggle button.\nSupports a template that receives isFullscreen state.",
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "fullscreen",
+                            "description": "Custom fullscreen content template.",
+                            "type": "TemplateRef<GalleryFullScreenTemplateContext>",
+                            "parameters": [
+                                {
+                                    "name": "context",
+                                    "description": "fullscreen context.",
+                                    "type": "GalleryFullScreenTemplateContext"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "GalleryHeader": {
+                "description": "GalleryHeader represents the header section of the gallery."
+            },
+            "GalleryItem": {
+                "description": "GalleryItem represents an individual item in the gallery.\nIt manages its own transform state (zoom, rotate, flip, pan) and gesture handling.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "normalScale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "1",
+                            "description": "The normal scale of the gallery item."
+                        },
+                        {
+                            "name": "zoomedScale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "3",
+                            "description": "The zoomed scale of the gallery item."
+                        }
+                    ]
+                }
+            },
+            "GalleryNext": {
+                "description": "GalleryNext represents the next navigation button."
+            },
+            "GalleryPrev": {
+                "description": "GalleryPrev represents the previous navigation button."
+            },
+            "GalleryRotateLeft": {
+                "description": "GalleryRotateLeft represents the rotate left action button."
+            },
+            "GalleryRotateRight": {
+                "description": "GalleryRotateRight represents the rotate right action button."
+            },
+            "GalleryThumbnailContent": {
+                "description": "GalleryThumbnailContent represents the thumbnail carousel content area."
+            },
+            "GalleryThumbnailItem": {
+                "description": "GalleryThumbnailItem represents an individual thumbnail item.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "index",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "The index of the thumbnail item."
+                        }
+                    ]
+                }
+            },
+            "GalleryThumbnail": {
+                "description": "GalleryThumbnail represents the thumbnail carousel wrapper."
+            },
+            "GalleryToolbarItem": {
+                "description": "GalleryToolbarItem represents an individual toolbar item.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "action",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "The action to dispatch when the toolbar item is clicked."
+                        }
+                    ]
+                }
+            },
+            "GalleryToolbar": {
+                "description": "GalleryToolbar represents the toolbar container."
+            },
+            "GalleryZoomIn": {
+                "description": "GalleryZoomIn represents the zoom in action button."
+            },
+            "GalleryZoomOut": {
+                "description": "GalleryZoomOut represents the zoom out action button."
+            },
+            "GalleryZoomToggle": {
+                "description": "GalleryZoomToggle represents the zoom toggle action button."
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-gallery",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-gallery-backdrop",
+                        "description": "Class name of the backdrop element"
+                    },
+                    {
+                        "class": "p-gallery-header",
+                        "description": "Class name of the header element"
+                    },
+                    {
+                        "class": "p-gallery-footer",
+                        "description": "Class name of the footer element"
+                    },
+                    {
+                        "class": "p-gallery-content",
+                        "description": "Class name of the content element"
+                    },
+                    {
+                        "class": "p-gallery-item",
+                        "description": "Class name of the item element"
+                    },
+                    {
+                        "class": "p-gallery-next",
+                        "description": "Class name of the next button element"
+                    },
+                    {
+                        "class": "p-gallery-prev",
+                        "description": "Class name of the prev button element"
+                    },
+                    {
+                        "class": "p-gallery-toolbar",
+                        "description": "Class name of the toolbar element"
+                    },
+                    {
+                        "class": "p-gallery-toolbar-item",
+                        "description": "Class name of the toolbar item element"
+                    },
+                    {
+                        "class": "p-gallery-action",
+                        "description": "Class name of the action element"
+                    },
+                    {
+                        "class": "p-gallery-thumbnail",
+                        "description": "Class name of the thumbnail element"
+                    },
+                    {
+                        "class": "p-gallery-thumbnail-content",
+                        "description": "Class name of the thumbnail content element"
+                    },
+                    {
+                        "class": "p-gallery-thumbnail-item",
+                        "description": "Class name of the thumbnail item element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "events": {
+                "description": "Defines the custom events used by the component's emitters.",
+                "values": [
+                    {
+                        "name": "GalleryActiveIndexChangeEvent",
+                        "description": "Event fired when the gallery's active index changes.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "The original event that triggered the change."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "The new active index value."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "fullscreen",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "GalleryFullScreenTemplateContext",
+                                "description": "fullscreen context."
+                            }
+                        ],
+                        "description": "Custom fullscreen button content template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "GalleryPendingAction",
+                        "description": "Represents a pending action dispatched from toolbar to the active gallery item.",
+                        "props": [
+                            {
+                                "name": "type",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "\"download\" | \"zoom-in\" | \"zoom-out\" | \"rotate-left\" | \"rotate-right\" | \"flip-x\" | \"flip-y\"",
+                                "description": "The type of the action."
+                            },
+                            {
+                                "name": "timestamp",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Timestamp to ensure repeated identical actions trigger new effects."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryItemState",
+                        "description": "Defines the state of a gallery item.",
+                        "props": [
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "The index of the item in the gallery."
+                            },
+                            {
+                                "name": "isActive",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the item is the active (visible) item."
+                            },
+                            {
+                                "name": "position",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "{ x: number; y: number }",
+                                "description": "The current pan position."
+                            },
+                            {
+                                "name": "scale",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "The current zoom scale."
+                            },
+                            {
+                                "name": "rotation",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "The current rotation in degrees."
+                            },
+                            {
+                                "name": "flip",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "{ x: number; y: number }",
+                                "description": "The current flip state."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryPassThroughOptions",
+                        "description": "Defines valid pass-through options in Gallery component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "backdrop",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the backdrop's DOM element."
+                            },
+                            {
+                                "name": "header",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header's DOM element."
+                            },
+                            {
+                                "name": "footer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the footer's DOM element."
+                            },
+                            {
+                                "name": "content",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the content's DOM element."
+                            },
+                            {
+                                "name": "item",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the item's DOM element."
+                            },
+                            {
+                                "name": "next",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the next button's DOM element."
+                            },
+                            {
+                                "name": "prev",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the prev button's DOM element."
+                            },
+                            {
+                                "name": "toolbar",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the toolbar's DOM element."
+                            },
+                            {
+                                "name": "toolbarItem",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the toolbar item's DOM element."
+                            },
+                            {
+                                "name": "thumbnail",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the thumbnail's DOM element."
+                            },
+                            {
+                                "name": "thumbnailContent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the thumbnail content's DOM element."
+                            },
+                            {
+                                "name": "thumbnailItem",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the thumbnail item's DOM element."
+                            },
+                            {
+                                "name": "zoomIn",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the zoom in button's DOM element."
+                            },
+                            {
+                                "name": "zoomOut",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the zoom out button's DOM element."
+                            },
+                            {
+                                "name": "zoomToggle",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the zoom toggle button's DOM element."
+                            },
+                            {
+                                "name": "rotateLeft",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the rotate left button's DOM element."
+                            },
+                            {
+                                "name": "rotateRight",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the rotate right button's DOM element."
+                            },
+                            {
+                                "name": "flipX",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the flip x button's DOM element."
+                            },
+                            {
+                                "name": "flipY",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the flip y button's DOM element."
+                            },
+                            {
+                                "name": "download",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the download button's DOM element."
+                            },
+                            {
+                                "name": "fullScreen",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the fullscreen button's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryFullScreenTemplateContext",
+                        "description": "Custom fullscreen template context.",
+                        "props": [
+                            {
+                                "name": "$implicit",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the gallery is currently in fullscreen mode."
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
     },
     "iconfield": {
         "components": {

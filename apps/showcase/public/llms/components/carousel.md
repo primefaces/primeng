@@ -91,6 +91,246 @@ export class CarouselBasicDemo implements OnInit {
 }
 ```
 
+## Composition Alignment
+
+Use align to control snap alignment and slidesPerPage to show partial slides.
+
+```typescript
+import { Component } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+
+@Component({
+    template: `
+        <div class="mt-8 mb-16">
+            <p-carousel class="max-w-xl mx-auto" align="start" [slidesPerPage]="1.5">
+                <p-carousel-content style="height: 240px">
+                    @for (item of items; track item) {
+                        <p-carousel-item>
+                            <div class="h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface">
+                                <span>{{ item }}</span>
+                            </div>
+                        </p-carousel-item>
+                    }
+                </p-carousel-content>
+                <div class="flex mt-4 gap-4">
+                    <p-carousel-indicators></p-carousel-indicators>
+                    <div class="flex items-center justify-end gap-2 flex-1">
+                        <button
+                            pCarouselPrev
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-left" class="text-lg"></svg>
+                        </button>
+                        <button
+                            pCarouselNext
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-right" class="text-lg"></svg>
+                        </button>
+                    </div>
+                </div>
+            </p-carousel>
+        </div>
+    `,
+    standalone: true,
+    imports: [CarouselModule]
+})
+export class CarouselCarouselAlignmentDemo {
+    items: any[] = [1, 2, 3, 4, 5];
+}
+```
+
+## Composition Basic
+
+Composition-based carousel using native scroll-snap with sub-components for root, content, items, navigation, and indicators.
+
+```typescript
+import { Component } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+
+@Component({
+    template: `
+        <div class="mt-8 mb-16">
+            <p-carousel class="max-w-xl mx-auto" align="center">
+                <p-carousel-content style="height: 240px">
+                    @for (item of items; track item) {
+                        <p-carousel-item>
+                            <div class="h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface">
+                                <span>{{ item }}</span>
+                            </div>
+                        </p-carousel-item>
+                    }
+                </p-carousel-content>
+                <div class="flex mt-4 gap-4">
+                    <p-carousel-indicators></p-carousel-indicators>
+                    <div class="flex items-center justify-end gap-2 flex-1">
+                        <button
+                            pCarouselPrev
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-left" class="text-lg"></svg>
+                        </button>
+                        <button
+                            pCarouselNext
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-right" class="text-lg"></svg>
+                        </button>
+                    </div>
+                </div>
+            </p-carousel>
+        </div>
+    `,
+    standalone: true,
+    imports: [CarouselModule]
+})
+export class CarouselCarouselBasicDemo {
+    items: any[] = [1, 2, 3, 4, 5];
+}
+```
+
+## Composition Loop
+
+Enable continuous looping with the loop property. Use slidesPerPage to show partial slides.
+
+```typescript
+import { Component } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+
+@Component({
+    template: `
+        <div class="mt-8 mb-16">
+            <p-carousel class="max-w-xl mx-auto" align="center" [loop]="true" [slidesPerPage]="1.75">
+                <p-carousel-content style="height: 240px">
+                    @for (item of items; track item) {
+                        <p-carousel-item>
+                            <div class="h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface">
+                                <span>{{ item }}</span>
+                            </div>
+                        </p-carousel-item>
+                    }
+                </p-carousel-content>
+                <div class="flex mt-4 gap-4">
+                    <p-carousel-indicators></p-carousel-indicators>
+                    <div class="flex items-center justify-end gap-2 flex-1">
+                        <button
+                            pCarouselPrev
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-left" class="text-lg"></svg>
+                        </button>
+                        <button
+                            pCarouselNext
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-right" class="text-lg"></svg>
+                        </button>
+                    </div>
+                </div>
+            </p-carousel>
+        </div>
+    `,
+    standalone: true,
+    imports: [CarouselModule]
+})
+export class CarouselCarouselLoopDemo {
+    items: any[] = [1, 2, 3, 4, 5];
+}
+```
+
+## Composition Orientation
+
+Set orientation to vertical for a vertical carousel layout.
+
+```typescript
+import { Component } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+
+@Component({
+    template: `
+        <div class="mt-8 mb-16">
+            <p-carousel class="max-w-sm mx-auto flex flex-col gap-8 items-center" orientation="vertical" [slidesPerPage]="1.3">
+                <button
+                    pCarouselPrev
+                    class="w-10 h-10 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                >
+                    <svg data-p-icon="chevron-up" class="text-lg"></svg>
+                </button>
+                <p-carousel-content style="height: 240px; width: 100%">
+                    @for (item of items; track item) {
+                        <p-carousel-item>
+                            <div class="h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface">
+                                <span>{{ item }}</span>
+                            </div>
+                        </p-carousel-item>
+                    }
+                </p-carousel-content>
+                <button
+                    pCarouselNext
+                    class="w-10 h-10 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                >
+                    <svg data-p-icon="chevron-down" class="text-lg"></svg>
+                </button>
+            </p-carousel>
+        </div>
+    `,
+    standalone: true,
+    imports: [CarouselModule]
+})
+export class CarouselCarouselOrientationDemo {
+    items: any[] = [1, 2, 3, 4, 5];
+}
+```
+
+## Composition Variable Size
+
+Enable autoSize to allow items with variable widths.
+
+```typescript
+import { Component } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+
+@Component({
+    template: `
+        <div class="mt-8 mb-16">
+            <p-carousel class="max-w-xl mx-auto" align="center" [autoSize]="true">
+                <p-carousel-content style="height: 140px">
+                    @for (item of items; track item.width; let i = $index) {
+                        <p-carousel-item [style.width]="item.width">
+                            <div class="h-full text-4xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-lg border border-surface">
+                                <span>{{ i + 1 }}</span>
+                            </div>
+                        </p-carousel-item>
+                    }
+                </p-carousel-content>
+                <div class="flex mt-4 gap-4">
+                    <p-carousel-indicators></p-carousel-indicators>
+                    <div class="flex items-center justify-end gap-2 flex-1">
+                        <button
+                            pCarouselPrev
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-left" class="text-lg"></svg>
+                        </button>
+                        <button
+                            pCarouselNext
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-right" class="text-lg"></svg>
+                        </button>
+                    </div>
+                </div>
+            </p-carousel>
+        </div>
+    `,
+    standalone: true,
+    imports: [CarouselModule]
+})
+export class CarouselCarouselVariableSizeDemo {
+    items: any[] = [{ width: '120px' }, { width: '80px' }, { width: '200px' }, { width: '160px' }, { width: '220px' }, { width: '180px' }, { width: '280px' }, { width: '100px' }];
+}
+```
+
 ## Circular
 
 When autoplayInterval is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling circular property needs to be added which is enabled automatically in auto play mode.
@@ -335,6 +575,13 @@ Carousel is a content slider featuring various customization options.
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
 | pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| align | "center" \| "start" \| "end" | 'start' | Alignment of the carousel items (composition mode). |
+| loop | boolean | false | Whether the carousel should loop (composition mode). |
+| snapType | "mandatory" \| "proximity" | 'mandatory' | Scroll snap type applied to the track (composition mode). |
+| spacing | number | 16 | Spacing between carousel items in pixels (composition mode). |
+| autoSize | boolean | false | Whether the carousel should auto size items (composition mode). |
+| slidesPerPage | number | 1 | How many slides are visible per page (composition mode). Supports fractions (e.g. 1.5). |
+| slide | number | - | Index of the active slide (composition mode). |
 | page | number | 0 | Index of the first item. |
 | numVisible | number | 1 | Number of items per page. |
 | numScroll | number | 1 | Number of items to scroll. |
@@ -358,6 +605,8 @@ Carousel is a content slider featuring various customization options.
 
 | Name | Parameters | Description |
 |------|------------|-------------|
+| onPageChange | value: { value: number } | Callback fired when the carousel's page changes (composition mode). |
+| onSlideChange | value: { value: number } | Callback fired when the active slide changes (composition mode). |
 | onPage | event: CarouselPageEvent | Callback to invoke after scroll. |
 
 ### Templates

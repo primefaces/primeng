@@ -4611,6 +4611,46 @@
           }
         },
         {
+          "id": "carousel-alignment",
+          "label": "Composition Alignment",
+          "description": "Use align to control snap alignment and slidesPerPage to show partial slides.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"start\" [slidesPerPage]=\"1.5\">\n                <p-carousel-content style=\"height: 240px\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselCarouselAlignmentDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
+          }
+        },
+        {
+          "id": "carousel-basic",
+          "label": "Composition Basic",
+          "description": "Composition-based carousel using native scroll-snap with sub-components for root, content, items, navigation, and indicators.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"center\">\n                <p-carousel-content style=\"height: 240px\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselCarouselBasicDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
+          }
+        },
+        {
+          "id": "carousel-loop",
+          "label": "Composition Loop",
+          "description": "Enable continuous looping with the loop property. Use slidesPerPage to show partial slides.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"center\" [loop]=\"true\" [slidesPerPage]=\"1.75\">\n                <p-carousel-content style=\"height: 240px\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselCarouselLoopDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
+          }
+        },
+        {
+          "id": "carousel-orientation",
+          "label": "Composition Orientation",
+          "description": "Set orientation to vertical for a vertical carousel layout.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-sm mx-auto flex flex-col gap-8 items-center\" orientation=\"vertical\" [slidesPerPage]=\"1.3\">\n                <button\n                    pCarouselPrev\n                    class=\"w-10 h-10 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                >\n                    <svg data-p-icon=\"chevron-up\" class=\"text-lg\"></svg>\n                </button>\n                <p-carousel-content style=\"height: 240px; width: 100%\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <button\n                    pCarouselNext\n                    class=\"w-10 h-10 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                >\n                    <svg data-p-icon=\"chevron-down\" class=\"text-lg\"></svg>\n                </button>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselCarouselOrientationDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
+          }
+        },
+        {
+          "id": "carousel-variable-size",
+          "label": "Composition Variable Size",
+          "description": "Enable autoSize to allow items with variable widths.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"center\" [autoSize]=\"true\">\n                <p-carousel-content style=\"height: 140px\">\n                    @for (item of items; track item.width; let i = $index) {\n                        <p-carousel-item [style.width]=\"item.width\">\n                            <div class=\"h-full text-4xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-lg border border-surface\">\n                                <span>{{ i + 1 }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselCarouselVariableSizeDemo {\n    items: any[] = [{ width: '120px' }, { width: '80px' }, { width: '200px' }, { width: '160px' }, { width: '220px' }, { width: '180px' }, { width: '280px' }, { width: '100px' }];\n}"
+          }
+        },
+        {
           "id": "circular",
           "label": "Circular",
           "description": "When autoplayInterval is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling circular property needs to be added which is enabled automatically in auto play mode.",
@@ -4663,6 +4703,55 @@
             "type": "PassThroughOptions",
             "default": "undefined",
             "description": "Used to configure passthrough(pt) options of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "align",
+            "type": "\"center\" | \"start\" | \"end\"",
+            "default": "'start'",
+            "description": "Alignment of the carousel items (composition mode).",
+            "deprecated": ""
+          },
+          {
+            "name": "loop",
+            "type": "boolean",
+            "default": "false",
+            "description": "Whether the carousel should loop (composition mode).",
+            "deprecated": ""
+          },
+          {
+            "name": "snapType",
+            "type": "\"mandatory\" | \"proximity\"",
+            "default": "'mandatory'",
+            "description": "Scroll snap type applied to the track (composition mode).",
+            "deprecated": ""
+          },
+          {
+            "name": "spacing",
+            "type": "number",
+            "default": "16",
+            "description": "Spacing between carousel items in pixels (composition mode).",
+            "deprecated": ""
+          },
+          {
+            "name": "autoSize",
+            "type": "boolean",
+            "default": "false",
+            "description": "Whether the carousel should auto size items (composition mode).",
+            "deprecated": ""
+          },
+          {
+            "name": "slidesPerPage",
+            "type": "number",
+            "default": "1",
+            "description": "How many slides are visible per page (composition mode). Supports fractions (e.g. 1.5).",
+            "deprecated": ""
+          },
+          {
+            "name": "slide",
+            "type": "number",
+            "default": "-",
+            "description": "Index of the active slide (composition mode).",
             "deprecated": ""
           },
           {
@@ -4820,6 +4909,26 @@
           }
         ],
         "emits": [
+          {
+            "name": "onPageChange",
+            "parameters": [
+              {
+                "name": "value",
+                "type": "{ value: number }"
+              }
+            ],
+            "description": "Callback fired when the carousel's page changes (composition mode)."
+          },
+          {
+            "name": "onSlideChange",
+            "parameters": [
+              {
+                "name": "value",
+                "type": "{ value: number }"
+              }
+            ],
+            "description": "Callback fired when the active slide changes (composition mode)."
+          },
           {
             "name": "onPage",
             "parameters": [
@@ -16612,6 +16721,259 @@
             "description": "Size of close button icon"
           }
         ]
+      }
+    },
+    {
+      "name": "gallery",
+      "title": "Angular Gallery Component",
+      "description": "Gallery is an image viewer with zoom, rotate, flip and download capabilities.",
+      "sections": [
+        {
+          "id": "accessibility",
+          "label": "Accessibility",
+          "description": "Screen Reader Gallery uses semantic button elements for all interactive controls. The data-scope and data-part attributes identify each part of the gallery for assistive technologies. Use aria-label attributes on buttons to provide accessible names.",
+          "examples": null
+        },
+        {
+          "id": "basic",
+          "label": "Basic",
+          "description": "Gallery provides a composition-based API with sub-components for full control over the layout. Each part of the gallery (header, content, footer, toolbar, thumbnails) is a separate component.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\n\n@Component({\n    template: `\n        <p-gallery-root style=\"width: 100%; height: 600px;\">\n            <p-gallery-backdrop></p-gallery-backdrop>\n            <p-gallery-prev>\n                <svg data-p-icon=\"chevron-left\"></svg>\n            </p-gallery-prev>\n            <p-gallery-next>\n                <svg data-p-icon=\"chevron-right\"></svg>\n            </p-gallery-next>\n            <p-gallery-header class=\"justify-end gap-0.5\">\n                <p-gallery-rotate-left>\n                    <svg data-p-icon=\"replay\"></svg>\n                </p-gallery-rotate-left>\n                <p-gallery-rotate-right>\n                    <svg data-p-icon=\"refresh\"></svg>\n                </p-gallery-rotate-right>\n                <p-gallery-zoom-in>\n                    <svg data-p-icon=\"search-plus\"></svg>\n                </p-gallery-zoom-in>\n                <p-gallery-zoom-out>\n                    <svg data-p-icon=\"search-minus\"></svg>\n                </p-gallery-zoom-out>\n                <p-gallery-flip-x>\n                    <svg data-p-icon=\"arrows-h\"></svg>\n                </p-gallery-flip-x>\n                <p-gallery-flip-y>\n                    <svg data-p-icon=\"arrows-v\"></svg>\n                </p-gallery-flip-y>\n                <p-gallery-download>\n                    <svg data-p-icon=\"download\"></svg>\n                </p-gallery-download>\n                <p-gallery-full-screen class=\"group\">\n                    <svg data-p-icon=\"arrow-up-right-and-arrow-down-left-from-center\" class=\"group-data-fullscreen:hidden!\"></svg>\n                    <svg data-p-icon=\"arrow-down-left-and-arrow-up-right-to-center\" class=\"hidden! group-data-fullscreen:block!\"></svg>\n                </p-gallery-full-screen>\n            </p-gallery-header>\n            <p-gallery-content>\n                @for (image of images; track image) {\n                    <p-gallery-item>\n                        <img [src]=\"image\" alt=\"image\" />\n                    </p-gallery-item>\n                }\n            </p-gallery-content>\n            <p-gallery-footer>\n                <p-gallery-thumbnail>\n                    <p-gallery-thumbnail-content>\n                        @for (image of images; track image; let i = $index) {\n                            <p-gallery-thumbnail-item [index]=\"i\">\n                                <img [attr.draggable]=\"false\" [src]=\"image\" class=\"h-full w-full object-cover\" />\n                            </p-gallery-thumbnail-item>\n                        }\n                    </p-gallery-thumbnail-content>\n                </p-gallery-thumbnail>\n            </p-gallery-footer>\n        </p-gallery-root>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class GalleryBasicDemo {\n    images: any = photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);\n}"
+          }
+        },
+        {
+          "id": "grid",
+          "label": "Grid",
+          "description": "Gallery can be used as a lightbox by combining it with a grid of thumbnails. Click on an image to open the gallery in fullscreen overlay.",
+          "examples": {
+            "typescript": "import { Component, signal } from '@angular/core';\n\n@Component({\n    template: `\n        <div class=\"grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-6 gap-2\">\n            @for (image of images; track image; let i = $index) {\n                <div class=\"aspect-square cursor-pointer hover:opacity-75 transition-opacity\" (click)=\"handleOpen(i)\">\n                    <img [src]=\"image\" alt=\"image\" class=\"w-full h-full object-cover rounded-lg\" />\n                </div>\n            }\n        </div>\n        @if (open()) {\n            <div class=\"w-full h-[100dvh] top-0 left-0 !fixed z-[100000] opacity-100 transition-opacity duration-200\">\n                <p-gallery-root class=\"w-full h-full\" [(activeIndex)]=\"activeIndex\" (onActiveIndexChange)=\"onActiveIndexChange($event)\">\n                    <p-gallery-backdrop></p-gallery-backdrop>\n                    <p-gallery-prev>\n                        <svg data-p-icon=\"chevron-left\"></svg>\n                    </p-gallery-prev>\n                    <p-gallery-next>\n                        <svg data-p-icon=\"chevron-right\"></svg>\n                    </p-gallery-next>\n                    <p-gallery-header class=\"justify-end gap-0.5\">\n                        <p-gallery-rotate-left>\n                            <svg data-p-icon=\"replay\"></svg>\n                        </p-gallery-rotate-left>\n                        <p-gallery-rotate-right>\n                            <svg data-p-icon=\"refresh\"></svg>\n                        </p-gallery-rotate-right>\n                        <p-gallery-zoom-in>\n                            <svg data-p-icon=\"search-plus\"></svg>\n                        </p-gallery-zoom-in>\n                        <p-gallery-zoom-out>\n                            <svg data-p-icon=\"search-minus\"></svg>\n                        </p-gallery-zoom-out>\n                        <p-gallery-flip-x>\n                            <svg data-p-icon=\"arrows-h\"></svg>\n                        </p-gallery-flip-x>\n                        <p-gallery-flip-y>\n                            <svg data-p-icon=\"arrows-v\"></svg>\n                        </p-gallery-flip-y>\n                        <p-gallery-download>\n                            <svg data-p-icon=\"download\"></svg>\n                        </p-gallery-download>\n                        <button class=\"p-gallery-action\" (click)=\"close()\">\n                            <svg data-p-icon=\"times\"></svg>\n                        </button>\n                    </p-gallery-header>\n                    <p-gallery-content>\n                        @for (image of images; track image) {\n                            <p-gallery-item>\n                                <img [src]=\"image\" alt=\"image\" />\n                            </p-gallery-item>\n                        }\n                    </p-gallery-content>\n                    <p-gallery-footer>\n                        <p-gallery-thumbnail>\n                            <p-gallery-thumbnail-content>\n                                @for (image of images; track image; let i = $index) {\n                                    <p-gallery-thumbnail-item [index]=\"i\">\n                                        <img [attr.draggable]=\"false\" [src]=\"image\" class=\"h-full w-full object-cover\" />\n                                    </p-gallery-thumbnail-item>\n                                }\n                            </p-gallery-thumbnail-content>\n                        </p-gallery-thumbnail>\n                    </p-gallery-footer>\n                </p-gallery-root>\n            </div>\n        }\n    `,\n    standalone: true,\n    imports: []\n})\nexport class GalleryGridDemo {\n    images: any = photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);\n    activeIndex: number = 0;\n    open = signal(false);\n\n    handleOpen(index: number) {\n        this.activeIndex = index;\n        this.open.set(true);\n    }\n\n    close() {\n        this.open.set(false);\n    }\n\n    onActiveIndexChange(event: GalleryActiveIndexChangeEvent) {\n        this.activeIndex = event.value;\n    }\n}"
+          }
+        }
+      ],
+      "api": {
+        "props": [
+          {
+            "name": "dt",
+            "type": "Object",
+            "default": "undefined",
+            "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "boolean",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
+            "name": "pt",
+            "type": "PassThrough<I, GalleryPassThroughOptions<I>>",
+            "default": "undefined",
+            "description": "Used to pass attributes to DOM elements inside the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "ptOptions",
+            "type": "PassThroughOptions",
+            "default": "undefined",
+            "description": "Used to configure passthrough(pt) options of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "activeIndex",
+            "type": "number",
+            "default": "0",
+            "description": "The index of the active item.",
+            "deprecated": ""
+          }
+        ],
+        "templates": null,
+        "emits": [
+          {
+            "name": "onActiveIndexChange",
+            "parameters": [
+              {
+                "name": "event",
+                "type": "GalleryActiveIndexChangeEvent"
+              }
+            ],
+            "description": "Callback fired when the gallery's active index changes."
+          }
+        ],
+        "methods": null,
+        "pt": [
+          {
+            "name": "root",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the root's DOM element."
+          },
+          {
+            "name": "backdrop",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the backdrop's DOM element."
+          },
+          {
+            "name": "header",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the header's DOM element."
+          },
+          {
+            "name": "footer",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the footer's DOM element."
+          },
+          {
+            "name": "content",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the content's DOM element."
+          },
+          {
+            "name": "item",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the item's DOM element."
+          },
+          {
+            "name": "next",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the next button's DOM element."
+          },
+          {
+            "name": "prev",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the prev button's DOM element."
+          },
+          {
+            "name": "toolbar",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the toolbar's DOM element."
+          },
+          {
+            "name": "toolbarItem",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the toolbar item's DOM element."
+          },
+          {
+            "name": "thumbnail",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the thumbnail's DOM element."
+          },
+          {
+            "name": "thumbnailContent",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the thumbnail content's DOM element."
+          },
+          {
+            "name": "thumbnailItem",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the thumbnail item's DOM element."
+          },
+          {
+            "name": "zoomIn",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the zoom in button's DOM element."
+          },
+          {
+            "name": "zoomOut",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the zoom out button's DOM element."
+          },
+          {
+            "name": "zoomToggle",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the zoom toggle button's DOM element."
+          },
+          {
+            "name": "rotateLeft",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the rotate left button's DOM element."
+          },
+          {
+            "name": "rotateRight",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the rotate right button's DOM element."
+          },
+          {
+            "name": "flipX",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the flip x button's DOM element."
+          },
+          {
+            "name": "flipY",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the flip y button's DOM element."
+          },
+          {
+            "name": "download",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the download button's DOM element."
+          },
+          {
+            "name": "fullScreen",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the fullscreen button's DOM element."
+          }
+        ],
+        "styles": [
+          {
+            "class": "p-gallery",
+            "description": "Class name of the root element"
+          },
+          {
+            "class": "p-gallery-backdrop",
+            "description": "Class name of the backdrop element"
+          },
+          {
+            "class": "p-gallery-header",
+            "description": "Class name of the header element"
+          },
+          {
+            "class": "p-gallery-footer",
+            "description": "Class name of the footer element"
+          },
+          {
+            "class": "p-gallery-content",
+            "description": "Class name of the content element"
+          },
+          {
+            "class": "p-gallery-item",
+            "description": "Class name of the item element"
+          },
+          {
+            "class": "p-gallery-next",
+            "description": "Class name of the next button element"
+          },
+          {
+            "class": "p-gallery-prev",
+            "description": "Class name of the prev button element"
+          },
+          {
+            "class": "p-gallery-toolbar",
+            "description": "Class name of the toolbar element"
+          },
+          {
+            "class": "p-gallery-toolbar-item",
+            "description": "Class name of the toolbar item element"
+          },
+          {
+            "class": "p-gallery-action",
+            "description": "Class name of the action element"
+          },
+          {
+            "class": "p-gallery-thumbnail",
+            "description": "Class name of the thumbnail element"
+          },
+          {
+            "class": "p-gallery-thumbnail-content",
+            "description": "Class name of the thumbnail content element"
+          },
+          {
+            "class": "p-gallery-thumbnail-item",
+            "description": "Class name of the thumbnail item element"
+          }
+        ],
+        "tokens": null
       }
     },
     {
