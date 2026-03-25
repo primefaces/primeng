@@ -66,8 +66,8 @@ const photos: [number, number, number][] = [
                 }
             </div>
             @if (open()) {
-                <div class="w-full h-[100dvh] top-0 left-0 !fixed z-[100000] opacity-100 transition-opacity duration-200">
-                    <p-gallery-root class="w-full h-full" [(activeIndex)]="activeIndex" (onActiveIndexChange)="onActiveIndexChange($event)">
+                <div class="w-full h-dvh top-0 left-0 fixed! z-100000 opacity-100 transition-opacity duration-200">
+                    <p-gallery [(activeIndex)]="activeIndex" (onActiveIndexChange)="onActiveIndexChange($event)">
                         <p-gallery-backdrop></p-gallery-backdrop>
                         <p-gallery-prev>
                             <svg data-p-icon="chevron-left"></svg>
@@ -119,7 +119,7 @@ const photos: [number, number, number][] = [
                                 </p-gallery-thumbnail-content>
                             </p-gallery-thumbnail>
                         </p-gallery-footer>
-                    </p-gallery-root>
+                    </p-gallery>
                 </div>
             }
             <app-code></app-code>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { Bind, BindModule } from 'primeng/bind';
-import { GalleryRoot } from './gallery';
+import { Gallery } from './gallery';
 
 /**
  * GalleryRotateLeft represents the rotate left action button.
@@ -23,5 +23,5 @@ import { GalleryRoot } from './gallery';
     hostDirectives: [Bind]
 })
 export class GalleryRotateLeft {
-    gallery = inject(GalleryRoot);
+    gallery = inject(Gallery);
 }

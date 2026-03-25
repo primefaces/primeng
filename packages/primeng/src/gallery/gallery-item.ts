@@ -1,10 +1,9 @@
 import { afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyRef, effect, ElementRef, inject, input, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
 import { Bind, BindModule } from 'primeng/bind';
-import { GalleryRoot } from './gallery';
+import { Gallery } from './gallery';
 
 /**
  * GalleryItem represents an individual item in the gallery.
- * It manages its own transform state (zoom, rotate, flip, pan) and gesture handling.
  * @group Components
  */
 @Component({
@@ -49,7 +48,7 @@ export class GalleryItem {
      */
     zoomedScale = input(3, { transform: numberAttribute });
 
-    gallery = inject(GalleryRoot);
+    gallery = inject(Gallery);
 
     private _el = inject(ElementRef);
     private _destroyRef = inject(DestroyRef);

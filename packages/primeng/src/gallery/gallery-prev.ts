@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { Bind, BindModule } from 'primeng/bind';
-import { GalleryRoot } from './gallery';
+import { Gallery } from './gallery';
 
 /**
  * GalleryPrev represents the previous navigation button.
@@ -22,5 +22,5 @@ import { GalleryRoot } from './gallery';
     hostDirectives: [Bind]
 })
 export class GalleryPrev {
-    gallery = inject(GalleryRoot);
+    gallery = inject(Gallery);
 }

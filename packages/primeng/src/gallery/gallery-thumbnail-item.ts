@@ -1,26 +1,21 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
-import { Bind, BindModule } from 'primeng/bind';
-import { GalleryRoot } from './gallery';
+import { ChangeDetectionStrategy, Component, computed, inject, input, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
+import { Gallery } from './gallery';
 
 /**
  * GalleryThumbnailItem represents an individual thumbnail item.
+ * Exposes its content as a TemplateRef so GalleryThumbnail can render it inside a carousel item.
  * @group Components
  */
 @Component({
     selector: 'p-gallery-thumbnail-item, p-galleryThumbnailItem',
     standalone: true,
-    imports: [BindModule],
-    template: `<ng-content></ng-content>`,
+    template: `
+        <ng-template #content>
+            <ng-content></ng-content>
+        </ng-template>
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    host: {
-        '[class]': "gallery.cx('thumbnailItem')",
-        '[attr.data-scope]': "'gallery'",
-        '[attr.data-part]': "'thumbnailItem'",
-        '[attr.data-active]': 'isActive() ? "" : null',
-        '(click)': 'onClick()'
-    },
-    hostDirectives: [Bind]
+    encapsulation: ViewEncapsulation.None
 })
 export class GalleryThumbnailItem {
     /**
@@ -29,7 +24,9 @@ export class GalleryThumbnailItem {
      */
     index = input<number>();
 
-    gallery = inject(GalleryRoot);
+    gallery = inject(Gallery);
+
+    templateRef = viewChild<TemplateRef<any>>('content');
 
     isActive = computed(() => {
         const idx = this.index();

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { Bind, BindModule } from 'primeng/bind';
-import { GalleryRoot } from './gallery';
+import { Gallery } from './gallery';
 
 /**
  * GalleryZoomIn represents the zoom in action button.
@@ -24,5 +24,5 @@ import { GalleryRoot } from './gallery';
     hostDirectives: [Bind]
 })
 export class GalleryZoomIn {
-    gallery = inject(GalleryRoot);
+    gallery = inject(Gallery);
 }

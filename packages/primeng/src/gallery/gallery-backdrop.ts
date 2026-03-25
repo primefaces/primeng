@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { Bind, BindModule } from 'primeng/bind';
-import { GalleryRoot } from './gallery';
+import { Gallery } from './gallery';
 
 /**
  * GalleryBackdrop represents the backdrop element for fullscreen mode.
@@ -21,5 +21,5 @@ import { GalleryRoot } from './gallery';
     hostDirectives: [Bind]
 })
 export class GalleryBackdrop {
-    gallery = inject(GalleryRoot);
+    gallery = inject(Gallery);
 }

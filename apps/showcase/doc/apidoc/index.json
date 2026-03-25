@@ -7146,11 +7146,7 @@
             }
         },
         "style": {
-            "components": {
-                "carouselnext": {
-                    "components": {}
-                }
-            },
+            "components": {},
             "classes": {
                 "values": [
                     {
@@ -19451,7 +19447,7 @@
                 "description": "GalleryThumbnailContent represents the thumbnail carousel content area."
             },
             "GalleryThumbnailItem": {
-                "description": "GalleryThumbnailItem represents an individual thumbnail item.",
+                "description": "GalleryThumbnailItem represents an individual thumbnail item.\nExposes its content as a TemplateRef so GalleryThumbnail can render it inside a carousel item.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -19466,7 +19462,7 @@
                 }
             },
             "GalleryThumbnail": {
-                "description": "GalleryThumbnail represents the thumbnail carousel wrapper."
+                "description": "GalleryThumbnail represents the thumbnail carousel wrapper.\nUses contentChildren to collect thumbnail items and renders them inside a carousel.\nNo re-projection - carousel components are view children so DI works."
             },
             "GalleryToolbarItem": {
                 "description": "GalleryToolbarItem represents an individual toolbar item.",

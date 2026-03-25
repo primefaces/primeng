@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation } from '@angular/core';
 import { Bind, BindModule } from 'primeng/bind';
-import { GalleryRoot } from './gallery';
+import { Gallery } from './gallery';
 
 /**
  * GalleryToolbarItem represents an individual toolbar item.
@@ -28,7 +28,7 @@ export class GalleryToolbarItem {
      */
     action = input<string>();
 
-    gallery = inject(GalleryRoot);
+    gallery = inject(Gallery);
 
     onClick() {
         this.gallery.handleClickAction(this.action());

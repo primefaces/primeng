@@ -27,16 +27,15 @@ import { GalleryThumbnailContent } from './gallery-thumbnail-content';
 import { GalleryThumbnailItem } from './gallery-thumbnail-item';
 
 /**
- * GalleryRoot is the main container component for the Gallery.
- * It manages the active index, fullscreen state, pending actions, and item registration.
+ * Gallery is the main container component for the Gallery.
  * @group Components
  */
 @Component({
-    selector: 'p-gallery-root, p-galleryRoot',
+    selector: 'p-gallery',
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,
-    providers: [GalleryStyle, { provide: PARENT_INSTANCE, useExisting: GalleryRoot }],
+    providers: [GalleryStyle, { provide: PARENT_INSTANCE, useExisting: Gallery }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -50,7 +49,7 @@ import { GalleryThumbnailItem } from './gallery-thumbnail-item';
     },
     hostDirectives: [Bind]
 })
-export class GalleryRoot extends BaseComponent<GalleryPassThrough> {
+export class Gallery extends BaseComponent<GalleryPassThrough> {
     componentName = 'Gallery';
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -132,25 +131,21 @@ export class GalleryRoot extends BaseComponent<GalleryPassThrough> {
         if (!el) return;
 
         if (!this.isFullscreen()) {
-            Object.assign(el.style, {
-                position: 'fixed',
-                top: '0',
-                left: '0',
-                width: '100dvw',
-                height: '100dvh',
-                zIndex: '9999'
-            });
+            el.style.setProperty('position', 'fixed');
+            el.style.setProperty('top', '0');
+            el.style.setProperty('left', '0');
+            el.style.setProperty('width', '100dvw', 'important');
+            el.style.setProperty('height', '100dvh', 'important');
+            el.style.setProperty('z-index', '9999');
             document.body.style.overflow = 'hidden';
             this.isFullscreen.set(true);
         } else {
-            Object.assign(el.style, {
-                position: 'relative',
-                top: '',
-                left: '',
-                width: '',
-                height: '',
-                zIndex: ''
-            });
+            el.style.removeProperty('position');
+            el.style.removeProperty('top');
+            el.style.removeProperty('left');
+            el.style.removeProperty('width');
+            el.style.removeProperty('height');
+            el.style.removeProperty('z-index');
             document.body.style.overflow = 'auto';
             this.isFullscreen.set(false);
         }
@@ -188,7 +183,7 @@ export class GalleryRoot extends BaseComponent<GalleryPassThrough> {
 
 @NgModule({
     imports: [
-        GalleryRoot,
+        Gallery,
         GalleryItem,
         GalleryHeader,
         GalleryContent,
@@ -213,7 +208,7 @@ export class GalleryRoot extends BaseComponent<GalleryPassThrough> {
         SharedModule
     ],
     exports: [
-        GalleryRoot,
+        Gallery,
         GalleryItem,
         GalleryHeader,
         GalleryContent,

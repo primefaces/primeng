@@ -1,6 +1,6 @@
 import { afterNextRender, ChangeDetectionStrategy, Component, ElementRef, inject, ViewEncapsulation } from '@angular/core';
 import { Bind, BindModule } from 'primeng/bind';
-import { GalleryRoot } from './gallery';
+import { Gallery } from './gallery';
 
 /**
  * GalleryContent represents the main content area of the gallery.
@@ -21,7 +21,7 @@ import { GalleryRoot } from './gallery';
     hostDirectives: [Bind]
 })
 export class GalleryContent {
-    gallery = inject(GalleryRoot);
+    gallery = inject(Gallery);
 
     private _el = inject(ElementRef);
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { Bind, BindModule } from 'primeng/bind';
-import { GalleryRoot } from './gallery';
+import { Gallery } from './gallery';
 
 /**
  * GalleryZoomToggle represents the zoom toggle action button.
@@ -23,7 +23,7 @@ import { GalleryRoot } from './gallery';
     hostDirectives: [Bind]
 })
 export class GalleryZoomToggle {
-    gallery = inject(GalleryRoot);
+    gallery = inject(Gallery);
 
     onToggle() {
         this.gallery.handleClickAction(this.gallery.activeItemTransform().zoomed ? 'zoomOut' : 'zoomIn');

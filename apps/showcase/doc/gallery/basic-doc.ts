@@ -58,7 +58,7 @@ const photos: [number, number, number][] = [
             <p>Gallery provides a composition-based API with sub-components for full control over the layout. Each part of the gallery (header, content, footer, toolbar, thumbnails) is a separate component.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-gallery-root style="width: 100%; height: 600px;">
+            <p-gallery class="w-full h-150!">
                 <p-gallery-backdrop></p-gallery-backdrop>
                 <p-gallery-prev>
                     <svg data-p-icon="chevron-left"></svg>
@@ -111,7 +111,7 @@ const photos: [number, number, number][] = [
                         </p-gallery-thumbnail-content>
                     </p-gallery-thumbnail>
                 </p-gallery-footer>
-            </p-gallery-root>
+            </p-gallery>
             <app-code></app-code>
         </app-demo-wrapper>
     `

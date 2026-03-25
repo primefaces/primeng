@@ -17,12 +17,12 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-gallery-root>
+        html: `<p-gallery>
     <p-gallery-content>
         <p-gallery-item>
             <img src="image.jpg" alt="image" />
         </p-gallery-item>
     </p-gallery-content>
-</p-gallery-root>`
+</p-gallery>`
     };
 }

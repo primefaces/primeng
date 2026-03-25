@@ -2,11 +2,10 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, contentChild, inject, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Bind, BindModule } from 'primeng/bind';
 import type { GalleryFullScreenTemplateContext } from 'primeng/types/gallery';
-import { GalleryRoot } from './gallery';
+import { Gallery } from './gallery';
 
 /**
  * GalleryFullScreen represents the fullscreen toggle button.
- * Supports a template that receives isFullscreen state.
  * @group Components
  */
 @Component({
@@ -33,7 +32,7 @@ import { GalleryRoot } from './gallery';
     hostDirectives: [Bind]
 })
 export class GalleryFullScreen {
-    gallery = inject(GalleryRoot);
+    gallery = inject(Gallery);
 
     /**
      * Custom fullscreen content template.

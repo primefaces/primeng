@@ -203,54 +203,6 @@ const style = /*css*/ `
         opacity: 0;
         pointer-events: none;
     }
-
-    /* For PrimeNG */
-    p-gallery-root,
-    p-galleryRoot,
-    p-gallery-header,
-    p-galleryHeader,
-    p-gallery-content,
-    p-galleryContent,
-    p-gallery-footer,
-    p-galleryFooter,
-    p-gallery-backdrop,
-    p-galleryBackdrop,
-    p-gallery-toolbar,
-    p-galleryToolbar,
-    p-gallery-toolbar-item,
-    p-galleryToolbarItem,
-    p-gallery-prev,
-    p-galleryPrev,
-    p-gallery-next,
-    p-galleryNext,
-    p-gallery-zoom-in,
-    p-galleryZoomIn,
-    p-gallery-zoom-out,
-    p-galleryZoomOut,
-    p-gallery-zoom-toggle,
-    p-galleryZoomToggle,
-    p-gallery-rotate-left,
-    p-galleryRotateLeft,
-    p-gallery-rotate-right,
-    p-galleryRotateRight,
-    p-gallery-flip-x,
-    p-galleryFlipX,
-    p-gallery-flip-y,
-    p-galleryFlipY,
-    p-gallery-full-screen,
-    p-galleryFullScreen,
-    p-gallery-download,
-    p-galleryDownload,
-    p-gallery-thumbnail,
-    p-galleryThumbnail,
-    p-gallery-thumbnail-content,
-    p-galleryThumbnailContent,
-    p-gallery-thumbnail-item,
-    p-galleryThumbnailItem,
-    p-gallery-item,
-    p-galleryItem {
-        display: block;
-    }
 `;
 
 const classes = {

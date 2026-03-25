@@ -189,6 +189,56 @@ export class CarouselCarouselBasicDemo {
 }
 ```
 
+## Composition Gallery
+
+Two carousels synchronized via slide input to create a gallery with thumbnail navigation.
+
+```typescript
+import { Component, signal } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+
+@Component({
+    template: `
+        <div class="mt-8 mb-16">
+            <div class="max-w-2xl mx-auto">
+                <p-carousel align="center" [slide]="selectedImage()" (onSlideChange)="onSlideChange($event)">
+                    <p-carousel-content style="height: 396px">
+                        @for (image of images; track image; let i = $index) {
+                            <p-carousel-item class="basis-full!">
+                                <img [attr.draggable]="false" [src]="image" [alt]="'Image ' + (i + 1)" class="h-full w-full object-cover select-none" />
+                            </p-carousel-item>
+                        }
+                    </p-carousel-content>
+                </p-carousel>
+                <p-carousel class="mt-3" [spacing]="8" align="center" [slide]="selectedImage()">
+                    <p-carousel-content style="height: 90px">
+                        @for (image of images; track image; let i = $index) {
+                            <p-carousel-item class="cursor-pointer basis-1/4! transition-opacity" [class.opacity-60]="selectedImage() !== i" [class.hover:opacity-40]="selectedImage() !== i" (click)="selectImage(i)">
+                                <img [attr.draggable]="false" [src]="image" [alt]="'Image ' + (i + 1)" class="h-full w-full object-cover select-none" />
+                            </p-carousel-item>
+                        }
+                    </p-carousel-content>
+                </p-carousel>
+            </div>
+        </div>
+    `,
+    standalone: true,
+    imports: [CarouselModule]
+})
+export class CarouselCarouselGalleryDemo {
+    images: any = images;
+    selectedImage = signal(0);
+
+    selectImage(index: number) {
+        this.selectedImage.set(index);
+    }
+
+    onSlideChange(event: { value: number }) {
+        this.selectedImage.set(event.value);
+    }
+}
+```
+
 ## Composition Loop
 
 Enable continuous looping with the loop property. Use slidesPerPage to show partial slides.
@@ -294,7 +344,7 @@ import { CarouselModule } from 'primeng/carousel';
     template: `
         <div class="mt-8 mb-16">
             <p-carousel class="max-w-xl mx-auto" align="center" [autoSize]="true">
-                <p-carousel-content style="height: 140px">
+                <p-carousel-content class="h-35">
                     @for (item of items; track item.width; let i = $index) {
                         <p-carousel-item [style.width]="item.width">
                             <div class="h-full text-4xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-lg border border-surface">
@@ -517,7 +567,7 @@ import { Product } from '@/domain/product';
     template: `
         <p-carousel [value]="products()" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
             <ng-template let-product #item>
-                <div class="border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-4">
+                <div class="border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-3">
                     <div class="mb-4">
                         <div class="relative mx-auto">
                             <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-sm" />
