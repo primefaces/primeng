@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
 import { Bind, BindModule } from 'primeng/bind';
 import { CAROUSEL_ROOT } from './carousel-token';
 
@@ -18,16 +18,16 @@ import { CAROUSEL_ROOT } from './carousel-token';
         '[attr.data-part]': "'item'",
         '[attr.data-item]': "''",
         '[attr.data-value]': 'value()',
-        '[attr.data-orientation]': 'root.orientation()',
-        '[attr.data-align]': 'root.align()',
-        '[attr.data-page]': 'root.pageState()',
-        '[attr.data-swiping]': "root.swiping() ? '' : null",
-        '[attr.data-autosize]': "root.autoSize() ? '' : null",
+        '[attr.data-orientation]': 'dataOrientation()',
+        '[attr.data-align]': 'dataAlign()',
+        '[attr.data-page]': 'dataPage()',
+        '[attr.data-swiping]': 'dataSwiping()',
+        '[attr.data-autosize]': 'dataAutosize()',
         '[style.flex-grow]': '0',
         '[style.flex-shrink]': '0',
         '[style.min-width]': '0',
-        '[style.flex-basis]': "root.autoSize() ? 'auto' : 'calc(100% / var(--slides-per-page) - var(--spacing-items) * (var(--slides-per-page) - 1) / var(--slides-per-page))'",
-        '[style.scroll-snap-align]': 'root.align()'
+        '[style.flex-basis]': 'flexBasis()',
+        '[style.scroll-snap-align]': 'scrollSnapAlign()'
     },
     hostDirectives: [Bind]
 })
@@ -39,4 +39,12 @@ export class CarouselItem {
     value = input<unknown>();
 
     root = inject(CAROUSEL_ROOT);
+
+    dataOrientation = computed(() => this.root.orientation());
+    dataAlign = computed(() => this.root.align());
+    dataPage = computed(() => this.root.pageState());
+    dataSwiping = computed(() => (this.root.swiping() ? '' : null));
+    dataAutosize = computed(() => (this.root.autoSize() ? '' : null));
+    flexBasis = computed(() => (this.root.autoSize() ? 'auto' : 'calc(100% / var(--slides-per-page) - var(--spacing-items) * (var(--slides-per-page) - 1) / var(--slides-per-page))'));
+    scrollSnapAlign = computed(() => this.root.align());
 }

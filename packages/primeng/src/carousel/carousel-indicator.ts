@@ -12,12 +12,12 @@ import { CAROUSEL_ROOT } from './carousel-token';
         '[class]': 'hostClass()',
         '[attr.data-scope]': "'carousel'",
         '[attr.data-part]': "'indicator'",
-        '[attr.data-orientation]': 'root.orientation()',
-        '[attr.data-align]': 'root.align()',
-        '[attr.data-page]': 'root.pageState()',
-        '[attr.data-active]': "isActive() ? '' : null",
-        '[attr.data-swiping]': "root.swiping() ? '' : null",
-        '(click)': 'root.scrollToPage(page())'
+        '[attr.data-orientation]': 'dataOrientation()',
+        '[attr.data-align]': 'dataAlign()',
+        '[attr.data-page]': 'dataPage()',
+        '[attr.data-active]': 'dataActive()',
+        '[attr.data-swiping]': 'dataSwiping()',
+        '(click)': 'onClick()'
     }
 })
 export class CarouselIndicator {
@@ -32,4 +32,18 @@ export class CarouselIndicator {
     isActive = computed(() => this.root.pageState() === this.page());
 
     hostClass = computed(() => this.root.cx('compositionIndicator', { index: this.page() }));
+
+    dataOrientation = computed(() => this.root.orientation());
+
+    dataAlign = computed(() => this.root.align());
+
+    dataPage = computed(() => this.root.pageState());
+
+    dataActive = computed(() => (this.isActive() ? '' : null));
+
+    dataSwiping = computed(() => (this.root.swiping() ? '' : null));
+
+    onClick() {
+        this.root.scrollToPage(this.page());
+    }
 }

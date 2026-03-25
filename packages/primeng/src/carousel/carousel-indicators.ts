@@ -20,18 +20,28 @@ import { CarouselIndicator } from './carousel-indicator';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-carousel-indicator-list',
+        '[class]': 'hostClass()',
         '[attr.data-scope]': "'carousel'",
         '[attr.data-part]': "'indicators'",
-        '[attr.data-orientation]': 'root.orientation()',
-        '[attr.data-align]': 'root.align()',
-        '[attr.data-page]': 'root.pageState()',
-        '[attr.data-swiping]': "root.swiping() ? '' : null"
+        '[attr.data-orientation]': 'dataOrientation()',
+        '[attr.data-align]': 'dataAlign()',
+        '[attr.data-page]': 'dataPage()',
+        '[attr.data-swiping]': 'dataSwiping()'
     },
     hostDirectives: [Bind]
 })
 export class CarouselIndicators {
     root = inject(CAROUSEL_ROOT);
+
+    hostClass = computed(() => this.root.cx('indicatorList'));
+
+    dataOrientation = computed(() => this.root.orientation());
+
+    dataAlign = computed(() => this.root.align());
+
+    dataPage = computed(() => this.root.pageState());
+
+    dataSwiping = computed(() => (this.root.swiping() ? '' : null));
 
     pages = computed(() => {
         const points = this.root.snapPoints();
