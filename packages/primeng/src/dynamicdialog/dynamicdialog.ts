@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ComponentRef, inject, InjectionToken, NgModule, Type, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Binding, ChangeDetectionStrategy, Component, ComponentRef, inject, InjectionToken, NgModule, Type, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -112,6 +112,8 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
     childComponentType: Nullable<Type<any>>;
 
     inputValues: Record<string, any>;
+
+    bindings: Binding[] = [];
 
     get minX(): number {
         return this.ddconfig.minX ? this.ddconfig.minX : 0;
@@ -269,7 +271,7 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         let viewContainerRef = this.insertionPoint?.viewContainerRef;
         viewContainerRef?.clear();
 
-        this.componentRef = viewContainerRef?.createComponent(componentType);
+        this.componentRef = viewContainerRef?.createComponent(componentType, {bindings: this.bindings});
 
         if (this.inputValues && this.componentRef) {
             Object.entries(this.inputValues).forEach(([key, value]) => {
