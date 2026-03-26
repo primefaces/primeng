@@ -15,40 +15,6 @@ import { ChevronLeft } from '@primeicons/angular/chevron-left';
 import { ChevronRight } from '@primeicons/angular/chevron-right';
 import type { GalleryActiveIndexChangeEvent } from 'primeng/types/gallery';
 
-// [picsum photo id, width, height]
-const photos: [number, number, number][] = [
-    [10, 1200, 800],
-    [11, 800, 1200],
-    [15, 1400, 700],
-    [16, 700, 1050],
-    [17, 1000, 1000],
-    [18, 1300, 650],
-    [19, 600, 1200],
-    [20, 1200, 900],
-    [27, 750, 1125],
-    [28, 1400, 800],
-    [29, 800, 1100],
-    [36, 1100, 700],
-    [37, 650, 1300],
-    [39, 1200, 750],
-    [42, 900, 1200],
-    [43, 1300, 800],
-    [47, 700, 1400],
-    [48, 1000, 800],
-    [49, 800, 1000],
-    [50, 1400, 600],
-    [52, 600, 900],
-    [53, 1200, 1200],
-    [54, 900, 600],
-    [55, 750, 1000],
-    [56, 1100, 800],
-    [57, 1400, 900],
-    [58, 850, 1275],
-    [59, 1000, 600],
-    [60, 600, 1000],
-    [64, 1300, 1300]
-];
-
 @Component({
     selector: 'grid-doc',
     standalone: true,
@@ -69,34 +35,34 @@ const photos: [number, number, number][] = [
                 <div class="w-full h-dvh top-0 left-0 fixed! z-100000 opacity-100 transition-opacity duration-200">
                     <p-gallery [(activeIndex)]="activeIndex" (onActiveIndexChange)="onActiveIndexChange($event)">
                         <p-gallery-backdrop></p-gallery-backdrop>
-                        <p-gallery-prev>
+                        <button pGalleryPrev>
                             <svg data-p-icon="chevron-left"></svg>
-                        </p-gallery-prev>
-                        <p-gallery-next>
+                        </button>
+                        <button pGalleryNext>
                             <svg data-p-icon="chevron-right"></svg>
-                        </p-gallery-next>
+                        </button>
                         <p-gallery-header class="justify-end gap-0.5">
-                            <p-gallery-rotate-left>
+                            <button pGalleryRotateLeft>
                                 <svg data-p-icon="replay"></svg>
-                            </p-gallery-rotate-left>
-                            <p-gallery-rotate-right>
+                            </button>
+                            <button pGalleryRotateRight>
                                 <svg data-p-icon="refresh"></svg>
-                            </p-gallery-rotate-right>
-                            <p-gallery-zoom-in>
+                            </button>
+                            <button pGalleryZoomIn>
                                 <svg data-p-icon="search-plus"></svg>
-                            </p-gallery-zoom-in>
-                            <p-gallery-zoom-out>
+                            </button>
+                            <button pGalleryZoomOut>
                                 <svg data-p-icon="search-minus"></svg>
-                            </p-gallery-zoom-out>
-                            <p-gallery-flip-x>
+                            </button>
+                            <button pGalleryFlipX>
                                 <svg data-p-icon="arrows-h"></svg>
-                            </p-gallery-flip-x>
-                            <p-gallery-flip-y>
+                            </button>
+                            <button pGalleryFlipY>
                                 <svg data-p-icon="arrows-v"></svg>
-                            </p-gallery-flip-y>
-                            <p-gallery-download>
+                            </button>
+                            <button pGalleryDownload>
                                 <svg data-p-icon="download"></svg>
-                            </p-gallery-download>
+                            </button>
                             <button class="p-gallery-action" (click)="close()">
                                 <svg data-p-icon="times"></svg>
                             </button>
@@ -127,9 +93,44 @@ const photos: [number, number, number][] = [
     `
 })
 export class GridDoc {
-    images = photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
+    // [picsum photo id, width, height]
+    photos: [number, number, number][] = [
+        [10, 1200, 800],
+        [11, 800, 1200],
+        [15, 1400, 700],
+        [16, 700, 1050],
+        [17, 1000, 1000],
+        [18, 1300, 650],
+        [19, 600, 1200],
+        [20, 1200, 900],
+        [27, 750, 1125],
+        [28, 1400, 800],
+        [29, 800, 1100],
+        [36, 1100, 700],
+        [37, 650, 1300],
+        [39, 1200, 750],
+        [42, 900, 1200],
+        [43, 1300, 800],
+        [47, 700, 1400],
+        [48, 1000, 800],
+        [49, 800, 1000],
+        [50, 1400, 600],
+        [52, 600, 900],
+        [53, 1200, 1200],
+        [54, 900, 600],
+        [55, 750, 1000],
+        [56, 1100, 800],
+        [57, 1400, 900],
+        [58, 850, 1275],
+        [59, 1000, 600],
+        [60, 600, 1000],
+        [64, 1300, 1300]
+    ];
+
+    images = this.photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
 
     activeIndex = 0;
+
     open = signal(false);
 
     handleOpen(index: number) {

@@ -1,5 +1,9 @@
 import { computed, Directive, inject, input, numberAttribute } from '@angular/core';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { CAROUSEL_ROOT } from './carousel-token';
+import { CarouselStyle } from './style/carouselstyle';
+import type { CarouselIndicatorPassThrough } from 'primeng/types/carousel';
 
 /**
  * CarouselIndicator is a directive for an individual page indicator button.
@@ -8,6 +12,7 @@ import { CAROUSEL_ROOT } from './carousel-token';
 @Directive({
     selector: '[pCarouselIndicator]',
     standalone: true,
+    providers: [CarouselStyle, { provide: PARENT_INSTANCE, useExisting: CarouselIndicator }],
     host: {
         '[class]': 'hostClass()',
         '[attr.data-scope]': "'carousel'",
@@ -18,9 +23,12 @@ import { CAROUSEL_ROOT } from './carousel-token';
         '[attr.data-active]': 'dataActive()',
         '[attr.data-swiping]': 'dataSwiping()',
         '(click)': 'onClick()'
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class CarouselIndicator {
+export class CarouselIndicator extends BaseComponent<CarouselIndicatorPassThrough> {
+    componentName = 'CarouselIndicator';
+
     /**
      * The page index this indicator represents.
      * @group Props
@@ -28,6 +36,10 @@ export class CarouselIndicator {
     page = input(0, { transform: numberAttribute });
 
     root = inject(CAROUSEL_ROOT);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(CarouselStyle);
 
     isActive = computed(() => this.root.pageState() === this.page());
 
@@ -45,5 +57,9 @@ export class CarouselIndicator {
 
     onClick() {
         this.root.scrollToPage(this.page());
+    }
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }

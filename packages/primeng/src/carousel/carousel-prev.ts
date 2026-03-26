@@ -1,5 +1,9 @@
 import { computed, Directive, inject } from '@angular/core';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { CAROUSEL_ROOT } from './carousel-token';
+import { CarouselStyle } from './style/carouselstyle';
+import type { CarouselPrevPassThrough } from 'primeng/types/carousel';
 
 /**
  * CarouselPrev is a directive for the previous navigation button.
@@ -8,6 +12,7 @@ import { CAROUSEL_ROOT } from './carousel-token';
 @Directive({
     selector: '[pCarouselPrev]',
     standalone: true,
+    providers: [CarouselStyle, { provide: PARENT_INSTANCE, useExisting: CarouselPrev }],
     host: {
         '[class]': 'hostClass()',
         '[attr.data-scope]': "'carousel'",
@@ -19,10 +24,17 @@ import { CAROUSEL_ROOT } from './carousel-token';
         '[attr.data-swiping]': 'dataSwiping()',
         '[attr.disabled]': 'attrDisabled()',
         '(click)': 'onClick()'
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class CarouselPrev {
+export class CarouselPrev extends BaseComponent<CarouselPrevPassThrough> {
+    componentName = 'CarouselPrev';
+
     root = inject(CAROUSEL_ROOT);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(CarouselStyle);
 
     hostClass = computed(() => this.root.cx('compositionPrev'));
 
@@ -40,5 +52,9 @@ export class CarouselPrev {
 
     onClick() {
         this.root.prev();
+    }
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }

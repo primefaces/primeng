@@ -149,3 +149,57 @@ export interface CarouselIndicatorsPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type CarouselIndicatorsPassThrough<I = unknown> = PassThrough<I, CarouselIndicatorsPassThroughOptions<I>>;
+
+/**
+ * Defines valid pass-through options in CarouselNext directive.
+ * @template I Type of instance.
+ * @group Interface
+ */
+export interface CarouselNextPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLElement, I>;
+}
+
+/**
+ * @see {@link CarouselNextPassThroughOptions}
+ * @template I Type of instance.
+ */
+export type CarouselNextPassThrough<I = unknown> = PassThrough<I, CarouselNextPassThroughOptions<I>>;
+
+/**
+ * Defines valid pass-through options in CarouselPrev directive.
+ * @template I Type of instance.
+ * @group Interface
+ */
+export interface CarouselPrevPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLElement, I>;
+}
+
+/**
+ * @see {@link CarouselPrevPassThroughOptions}
+ * @template I Type of instance.
+ */
+export type CarouselPrevPassThrough<I = unknown> = PassThrough<I, CarouselPrevPassThroughOptions<I>>;
+
+/**
+ * Defines valid pass-through options in CarouselIndicator directive.
+ * @template I Type of instance.
+ * @group Interface
+ */
+export interface CarouselIndicatorPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLElement, I>;
+}
+
+/**
+ * @see {@link CarouselIndicatorPassThroughOptions}
+ * @template I Type of instance.
+ */
+export type CarouselIndicatorPassThrough<I = unknown> = PassThrough<I, CarouselIndicatorPassThroughOptions<I>>;

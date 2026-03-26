@@ -1,35 +1,39 @@
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import { Directive, inject } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
+import { Bind } from 'primeng/bind';
 import { Gallery } from './gallery';
+import { GalleryStyle } from './style/gallerystyle';
 import type { GalleryRotateRightPassThrough } from 'primeng/types/gallery';
 
 /**
  * GalleryRotateRight represents the rotate right action button.
  * @group Components
  */
-@Component({
-    selector: 'p-gallery-rotate-right',
+@Directive({
+    selector: '[pGalleryRotateRight]',
     standalone: true,
-    imports: [BindModule],
-    template: `<ng-content></ng-content>`,
-    providers: [{ provide: PARENT_INSTANCE, useExisting: GalleryRotateRight }],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
+    providers: [GalleryStyle, { provide: PARENT_INSTANCE, useExisting: GalleryRotateRight }],
     host: {
         '[class]': "gallery.cx('rotateRight')",
         '[attr.data-scope]': "'gallery'",
         '[attr.data-part]': "'rotateRight'",
         '[attr.data-action]': "'rotate-right'",
-        '(click)': "gallery.handleClickAction('rotateRight')"
+        '(click)': 'onClick()'
     },
     hostDirectives: [Bind]
 })
 export class GalleryRotateRight extends BaseComponent<GalleryRotateRightPassThrough> {
     componentName = 'GalleryRotateRight';
-    bindDirectiveInstance = inject(Bind, { self: true });
 
     gallery = inject(Gallery);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(GalleryStyle);
+
+    onClick() {
+        this.gallery.handleClickAction('rotateRight');
+    }
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));

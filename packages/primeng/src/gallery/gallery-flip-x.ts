@@ -1,35 +1,39 @@
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import { Directive, inject } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
+import { Bind } from 'primeng/bind';
 import { Gallery } from './gallery';
+import { GalleryStyle } from './style/gallerystyle';
 import type { GalleryFlipXPassThrough } from 'primeng/types/gallery';
 
 /**
  * GalleryFlipX represents the horizontal flip action button.
  * @group Components
  */
-@Component({
-    selector: 'p-gallery-flip-x',
+@Directive({
+    selector: '[pGalleryFlipX]',
     standalone: true,
-    imports: [BindModule],
-    template: `<ng-content></ng-content>`,
-    providers: [{ provide: PARENT_INSTANCE, useExisting: GalleryFlipX }],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
+    providers: [GalleryStyle, { provide: PARENT_INSTANCE, useExisting: GalleryFlipX }],
     host: {
         '[class]': "gallery.cx('flipX')",
         '[attr.data-scope]': "'gallery'",
         '[attr.data-part]': "'flipX'",
         '[attr.data-action]': "'flip-x'",
-        '(click)': "gallery.handleClickAction('flipX')"
+        '(click)': 'onClick()'
     },
     hostDirectives: [Bind]
 })
 export class GalleryFlipX extends BaseComponent<GalleryFlipXPassThrough> {
     componentName = 'GalleryFlipX';
-    bindDirectiveInstance = inject(Bind, { self: true });
 
     gallery = inject(Gallery);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(GalleryStyle);
+
+    onClick() {
+        this.gallery.handleClickAction('flipX');
+    }
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));

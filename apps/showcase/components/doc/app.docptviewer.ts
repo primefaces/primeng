@@ -62,10 +62,14 @@ export const getPTOptions = (name) => {
         gallerydownload: 'gallery',
         galleryfullscreen: 'gallery',
         gallerythumbnail: 'gallery',
+        gallerythumbnailcontent: 'gallery',
         gallerythumbnailitem: 'gallery',
         carouselcontent: 'carousel',
         carouselitem: 'carousel',
-        carouselindicators: 'carousel'
+        carouselindicators: 'carousel',
+        carouselnext: 'carousel',
+        carouselprev: 'carousel',
+        carouselindicator: 'carousel'
     };
 
     const passthroughNameMapping = {

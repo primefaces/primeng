@@ -18115,38 +18115,38 @@ import { Component } from '@angular/core';
     template: `
         <p-gallery class="w-full h-150!">
             <p-gallery-backdrop></p-gallery-backdrop>
-            <p-gallery-prev>
+            <button pGalleryPrev>
                 <svg data-p-icon="chevron-left"></svg>
-            </p-gallery-prev>
-            <p-gallery-next>
+            </button>
+            <button pGalleryNext>
                 <svg data-p-icon="chevron-right"></svg>
-            </p-gallery-next>
+            </button>
             <p-gallery-header class="justify-end gap-0.5">
-                <p-gallery-rotate-left>
+                <button pGalleryRotateLeft>
                     <svg data-p-icon="replay"></svg>
-                </p-gallery-rotate-left>
-                <p-gallery-rotate-right>
+                </button>
+                <button pGalleryRotateRight>
                     <svg data-p-icon="refresh"></svg>
-                </p-gallery-rotate-right>
-                <p-gallery-zoom-in>
+                </button>
+                <button pGalleryZoomIn>
                     <svg data-p-icon="search-plus"></svg>
-                </p-gallery-zoom-in>
-                <p-gallery-zoom-out>
+                </button>
+                <button pGalleryZoomOut>
                     <svg data-p-icon="search-minus"></svg>
-                </p-gallery-zoom-out>
-                <p-gallery-flip-x>
+                </button>
+                <button pGalleryFlipX>
                     <svg data-p-icon="arrows-h"></svg>
-                </p-gallery-flip-x>
-                <p-gallery-flip-y>
+                </button>
+                <button pGalleryFlipY>
                     <svg data-p-icon="arrows-v"></svg>
-                </p-gallery-flip-y>
-                <p-gallery-download>
+                </button>
+                <button pGalleryDownload>
                     <svg data-p-icon="download"></svg>
-                </p-gallery-download>
-                <p-gallery-full-screen class="group">
+                </button>
+                <button pGalleryFullScreen class="group">
                     <svg data-p-icon="arrow-up-right-and-arrow-down-left-from-center" class="group-data-fullscreen:hidden!"></svg>
                     <svg data-p-icon="arrow-down-left-and-arrow-up-right-to-center" class="hidden! group-data-fullscreen:block!"></svg>
-                </p-gallery-full-screen>
+                </button>
             </p-gallery-header>
             <p-gallery-content>
                 @for (image of images; track image) {
@@ -18198,34 +18198,34 @@ import { Component, signal } from '@angular/core';
             <div class="w-full h-dvh top-0 left-0 fixed! z-100000 opacity-100 transition-opacity duration-200">
                 <p-gallery [(activeIndex)]="activeIndex" (onActiveIndexChange)="onActiveIndexChange($event)">
                     <p-gallery-backdrop></p-gallery-backdrop>
-                    <p-gallery-prev>
+                    <button pGalleryPrev>
                         <svg data-p-icon="chevron-left"></svg>
-                    </p-gallery-prev>
-                    <p-gallery-next>
+                    </button>
+                    <button pGalleryNext>
                         <svg data-p-icon="chevron-right"></svg>
-                    </p-gallery-next>
+                    </button>
                     <p-gallery-header class="justify-end gap-0.5">
-                        <p-gallery-rotate-left>
+                        <button pGalleryRotateLeft>
                             <svg data-p-icon="replay"></svg>
-                        </p-gallery-rotate-left>
-                        <p-gallery-rotate-right>
+                        </button>
+                        <button pGalleryRotateRight>
                             <svg data-p-icon="refresh"></svg>
-                        </p-gallery-rotate-right>
-                        <p-gallery-zoom-in>
+                        </button>
+                        <button pGalleryZoomIn>
                             <svg data-p-icon="search-plus"></svg>
-                        </p-gallery-zoom-in>
-                        <p-gallery-zoom-out>
+                        </button>
+                        <button pGalleryZoomOut>
                             <svg data-p-icon="search-minus"></svg>
-                        </p-gallery-zoom-out>
-                        <p-gallery-flip-x>
+                        </button>
+                        <button pGalleryFlipX>
                             <svg data-p-icon="arrows-h"></svg>
-                        </p-gallery-flip-x>
-                        <p-gallery-flip-y>
+                        </button>
+                        <button pGalleryFlipY>
                             <svg data-p-icon="arrows-v"></svg>
-                        </p-gallery-flip-y>
-                        <p-gallery-download>
+                        </button>
+                        <button pGalleryDownload>
                             <svg data-p-icon="download"></svg>
-                        </p-gallery-download>
+                        </button>
                         <button class="p-gallery-action" (click)="close()">
                             <svg data-p-icon="times"></svg>
                         </button>

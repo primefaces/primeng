@@ -7469,6 +7469,45 @@
                                 "description": "Used to pass attributes to the root's DOM element."
                             }
                         ]
+                    },
+                    {
+                        "name": "CarouselNextPassThroughOptions",
+                        "description": "Defines valid pass-through options in CarouselNext directive.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CarouselPrevPassThroughOptions",
+                        "description": "Defines valid pass-through options in CarouselPrev directive.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CarouselIndicatorPassThroughOptions",
+                        "description": "Defines valid pass-through options in CarouselIndicator directive.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
                     }
                 ]
             },

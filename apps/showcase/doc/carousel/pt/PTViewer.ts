@@ -61,6 +61,18 @@ export class PTViewer {
         {
             data: getPTOptions('CarouselIndicators'),
             key: 'CarouselIndicators'
+        },
+        {
+            data: getPTOptions('CarouselNext'),
+            key: 'CarouselNext'
+        },
+        {
+            data: getPTOptions('CarouselPrev'),
+            key: 'CarouselPrev'
+        },
+        {
+            data: getPTOptions('CarouselIndicator'),
+            key: 'CarouselIndicator'
         }
     ];
 }

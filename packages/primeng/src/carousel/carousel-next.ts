@@ -1,5 +1,9 @@
 import { computed, Directive, inject } from '@angular/core';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { CAROUSEL_ROOT } from './carousel-token';
+import { CarouselStyle } from './style/carouselstyle';
+import type { CarouselNextPassThrough } from 'primeng/types/carousel';
 
 /**
  * CarouselNext is a directive for the next navigation button.
@@ -8,6 +12,7 @@ import { CAROUSEL_ROOT } from './carousel-token';
 @Directive({
     selector: '[pCarouselNext]',
     standalone: true,
+    providers: [CarouselStyle, { provide: PARENT_INSTANCE, useExisting: CarouselNext }],
     host: {
         '[class]': 'hostClass()',
         '[attr.data-scope]': "'carousel'",
@@ -19,10 +24,17 @@ import { CAROUSEL_ROOT } from './carousel-token';
         '[attr.data-swiping]': 'dataSwiping()',
         '[attr.disabled]': 'attrDisabled()',
         '(click)': 'onClick()'
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class CarouselNext {
+export class CarouselNext extends BaseComponent<CarouselNextPassThrough> {
+    componentName = 'CarouselNext';
+
     root = inject(CAROUSEL_ROOT);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(CarouselStyle);
 
     hostClass = computed(() => this.root.cx('compositionNext'));
 
@@ -40,5 +52,9 @@ export class CarouselNext {
 
     onClick() {
         this.root.next();
+    }
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
