@@ -4922,6 +4922,71 @@
             "name": "root",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the root's DOM element."
+          },
+          {
+            "name": "header",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the header's DOM element."
+          },
+          {
+            "name": "contentContainer",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the content container's DOM element."
+          },
+          {
+            "name": "content",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the content's DOM element."
+          },
+          {
+            "name": "pcPrevButton",
+            "type": "ButtonPassThroughOptions",
+            "description": "Used to pass attributes to the previous button's DOM element."
+          },
+          {
+            "name": "viewport",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the viewport's DOM element."
+          },
+          {
+            "name": "itemList",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the item list's DOM element."
+          },
+          {
+            "name": "item",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the item's DOM element."
+          },
+          {
+            "name": "itemClone",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the item clone's DOM element."
+          },
+          {
+            "name": "pcNextButton",
+            "type": "ButtonPassThroughOptions",
+            "description": "Used to pass attributes to the next button's DOM element."
+          },
+          {
+            "name": "indicatorList",
+            "type": "PassThroughOption<HTMLUListElement, I>",
+            "description": "Used to pass attributes to the indicator list's DOM element."
+          },
+          {
+            "name": "indicator",
+            "type": "PassThroughOption<HTMLLIElement, I>",
+            "description": "Used to pass attributes to the indicator's DOM element."
+          },
+          {
+            "name": "indicatorButton",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the indicator button's DOM element."
+          },
+          {
+            "name": "footer",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the footer's DOM element."
           }
         ],
         "styles": [
@@ -16650,7 +16715,7 @@
           "label": "Basic",
           "description": "Gallery provides a composition-based API with sub-components for full control over the layout. Each part of the gallery (header, content, footer, toolbar, thumbnails) is a separate component.",
           "examples": {
-            "typescript": "import { Component } from '@angular/core';\n\n@Component({\n    template: `\n        <p-gallery class=\"w-full h-150!\">\n            <p-gallery-backdrop></p-gallery-backdrop>\n            <button pGalleryPrev>\n                <svg data-p-icon=\"chevron-left\"></svg>\n            </button>\n            <button pGalleryNext>\n                <svg data-p-icon=\"chevron-right\"></svg>\n            </button>\n            <p-gallery-header class=\"justify-end gap-0.5\">\n                <button pGalleryRotateLeft>\n                    <svg data-p-icon=\"replay\"></svg>\n                </button>\n                <button pGalleryRotateRight>\n                    <svg data-p-icon=\"refresh\"></svg>\n                </button>\n                <button pGalleryZoomIn>\n                    <svg data-p-icon=\"search-plus\"></svg>\n                </button>\n                <button pGalleryZoomOut>\n                    <svg data-p-icon=\"search-minus\"></svg>\n                </button>\n                <button pGalleryFlipX>\n                    <svg data-p-icon=\"arrows-h\"></svg>\n                </button>\n                <button pGalleryFlipY>\n                    <svg data-p-icon=\"arrows-v\"></svg>\n                </button>\n                <button pGalleryDownload>\n                    <svg data-p-icon=\"download\"></svg>\n                </button>\n                <button pGalleryFullScreen class=\"group\">\n                    <svg data-p-icon=\"arrow-up-right-and-arrow-down-left-from-center\" class=\"group-data-fullscreen:hidden!\"></svg>\n                    <svg data-p-icon=\"arrow-down-left-and-arrow-up-right-to-center\" class=\"hidden! group-data-fullscreen:block!\"></svg>\n                </button>\n            </p-gallery-header>\n            <p-gallery-content>\n                @for (image of images; track image) {\n                    <p-gallery-item>\n                        <img [src]=\"image\" alt=\"image\" />\n                    </p-gallery-item>\n                }\n            </p-gallery-content>\n            <p-gallery-footer>\n                <p-gallery-thumbnail>\n                    <p-gallery-thumbnail-content>\n                        @for (image of images; track image; let i = $index) {\n                            <p-gallery-thumbnail-item [index]=\"i\">\n                                <img [attr.draggable]=\"false\" [src]=\"image\" class=\"h-full w-full object-cover\" />\n                            </p-gallery-thumbnail-item>\n                        }\n                    </p-gallery-thumbnail-content>\n                </p-gallery-thumbnail>\n            </p-gallery-footer>\n        </p-gallery>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class GalleryBasicDemo {\n    images: any = photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);\n}"
+            "typescript": "import { Component } from '@angular/core';\n\n@Component({\n    template: `\n        <p-gallery class=\"w-full h-150!\">\n            <p-gallery-backdrop></p-gallery-backdrop>\n            <button pGalleryPrev>\n                <svg data-p-icon=\"chevron-left\"></svg>\n            </button>\n            <button pGalleryNext>\n                <svg data-p-icon=\"chevron-right\"></svg>\n            </button>\n            <p-gallery-header class=\"justify-end gap-0.5\">\n                <button pGalleryRotateLeft>\n                    <svg data-p-icon=\"replay\"></svg>\n                </button>\n                <button pGalleryRotateRight>\n                    <svg data-p-icon=\"refresh\"></svg>\n                </button>\n                <button pGalleryZoomIn>\n                    <svg data-p-icon=\"search-plus\"></svg>\n                </button>\n                <button pGalleryZoomOut>\n                    <svg data-p-icon=\"search-minus\"></svg>\n                </button>\n                <button pGalleryFlipX>\n                    <svg data-p-icon=\"arrows-h\"></svg>\n                </button>\n                <button pGalleryFlipY>\n                    <svg data-p-icon=\"arrows-v\"></svg>\n                </button>\n                <button pGalleryDownload>\n                    <svg data-p-icon=\"download\"></svg>\n                </button>\n                <button pGalleryFullScreen class=\"group\">\n                    <svg data-p-icon=\"arrow-up-right-and-arrow-down-left-from-center\" class=\"group-data-fullscreen:hidden!\"></svg>\n                    <svg data-p-icon=\"arrow-down-left-and-arrow-up-right-to-center\" class=\"hidden! group-data-fullscreen:block!\"></svg>\n                </button>\n            </p-gallery-header>\n            <p-gallery-content>\n                @for (image of images; track image) {\n                    <p-gallery-item>\n                        <img [src]=\"image\" alt=\"image\" />\n                    </p-gallery-item>\n                }\n            </p-gallery-content>\n            <p-gallery-footer>\n                <p-gallery-thumbnail>\n                    <p-gallery-thumbnail-content>\n                        @for (image of images; track image; let i = $index) {\n                            <p-gallery-thumbnail-item [index]=\"i\">\n                                <img [attr.draggable]=\"false\" [src]=\"image\" class=\"h-full w-full object-cover\" />\n                            </p-gallery-thumbnail-item>\n                        }\n                    </p-gallery-thumbnail-content>\n                </p-gallery-thumbnail>\n            </p-gallery-footer>\n        </p-gallery>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class GalleryBasicDemo {\n    images: any = this.photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);\n}"
           }
         },
         {
@@ -16658,7 +16723,7 @@
           "label": "Grid",
           "description": "Gallery can be used as a lightbox by combining it with a grid of thumbnails. Click on an image to open the gallery in fullscreen overlay.",
           "examples": {
-            "typescript": "import { Component, signal } from '@angular/core';\n\n@Component({\n    template: `\n        <div class=\"grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-6 gap-2\">\n            @for (image of images; track image; let i = $index) {\n                <div class=\"aspect-square cursor-pointer hover:opacity-75 transition-opacity\" (click)=\"handleOpen(i)\">\n                    <img [src]=\"image\" alt=\"image\" class=\"w-full h-full object-cover rounded-lg\" />\n                </div>\n            }\n        </div>\n        @if (open()) {\n            <div class=\"w-full h-dvh top-0 left-0 fixed! z-100000 opacity-100 transition-opacity duration-200\">\n                <p-gallery [(activeIndex)]=\"activeIndex\" (onActiveIndexChange)=\"onActiveIndexChange($event)\">\n                    <p-gallery-backdrop></p-gallery-backdrop>\n                    <button pGalleryPrev>\n                        <svg data-p-icon=\"chevron-left\"></svg>\n                    </button>\n                    <button pGalleryNext>\n                        <svg data-p-icon=\"chevron-right\"></svg>\n                    </button>\n                    <p-gallery-header class=\"justify-end gap-0.5\">\n                        <button pGalleryRotateLeft>\n                            <svg data-p-icon=\"replay\"></svg>\n                        </button>\n                        <button pGalleryRotateRight>\n                            <svg data-p-icon=\"refresh\"></svg>\n                        </button>\n                        <button pGalleryZoomIn>\n                            <svg data-p-icon=\"search-plus\"></svg>\n                        </button>\n                        <button pGalleryZoomOut>\n                            <svg data-p-icon=\"search-minus\"></svg>\n                        </button>\n                        <button pGalleryFlipX>\n                            <svg data-p-icon=\"arrows-h\"></svg>\n                        </button>\n                        <button pGalleryFlipY>\n                            <svg data-p-icon=\"arrows-v\"></svg>\n                        </button>\n                        <button pGalleryDownload>\n                            <svg data-p-icon=\"download\"></svg>\n                        </button>\n                        <button class=\"p-gallery-action\" (click)=\"close()\">\n                            <svg data-p-icon=\"times\"></svg>\n                        </button>\n                    </p-gallery-header>\n                    <p-gallery-content>\n                        @for (image of images; track image) {\n                            <p-gallery-item>\n                                <img [src]=\"image\" alt=\"image\" />\n                            </p-gallery-item>\n                        }\n                    </p-gallery-content>\n                    <p-gallery-footer>\n                        <p-gallery-thumbnail>\n                            <p-gallery-thumbnail-content>\n                                @for (image of images; track image; let i = $index) {\n                                    <p-gallery-thumbnail-item [index]=\"i\">\n                                        <img [attr.draggable]=\"false\" [src]=\"image\" class=\"h-full w-full object-cover\" />\n                                    </p-gallery-thumbnail-item>\n                                }\n                            </p-gallery-thumbnail-content>\n                        </p-gallery-thumbnail>\n                    </p-gallery-footer>\n                </p-gallery>\n            </div>\n        }\n    `,\n    standalone: true,\n    imports: []\n})\nexport class GalleryGridDemo {\n    images: any = photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);\n    activeIndex: number = 0;\n    open = signal(false);\n\n    handleOpen(index: number) {\n        this.activeIndex = index;\n        this.open.set(true);\n    }\n\n    close() {\n        this.open.set(false);\n    }\n\n    onActiveIndexChange(event: GalleryActiveIndexChangeEvent) {\n        this.activeIndex = event.value;\n    }\n}"
+            "typescript": "import { Component, signal } from '@angular/core';\n\n@Component({\n    template: `\n        <div class=\"grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-6 gap-2\">\n            @for (image of images; track image; let i = $index) {\n                <div class=\"aspect-square cursor-pointer hover:opacity-75 transition-opacity\" (click)=\"handleOpen(i)\">\n                    <img [src]=\"image\" alt=\"image\" class=\"w-full h-full object-cover rounded-lg\" />\n                </div>\n            }\n        </div>\n        @if (open()) {\n            <div class=\"w-full h-dvh top-0 left-0 fixed! z-100000 opacity-100 transition-opacity duration-200\">\n                <p-gallery [(activeIndex)]=\"activeIndex\" (onActiveIndexChange)=\"onActiveIndexChange($event)\">\n                    <p-gallery-backdrop></p-gallery-backdrop>\n                    <button pGalleryPrev>\n                        <svg data-p-icon=\"chevron-left\"></svg>\n                    </button>\n                    <button pGalleryNext>\n                        <svg data-p-icon=\"chevron-right\"></svg>\n                    </button>\n                    <p-gallery-header class=\"justify-end gap-0.5\">\n                        <button pGalleryRotateLeft>\n                            <svg data-p-icon=\"replay\"></svg>\n                        </button>\n                        <button pGalleryRotateRight>\n                            <svg data-p-icon=\"refresh\"></svg>\n                        </button>\n                        <button pGalleryZoomIn>\n                            <svg data-p-icon=\"search-plus\"></svg>\n                        </button>\n                        <button pGalleryZoomOut>\n                            <svg data-p-icon=\"search-minus\"></svg>\n                        </button>\n                        <button pGalleryFlipX>\n                            <svg data-p-icon=\"arrows-h\"></svg>\n                        </button>\n                        <button pGalleryFlipY>\n                            <svg data-p-icon=\"arrows-v\"></svg>\n                        </button>\n                        <button pGalleryDownload>\n                            <svg data-p-icon=\"download\"></svg>\n                        </button>\n                        <button class=\"p-gallery-action\" (click)=\"close()\">\n                            <svg data-p-icon=\"times\"></svg>\n                        </button>\n                    </p-gallery-header>\n                    <p-gallery-content>\n                        @for (image of images; track image) {\n                            <p-gallery-item>\n                                <img [src]=\"image\" alt=\"image\" />\n                            </p-gallery-item>\n                        }\n                    </p-gallery-content>\n                    <p-gallery-footer>\n                        <p-gallery-thumbnail>\n                            <p-gallery-thumbnail-content>\n                                @for (image of images; track image; let i = $index) {\n                                    <p-gallery-thumbnail-item [index]=\"i\">\n                                        <img [attr.draggable]=\"false\" [src]=\"image\" class=\"h-full w-full object-cover\" />\n                                    </p-gallery-thumbnail-item>\n                                }\n                            </p-gallery-thumbnail-content>\n                        </p-gallery-thumbnail>\n                    </p-gallery-footer>\n                </p-gallery>\n            </div>\n        }\n    `,\n    standalone: true,\n    imports: []\n})\nexport class GalleryGridDemo {\n    images: any = this.photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);\n    activeIndex: number = 0;\n    open = signal(false);\n\n    handleOpen(index: number) {\n        this.activeIndex = index;\n        this.open.set(true);\n    }\n\n    close() {\n        this.open.set(false);\n    }\n\n    onActiveIndexChange(event: GalleryActiveIndexChangeEvent) {\n        this.activeIndex = event.value;\n    }\n}"
           }
         }
       ],

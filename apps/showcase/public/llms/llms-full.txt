@@ -5794,6 +5794,19 @@ CarouselItem represents an individual item in the composition-based carousel.
 | Name | Type | Description |
 |------|------|-------------|
 | root | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the root's DOM element. |
+| header | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the header's DOM element. |
+| contentContainer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content container's DOM element. |
+| content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
+| pcPrevButton | ButtonPassThroughOptions | Used to pass attributes to the previous button's DOM element. |
+| viewport | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the viewport's DOM element. |
+| itemList | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the item list's DOM element. |
+| item | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the item's DOM element. |
+| itemClone | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the item clone's DOM element. |
+| pcNextButton | ButtonPassThroughOptions | Used to pass attributes to the next button's DOM element. |
+| indicatorList | PassThroughOption<HTMLUListElement, I> | Used to pass attributes to the indicator list's DOM element. |
+| indicator | PassThroughOption<HTMLLIElement, I> | Used to pass attributes to the indicator's DOM element. |
+| indicatorButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the indicator button's DOM element. |
+| footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
 
 ## Theming
 
@@ -18172,7 +18185,7 @@ import { Component } from '@angular/core';
     imports: []
 })
 export class GalleryBasicDemo {
-    images: any = photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
+    images: any = this.photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
 }
 ```
 
@@ -18256,7 +18269,7 @@ import { Component, signal } from '@angular/core';
     imports: []
 })
 export class GalleryGridDemo {
-    images: any = photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
+    images: any = this.photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
     activeIndex: number = 0;
     open = signal(false);
 

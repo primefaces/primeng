@@ -74,7 +74,7 @@ import { Component } from '@angular/core';
     imports: []
 })
 export class GalleryBasicDemo {
-    images: any = photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
+    images: any = this.photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
 }
 ```
 
@@ -156,7 +156,7 @@ import { Component, signal } from '@angular/core';
     imports: []
 })
 export class GalleryGridDemo {
-    images: any = photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
+    images: any = this.photos.map(([id, w, h]) => `https://picsum.photos/id/${id}/${w}/${h}`);
     activeIndex: number = 0;
     open = signal(false);
 

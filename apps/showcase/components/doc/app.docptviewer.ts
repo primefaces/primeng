@@ -15,7 +15,7 @@ interface Doc {
     data: DocItem[];
 }
 
-export const getPTOptions = (name) => {
+export const getPTOptions = (name, { exclude = [] }: { exclude?: string[] } = {}) => {
     // TODO: will be removed later. Map sub-components to their parent component
     const componentMapping = {
         steplist: 'stepper',
@@ -91,6 +91,8 @@ export const getPTOptions = (name) => {
     let data = [];
 
     for (const [i, prop] of props.entries()) {
+        if (exclude.includes(prop.name)) continue;
+
         if (options) {
             if (!prop.deprecated) {
                 data.push({

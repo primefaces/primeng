@@ -7388,6 +7388,97 @@
                                 "readonly": false,
                                 "type": "PassThroughOption<HTMLDivElement, I>",
                                 "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "header",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header's DOM element."
+                            },
+                            {
+                                "name": "contentContainer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the content container's DOM element."
+                            },
+                            {
+                                "name": "content",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the content's DOM element."
+                            },
+                            {
+                                "name": "pcPrevButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThroughOptions",
+                                "description": "Used to pass attributes to the previous button's DOM element."
+                            },
+                            {
+                                "name": "viewport",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the viewport's DOM element."
+                            },
+                            {
+                                "name": "itemList",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the item list's DOM element."
+                            },
+                            {
+                                "name": "item",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the item's DOM element."
+                            },
+                            {
+                                "name": "itemClone",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the item clone's DOM element."
+                            },
+                            {
+                                "name": "pcNextButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThroughOptions",
+                                "description": "Used to pass attributes to the next button's DOM element."
+                            },
+                            {
+                                "name": "indicatorList",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the indicator list's DOM element."
+                            },
+                            {
+                                "name": "indicator",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the indicator's DOM element."
+                            },
+                            {
+                                "name": "indicatorButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the indicator button's DOM element."
+                            },
+                            {
+                                "name": "footer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the footer's DOM element."
                             }
                         ]
                     },
@@ -20777,21 +20868,21 @@
                                 "name": "pcCarousel",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any",
+                                "type": "CarouselPassThrough",
                                 "description": "Used to pass attributes to the internal Carousel component."
                             },
                             {
                                 "name": "pcCarouselContent",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any",
+                                "type": "CarouselContentPassThrough",
                                 "description": "Used to pass attributes to the internal CarouselContent component."
                             },
                             {
                                 "name": "pcCarouselItem",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any",
+                                "type": "CarouselItemPassThrough",
                                 "description": "Used to pass attributes to the internal CarouselItem components."
                             }
                         ]

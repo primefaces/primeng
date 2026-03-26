@@ -1,4 +1,5 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { CarouselPassThrough, CarouselContentPassThrough, CarouselItemPassThrough } from 'primeng/types/carousel';
 
 /**
  * Represents a pending action dispatched from toolbar to the active gallery item.
@@ -417,15 +418,15 @@ export interface GalleryThumbnailPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the internal Carousel component.
      */
-    pcCarousel?: any;
+    pcCarousel?: CarouselPassThrough;
     /**
      * Used to pass attributes to the internal CarouselContent component.
      */
-    pcCarouselContent?: any;
+    pcCarouselContent?: CarouselContentPassThrough;
     /**
      * Used to pass attributes to the internal CarouselItem components.
      */
-    pcCarouselItem?: any;
+    pcCarouselItem?: CarouselItemPassThrough;
 }
 
 /**

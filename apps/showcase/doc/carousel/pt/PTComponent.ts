@@ -24,6 +24,14 @@ export class PTComponent {
             component: PTViewer
         },
         {
+            id: 'pt.doc.carousel',
+            label: 'Carousel PT Options',
+            component: AppDocPtTable,
+            data: getPTOptions('Carousel', {
+                exclude: ['header', 'contentContainer', 'content', 'pcPrevButton', 'viewport', 'itemList', 'item', 'itemClone', 'pcNextButton', 'indicatorList', 'indicator', 'indicatorButton', 'footer']
+            })
+        },
+        {
             id: 'pt.doc.carouselcontent',
             label: 'CarouselContent PT Options',
             component: AppDocPtTable,
@@ -40,6 +48,24 @@ export class PTComponent {
             label: 'CarouselIndicators PT Options',
             component: AppDocPtTable,
             data: getPTOptions('CarouselIndicators')
+        },
+        {
+            id: 'pt.doc.carouselnext',
+            label: 'CarouselNext PT Options',
+            component: AppDocPtTable,
+            data: getPTOptions('CarouselNext')
+        },
+        {
+            id: 'pt.doc.carouselprev',
+            label: 'CarouselPrev PT Options',
+            component: AppDocPtTable,
+            data: getPTOptions('CarouselPrev')
+        },
+        {
+            id: 'pt.doc.carouselindicator',
+            label: 'CarouselIndicator PT Options',
+            component: AppDocPtTable,
+            data: getPTOptions('CarouselIndicator')
         }
     ];
 }

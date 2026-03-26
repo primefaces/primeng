@@ -47,7 +47,9 @@ export class PTViewer {
 
     docs = [
         {
-            data: getPTOptions('Carousel'),
+            data: getPTOptions('Carousel', {
+                exclude: ['header', 'contentContainer', 'content', 'pcPrevButton', 'viewport', 'itemList', 'item', 'itemClone', 'pcNextButton', 'indicatorList', 'indicator', 'indicatorButton', 'footer']
+            }),
             key: 'Carousel'
         },
         {

@@ -1,6 +1,6 @@
 import type { OverlayOptions, PassThroughOptions, Translation } from 'primeng/api';
 import type { AppendTo } from 'primeng/types/shared';
-import type { AccordionPassThrough } from 'primeng/types/accordion';
+import type { AccordionPassThrough, AccordionPanelPassThrough, AccordionHeaderPassThrough, AccordionContentPassThrough } from 'primeng/types/accordion';
 import type { AutoCompletePassThrough } from 'primeng/types/autocomplete';
 import type { AvatarPassThrough } from 'primeng/types/avatar';
 import type { AvatarGroupPassThrough } from 'primeng/types/avatargroup';
@@ -9,10 +9,11 @@ import type { BlockUIPassThrough } from 'primeng/types/blockui';
 import type { BreadcrumbPassThrough } from 'primeng/types/breadcrumb';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { CardPassThrough } from 'primeng/types/card';
-import type { CarouselPassThrough } from 'primeng/types/carousel';
+import type { CarouselPassThrough, CarouselContentPassThrough, CarouselItemPassThrough, CarouselIndicatorsPassThrough, CarouselNextPassThrough, CarouselPrevPassThrough, CarouselIndicatorPassThrough } from 'primeng/types/carousel';
 import type { CascadeSelectPassThrough } from 'primeng/types/cascadeselect';
 import type { CheckboxPassThrough } from 'primeng/types/checkbox';
 import type { ChipPassThrough } from 'primeng/types/chip';
+import type { CommandMenuPassThrough } from 'primeng/types/commandmenu';
 import type { ColorPickerPassThrough } from 'primeng/types/colorpicker';
 import type { ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
 import type { ConfirmPopupPassThrough } from 'primeng/types/confirmpopup';
@@ -26,6 +27,30 @@ import type { FileUploadPassThrough } from 'primeng/types/fileupload';
 import type { FloatLabelPassThrough } from 'primeng/types/floatlabel';
 import type { FluidPassThrough } from 'primeng/types/fluid';
 import type { GalleriaPassThrough } from 'primeng/types/galleria';
+import type {
+    GalleryPassThrough,
+    GalleryBackdropPassThrough,
+    GalleryHeaderPassThrough,
+    GalleryContentPassThrough,
+    GalleryFooterPassThrough,
+    GalleryItemPassThrough,
+    GalleryPrevPassThrough,
+    GalleryNextPassThrough,
+    GalleryZoomInPassThrough,
+    GalleryZoomOutPassThrough,
+    GalleryZoomTogglePassThrough,
+    GalleryRotateLeftPassThrough,
+    GalleryRotateRightPassThrough,
+    GalleryFlipXPassThrough,
+    GalleryFlipYPassThrough,
+    GalleryDownloadPassThrough,
+    GalleryFullScreenPassThrough,
+    GalleryThumbnailPassThrough,
+    GalleryThumbnailContentPassThrough,
+    GalleryThumbnailItemPassThrough,
+    GalleryToolbarPassThrough,
+    GalleryToolbarItemPassThrough
+} from 'primeng/types/gallery';
 import type { IconFieldPassThrough } from 'primeng/types/iconfield';
 import type { IftaLabelPassThrough } from 'primeng/types/iftalabel';
 import type { ImagePassThrough } from 'primeng/types/image';
@@ -33,6 +58,19 @@ import type { ImageComparePassThrough } from 'primeng/types/imagecompare';
 import type { InplacePassThrough } from 'primeng/types/inplace';
 import type { InputGroupPassThrough } from 'primeng/types/inputgroup';
 import type { InputGroupAddonPassThrough } from 'primeng/types/inputgroupaddon';
+import type {
+    InputColorPassThrough,
+    InputColorAreaPassThrough,
+    InputColorAreaBackgroundPassThrough,
+    InputColorAreaThumbPassThrough,
+    InputColorSliderPassThrough,
+    InputColorSliderTrackPassThrough,
+    InputColorSliderThumbPassThrough,
+    InputColorSwatchPassThrough,
+    InputColorSwatchBackgroundPassThrough,
+    InputColorTransparencyGridPassThrough,
+    InputColorEyeDropperPassThrough
+} from 'primeng/types/inputcolor';
 import type { InputIconPassThrough } from 'primeng/types/inputicon';
 import type { InputMaskPassThrough } from 'primeng/types/inputmask';
 import type { InputNumberPassThrough } from 'primeng/types/inputnumber';
@@ -64,7 +102,7 @@ import type { SliderPassThrough } from 'primeng/types/slider';
 import type { SpeedDialPassThrough } from 'primeng/types/speeddial';
 import type { SplitButtonPassThrough } from 'primeng/types/splitbutton';
 import type { SplitterPassThrough } from 'primeng/types/splitter';
-import type { StepperPassThrough } from 'primeng/types/stepper';
+import type { StepperPassThrough, StepListPassThrough, StepperSeparatorPassThrough, StepItemPassThrough, StepPassThrough, StepPanelPassThrough, StepPanelsPassThrough } from 'primeng/types/stepper';
 import type { ColumnFilterPassThrough, TablePassThrough } from 'primeng/types/table';
 import type { TabListPassThrough, TabPanelPassThrough, TabPanelsPassThrough, TabPassThrough, TabsPassThrough } from 'primeng/types/tabs';
 import type { TagPassThrough } from 'primeng/types/tag';
@@ -99,6 +137,9 @@ export type ThemeConfigType = {
 
 export interface GlobalPassThrough {
     accordion?: AccordionPassThrough;
+    accordionPanel?: AccordionPanelPassThrough;
+    accordionHeader?: AccordionHeaderPassThrough;
+    accordionContent?: AccordionContentPassThrough;
     autoComplete?: AutoCompletePassThrough;
     avatar?: AvatarPassThrough;
     avatarGroup?: AvatarGroupPassThrough;
@@ -106,10 +147,17 @@ export interface GlobalPassThrough {
     breadcrumb?: BreadcrumbPassThrough;
     card?: CardPassThrough;
     carousel?: CarouselPassThrough;
+    carouselContent?: CarouselContentPassThrough;
+    carouselItem?: CarouselItemPassThrough;
+    carouselIndicators?: CarouselIndicatorsPassThrough;
+    carouselNext?: CarouselNextPassThrough;
+    carouselPrev?: CarouselPrevPassThrough;
+    carouselIndicator?: CarouselIndicatorPassThrough;
     cascadeSelect?: CascadeSelectPassThrough;
     checkbox?: CheckboxPassThrough;
     chip?: ChipPassThrough;
     colorPicker?: ColorPickerPassThrough;
+    commandMenu?: CommandMenuPassThrough;
     columnFilter?: ColumnFilterPassThrough;
     confirmDialog?: ConfirmDialogPassThrough;
     confirmPopup?: ConfirmPopupPassThrough;
@@ -125,8 +173,41 @@ export interface GlobalPassThrough {
     menubar?: MenubarPassThrough;
     fluid?: FluidPassThrough;
     galleria?: GalleriaPassThrough;
+    gallery?: GalleryPassThrough;
+    galleryBackdrop?: GalleryBackdropPassThrough;
+    galleryHeader?: GalleryHeaderPassThrough;
+    galleryContent?: GalleryContentPassThrough;
+    galleryFooter?: GalleryFooterPassThrough;
+    galleryItem?: GalleryItemPassThrough;
+    galleryPrev?: GalleryPrevPassThrough;
+    galleryNext?: GalleryNextPassThrough;
+    galleryZoomIn?: GalleryZoomInPassThrough;
+    galleryZoomOut?: GalleryZoomOutPassThrough;
+    galleryZoomToggle?: GalleryZoomTogglePassThrough;
+    galleryRotateLeft?: GalleryRotateLeftPassThrough;
+    galleryRotateRight?: GalleryRotateRightPassThrough;
+    galleryFlipX?: GalleryFlipXPassThrough;
+    galleryFlipY?: GalleryFlipYPassThrough;
+    galleryDownload?: GalleryDownloadPassThrough;
+    galleryFullScreen?: GalleryFullScreenPassThrough;
+    galleryThumbnail?: GalleryThumbnailPassThrough;
+    galleryThumbnailContent?: GalleryThumbnailContentPassThrough;
+    galleryThumbnailItem?: GalleryThumbnailItemPassThrough;
+    galleryToolbar?: GalleryToolbarPassThrough;
+    galleryToolbarItem?: GalleryToolbarItemPassThrough;
     iconField?: IconFieldPassThrough;
     iftaLabel?: IftaLabelPassThrough;
+    inputColor?: InputColorPassThrough;
+    inputColorArea?: InputColorAreaPassThrough;
+    inputColorAreaBackground?: InputColorAreaBackgroundPassThrough;
+    inputColorAreaThumb?: InputColorAreaThumbPassThrough;
+    inputColorSlider?: InputColorSliderPassThrough;
+    inputColorSliderTrack?: InputColorSliderTrackPassThrough;
+    inputColorSliderThumb?: InputColorSliderThumbPassThrough;
+    inputColorSwatch?: InputColorSwatchPassThrough;
+    inputColorSwatchBackground?: InputColorSwatchBackgroundPassThrough;
+    inputColorTransparencyGrid?: InputColorTransparencyGridPassThrough;
+    inputColorEyeDropper?: InputColorEyeDropperPassThrough;
     inputIcon?: InputIconPassThrough;
     image?: ImagePassThrough;
     imageCompare?: ImageComparePassThrough;
@@ -159,6 +240,12 @@ export interface GlobalPassThrough {
     splitButton?: SplitButtonPassThrough;
     splitter?: SplitterPassThrough;
     stepper?: StepperPassThrough;
+    stepList?: StepListPassThrough;
+    stepperSeparator?: StepperSeparatorPassThrough;
+    stepItem?: StepItemPassThrough;
+    step?: StepPassThrough;
+    stepPanel?: StepPanelPassThrough;
+    stepPanels?: StepPanelsPassThrough;
     tabs?: TabsPassThrough;
     tab?: TabPassThrough;
     tabList?: TabListPassThrough;
