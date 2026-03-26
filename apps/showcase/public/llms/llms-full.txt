@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2026-03-25
+Generated: 2026-03-26
 
 ---
 
@@ -6029,13 +6029,6 @@ Carousel is a content slider featuring various customization options.
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
 | pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
-| align | "center" \| "start" \| "end" | 'start' | Alignment of the carousel items (composition mode). |
-| loop | boolean | false | Whether the carousel should loop (composition mode). |
-| snapType | "mandatory" \| "proximity" | 'mandatory' | Scroll snap type applied to the track (composition mode). |
-| spacing | number | 16 | Spacing between carousel items in pixels (composition mode). |
-| autoSize | boolean | false | Whether the carousel should auto size items (composition mode). |
-| slidesPerPage | number | 1 | How many slides are visible per page (composition mode). Supports fractions (e.g. 1.5). |
-| slide | number | - | Index of the active slide (composition mode). |
 | page | number | 0 | Index of the first item. |
 | numVisible | number | 1 | Number of items per page. |
 | numScroll | number | 1 | Number of items to scroll. |
@@ -6054,14 +6047,21 @@ Carousel is a content slider featuring various customization options.
 | autoplayInterval | number | - | Time in milliseconds to scroll items automatically. |
 | prevButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
 | nextButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
+| align | "center" \| "start" \| "end" | 'start' | Alignment of the carousel items (composition mode). |
+| loop | boolean | false | Whether the carousel should loop (composition mode). |
+| snapType | "mandatory" \| "proximity" | 'mandatory' | Scroll snap type applied to the track (composition mode). |
+| spacing | number | 16 | Spacing between carousel items in pixels (composition mode). |
+| autoSize | boolean | false | Whether the carousel should auto size items (composition mode). |
+| slidesPerPage | number | 1 | How many slides are visible per page (composition mode). Supports fractions (e.g. 1.5). |
+| slide | number | - | Index of the active slide (composition mode). |
 
 ### Emits
 
 | Name | Parameters | Description |
 |------|------------|-------------|
+| onPage | event: CarouselPageEvent | Callback to invoke after scroll. |
 | onPageChange | value: { value: number } | Callback fired when the carousel's page changes (composition mode). |
 | onSlideChange | value: { value: number } | Callback fired when the active slide changes (composition mode). |
-| onPage | event: CarouselPageEvent | Callback to invoke after scroll. |
 
 ### Templates
 
@@ -18429,7 +18429,7 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `
-        <p-gallery-root style="width: 100%; height: 600px;">
+        <p-gallery class="w-full h-150!">
             <p-gallery-backdrop></p-gallery-backdrop>
             <p-gallery-prev>
                 <svg data-p-icon="chevron-left"></svg>
@@ -18482,7 +18482,7 @@ import { Component } from '@angular/core';
                     </p-gallery-thumbnail-content>
                 </p-gallery-thumbnail>
             </p-gallery-footer>
-        </p-gallery-root>
+        </p-gallery>
     `,
     standalone: true,
     imports: []
@@ -18511,8 +18511,8 @@ import { Component, signal } from '@angular/core';
             }
         </div>
         @if (open()) {
-            <div class="w-full h-[100dvh] top-0 left-0 !fixed z-[100000] opacity-100 transition-opacity duration-200">
-                <p-gallery-root class="w-full h-full" [(activeIndex)]="activeIndex" (onActiveIndexChange)="onActiveIndexChange($event)">
+            <div class="w-full h-dvh top-0 left-0 fixed! z-100000 opacity-100 transition-opacity duration-200">
+                <p-gallery [(activeIndex)]="activeIndex" (onActiveIndexChange)="onActiveIndexChange($event)">
                     <p-gallery-backdrop></p-gallery-backdrop>
                     <p-gallery-prev>
                         <svg data-p-icon="chevron-left"></svg>
@@ -18564,7 +18564,7 @@ import { Component, signal } from '@angular/core';
                             </p-gallery-thumbnail-content>
                         </p-gallery-thumbnail>
                     </p-gallery-footer>
-                </p-gallery-root>
+                </p-gallery>
             </div>
         }
     `,
@@ -18591,10 +18591,9 @@ export class GalleryGridDemo {
 }
 ```
 
-## Gallery Root
+## Gallery
 
-GalleryRoot is the main container component for the Gallery.
-It manages the active index, fullscreen state, pending actions, and item registration.
+Gallery is the main container component for the Gallery.
 
 ### Props
 
@@ -18639,13 +18638,6 @@ GalleryFooter represents the footer section of the gallery.
 ## Gallery Full Screen
 
 GalleryFullScreen represents the fullscreen toggle button.
-Supports a template that receives isFullscreen state.
-
-### Templates
-
-| Name | Type | Description |
-|------|------|-------------|
-| fullscreen | TemplateRef<GalleryFullScreenTemplateContext> | Custom fullscreen content template. |
 
 ## Gallery Header
 
@@ -18654,7 +18646,6 @@ GalleryHeader represents the header section of the gallery.
 ## Gallery Item
 
 GalleryItem represents an individual item in the gallery.
-It manages its own transform state (zoom, rotate, flip, pan) and gesture handling.
 
 ### Props
 
@@ -18697,8 +18688,18 @@ Exposes its content as a TemplateRef so GalleryThumbnail can render it inside a 
 ## Gallery Thumbnail
 
 GalleryThumbnail represents the thumbnail carousel wrapper.
-Uses contentChildren to collect thumbnail items and renders them inside a carousel.
-No re-projection - carousel components are view children so DI works.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| autoSize | boolean | true | Whether the carousel should auto size items. |
+| loop | boolean | true | Whether the carousel should loop. |
+| align | "center" \| "start" \| "end" | 'center' | Alignment of the carousel items. |
+| spacing | number | 8 | Spacing between carousel items in pixels. |
+| orientation | "vertical" \| "horizontal" | 'horizontal' | Orientation of the carousel. |
+| snapType | "mandatory" \| "proximity" | 'mandatory' | Scroll snap type applied to the track. |
+| slidesPerPage | number | 1 | How many slides are visible per page. |
 
 ## Gallery Toolbar Item
 

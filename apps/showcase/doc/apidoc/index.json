@@ -6866,61 +6866,6 @@
                             "description": "Used to configure passthrough(pt) options of the component."
                         },
                         {
-                            "name": "align",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "\"center\" | \"start\" | \"end\"",
-                            "default": "'start'",
-                            "description": "Alignment of the carousel items (composition mode)."
-                        },
-                        {
-                            "name": "loop",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Whether the carousel should loop (composition mode)."
-                        },
-                        {
-                            "name": "snapType",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "\"mandatory\" | \"proximity\"",
-                            "default": "'mandatory'",
-                            "description": "Scroll snap type applied to the track (composition mode)."
-                        },
-                        {
-                            "name": "spacing",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "16",
-                            "description": "Spacing between carousel items in pixels (composition mode)."
-                        },
-                        {
-                            "name": "autoSize",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Whether the carousel should auto size items (composition mode)."
-                        },
-                        {
-                            "name": "slidesPerPage",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "1",
-                            "description": "How many slides are visible per page (composition mode). Supports fractions (e.g. 1.5)."
-                        },
-                        {
-                            "name": "slide",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Index of the active slide (composition mode)."
-                        },
-                        {
                             "name": "page",
                             "optional": false,
                             "readonly": false,
@@ -7049,12 +6994,77 @@
                             "readonly": false,
                             "type": "ButtonProps",
                             "description": "Used to pass all properties of the ButtonProps to the Button component."
+                        },
+                        {
+                            "name": "align",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"center\" | \"start\" | \"end\"",
+                            "default": "'start'",
+                            "description": "Alignment of the carousel items (composition mode)."
+                        },
+                        {
+                            "name": "loop",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the carousel should loop (composition mode)."
+                        },
+                        {
+                            "name": "snapType",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"mandatory\" | \"proximity\"",
+                            "default": "'mandatory'",
+                            "description": "Scroll snap type applied to the track (composition mode)."
+                        },
+                        {
+                            "name": "spacing",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "16",
+                            "description": "Spacing between carousel items in pixels (composition mode)."
+                        },
+                        {
+                            "name": "autoSize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the carousel should auto size items (composition mode)."
+                        },
+                        {
+                            "name": "slidesPerPage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "1",
+                            "description": "How many slides are visible per page (composition mode). Supports fractions (e.g. 1.5)."
+                        },
+                        {
+                            "name": "slide",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the active slide (composition mode)."
                         }
                     ]
                 },
                 "emits": {
                     "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
                     "values": [
+                        {
+                            "name": "onPage",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "CarouselPageEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke after scroll."
+                        },
                         {
                             "name": "onPageChange",
                             "parameters": [
@@ -7074,16 +7084,6 @@
                                 }
                             ],
                             "description": "Callback fired when the active slide changes (composition mode)."
-                        },
-                        {
-                            "name": "onPage",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "CarouselPageEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke after scroll."
                         }
                     ]
                 },
@@ -19303,8 +19303,8 @@
     },
     "gallery": {
         "components": {
-            "GalleryRoot": {
-                "description": "GalleryRoot is the main container component for the Gallery.\nIt manages the active index, fullscreen state, pending actions, and item registration.",
+            "Gallery": {
+                "description": "Gallery is the main container component for the Gallery.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -19385,30 +19385,13 @@
                 "description": "GalleryFooter represents the footer section of the gallery."
             },
             "GalleryFullScreen": {
-                "description": "GalleryFullScreen represents the fullscreen toggle button.\nSupports a template that receives isFullscreen state.",
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "fullscreen",
-                            "description": "Custom fullscreen content template.",
-                            "type": "TemplateRef<GalleryFullScreenTemplateContext>",
-                            "parameters": [
-                                {
-                                    "name": "context",
-                                    "description": "fullscreen context.",
-                                    "type": "GalleryFullScreenTemplateContext"
-                                }
-                            ]
-                        }
-                    ]
-                }
+                "description": "GalleryFullScreen represents the fullscreen toggle button."
             },
             "GalleryHeader": {
                 "description": "GalleryHeader represents the header section of the gallery."
             },
             "GalleryItem": {
-                "description": "GalleryItem represents an individual item in the gallery.\nIt manages its own transform state (zoom, rotate, flip, pan) and gesture handling.",
+                "description": "GalleryItem represents an individual item in the gallery.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -19462,7 +19445,68 @@
                 }
             },
             "GalleryThumbnail": {
-                "description": "GalleryThumbnail represents the thumbnail carousel wrapper.\nUses contentChildren to collect thumbnail items and renders them inside a carousel.\nNo re-projection - carousel components are view children so DI works."
+                "description": "GalleryThumbnail represents the thumbnail carousel wrapper.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "autoSize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether the carousel should auto size items."
+                        },
+                        {
+                            "name": "loop",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether the carousel should loop."
+                        },
+                        {
+                            "name": "align",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"center\" | \"start\" | \"end\"",
+                            "default": "'center'",
+                            "description": "Alignment of the carousel items."
+                        },
+                        {
+                            "name": "spacing",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "8",
+                            "description": "Spacing between carousel items in pixels."
+                        },
+                        {
+                            "name": "orientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"vertical\" | \"horizontal\"",
+                            "default": "'horizontal'",
+                            "description": "Orientation of the carousel."
+                        },
+                        {
+                            "name": "snapType",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"mandatory\" | \"proximity\"",
+                            "default": "'mandatory'",
+                            "description": "Scroll snap type applied to the track."
+                        },
+                        {
+                            "name": "slidesPerPage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "1",
+                            "description": "How many slides are visible per page."
+                        }
+                    ]
+                }
             },
             "GalleryToolbarItem": {
                 "description": "GalleryToolbarItem represents an individual toolbar item.",

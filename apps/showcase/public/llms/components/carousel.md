@@ -625,13 +625,6 @@ Carousel is a content slider featuring various customization options.
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
 | pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
-| align | "center" \| "start" \| "end" | 'start' | Alignment of the carousel items (composition mode). |
-| loop | boolean | false | Whether the carousel should loop (composition mode). |
-| snapType | "mandatory" \| "proximity" | 'mandatory' | Scroll snap type applied to the track (composition mode). |
-| spacing | number | 16 | Spacing between carousel items in pixels (composition mode). |
-| autoSize | boolean | false | Whether the carousel should auto size items (composition mode). |
-| slidesPerPage | number | 1 | How many slides are visible per page (composition mode). Supports fractions (e.g. 1.5). |
-| slide | number | - | Index of the active slide (composition mode). |
 | page | number | 0 | Index of the first item. |
 | numVisible | number | 1 | Number of items per page. |
 | numScroll | number | 1 | Number of items to scroll. |
@@ -650,14 +643,21 @@ Carousel is a content slider featuring various customization options.
 | autoplayInterval | number | - | Time in milliseconds to scroll items automatically. |
 | prevButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
 | nextButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the Button component. |
+| align | "center" \| "start" \| "end" | 'start' | Alignment of the carousel items (composition mode). |
+| loop | boolean | false | Whether the carousel should loop (composition mode). |
+| snapType | "mandatory" \| "proximity" | 'mandatory' | Scroll snap type applied to the track (composition mode). |
+| spacing | number | 16 | Spacing between carousel items in pixels (composition mode). |
+| autoSize | boolean | false | Whether the carousel should auto size items (composition mode). |
+| slidesPerPage | number | 1 | How many slides are visible per page (composition mode). Supports fractions (e.g. 1.5). |
+| slide | number | - | Index of the active slide (composition mode). |
 
 ### Emits
 
 | Name | Parameters | Description |
 |------|------------|-------------|
+| onPage | event: CarouselPageEvent | Callback to invoke after scroll. |
 | onPageChange | value: { value: number } | Callback fired when the carousel's page changes (composition mode). |
 | onSlideChange | value: { value: number } | Callback fired when the active slide changes (composition mode). |
-| onPage | event: CarouselPageEvent | Callback to invoke after scroll. |
 
 ### Templates
 

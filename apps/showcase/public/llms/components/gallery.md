@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `
-        <p-gallery-root style="width: 100%; height: 600px;">
+        <p-gallery class="w-full h-150!">
             <p-gallery-backdrop></p-gallery-backdrop>
             <p-gallery-prev>
                 <svg data-p-icon="chevron-left"></svg>
@@ -68,7 +68,7 @@ import { Component } from '@angular/core';
                     </p-gallery-thumbnail-content>
                 </p-gallery-thumbnail>
             </p-gallery-footer>
-        </p-gallery-root>
+        </p-gallery>
     `,
     standalone: true,
     imports: []
@@ -95,8 +95,8 @@ import { Component, signal } from '@angular/core';
             }
         </div>
         @if (open()) {
-            <div class="w-full h-[100dvh] top-0 left-0 !fixed z-[100000] opacity-100 transition-opacity duration-200">
-                <p-gallery-root class="w-full h-full" [(activeIndex)]="activeIndex" (onActiveIndexChange)="onActiveIndexChange($event)">
+            <div class="w-full h-dvh top-0 left-0 fixed! z-100000 opacity-100 transition-opacity duration-200">
+                <p-gallery [(activeIndex)]="activeIndex" (onActiveIndexChange)="onActiveIndexChange($event)">
                     <p-gallery-backdrop></p-gallery-backdrop>
                     <p-gallery-prev>
                         <svg data-p-icon="chevron-left"></svg>
@@ -148,7 +148,7 @@ import { Component, signal } from '@angular/core';
                             </p-gallery-thumbnail-content>
                         </p-gallery-thumbnail>
                     </p-gallery-footer>
-                </p-gallery-root>
+                </p-gallery>
             </div>
         }
     `,
@@ -174,6 +174,26 @@ export class GalleryGridDemo {
     }
 }
 ```
+
+## Gallery
+
+Gallery is the main container component for the Gallery.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, GalleryPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| activeIndex | number | 0 | The index of the active item. |
+
+### Emits
+
+| Name | Parameters | Description |
+|------|------------|-------------|
+| onActiveIndexChange | event: GalleryActiveIndexChangeEvent | Callback fired when the gallery's active index changes. |
 
 ## Pass Through Options
 
