@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, model, NgModule, output, signal, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, model, NgModule, output, signal, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { SharedModule } from 'primeng/api';
@@ -42,10 +42,10 @@ import { GalleryThumbnailItem } from './gallery-thumbnail-item';
         '[class]': "cx('root')",
         '[attr.data-scope]': "'gallery'",
         '[attr.data-part]': "'root'",
-        '[attr.data-fullscreen]': "isFullscreen() ? '' : null",
-        '[attr.data-zoomed]': "activeItemTransform().zoomed ? '' : null",
-        '[attr.data-rotated]': "activeItemTransform().rotated ? '' : null",
-        '[attr.data-flipped]': "activeItemTransform().flipped ? '' : null"
+        '[attr.data-fullscreen]': 'dataFullscreen()',
+        '[attr.data-zoomed]': 'dataZoomed()',
+        '[attr.data-rotated]': 'dataRotated()',
+        '[attr.data-flipped]': 'dataFlipped()'
     },
     hostDirectives: [Bind]
 })
@@ -84,7 +84,13 @@ export class Gallery extends BaseComponent<GalleryPassThrough> {
 
     contentEl = signal<HTMLElement | null>(null);
 
-    private _el = inject(ElementRef);
+    dataFullscreen = computed(() => (this.isFullscreen() ? '' : null));
+
+    dataZoomed = computed(() => (this.activeItemTransform().zoomed ? '' : null));
+
+    dataRotated = computed(() => (this.activeItemTransform().rotated ? '' : null));
+
+    dataFlipped = computed(() => (this.activeItemTransform().flipped ? '' : null));
 
     registerItem(existingIndex: number | null): number {
         if (existingIndex !== null) {
@@ -127,7 +133,7 @@ export class Gallery extends BaseComponent<GalleryPassThrough> {
     }
 
     toggleFullScreen() {
-        const el = this._el.nativeElement;
+        const el = this.$el;
         if (!el) return;
 
         if (!this.isFullscreen()) {

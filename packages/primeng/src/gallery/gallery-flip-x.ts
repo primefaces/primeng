@@ -7,7 +7,7 @@ import { Gallery } from './gallery';
  * @group Components
  */
 @Component({
-    selector: 'p-gallery-flip-x, p-galleryFlipX',
+    selector: 'p-gallery-flip-x',
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,

@@ -7,7 +7,7 @@ import { Gallery } from './gallery';
  * @group Components
  */
 @Component({
-    selector: 'p-gallery-backdrop, p-galleryBackdrop',
+    selector: 'p-gallery-backdrop',
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,

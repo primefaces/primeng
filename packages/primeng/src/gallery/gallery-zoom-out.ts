@@ -7,7 +7,7 @@ import { Gallery } from './gallery';
  * @group Components
  */
 @Component({
-    selector: 'p-gallery-zoom-out, p-galleryZoomOut',
+    selector: 'p-gallery-zoom-out',
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,

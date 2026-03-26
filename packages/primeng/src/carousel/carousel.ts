@@ -204,14 +204,12 @@ export class Carousel extends BaseComponent {
         this.bindDirectiveInstance.setAttrs(this.ptm('root'));
     }
 
-    // Composition mode detection - if p-carousel-content is a child, use composition mode
+    // Composition mode detection
     _compositionContent = contentChildren(CarouselContentComp, { descendants: true });
 
     isCompositionMode = computed(() => this._compositionContent().length > 0);
 
-    // ==========================================
     // Composition mode inputs
-    // ==========================================
 
     /**
      * Alignment of the carousel items (composition mode).

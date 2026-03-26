@@ -7,7 +7,7 @@ import { Gallery } from './gallery';
  * @group Components
  */
 @Component({
-    selector: 'p-gallery-thumbnail-item, p-galleryThumbnailItem',
+    selector: 'p-gallery-thumbnail-item',
     standalone: true,
     template: `
         <ng-template #content>
@@ -32,6 +32,10 @@ export class GalleryThumbnailItem {
         const idx = this.index();
         return idx !== undefined && this.gallery.activeIndex() === idx;
     });
+
+    hostClass = computed(() => this.gallery.cx('thumbnailItem'));
+
+    dataActive = computed(() => (this.isActive() ? '' : null));
 
     onClick() {
         const idx = this.index();

@@ -1,7 +1,5 @@
-import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, contentChild, inject, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { Bind, BindModule } from 'primeng/bind';
-import type { GalleryFullScreenTemplateContext } from 'primeng/types/gallery';
 import { Gallery } from './gallery';
 
 /**
@@ -9,16 +7,10 @@ import { Gallery } from './gallery';
  * @group Components
  */
 @Component({
-    selector: 'p-gallery-full-screen, p-galleryFullScreen',
+    selector: 'p-gallery-full-screen',
     standalone: true,
-    imports: [NgTemplateOutlet, BindModule],
-    template: `
-        @if (fullscreenTemplate()) {
-            <ng-container *ngTemplateOutlet="fullscreenTemplate(); context: { $implicit: gallery.isFullscreen() }"></ng-container>
-        } @else {
-            <ng-content></ng-content>
-        }
-    `,
+    imports: [BindModule],
+    template: `<ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -26,18 +18,17 @@ import { Gallery } from './gallery';
         '[attr.data-scope]': "'gallery'",
         '[attr.data-part]': "'fullScreen'",
         '[attr.data-action]': "'fullscreen'",
-        '[attr.data-fullscreen]': "gallery.isFullscreen() ? '' : null",
-        '(click)': "gallery.handleClickAction('toggleFullScreen')"
+        '[attr.data-fullscreen]': 'dataFullscreen()',
+        '(click)': 'onClick()'
     },
     hostDirectives: [Bind]
 })
 export class GalleryFullScreen {
     gallery = inject(Gallery);
 
-    /**
-     * Custom fullscreen content template.
-     * @param {GalleryFullScreenTemplateContext} context - fullscreen context.
-     * @group Templates
-     */
-    fullscreenTemplate = contentChild<TemplateRef<GalleryFullScreenTemplateContext>>('fullscreen', { descendants: false });
+    dataFullscreen = computed(() => (this.gallery.isFullscreen() ? '' : null));
+
+    onClick() {
+        this.gallery.handleClickAction('toggleFullScreen');
+    }
 }

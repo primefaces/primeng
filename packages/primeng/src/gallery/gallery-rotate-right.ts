@@ -7,7 +7,7 @@ import { Gallery } from './gallery';
  * @group Components
  */
 @Component({
-    selector: 'p-gallery-rotate-right, p-galleryRotateRight',
+    selector: 'p-gallery-rotate-right',
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,

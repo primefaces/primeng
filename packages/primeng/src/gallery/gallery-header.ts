@@ -7,7 +7,7 @@ import { Gallery } from './gallery';
  * @group Components
  */
 @Component({
-    selector: 'p-gallery-header, p-galleryHeader',
+    selector: 'p-gallery-header',
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,
