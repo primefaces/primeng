@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Gallery } from './gallery';
 
@@ -23,7 +24,7 @@ import { Gallery } from './gallery';
     },
     hostDirectives: [Bind]
 })
-export class GalleryFullScreen {
+export class GalleryFullScreen extends BaseComponent {
     gallery = inject(Gallery);
 
     dataFullscreen = computed(() => (this.gallery.isFullscreen() ? '' : null));

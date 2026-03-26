@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Gallery } from './gallery';
 
@@ -21,7 +22,7 @@ import { Gallery } from './gallery';
     },
     hostDirectives: [Bind]
 })
-export class GalleryToolbarItem {
+export class GalleryToolbarItem extends BaseComponent {
     /**
      * The action to dispatch when the toolbar item is clicked.
      * @group Props

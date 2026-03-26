@@ -1,4 +1,5 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyRef, effect, ElementRef, inject, input, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, input, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Gallery } from './gallery';
 
@@ -18,13 +19,13 @@ import { Gallery } from './gallery';
         '[attr.data-scope]': "'gallery'",
         '[attr.data-part]': "'item'",
         '[attr.data-index]': 'index()',
-        '[attr.data-active]': 'isActive() ? "true" : "false"',
-        '[style.--position-x]': "position().x + 'px'",
-        '[style.--position-y]': "position().y + 'px'",
+        '[attr.data-active]': 'dataActive()',
+        '[style.--position-x]': 'stylePositionX()',
+        '[style.--position-y]': 'stylePositionY()',
         '[style.--scale]': 'scale()',
-        '[style.--rotation]': "rotation() + 'deg'",
-        '[style.--flip-x]': 'flip().x',
-        '[style.--flip-y]': 'flip().y',
+        '[style.--rotation]': 'styleRotation()',
+        '[style.--flip-x]': 'styleFlipX()',
+        '[style.--flip-y]': 'styleFlipY()',
         '(click)': 'handleClick($event)',
         '(pointerdown)': 'handlePointerDown($event)',
         '(pointermove)': 'handlePointerMove($event)',
@@ -33,7 +34,7 @@ import { Gallery } from './gallery';
     },
     hostDirectives: [Bind]
 })
-export class GalleryItem {
+export class GalleryItem extends BaseComponent {
     /**
      * The normal scale of the gallery item.
      * @group Props
@@ -50,35 +51,56 @@ export class GalleryItem {
 
     gallery = inject(Gallery);
 
-    private _el = inject(ElementRef);
     private _destroyRef = inject(DestroyRef);
 
     index = signal(-1);
+
     isActive = computed(() => this.gallery.activeIndex() === this.index());
+    dataActive = computed(() => (this.isActive() ? 'true' : 'false'));
+    stylePositionX = computed(() => this.position().x + 'px');
+    stylePositionY = computed(() => this.position().y + 'px');
+    styleRotation = computed(() => this.rotation() + 'deg');
+    styleFlipX = computed(() => this.flip().x);
+    styleFlipY = computed(() => this.flip().y);
+
     position = signal({ x: 0, y: 0 });
+
     scale = signal(1);
+
     rotation = signal(0);
+
     flip = signal({ x: 1, y: 1 });
 
     private registeredIndex: number | null = null;
+
     private pointerData = new Map<number, { x: number; y: number }>();
+
     private pointerStart = { x: 0, y: 0 };
-    private _lastDistance = 0;
+
     private initialPinchDistance = 0;
+
     private initialPinchScale = 1;
-    private _isPinching = false;
+
     private liveScale = 1;
+
     private livePosition = { x: 0, y: 0 };
+
     private isDragging = false;
+
     private dragStart = { x: 0, y: 0 };
+
     private hasDragged = false;
+
     private wheelSyncTimer: ReturnType<typeof setTimeout> | null = null;
+
     private wheelListener: (() => void) | null = null;
+
     private resizeListener: (() => void) | null = null;
 
     private imageLoadListener: (() => void) | null = null;
 
     constructor() {
+        super();
         afterNextRender(() => {
             const newIndex = this.gallery.registerItem(this.registeredIndex);
             this.registeredIndex = newIndex;
@@ -185,7 +207,7 @@ export class GalleryItem {
     }
 
     private setupImageLoadListener() {
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
         const imageElement = el.querySelector('img') as HTMLImageElement;
         if (!imageElement) return;
 
@@ -201,7 +223,7 @@ export class GalleryItem {
     }
 
     private setupWheelListener() {
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
         const handler = (e: WheelEvent) => {
             if (!e.ctrlKey || !this.isActive()) return;
 
@@ -252,7 +274,7 @@ export class GalleryItem {
 
     calculateItemSize() {
         const contentEl = this.gallery.contentEl();
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
         if (!contentEl || !el) return;
 
         const contentRect = contentEl.getBoundingClientRect();
@@ -299,7 +321,7 @@ export class GalleryItem {
 
     calculateConstraints(targetScale?: number) {
         const contentEl = this.gallery.contentEl();
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
         if (!contentEl || !el) return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
 
         const contentRect = contentEl.getBoundingClientRect();
@@ -336,7 +358,7 @@ export class GalleryItem {
 
     zoomIn() {
         this.scale.set(this.zoomedScale());
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
         if (el) {
             el.style.cursor = 'zoom-out';
         }
@@ -345,14 +367,14 @@ export class GalleryItem {
     zoomOut() {
         this.scale.set(this.normalScale());
         this.position.set({ x: 0, y: 0 });
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
         if (el) {
             el.style.cursor = 'zoom-in';
         }
     }
 
     rotateLeft() {
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
         if (!el) return;
         el.style.transition = 'none';
         this.rotation.update((prev) => prev - 90);
@@ -362,7 +384,7 @@ export class GalleryItem {
     }
 
     rotateRight() {
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
         if (!el) return;
         el.style.transition = 'none';
         this.rotation.update((prev) => prev + 90);
@@ -380,7 +402,7 @@ export class GalleryItem {
     }
 
     download() {
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
         if (!el) return;
 
         const imageElement = el.querySelector('img') as HTMLImageElement;
@@ -405,7 +427,7 @@ export class GalleryItem {
             return;
         }
 
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
 
         if (this.liveScale === this.normalScale()) {
             if (el) {
@@ -460,7 +482,7 @@ export class GalleryItem {
     handlePointerMove(e: PointerEvent) {
         if (!this.pointerData.has(e.pointerId)) return;
 
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
         if (!el) return;
 
         el.style.transition = 'none';
@@ -477,7 +499,6 @@ export class GalleryItem {
             const [p1, p2] = pointers;
             const distance = Math.hypot(p2.x - p1.x, p2.y - p1.y);
 
-            this._isPinching = true;
             this.hasDragged = true;
 
             if (this.initialPinchDistance === 0) {
@@ -498,8 +519,6 @@ export class GalleryItem {
                 el.style.setProperty('--position-x', `${constrainedX}px`);
                 el.style.setProperty('--position-y', `${constrainedY}px`);
             }
-
-            this._lastDistance = distance;
         } else if (pointers.length === 1 && this.isDragging) {
             const pointer = pointers[0];
             const newX = pointer.x - this.dragStart.x;
@@ -522,7 +541,7 @@ export class GalleryItem {
     }
 
     handlePointerUp(e: PointerEvent) {
-        const el = this._el.nativeElement as HTMLElement;
+        const el = this.$el as HTMLElement;
         if (!el) return;
 
         el.style.transition = '';
@@ -535,10 +554,8 @@ export class GalleryItem {
         this.pointerData.delete(e.pointerId);
 
         if (this.pointerData.size < 2) {
-            this._lastDistance = 0;
             this.initialPinchDistance = 0;
             this.initialPinchScale = 1;
-            this._isPinching = false;
         }
 
         if (this.pointerData.size === 0) {

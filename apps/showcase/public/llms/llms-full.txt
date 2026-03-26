@@ -18615,33 +18615,105 @@ Gallery is the main container component for the Gallery.
 
 GalleryBackdrop represents the backdrop element for fullscreen mode.
 
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+
 ## Gallery Content
 
 GalleryContent represents the main content area of the gallery.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Download
 
 GalleryDownload represents the download action button.
 
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+
 ## Gallery Flip X
 
 GalleryFlipX represents the horizontal flip action button.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Flip Y
 
 GalleryFlipY represents the vertical flip action button.
 
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+
 ## Gallery Footer
 
 GalleryFooter represents the footer section of the gallery.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Full Screen
 
 GalleryFullScreen represents the fullscreen toggle button.
 
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+
 ## Gallery Header
 
 GalleryHeader represents the header section of the gallery.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Item
 
@@ -18651,6 +18723,10 @@ GalleryItem represents an individual item in the gallery.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 | normalScale | number | 1 | The normal scale of the gallery item. |
 | zoomedScale | number | 3 | The zoomed scale of the gallery item. |
 
@@ -18658,17 +18734,53 @@ GalleryItem represents an individual item in the gallery.
 
 GalleryNext represents the next navigation button.
 
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+
 ## Gallery Prev
 
 GalleryPrev represents the previous navigation button.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Rotate Left
 
 GalleryRotateLeft represents the rotate left action button.
 
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+
 ## Gallery Rotate Right
 
 GalleryRotateRight represents the rotate right action button.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Thumbnail Content
 
@@ -18693,6 +18805,10 @@ GalleryThumbnail represents the thumbnail carousel wrapper.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 | autoSize | boolean | true | Whether the carousel should auto size items. |
 | loop | boolean | true | Whether the carousel should loop. |
 | align | "center" \| "start" \| "end" | 'center' | Alignment of the carousel items. |
@@ -18709,23 +18825,63 @@ GalleryToolbarItem represents an individual toolbar item.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 | action | string | - | The action to dispatch when the toolbar item is clicked. |
 
 ## Gallery Toolbar
 
 GalleryToolbar represents the toolbar container.
 
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+
 ## Gallery Zoom In
 
 GalleryZoomIn represents the zoom in action button.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Zoom Out
 
 GalleryZoomOut represents the zoom out action button.
 
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+
 ## Gallery Zoom Toggle
 
 GalleryZoomToggle represents the zoom toggle action button.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Pass Through Options
 

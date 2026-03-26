@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Gallery } from './gallery';
 
@@ -22,6 +23,6 @@ import { Gallery } from './gallery';
     },
     hostDirectives: [Bind]
 })
-export class GalleryRotateLeft {
+export class GalleryRotateLeft extends BaseComponent {
     gallery = inject(Gallery);
 }

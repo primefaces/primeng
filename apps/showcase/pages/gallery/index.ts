@@ -12,7 +12,29 @@ import { Component } from '@angular/core';
         description="Gallery is an image viewer with zoom, rotate, flip and download capabilities."
         [docs]="docs"
         [heroDoc]="heroDoc"
-        [apiDocs]="['GalleryRoot', 'GalleryItem']"
+        [apiDocs]="[
+            'Gallery',
+            'GalleryItem',
+            'GalleryContent',
+            'GalleryHeader',
+            'GalleryFooter',
+            'GalleryBackdrop',
+            'GalleryToolbar',
+            'GalleryToolbarItem',
+            'GalleryPrev',
+            'GalleryNext',
+            'GalleryZoomIn',
+            'GalleryZoomOut',
+            'GalleryZoomToggle',
+            'GalleryRotateLeft',
+            'GalleryRotateRight',
+            'GalleryFlipX',
+            'GalleryFlipY',
+            'GalleryFullScreen',
+            'GalleryDownload',
+            'GalleryThumbnail',
+            'GalleryThumbnailItem'
+        ]"
         themeDocs="gallery"
     ></app-doc>`,
     standalone: true,

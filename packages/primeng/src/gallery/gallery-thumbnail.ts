@@ -1,5 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChildren, inject, input, numberAttribute, ViewEncapsulation } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { CarouselModule } from 'primeng/carousel';
 import { Gallery } from './gallery';
@@ -37,7 +38,7 @@ import { GalleryThumbnailItem } from './gallery-thumbnail-item';
     },
     hostDirectives: [Bind]
 })
-export class GalleryThumbnail {
+export class GalleryThumbnail extends BaseComponent {
     gallery = inject(Gallery);
 
     /**

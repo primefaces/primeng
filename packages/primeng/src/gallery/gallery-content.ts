@@ -1,4 +1,5 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, ElementRef, inject, ViewEncapsulation } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Gallery } from './gallery';
 
@@ -20,14 +21,13 @@ import { Gallery } from './gallery';
     },
     hostDirectives: [Bind]
 })
-export class GalleryContent {
+export class GalleryContent extends BaseComponent {
     gallery = inject(Gallery);
 
-    private _el = inject(ElementRef);
-
     constructor() {
+        super();
         afterNextRender(() => {
-            this.gallery.setContentEl(this._el.nativeElement);
+            this.gallery.setContentEl(this.$el);
         });
     }
 }

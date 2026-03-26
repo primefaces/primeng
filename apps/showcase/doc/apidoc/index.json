@@ -19367,34 +19367,362 @@
                 }
             },
             "GalleryBackdrop": {
-                "description": "GalleryBackdrop represents the backdrop element for fullscreen mode."
+                "description": "GalleryBackdrop represents the backdrop element for fullscreen mode.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryContent": {
-                "description": "GalleryContent represents the main content area of the gallery."
+                "description": "GalleryContent represents the main content area of the gallery.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryDownload": {
-                "description": "GalleryDownload represents the download action button."
+                "description": "GalleryDownload represents the download action button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryFlipX": {
-                "description": "GalleryFlipX represents the horizontal flip action button."
+                "description": "GalleryFlipX represents the horizontal flip action button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryFlipY": {
-                "description": "GalleryFlipY represents the vertical flip action button."
+                "description": "GalleryFlipY represents the vertical flip action button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryFooter": {
-                "description": "GalleryFooter represents the footer section of the gallery."
+                "description": "GalleryFooter represents the footer section of the gallery.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryFullScreen": {
-                "description": "GalleryFullScreen represents the fullscreen toggle button."
+                "description": "GalleryFullScreen represents the fullscreen toggle button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryHeader": {
-                "description": "GalleryHeader represents the header section of the gallery."
+                "description": "GalleryHeader represents the header section of the gallery.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryItem": {
                 "description": "GalleryItem represents an individual item in the gallery.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "normalScale",
                             "optional": false,
@@ -19415,16 +19743,164 @@
                 }
             },
             "GalleryNext": {
-                "description": "GalleryNext represents the next navigation button."
+                "description": "GalleryNext represents the next navigation button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryPrev": {
-                "description": "GalleryPrev represents the previous navigation button."
+                "description": "GalleryPrev represents the previous navigation button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryRotateLeft": {
-                "description": "GalleryRotateLeft represents the rotate left action button."
+                "description": "GalleryRotateLeft represents the rotate left action button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryRotateRight": {
-                "description": "GalleryRotateRight represents the rotate right action button."
+                "description": "GalleryRotateRight represents the rotate right action button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryThumbnailContent": {
                 "description": "GalleryThumbnailContent represents the thumbnail carousel content area."
@@ -19449,6 +19925,38 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "autoSize",
                             "optional": false,
@@ -19514,6 +20022,38 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "action",
                             "optional": false,
                             "readonly": false,
@@ -19524,16 +20064,164 @@
                 }
             },
             "GalleryToolbar": {
-                "description": "GalleryToolbar represents the toolbar container."
+                "description": "GalleryToolbar represents the toolbar container.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryZoomIn": {
-                "description": "GalleryZoomIn represents the zoom in action button."
+                "description": "GalleryZoomIn represents the zoom in action button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryZoomOut": {
-                "description": "GalleryZoomOut represents the zoom out action button."
+                "description": "GalleryZoomOut represents the zoom out action button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryZoomToggle": {
-                "description": "GalleryZoomToggle represents the zoom toggle action button."
+                "description": "GalleryZoomToggle represents the zoom toggle action button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             }
         },
         "style": {
