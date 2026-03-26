@@ -38,6 +38,7 @@ import type { GalleryItemPassThrough } from 'primeng/types/gallery';
 })
 export class GalleryItem extends BaseComponent<GalleryItemPassThrough> {
     componentName = 'GalleryItem';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     /**
@@ -192,6 +193,16 @@ export class GalleryItem extends BaseComponent<GalleryItemPassThrough> {
                     flipped: f.x === -1 || f.y === -1
                 });
             }
+        });
+
+        // Sync liveScale/livePosition with signals (for toolbar-triggered changes)
+        effect(() => {
+            this.liveScale = this.scale();
+        });
+
+        effect(() => {
+            const p = this.position();
+            this.livePosition = { x: p.x, y: p.y };
         });
 
         // Reset position when scale <= 1
