@@ -599,9 +599,12 @@ export class Carousel extends CarouselLegacyBase {
         });
     }
 
-    onContentWheel(_e: WheelEvent) {
+    onContentWheel(e: WheelEvent) {
         if (this._wheelTimeout) clearTimeout(this._wheelTimeout);
         this._wheelTimeout = setTimeout(() => {
+            const primaryDelta = this.orientation() === 'horizontal' ? e.deltaX || e.deltaY : e.deltaY || e.deltaX;
+            if (primaryDelta > 0 && this.isNextDisabled()) return;
+            if (primaryDelta < 0 && this.isPrevDisabled()) return;
             this.setToClosest();
         }, 80);
     }
