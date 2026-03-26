@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-26T11:47:35.353Z",
-  "totalDemos": 827,
+  "generatedAt": "2026-03-26T14:19:42.188Z",
+  "totalDemos": 823,
   "demos": {
     "accordion-template-demo": {
       "key": "accordion-template-demo",
@@ -1303,94 +1303,13 @@
         ]
       }
     },
-    "carousel-vertical-demo": {
-      "key": "carousel-vertical-demo",
-      "selector": "carousel-vertical-demo",
+    "carousel-variable-size-demo": {
+      "key": "carousel-variable-size-demo",
+      "selector": "carousel-variable-size-demo",
       "component": "carousel",
-      "section": "vertical",
+      "section": "variable-size",
       "code": {
-        "typescript": "import { Component, OnInit, inject, signal } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { CarouselModule } from 'primeng/carousel';\nimport { TagModule } from 'primeng/tag';\nimport { ProductService } from '@/service/productservice';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <p-carousel [value]=\"products()\" [numVisible]=\"1\" [numScroll]=\"1\" orientation=\"vertical\" verticalViewPortHeight=\"330px\" contentClass=\"flex items-center\">\n            <ng-template let-product #item>\n                <div class=\"border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-3\">\n                    <div class=\"mb-4\">\n                        <div class=\"relative mx-auto\">\n                            <img src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}\" [alt]=\"product.name\" class=\"w-full rounded-sm\" />\n                            <p-tag [value]=\"product.inventoryStatus\" [severity]=\"getSeverity(product.inventoryStatus)\" class=\"absolute dark:bg-surface-900!\" [ngStyle]=\"{ 'left.px': 5, 'top.px': 5 }\" />\n                        </div>\n                    </div>\n                    <div class=\"mb-4 font-medium text-sm\">{{ product.name }}</div>\n                    <div class=\"flex justify-between items-center\">\n                        <div class=\"mt-0 font-semibold text-lg\">{{ '$' + product.price }}</div>\n                        <span>\n                            <p-button icon=\"pi pi-heart\" severity=\"secondary\" [outlined]=\"true\" />\n                            <p-button icon=\"pi pi-shopping-cart\" styleClass=\"ml-2\" />\n                        </span>\n                    </div>\n                </div>\n            </ng-template>\n        </p-carousel>\n    `,\n    standalone: true,\n    imports: [ButtonModule, CarouselModule, TagModule],\n    providers: [ProductService]\n})\nexport class CarouselVerticalDemo implements OnInit {\n    private productService = inject(ProductService);\n    products = signal<Product[]>([]);\n\n    ngOnInit() {\n        this.productService.getProductsSmall().then((products) => {\n            this.products.set(products);\n        });\n    }\n\n    getSeverity(status: string) {\n        switch (status) {\n            case 'INSTOCK':\n                return 'success';\n            case 'LOWSTOCK':\n                return 'warn';\n            case 'OUTOFSTOCK':\n                return 'danger';\n        }\n    }\n}"
-      },
-      "metadata": {
-        "services": [
-          "ProductService"
-        ],
-        "primeNGServices": [],
-        "extFiles": [
-          {
-            "path": "src/domain/product.ts",
-            "content": "export interface Product {\n    id?: string;\n    code?: string;\n    name?: string;\n    description?: string;\n    price?: number;\n    quantity?: number;\n    inventoryStatus?: string;\n    category?: string;\n    image?: string;\n    rating?: number;\n}"
-          }
-        ],
-        "imports": [
-          "ButtonModule",
-          "CarouselModule",
-          "TagModule",
-          "CommonModule"
-        ]
-      }
-    },
-    "carousel-responsive-demo": {
-      "key": "carousel-responsive-demo",
-      "selector": "carousel-responsive-demo",
-      "component": "carousel",
-      "section": "responsive",
-      "code": {
-        "typescript": "import { Component, OnInit, inject, signal } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { CarouselModule } from 'primeng/carousel';\nimport { TagModule } from 'primeng/tag';\nimport { ProductService } from '@/service/productservice';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <p-carousel [value]=\"products()\" [numVisible]=\"3\" [numScroll]=\"1\" [responsiveOptions]=\"responsiveOptions\">\n            <ng-template let-product #item>\n                <div class=\"border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-4\">\n                    <div class=\"mb-4\">\n                        <div class=\"relative mx-auto\">\n                            <img src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}\" [alt]=\"product.name\" class=\"w-full rounded-border\" />\n                            <p-tag [value]=\"product.inventoryStatus\" [severity]=\"getSeverity(product.inventoryStatus)\" class=\"absolute dark:bg-surface-900!\" [ngStyle]=\"{ 'left.px': 5, 'top.px': 5 }\" />\n                        </div>\n                    </div>\n                    <div class=\"mb-4 font-medium text-sm\">{{ product.name }}</div>\n                    <div class=\"flex justify-between items-center\">\n                        <div class=\"mt-0 font-semibold text-lg\">{{ '$' + product.price }}</div>\n                        <span>\n                            <p-button icon=\"pi pi-heart\" severity=\"secondary\" [outlined]=\"true\" />\n                            <p-button icon=\"pi pi-shopping-cart\" styleClass=\"ml-2\" />\n                        </span>\n                    </div>\n                </div>\n            </ng-template>\n        </p-carousel>\n    `,\n    standalone: true,\n    imports: [ButtonModule, CarouselModule, TagModule],\n    providers: [ProductService]\n})\nexport class CarouselResponsiveDemo implements OnInit {\n    private productService = inject(ProductService);\n    products = signal<Product[]>([]);\n    responsiveOptions: any[] | undefined;\n\n    ngOnInit() {\n        this.productService.getProductsSmall().then((products) => {\n            this.products.set(products);\n        });\n        this.responsiveOptions = [\n            {\n                breakpoint: '1400px',\n                numVisible: 2,\n                numScroll: 1\n            },\n            {\n                breakpoint: '1199px',\n                numVisible: 3,\n                numScroll: 1\n            },\n            {\n                breakpoint: '767px',\n                numVisible: 2,\n                numScroll: 1\n            },\n            {\n                breakpoint: '575px',\n                numVisible: 1,\n                numScroll: 1\n            }\n        ];\n    }\n\n    getSeverity(status: string) {\n        switch (status) {\n            case 'INSTOCK':\n                return 'success';\n            case 'LOWSTOCK':\n                return 'warn';\n            case 'OUTOFSTOCK':\n                return 'danger';\n        }\n    }\n}"
-      },
-      "metadata": {
-        "services": [
-          "ProductService"
-        ],
-        "primeNGServices": [],
-        "extFiles": [
-          {
-            "path": "src/domain/product.ts",
-            "content": "export interface Product {\n    id?: string;\n    code?: string;\n    name?: string;\n    description?: string;\n    price?: number;\n    quantity?: number;\n    inventoryStatus?: string;\n    category?: string;\n    image?: string;\n    rating?: number;\n}"
-          }
-        ],
-        "imports": [
-          "ButtonModule",
-          "CarouselModule",
-          "TagModule",
-          "CommonModule"
-        ]
-      }
-    },
-    "carousel-circular-demo": {
-      "key": "carousel-circular-demo",
-      "selector": "carousel-circular-demo",
-      "component": "carousel",
-      "section": "circular",
-      "code": {
-        "typescript": "import { Component, OnInit, inject, signal } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { CarouselModule } from 'primeng/carousel';\nimport { TagModule } from 'primeng/tag';\nimport { ProductService } from '@/service/productservice';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <p-carousel [value]=\"products()\" [numVisible]=\"3\" [numScroll]=\"1\" [circular]=\"true\" [responsiveOptions]=\"responsiveOptions\" autoplayInterval=\"3000\">\n            <ng-template let-product #item>\n                <div class=\"border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-4\">\n                    <div class=\"mb-4\">\n                        <div class=\"relative mx-auto\">\n                            <img src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}\" [alt]=\"product.name\" class=\"w-full rounded-border\" />\n                            <p-tag [value]=\"product.inventoryStatus\" [severity]=\"getSeverity(product.inventoryStatus)\" class=\"absolute dark:bg-surface-900!\" [ngStyle]=\"{ 'left.px': 5, 'top.px': 5 }\" />\n                        </div>\n                    </div>\n                    <div class=\"mb-4 font-medium text-sm\">{{ product.name }}</div>\n                    <div class=\"flex justify-between items-center\">\n                        <div class=\"mt-0 font-semibold text-lg\">{{ '$' + product.price }}</div>\n                        <span>\n                            <p-button icon=\"pi pi-heart\" severity=\"secondary\" [outlined]=\"true\" />\n                            <p-button icon=\"pi pi-shopping-cart\" styleClass=\"ml-2\" />\n                        </span>\n                    </div>\n                </div>\n            </ng-template>\n        </p-carousel>\n    `,\n    standalone: true,\n    imports: [ButtonModule, CarouselModule, TagModule],\n    providers: [ProductService]\n})\nexport class CarouselCircularDemo implements OnInit {\n    private productService = inject(ProductService);\n    products = signal<Product[]>([]);\n    responsiveOptions: any[] | undefined;\n\n    ngOnInit() {\n        this.productService.getProductsSmall().then((data) => {\n            this.products.set(data.slice(0, 9));\n        });\n        this.responsiveOptions = [\n            {\n                breakpoint: '1400px',\n                numVisible: 2,\n                numScroll: 1\n            },\n            {\n                breakpoint: '1199px',\n                numVisible: 3,\n                numScroll: 1\n            },\n            {\n                breakpoint: '767px',\n                numVisible: 2,\n                numScroll: 1\n            },\n            {\n                breakpoint: '575px',\n                numVisible: 1,\n                numScroll: 1\n            }\n        ];\n    }\n\n    getSeverity(status: string) {\n        switch (status) {\n            case 'INSTOCK':\n                return 'success';\n            case 'LOWSTOCK':\n                return 'warn';\n            case 'OUTOFSTOCK':\n                return 'danger';\n        }\n    }\n}"
-      },
-      "metadata": {
-        "services": [
-          "ProductService"
-        ],
-        "primeNGServices": [],
-        "extFiles": [
-          {
-            "path": "src/domain/product.ts",
-            "content": "export interface Product {\n    id?: string;\n    code?: string;\n    name?: string;\n    description?: string;\n    price?: number;\n    quantity?: number;\n    inventoryStatus?: string;\n    category?: string;\n    image?: string;\n    rating?: number;\n}"
-          }
-        ],
-        "imports": [
-          "ButtonModule",
-          "CarouselModule",
-          "TagModule",
-          "CommonModule"
-        ]
-      }
-    },
-    "carousel-carousel-variable-size-demo": {
-      "key": "carousel-carousel-variable-size-demo",
-      "selector": "carousel-carousel-variable-size-demo",
-      "component": "carousel",
-      "section": "carousel-variable-size",
-      "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"center\" [autoSize]=\"true\">\n                <p-carousel-content class=\"h-35\">\n                    @for (item of items; track item.width; let i = $index) {\n                        <p-carousel-item [style.width]=\"item.width\">\n                            <div class=\"h-full text-4xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-lg border border-surface\">\n                                <span>{{ i + 1 }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselCarouselVariableSizeDemo {\n    items: any[] = [{ width: '120px' }, { width: '80px' }, { width: '200px' }, { width: '160px' }, { width: '220px' }, { width: '180px' }, { width: '280px' }, { width: '100px' }];\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"center\" [autoSize]=\"true\">\n                <p-carousel-content class=\"h-35\">\n                    @for (item of items; track item.width; let i = $index) {\n                        <p-carousel-item [style.width]=\"item.width\">\n                            <div class=\"h-full text-4xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-lg border border-surface\">\n                                <span>{{ i + 1 }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselVariableSizeDemo {\n    items: any[] = [{ width: '120px' }, { width: '80px' }, { width: '200px' }, { width: '160px' }, { width: '220px' }, { width: '180px' }, { width: '280px' }, { width: '100px' }];\n}"
       },
       "metadata": {
         "services": [],
@@ -1401,13 +1320,13 @@
         ]
       }
     },
-    "carousel-carousel-orientation-demo": {
-      "key": "carousel-carousel-orientation-demo",
-      "selector": "carousel-carousel-orientation-demo",
+    "carousel-orientation-demo": {
+      "key": "carousel-orientation-demo",
+      "selector": "carousel-orientation-demo",
       "component": "carousel",
-      "section": "carousel-orientation",
+      "section": "orientation",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-sm mx-auto flex flex-col gap-8 items-center\" orientation=\"vertical\" [slidesPerPage]=\"1.3\">\n                <button\n                    pCarouselPrev\n                    class=\"w-10 h-10 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                >\n                    <svg data-p-icon=\"chevron-up\" class=\"text-lg\"></svg>\n                </button>\n                <p-carousel-content style=\"height: 240px; width: 100%\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <button\n                    pCarouselNext\n                    class=\"w-10 h-10 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                >\n                    <svg data-p-icon=\"chevron-down\" class=\"text-lg\"></svg>\n                </button>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselCarouselOrientationDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-sm mx-auto flex flex-col gap-8 items-center\" orientation=\"vertical\" [slidesPerPage]=\"1.3\">\n                <button\n                    pCarouselPrev\n                    class=\"w-10 h-10 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                >\n                    <svg data-p-icon=\"chevron-up\" class=\"text-lg\"></svg>\n                </button>\n                <p-carousel-content style=\"height: 240px; width: 100%\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <button\n                    pCarouselNext\n                    class=\"w-10 h-10 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                >\n                    <svg data-p-icon=\"chevron-down\" class=\"text-lg\"></svg>\n                </button>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselOrientationDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
       },
       "metadata": {
         "services": [],
@@ -1418,13 +1337,13 @@
         ]
       }
     },
-    "carousel-carousel-loop-demo": {
-      "key": "carousel-carousel-loop-demo",
-      "selector": "carousel-carousel-loop-demo",
+    "carousel-loop-demo": {
+      "key": "carousel-loop-demo",
+      "selector": "carousel-loop-demo",
       "component": "carousel",
-      "section": "carousel-loop",
+      "section": "loop",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"center\" [loop]=\"true\" [slidesPerPage]=\"1.75\">\n                <p-carousel-content style=\"height: 240px\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselCarouselLoopDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"center\" [loop]=\"true\" [slidesPerPage]=\"1.75\">\n                <p-carousel-content style=\"height: 240px\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselLoopDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
       },
       "metadata": {
         "services": [],
@@ -1435,47 +1354,13 @@
         ]
       }
     },
-    "carousel-carousel-gallery-demo": {
-      "key": "carousel-carousel-gallery-demo",
-      "selector": "carousel-carousel-gallery-demo",
+    "carousel-gallery-demo": {
+      "key": "carousel-gallery-demo",
+      "selector": "carousel-gallery-demo",
       "component": "carousel",
-      "section": "carousel-gallery",
+      "section": "gallery",
       "code": {
-        "typescript": "import { Component, signal } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <div class=\"max-w-2xl mx-auto\">\n                <p-carousel align=\"center\" [slide]=\"selectedImage()\" (onSlideChange)=\"onSlideChange($event)\">\n                    <p-carousel-content style=\"height: 396px\">\n                        @for (image of images; track image; let i = $index) {\n                            <p-carousel-item class=\"basis-full!\">\n                                <img [attr.draggable]=\"false\" [src]=\"image\" [alt]=\"'Image ' + (i + 1)\" class=\"h-full w-full object-cover select-none\" />\n                            </p-carousel-item>\n                        }\n                    </p-carousel-content>\n                </p-carousel>\n                <p-carousel class=\"mt-3\" [spacing]=\"8\" align=\"center\" [slide]=\"selectedImage()\">\n                    <p-carousel-content style=\"height: 90px\">\n                        @for (image of images; track image; let i = $index) {\n                            <p-carousel-item class=\"cursor-pointer basis-1/4! transition-opacity\" [class.opacity-60]=\"selectedImage() !== i\" [class.hover:opacity-40]=\"selectedImage() !== i\" (click)=\"selectImage(i)\">\n                                <img [attr.draggable]=\"false\" [src]=\"image\" [alt]=\"'Image ' + (i + 1)\" class=\"h-full w-full object-cover select-none\" />\n                            </p-carousel-item>\n                        }\n                    </p-carousel-content>\n                </p-carousel>\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselCarouselGalleryDemo {\n    images: any = images;\n    selectedImage = signal(0);\n\n    selectImage(index: number) {\n        this.selectedImage.set(index);\n    }\n\n    onSlideChange(event: { value: number }) {\n        this.selectedImage.set(event.value);\n    }\n}"
-      },
-      "metadata": {
-        "services": [],
-        "primeNGServices": [],
-        "extFiles": [],
-        "imports": [
-          "CarouselModule"
-        ]
-      }
-    },
-    "carousel-carousel-basic-demo": {
-      "key": "carousel-carousel-basic-demo",
-      "selector": "carousel-carousel-basic-demo",
-      "component": "carousel",
-      "section": "carousel-basic",
-      "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"center\">\n                <p-carousel-content style=\"height: 240px\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselCarouselBasicDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
-      },
-      "metadata": {
-        "services": [],
-        "primeNGServices": [],
-        "extFiles": [],
-        "imports": [
-          "CarouselModule"
-        ]
-      }
-    },
-    "carousel-carousel-alignment-demo": {
-      "key": "carousel-carousel-alignment-demo",
-      "selector": "carousel-carousel-alignment-demo",
-      "component": "carousel",
-      "section": "carousel-alignment",
-      "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"start\" [slidesPerPage]=\"1.5\">\n                <p-carousel-content style=\"height: 240px\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselCarouselAlignmentDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
+        "typescript": "import { Component, signal } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <div class=\"max-w-2xl mx-auto\">\n                <p-carousel align=\"center\" [slide]=\"selectedImage()\" (onSlideChange)=\"onSlideChange($event)\">\n                    <p-carousel-content style=\"height: 396px\">\n                        @for (image of images; track image; let i = $index) {\n                            <p-carousel-item class=\"basis-full!\">\n                                <img [attr.draggable]=\"false\" [src]=\"image\" [alt]=\"'Image ' + (i + 1)\" class=\"h-full w-full object-cover select-none\" />\n                            </p-carousel-item>\n                        }\n                    </p-carousel-content>\n                </p-carousel>\n                <p-carousel class=\"mt-3\" [spacing]=\"8\" align=\"center\" [slide]=\"selectedImage()\">\n                    <p-carousel-content style=\"height: 90px\">\n                        @for (image of images; track image; let i = $index) {\n                            <p-carousel-item class=\"cursor-pointer basis-1/4! transition-opacity\" [class.opacity-60]=\"selectedImage() !== i\" [class.hover:opacity-40]=\"selectedImage() !== i\" (click)=\"selectImage(i)\">\n                                <img [attr.draggable]=\"false\" [src]=\"image\" [alt]=\"'Image ' + (i + 1)\" class=\"h-full w-full object-cover select-none\" />\n                            </p-carousel-item>\n                        }\n                    </p-carousel-content>\n                </p-carousel>\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselGalleryDemo {\n    images: any = images;\n    selectedImage = signal(0);\n\n    selectImage(index: number) {\n        this.selectedImage.set(index);\n    }\n\n    onSlideChange(event: { value: number }) {\n        this.selectedImage.set(event.value);\n    }\n}"
       },
       "metadata": {
         "services": [],
@@ -1492,24 +1377,31 @@
       "component": "carousel",
       "section": "basic",
       "code": {
-        "typescript": "import { Component, OnInit, inject, signal } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { CarouselModule } from 'primeng/carousel';\nimport { TagModule } from 'primeng/tag';\nimport { ProductService } from '@/service/productservice';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <p-carousel [value]=\"products()\" [numVisible]=\"3\" [numScroll]=\"3\" [circular]=\"false\" [responsiveOptions]=\"responsiveOptions\">\n            <ng-template let-product #item>\n                <div class=\"border border-surface rounded-border m-2 p-4\">\n                    <div class=\"mb-4\">\n                        <div class=\"relative mx-auto\">\n                            <img src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}\" [alt]=\"product.name\" class=\"w-full rounded-border\" />\n                            <p-tag [value]=\"product.inventoryStatus\" [severity]=\"getSeverity(product.inventoryStatus)\" class=\"absolute dark:bg-surface-900!\" [ngStyle]=\"{ 'left.px': 5, 'top.px': 5 }\" />\n                        </div>\n                    </div>\n                    <div class=\"mb-4 font-medium text-sm\">{{ product.name }}</div>\n                    <div class=\"flex justify-between items-center\">\n                        <div class=\"mt-0 font-semibold text-lg\">{{ '$' + product.price }}</div>\n                        <span>\n                            <p-button icon=\"pi pi-heart\" severity=\"secondary\" [outlined]=\"true\" />\n                            <p-button icon=\"pi pi-shopping-cart\" styleClass=\"ml-2\" />\n                        </span>\n                    </div>\n                </div>\n            </ng-template>\n        </p-carousel>\n    `,\n    standalone: true,\n    imports: [ButtonModule, CarouselModule, TagModule],\n    providers: [ProductService]\n})\nexport class CarouselBasicDemo implements OnInit {\n    private productService = inject(ProductService);\n    products = signal<Product[]>([]);\n    responsiveOptions: any[] | undefined;\n\n    ngOnInit() {\n        this.productService.getProductsSmall().then((data) => {\n            this.products.set(data.slice(0, 9));\n        });\n        this.responsiveOptions = [\n            {\n                breakpoint: '1400px',\n                numVisible: 2,\n                numScroll: 1\n            },\n            {\n                breakpoint: '1199px',\n                numVisible: 3,\n                numScroll: 1\n            },\n            {\n                breakpoint: '767px',\n                numVisible: 2,\n                numScroll: 1\n            },\n            {\n                breakpoint: '575px',\n                numVisible: 1,\n                numScroll: 1\n            }\n        ];\n    }\n\n    getSeverity(status: string) {\n        switch (status) {\n            case 'INSTOCK':\n                return 'success';\n            case 'LOWSTOCK':\n                return 'warn';\n            case 'OUTOFSTOCK':\n                return 'danger';\n        }\n    }\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"center\">\n                <p-carousel-content style=\"height: 240px\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselBasicDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
       },
       "metadata": {
-        "services": [
-          "ProductService"
-        ],
+        "services": [],
         "primeNGServices": [],
-        "extFiles": [
-          {
-            "path": "src/domain/product.ts",
-            "content": "export interface Product {\n    id?: string;\n    code?: string;\n    name?: string;\n    description?: string;\n    price?: number;\n    quantity?: number;\n    inventoryStatus?: string;\n    category?: string;\n    image?: string;\n    rating?: number;\n}"
-          }
-        ],
+        "extFiles": [],
         "imports": [
-          "ButtonModule",
-          "CarouselModule",
-          "TagModule",
-          "CommonModule"
+          "CarouselModule"
+        ]
+      }
+    },
+    "carousel-alignment-demo": {
+      "key": "carousel-alignment-demo",
+      "selector": "carousel-alignment-demo",
+      "component": "carousel",
+      "section": "alignment",
+      "code": {
+        "typescript": "import { Component } from '@angular/core';\nimport { CarouselModule } from 'primeng/carousel';\n\n@Component({\n    template: `\n        <div class=\"mt-8 mb-16\">\n            <p-carousel class=\"max-w-xl mx-auto\" align=\"start\" [slidesPerPage]=\"1.5\">\n                <p-carousel-content style=\"height: 240px\">\n                    @for (item of items; track item) {\n                        <p-carousel-item>\n                            <div class=\"h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface\">\n                                <span>{{ item }}</span>\n                            </div>\n                        </p-carousel-item>\n                    }\n                </p-carousel-content>\n                <div class=\"flex mt-4 gap-4\">\n                    <p-carousel-indicators></p-carousel-indicators>\n                    <div class=\"flex items-center justify-end gap-2 flex-1\">\n                        <button\n                            pCarouselPrev\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-left\" class=\"text-lg\"></svg>\n                        </button>\n                        <button\n                            pCarouselNext\n                            class=\"w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity\"\n                        >\n                            <svg data-p-icon=\"chevron-right\" class=\"text-lg\"></svg>\n                        </button>\n                    </div>\n                </div>\n            </p-carousel>\n        </div>\n    `,\n    standalone: true,\n    imports: [CarouselModule]\n})\nexport class CarouselAlignmentDemo {\n    items: any[] = [1, 2, 3, 4, 5];\n}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": [
+          "CarouselModule"
         ]
       }
     },

@@ -1,91 +1,54 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { Component } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
+import { ChevronLeft } from '@primeicons/angular/chevron-left';
+import { ChevronRight } from '@primeicons/angular/chevron-right';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, AppDemoWrapper, CarouselModule, ButtonModule, TagModule],
+    imports: [CarouselModule, AppCode, AppDemoWrapper, AppDocSectionText, ChevronLeft, ChevronRight],
     template: `
         <app-docsectiontext>
-            <p>Carousel requires a collection of items as its value along with a template to render each item.</p>
+            <p>Composition-based carousel using native scroll-snap with sub-components for root, content, items, navigation, and indicators.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-carousel [value]="products()" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
-                <ng-template let-product #item>
-                    <div class="border border-surface rounded-border m-2 p-4">
-                        <div class="mb-4">
-                            <div class="relative mx-auto">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:bg-surface-900!" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                            </div>
-                        </div>
-                        <div class="mb-4 font-medium text-sm">{{ product.name }}</div>
-                        <div class="flex justify-between items-center">
-                            <div class="mt-0 font-semibold text-lg">{{ '$' + product.price }}</div>
-                            <span>
-                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                            </span>
+            <div class="mt-8 mb-16">
+                <p-carousel class="max-w-xl mx-auto" align="center">
+                    <p-carousel-content style="height: 240px">
+                        @for (item of items; track item) {
+                            <p-carousel-item>
+                                <div class="h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface">
+                                    <span>{{ item }}</span>
+                                </div>
+                            </p-carousel-item>
+                        }
+                    </p-carousel-content>
+                    <div class="flex mt-4 gap-4">
+                        <p-carousel-indicators></p-carousel-indicators>
+                        <div class="flex items-center justify-end gap-2 flex-1">
+                            <button
+                                pCarouselPrev
+                                class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                            >
+                                <svg data-p-icon="chevron-left" class="text-lg"></svg>
+                            </button>
+                            <button
+                                pCarouselNext
+                                class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                            >
+                                <svg data-p-icon="chevron-right" class="text-lg"></svg>
+                            </button>
                         </div>
                     </div>
-                </ng-template>
-            </p-carousel>
-            <app-code [extFiles]="['Product']"></app-code>
+                </p-carousel>
+            </div>
+            <app-code></app-code>
         </app-demo-wrapper>
     `
 })
-export class BasicDoc implements OnInit {
-    private productService = inject(ProductService);
-
-    products = signal<Product[]>([]);
-
-    responsiveOptions: any[] | undefined;
-
-    ngOnInit() {
-        this.productService.getProductsSmall().then((data) => {
-            this.products.set(data.slice(0, 9));
-        });
-
-        this.responsiveOptions = [
-            {
-                breakpoint: '1400px',
-                numVisible: 2,
-                numScroll: 1
-            },
-            {
-                breakpoint: '1199px',
-                numVisible: 3,
-                numScroll: 1
-            },
-            {
-                breakpoint: '767px',
-                numVisible: 2,
-                numScroll: 1
-            },
-            {
-                breakpoint: '575px',
-                numVisible: 1,
-                numScroll: 1
-            }
-        ];
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
+export class BasicDoc {
+    items = [1, 2, 3, 4, 5];
 }

@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ButtonPassThroughOptions } from 'primeng/types/button';
 
 /**
  * Defines the orientation of the carousel.
@@ -20,58 +19,6 @@ export interface CarouselPassThroughOptions<I = unknown> {
      * Used to pass attributes to the root's DOM element.
      */
     root?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the header's DOM element.
-     */
-    header?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the content container's DOM element.
-     */
-    contentContainer?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the content's DOM element.
-     */
-    content?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the previous button's DOM element.
-     */
-    pcPrevButton?: ButtonPassThroughOptions;
-    /**
-     * Used to pass attributes to the viewport's DOM element.
-     */
-    viewport?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the item list's DOM element.
-     */
-    itemList?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the item's DOM element.
-     */
-    item?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the item clone's DOM element.
-     */
-    itemClone?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the next button's DOM element.
-     */
-    pcNextButton?: ButtonPassThroughOptions;
-    /**
-     * Used to pass attributes to the indicator list's DOM element.
-     */
-    indicatorList?: PassThroughOption<HTMLUListElement, I>;
-    /**
-     * Used to pass attributes to the indicator's DOM element.
-     */
-    indicator?: PassThroughOption<HTMLLIElement, I>;
-    /**
-     * Used to pass attributes to the indicator button's DOM element.
-     */
-    indicatorButton?: PassThroughOption<HTMLButtonElement, I>;
-    /**
-     * Used to pass attributes to the footer's DOM element.
-     */
-    footer?: PassThroughOption<HTMLDivElement, I>;
 }
 
 /**
@@ -148,3 +95,57 @@ export interface CarouselTemplates<T = any> {
      */
     footer(): TemplateRef<void>;
 }
+
+/**
+ * Defines valid pass-through options in CarouselContent component.
+ * @template I Type of instance.
+ * @group Interface
+ */
+export interface CarouselContentPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLElement, I>;
+}
+
+/**
+ * @see {@link CarouselContentPassThroughOptions}
+ * @template I Type of instance.
+ */
+export type CarouselContentPassThrough<I = unknown> = PassThrough<I, CarouselContentPassThroughOptions<I>>;
+
+/**
+ * Defines valid pass-through options in CarouselItem component.
+ * @template I Type of instance.
+ * @group Interface
+ */
+export interface CarouselItemPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLElement, I>;
+}
+
+/**
+ * @see {@link CarouselItemPassThroughOptions}
+ * @template I Type of instance.
+ */
+export type CarouselItemPassThrough<I = unknown> = PassThrough<I, CarouselItemPassThroughOptions<I>>;
+
+/**
+ * Defines valid pass-through options in CarouselIndicators component.
+ * @template I Type of instance.
+ * @group Interface
+ */
+export interface CarouselIndicatorsPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLElement, I>;
+}
+
+/**
+ * @see {@link CarouselIndicatorsPassThroughOptions}
+ * @template I Type of instance.
+ */
+export type CarouselIndicatorsPassThrough<I = unknown> = PassThrough<I, CarouselIndicatorsPassThroughOptions<I>>;

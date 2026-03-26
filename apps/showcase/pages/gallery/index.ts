@@ -3,6 +3,7 @@ import { AccessibilityDoc } from '@/doc/gallery/accessibility-doc';
 import { BasicDoc } from '@/doc/gallery/basic-doc';
 import { GridDoc } from '@/doc/gallery/grid-doc';
 import { UsageDoc } from '@/doc/gallery/usage-doc';
+import { PTComponent } from '@/doc/gallery/pt/PTComponent';
 import { Component } from '@angular/core';
 
 @Component({
@@ -35,12 +36,14 @@ import { Component } from '@angular/core';
             'GalleryThumbnail',
             'GalleryThumbnailItem'
         ]"
+        [ptDocs]="ptComponent"
         themeDocs="gallery"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class GalleryDemo {
+    ptComponent = PTComponent;
     heroDoc = BasicDoc;
 
     docs = [

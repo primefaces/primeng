@@ -7124,16 +7124,122 @@
                 }
             },
             "CarouselContent": {
-                "description": "CarouselContent is the scrollable track element that contains carousel items."
+                "description": "CarouselContent is the scrollable track element that contains carousel items.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThrough<I, CarouselContentPassThroughOptions<I>>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "CarouselIndicators": {
-                "description": "CarouselIndicators renders the list of page indicators.\nAuto-generates button indicators based on snap points."
+                "description": "CarouselIndicators renders the list of page indicators.\nAuto-generates button indicators based on snap points.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThrough<I, CarouselIndicatorsPassThroughOptions<I>>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "CarouselItem": {
                 "description": "CarouselItem represents an individual item in the composition-based carousel.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThrough<I, CarouselItemPassThroughOptions<I>>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -7282,97 +7388,6 @@
                                 "readonly": false,
                                 "type": "PassThroughOption<HTMLDivElement, I>",
                                 "description": "Used to pass attributes to the root's DOM element."
-                            },
-                            {
-                                "name": "header",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the header's DOM element."
-                            },
-                            {
-                                "name": "contentContainer",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the content container's DOM element."
-                            },
-                            {
-                                "name": "content",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the content's DOM element."
-                            },
-                            {
-                                "name": "pcPrevButton",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "ButtonPassThroughOptions",
-                                "description": "Used to pass attributes to the previous button's DOM element."
-                            },
-                            {
-                                "name": "viewport",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the viewport's DOM element."
-                            },
-                            {
-                                "name": "itemList",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the item list's DOM element."
-                            },
-                            {
-                                "name": "item",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the item's DOM element."
-                            },
-                            {
-                                "name": "itemClone",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the item clone's DOM element."
-                            },
-                            {
-                                "name": "pcNextButton",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "ButtonPassThroughOptions",
-                                "description": "Used to pass attributes to the next button's DOM element."
-                            },
-                            {
-                                "name": "indicatorList",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLUListElement, I>",
-                                "description": "Used to pass attributes to the indicator list's DOM element."
-                            },
-                            {
-                                "name": "indicator",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLLIElement, I>",
-                                "description": "Used to pass attributes to the indicator's DOM element."
-                            },
-                            {
-                                "name": "indicatorButton",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the indicator button's DOM element."
-                            },
-                            {
-                                "name": "footer",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the footer's DOM element."
                             }
                         ]
                     },
@@ -7413,6 +7428,45 @@
                                 "readonly": false,
                                 "type": "unknown",
                                 "description": "Data of the item."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CarouselContentPassThroughOptions",
+                        "description": "Defines valid pass-through options in CarouselContent component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CarouselItemPassThroughOptions",
+                        "description": "Defines valid pass-through options in CarouselItem component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "CarouselIndicatorsPassThroughOptions",
+                        "description": "Defines valid pass-through options in CarouselIndicators component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
                             }
                         ]
                     }
@@ -19391,7 +19445,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryBackdropPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19431,7 +19485,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryContentPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19471,7 +19525,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryDownloadPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19511,7 +19565,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryFlipXPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19551,7 +19605,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryFlipYPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19591,7 +19645,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryFooterPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19631,7 +19685,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryFullScreenPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19671,7 +19725,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryHeaderPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19711,7 +19765,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryItemPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19767,7 +19821,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryNextPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19807,7 +19861,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryPrevPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19847,7 +19901,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryRotateLeftPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19887,7 +19941,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryRotateRightPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -19903,7 +19957,44 @@
                 }
             },
             "GalleryThumbnailContent": {
-                "description": "GalleryThumbnailContent represents the thumbnail carousel content area."
+                "description": "GalleryThumbnailContent represents the thumbnail carousel content area.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThrough<I, GalleryThumbnailContentPassThroughOptions<I>>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "GalleryThumbnailItem": {
                 "description": "GalleryThumbnailItem represents an individual thumbnail item.\nExposes its content as a TemplateRef so GalleryThumbnail can render it inside a carousel item.",
@@ -19945,7 +20036,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryThumbnailPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20041,7 +20132,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryToolbarItemPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20088,7 +20179,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryToolbarPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20128,7 +20219,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryZoomInPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20168,7 +20259,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryZoomOutPassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20208,7 +20299,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "PassThrough<I, GalleryZoomTogglePassThroughOptions<I>>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20314,23 +20405,6 @@
                     }
                 ]
             },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "types",
-                        "name": "fullscreen",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "GalleryFullScreenTemplateContext",
-                                "description": "fullscreen context."
-                            }
-                        ],
-                        "description": "Custom fullscreen button content template."
-                    }
-                ]
-            },
             "interfaces": {
                 "description": "Defines the custom interfaces used by the module.",
                 "values": [
@@ -20410,168 +20484,302 @@
                                 "name": "root",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "type": "PassThroughOption<HTMLElement, I>",
                                 "description": "Used to pass attributes to the root's DOM element."
-                            },
-                            {
-                                "name": "backdrop",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the backdrop's DOM element."
-                            },
-                            {
-                                "name": "header",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the header's DOM element."
-                            },
-                            {
-                                "name": "footer",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the footer's DOM element."
-                            },
-                            {
-                                "name": "content",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the content's DOM element."
-                            },
-                            {
-                                "name": "item",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the item's DOM element."
-                            },
-                            {
-                                "name": "next",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the next button's DOM element."
-                            },
-                            {
-                                "name": "prev",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the prev button's DOM element."
-                            },
-                            {
-                                "name": "toolbar",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the toolbar's DOM element."
-                            },
-                            {
-                                "name": "toolbarItem",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the toolbar item's DOM element."
-                            },
-                            {
-                                "name": "thumbnail",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the thumbnail's DOM element."
-                            },
-                            {
-                                "name": "thumbnailContent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the thumbnail content's DOM element."
-                            },
-                            {
-                                "name": "thumbnailItem",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the thumbnail item's DOM element."
-                            },
-                            {
-                                "name": "zoomIn",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the zoom in button's DOM element."
-                            },
-                            {
-                                "name": "zoomOut",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the zoom out button's DOM element."
-                            },
-                            {
-                                "name": "zoomToggle",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the zoom toggle button's DOM element."
-                            },
-                            {
-                                "name": "rotateLeft",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the rotate left button's DOM element."
-                            },
-                            {
-                                "name": "rotateRight",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the rotate right button's DOM element."
-                            },
-                            {
-                                "name": "flipX",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the flip x button's DOM element."
-                            },
-                            {
-                                "name": "flipY",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the flip y button's DOM element."
-                            },
-                            {
-                                "name": "download",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the download button's DOM element."
-                            },
-                            {
-                                "name": "fullScreen",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
-                                "description": "Used to pass attributes to the fullscreen button's DOM element."
                             }
                         ]
                     },
                     {
-                        "name": "GalleryFullScreenTemplateContext",
-                        "description": "Custom fullscreen template context.",
+                        "name": "GalleryBackdropPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryBackdrop component.",
                         "props": [
                             {
-                                "name": "$implicit",
-                                "optional": false,
+                                "name": "root",
+                                "optional": true,
                                 "readonly": false,
-                                "type": "boolean",
-                                "description": "Whether the gallery is currently in fullscreen mode."
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryHeaderPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryHeader component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryContentPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryContent component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryFooterPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryFooter component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryItemPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryItem component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryPrevPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryPrev component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryNextPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryNext component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryToolbarPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryToolbar component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryToolbarItemPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryToolbarItem component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryZoomInPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryZoomIn component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryZoomOutPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryZoomOut component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryZoomTogglePassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryZoomToggle component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryRotateLeftPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryRotateLeft component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryRotateRightPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryRotateRight component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryFlipXPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryFlipX component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryFlipYPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryFlipY component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryDownloadPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryDownload component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryFullScreenPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryFullScreen component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryThumbnailPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryThumbnail component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "pcCarousel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Used to pass attributes to the internal Carousel component."
+                            },
+                            {
+                                "name": "pcCarouselContent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Used to pass attributes to the internal CarouselContent component."
+                            },
+                            {
+                                "name": "pcCarouselItem",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Used to pass attributes to the internal CarouselItem components."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryThumbnailContentPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryThumbnailContent component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "GalleryThumbnailItemPassThroughOptions",
+                        "description": "Defines valid pass-through options in GalleryThumbnailItem component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
                             }
                         ]
                     }

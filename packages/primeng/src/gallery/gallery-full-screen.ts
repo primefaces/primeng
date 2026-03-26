@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Gallery } from './gallery';
+import type { GalleryFullScreenPassThrough } from 'primeng/types/gallery';
 
 /**
  * GalleryFullScreen represents the fullscreen toggle button.
@@ -12,6 +13,7 @@ import { Gallery } from './gallery';
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,
+    providers: [{ provide: PARENT_INSTANCE, useExisting: GalleryFullScreen }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -24,8 +26,15 @@ import { Gallery } from './gallery';
     },
     hostDirectives: [Bind]
 })
-export class GalleryFullScreen extends BaseComponent {
+export class GalleryFullScreen extends BaseComponent<GalleryFullScreenPassThrough> {
+    componentName = 'GalleryFullScreen';
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     gallery = inject(Gallery);
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 
     dataFullscreen = computed(() => (this.gallery.isFullscreen() ? '' : null));
 

@@ -42,7 +42,30 @@ export const getPTOptions = (name) => {
         inputcolorswatch: 'inputcolor',
         inputcolorswatchbackground: 'inputcolor',
         inputcolortransparencygrid: 'inputcolor',
-        inputcoloreyedropper: 'inputcolor'
+        inputcoloreyedropper: 'inputcolor',
+        gallerybackdrop: 'gallery',
+        galleryheader: 'gallery',
+        gallerycontent: 'gallery',
+        galleryfooter: 'gallery',
+        galleryitem: 'gallery',
+        galleryprev: 'gallery',
+        gallerynext: 'gallery',
+        gallerytoolbar: 'gallery',
+        gallerytoolbaritem: 'gallery',
+        galleryzoomin: 'gallery',
+        galleryzoomout: 'gallery',
+        galleryzoomtoggle: 'gallery',
+        galleryrotateleft: 'gallery',
+        galleryrotateright: 'gallery',
+        galleryflipx: 'gallery',
+        galleryflipy: 'gallery',
+        gallerydownload: 'gallery',
+        galleryfullscreen: 'gallery',
+        gallerythumbnail: 'gallery',
+        gallerythumbnailitem: 'gallery',
+        carouselcontent: 'carousel',
+        carouselitem: 'carousel',
+        carouselindicators: 'carousel'
     };
 
     const passthroughNameMapping = {

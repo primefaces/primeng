@@ -1,17 +1,13 @@
 import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/carousel/accessibility-doc';
 import { BasicDoc } from '@/doc/carousel/basic-doc';
-import { CircularDoc } from '@/doc/carousel/circular-doc';
+import { AlignmentDoc } from '@/doc/carousel/alignment-doc';
+import { LoopDoc } from '@/doc/carousel/loop-doc';
+import { OrientationDoc } from '@/doc/carousel/orientation-doc';
+import { VariableSizeDoc } from '@/doc/carousel/variable-size-doc';
+import { GalleryDoc } from '@/doc/carousel/gallery-doc';
 import { PTComponent } from '@/doc/carousel/pt/PTComponent';
-import { ResponsiveDoc } from '@/doc/carousel/responsive-doc';
 import { UsageDoc } from '@/doc/carousel/usage-doc';
-import { VerticalDoc } from '@/doc/carousel/vertical-doc';
-import { CarouselBasicDoc } from '@/doc/carousel/carousel-basic-doc';
-import { CarouselAlignmentDoc } from '@/doc/carousel/carousel-alignment-doc';
-import { CarouselLoopDoc } from '@/doc/carousel/carousel-loop-doc';
-import { CarouselOrientationDoc } from '@/doc/carousel/carousel-orientation-doc';
-import { CarouselVariableSizeDoc } from '@/doc/carousel/carousel-variable-size-doc';
-import { CarouselGalleryDoc } from '@/doc/carousel/carousel-gallery-doc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -49,49 +45,29 @@ export class CarouselDemo {
                     component: BasicDoc
                 },
                 {
-                    id: 'circular',
-                    label: 'Circular',
-                    component: CircularDoc
+                    id: 'alignment',
+                    label: 'Alignment',
+                    component: AlignmentDoc
                 },
                 {
-                    id: 'responsive',
-                    label: 'Responsive',
-                    component: ResponsiveDoc
+                    id: 'loop',
+                    label: 'Loop',
+                    component: LoopDoc
                 },
                 {
-                    id: 'vertical',
-                    label: 'Vertical',
-                    component: VerticalDoc
+                    id: 'orientation',
+                    label: 'Orientation',
+                    component: OrientationDoc
                 },
                 {
-                    id: 'carousel-basic',
-                    label: 'Composition Basic',
-                    component: CarouselBasicDoc
+                    id: 'variable-size',
+                    label: 'Variable Size',
+                    component: VariableSizeDoc
                 },
                 {
-                    id: 'carousel-alignment',
-                    label: 'Composition Alignment',
-                    component: CarouselAlignmentDoc
-                },
-                {
-                    id: 'carousel-loop',
-                    label: 'Composition Loop',
-                    component: CarouselLoopDoc
-                },
-                {
-                    id: 'carousel-orientation',
-                    label: 'Composition Orientation',
-                    component: CarouselOrientationDoc
-                },
-                {
-                    id: 'carousel-variable-size',
-                    label: 'Composition Variable Size',
-                    component: CarouselVariableSizeDoc
-                },
-                {
-                    id: 'carousel-gallery',
-                    label: 'Composition Gallery',
-                    component: CarouselGalleryDoc
+                    id: 'gallery',
+                    label: 'Gallery',
+                    component: GalleryDoc
                 }
             ]
         },

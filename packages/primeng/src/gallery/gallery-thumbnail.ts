@@ -1,9 +1,10 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChildren, inject, input, numberAttribute, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { CarouselModule } from 'primeng/carousel';
 import { Gallery } from './gallery';
+import type { GalleryThumbnailPassThrough } from 'primeng/types/gallery';
 import { GalleryThumbnailItem } from './gallery-thumbnail-item';
 
 /**
@@ -15,11 +16,11 @@ import { GalleryThumbnailItem } from './gallery-thumbnail-item';
     standalone: true,
     imports: [BindModule, NgTemplateOutlet, CarouselModule],
     template: `
-        <p-carousel [autoSize]="autoSize()" [loop]="loop()" [align]="align()" [spacing]="spacing()" [orientation]="orientation()" [snapType]="snapType()" [slidesPerPage]="slidesPerPage()" [slide]="slide()">
-            <p-carousel-content>
+        <p-carousel [autoSize]="autoSize()" [loop]="loop()" [align]="align()" [spacing]="spacing()" [orientation]="orientation()" [snapType]="snapType()" [slidesPerPage]="slidesPerPage()" [slide]="slide()" [pt]="ptm('pcCarousel')">
+            <p-carousel-content [pt]="ptm('pcCarouselContent')">
                 @if (thumbnailItems().length > 0) {
                     @for (item of thumbnailItems(); track item; let i = $index) {
-                        <p-carousel-item [class]="item.hostClass()" [attr.data-active]="item.dataActive()" (click)="item.onClick()">
+                        <p-carousel-item [class]="item.hostClass()" [attr.data-active]="item.dataActive()" (click)="item.onClick()" [pt]="ptm('pcCarouselItem')">
                             <ng-container *ngTemplateOutlet="item.templateRef()"></ng-container>
                         </p-carousel-item>
                     }
@@ -29,6 +30,7 @@ import { GalleryThumbnailItem } from './gallery-thumbnail-item';
             </p-carousel-content>
         </p-carousel>
     `,
+    providers: [{ provide: PARENT_INSTANCE, useExisting: GalleryThumbnail }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -38,8 +40,15 @@ import { GalleryThumbnailItem } from './gallery-thumbnail-item';
     },
     hostDirectives: [Bind]
 })
-export class GalleryThumbnail extends BaseComponent {
+export class GalleryThumbnail extends BaseComponent<GalleryThumbnailPassThrough> {
+    componentName = 'GalleryThumbnail';
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     gallery = inject(Gallery);
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 
     /**
      * Whether the carousel should auto size items.

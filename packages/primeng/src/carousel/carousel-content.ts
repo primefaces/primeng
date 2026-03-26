@@ -1,6 +1,8 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, computed, ElementRef, inject, ViewEncapsulation } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { CAROUSEL_ROOT } from './carousel-token';
+import type { CarouselContentPassThrough } from 'primeng/types/carousel';
 
 /**
  * CarouselContent is the scrollable track element that contains carousel items.
@@ -11,6 +13,7 @@ import { CAROUSEL_ROOT } from './carousel-token';
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,
+    providers: [{ provide: PARENT_INSTANCE, useExisting: CarouselContent }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -41,38 +44,27 @@ import { CAROUSEL_ROOT } from './carousel-token';
     },
     hostDirectives: [Bind]
 })
-export class CarouselContent {
+export class CarouselContent extends BaseComponent<CarouselContentPassThrough> {
+    componentName = 'CarouselContent';
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     root = inject(CAROUSEL_ROOT);
 
     isVertical = computed(() => this.root.orientation() === 'vertical');
-
     flexDirection = computed(() => (this.isVertical() ? 'column' : 'row'));
-
     overflowX = computed(() => (this.isVertical() ? null : 'scroll'));
-
     overflowY = computed(() => (this.isVertical() ? 'scroll' : null));
-
     overscrollX = computed(() => (this.isVertical() ? null : 'contain'));
-
     overscrollY = computed(() => (this.isVertical() ? 'contain' : null));
-
     dataAutosize = computed(() => (this.root.autoSize() ? '' : null));
-
     dataSwiping = computed(() => (this.root.swiping() ? '' : null));
-
     dataOrientation = computed(() => this.root.orientation());
-
     dataAlign = computed(() => this.root.align());
-
     dataPage = computed(() => this.root.pageState());
-
     slidesPerPage = computed(() => this.root.slidesPerPage());
-
     spacingItems = computed(() => this.root.spacing() + 'px');
-
     scrollSnapType = computed(() => this.root.resolveSnapType());
-
-    private _el = inject(ElementRef);
 
     onPointerDown(e: PointerEvent) {
         this.root.onContentPointerDown(e);
@@ -90,9 +82,14 @@ export class CarouselContent {
         this.root.onContentWheel(e);
     }
 
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     constructor() {
+        super();
         afterNextRender(() => {
-            this.root.setContentEl(this._el.nativeElement);
+            this.root.setContentEl(this.$el);
             this.root.setupObservers();
         });
     }

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { CAROUSEL_ROOT } from './carousel-token';
+import type { CarouselItemPassThrough } from 'primeng/types/carousel';
 
 /**
  * CarouselItem represents an individual item in the composition-based carousel.
@@ -11,6 +13,7 @@ import { CAROUSEL_ROOT } from './carousel-token';
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,
+    providers: [{ provide: PARENT_INSTANCE, useExisting: CarouselItem }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -31,7 +34,11 @@ import { CAROUSEL_ROOT } from './carousel-token';
     },
     hostDirectives: [Bind]
 })
-export class CarouselItem {
+export class CarouselItem extends BaseComponent<CarouselItemPassThrough> {
+    componentName = 'CarouselItem';
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     /**
      * The value/identifier of the carousel item.
      * @group Props
@@ -41,16 +48,14 @@ export class CarouselItem {
     root = inject(CAROUSEL_ROOT);
 
     dataOrientation = computed(() => this.root.orientation());
-
     dataAlign = computed(() => this.root.align());
-
     dataPage = computed(() => this.root.pageState());
-
     dataSwiping = computed(() => (this.root.swiping() ? '' : null));
-
     dataAutosize = computed(() => (this.root.autoSize() ? '' : null));
-
     flexBasis = computed(() => (this.root.autoSize() ? 'auto' : 'calc(100% / var(--slides-per-page) - var(--spacing-items) * (var(--slides-per-page) - 1) / var(--slides-per-page))'));
-
     scrollSnapAlign = computed(() => this.root.align());
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 }

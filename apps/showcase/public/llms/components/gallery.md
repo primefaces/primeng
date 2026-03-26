@@ -199,28 +199,7 @@ Gallery is the main container component for the Gallery.
 
 | Name | Type | Description |
 |------|------|-------------|
-| root | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the root's DOM element. |
-| backdrop | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the backdrop's DOM element. |
-| header | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the header's DOM element. |
-| footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
-| content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
-| item | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the item's DOM element. |
-| next | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the next button's DOM element. |
-| prev | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the prev button's DOM element. |
-| toolbar | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the toolbar's DOM element. |
-| toolbarItem | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the toolbar item's DOM element. |
-| thumbnail | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the thumbnail's DOM element. |
-| thumbnailContent | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the thumbnail content's DOM element. |
-| thumbnailItem | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the thumbnail item's DOM element. |
-| zoomIn | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the zoom in button's DOM element. |
-| zoomOut | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the zoom out button's DOM element. |
-| zoomToggle | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the zoom toggle button's DOM element. |
-| rotateLeft | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the rotate left button's DOM element. |
-| rotateRight | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the rotate right button's DOM element. |
-| flipX | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the flip x button's DOM element. |
-| flipY | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the flip y button's DOM element. |
-| download | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the download button's DOM element. |
-| fullScreen | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the fullscreen button's DOM element. |
+| root | PassThroughOption<HTMLElement, I> | Used to pass attributes to the root's DOM element. |
 
 ## Theming
 

@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Gallery } from './gallery';
+import type { GalleryFlipXPassThrough } from 'primeng/types/gallery';
 
 /**
  * GalleryFlipX represents the horizontal flip action button.
@@ -12,6 +13,7 @@ import { Gallery } from './gallery';
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,
+    providers: [{ provide: PARENT_INSTANCE, useExisting: GalleryFlipX }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -23,6 +25,13 @@ import { Gallery } from './gallery';
     },
     hostDirectives: [Bind]
 })
-export class GalleryFlipX extends BaseComponent {
+export class GalleryFlipX extends BaseComponent<GalleryFlipXPassThrough> {
+    componentName = 'GalleryFlipX';
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     gallery = inject(Gallery);
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 }

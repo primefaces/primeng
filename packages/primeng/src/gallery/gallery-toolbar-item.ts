@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Gallery } from './gallery';
+import type { GalleryToolbarItemPassThrough } from 'primeng/types/gallery';
 
 /**
  * GalleryToolbarItem represents an individual toolbar item.
@@ -12,6 +13,7 @@ import { Gallery } from './gallery';
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,
+    providers: [{ provide: PARENT_INSTANCE, useExisting: GalleryToolbarItem }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -22,7 +24,10 @@ import { Gallery } from './gallery';
     },
     hostDirectives: [Bind]
 })
-export class GalleryToolbarItem extends BaseComponent {
+export class GalleryToolbarItem extends BaseComponent<GalleryToolbarItemPassThrough> {
+    componentName = 'GalleryToolbarItem';
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     /**
      * The action to dispatch when the toolbar item is clicked.
      * @group Props
@@ -30,6 +35,10 @@ export class GalleryToolbarItem extends BaseComponent {
     action = input<string>();
 
     gallery = inject(Gallery);
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 
     onClick() {
         this.gallery.handleClickAction(this.action());

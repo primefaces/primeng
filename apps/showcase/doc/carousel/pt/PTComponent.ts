@@ -24,10 +24,22 @@ export class PTComponent {
             component: PTViewer
         },
         {
-            id: 'pt.doc.carousel',
-            label: 'Carousel PT Options',
+            id: 'pt.doc.carouselcontent',
+            label: 'CarouselContent PT Options',
             component: AppDocPtTable,
-            data: getPTOptions('Carousel')
+            data: getPTOptions('CarouselContent')
+        },
+        {
+            id: 'pt.doc.carouselitem',
+            label: 'CarouselItem PT Options',
+            component: AppDocPtTable,
+            data: getPTOptions('CarouselItem')
+        },
+        {
+            id: 'pt.doc.carouselindicators',
+            label: 'CarouselIndicators PT Options',
+            component: AppDocPtTable,
+            data: getPTOptions('CarouselIndicators')
         }
     ];
 }

@@ -1,70 +1,66 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { Component } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
+import { ChevronLeft } from '@primeicons/angular/chevron-left';
+import { ChevronRight } from '@primeicons/angular/chevron-right';
 
 @Component({
     selector: 'carousel-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, CarouselModule, TagModule, ButtonModule],
+    imports: [CommonModule, AppDocPtViewer, CarouselModule, ChevronLeft, ChevronRight],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-carousel [value]="products()" [numVisible]="1" [numScroll]="1" class="w-3/4! p-2!">
-                <ng-template let-product #item>
-                    <div class="border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-4">
-                        <div class="mb-4">
-                            <div class="relative mx-auto">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-sm" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:bg-surface-900!" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+            <p-carousel class="max-w-xl mx-auto" align="center">
+                <p-carousel-content style="height: 240px">
+                    @for (item of items; track item) {
+                        <p-carousel-item>
+                            <div class="h-full text-5xl font-semibold bg-surface-50 dark:bg-surface-950 text-surface-950 dark:text-surface-0 flex flex-col items-center justify-center gap-6 rounded-xl border border-surface">
+                                <span>{{ item }}</span>
                             </div>
-                        </div>
-                        <div class="mb-4 font-medium text-sm">{{ product.name }}</div>
-                        <div class="flex justify-between items-center">
-                            <div class="mt-0 font-semibold text-lg">{{ '$' + product.price }}</div>
-                            <span>
-                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                            </span>
-                        </div>
+                        </p-carousel-item>
+                    }
+                </p-carousel-content>
+                <div class="flex mt-4 gap-4">
+                    <p-carousel-indicators></p-carousel-indicators>
+                    <div class="flex items-center justify-end gap-2 flex-1">
+                        <button
+                            pCarouselPrev
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-left" class="text-lg"></svg>
+                        </button>
+                        <button
+                            pCarouselNext
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-surface bg-surface-0 dark:bg-surface-800 text-surface-500 dark:text-surface-400 hover:opacity-75 cursor-pointer transition-opacity"
+                        >
+                            <svg data-p-icon="chevron-right" class="text-lg"></svg>
+                        </button>
                     </div>
-                </ng-template>
+                </div>
             </p-carousel>
         </app-docptviewer>
-    `,
-    providers: [ProductService]
+    `
 })
 export class PTViewer {
-    products = signal<Product[]>([]);
-
-    responsiveOptions: any[] | undefined;
-
-    constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProductsSmall().then((data) => {
-            this.products.set(data.slice(0, 9));
-        });
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
+    items = [1, 2, 3, 4, 5];
 
     docs = [
         {
             data: getPTOptions('Carousel'),
             key: 'Carousel'
+        },
+        {
+            data: getPTOptions('CarouselContent'),
+            key: 'CarouselContent'
+        },
+        {
+            data: getPTOptions('CarouselItem'),
+            key: 'CarouselItem'
+        },
+        {
+            data: getPTOptions('CarouselIndicators'),
+            key: 'CarouselIndicators'
         }
     ];
 }

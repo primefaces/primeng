@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Gallery } from './gallery';
+import type { GalleryNextPassThrough } from 'primeng/types/gallery';
 
 /**
  * GalleryNext represents the next navigation button.
@@ -12,6 +13,7 @@ import { Gallery } from './gallery';
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,
+    providers: [{ provide: PARENT_INSTANCE, useExisting: GalleryNext }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -22,6 +24,13 @@ import { Gallery } from './gallery';
     },
     hostDirectives: [Bind]
 })
-export class GalleryNext extends BaseComponent {
+export class GalleryNext extends BaseComponent<GalleryNextPassThrough> {
+    componentName = 'GalleryNext';
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     gallery = inject(Gallery);
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 }

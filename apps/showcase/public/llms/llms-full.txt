@@ -5390,94 +5390,7 @@ Carousel is a content slider featuring various customization options.
 
 Screen Reader Carousel uses region role and since any attribute is passed to the main container element, attributes such as aria-label and aria-roledescription can be used as well. The slides container has aria-live attribute set as "polite" if carousel is not in autoplay mode, otherwise "off" would be the value in autoplay. A slide has a group role with an aria-label that refers to the aria.slideNumber property of the locale API. Similarly aria.slide is used as the aria-roledescription of the item. Inactive slides are hidden from the readers with aria-hidden . Next and Previous navigators are button elements with aria-label attributes referring to the aria.nextPageLabel and aria.firstPageLabel properties of the locale API by default respectively, you may still use your own aria roles and attributes as any valid attribute is passed to the button elements implicitly by using nextButtonProps and prevButtonProps . Quick navigation elements are button elements with an aria-label attribute referring to the aria.pageLabel of the locale API. Current page is marked with aria-current . Next/Prev Keyboard Support Key Function tab Moves focus through interactive elements in the carousel. enter Activates navigation. space Activates navigation. Quick Navigation Keyboard Support Key Function tab Moves focus through the active slide link. enter Activates the focused slide link. space Activates the focused slide link. right arrow Moves focus to the next slide link. left arrow Moves focus to the previous slide link. home Moves focus to the first slide link. end Moves focus to the last slide link.
 
-## Basic
-
-Carousel requires a collection of items as its value along with a template to render each item.
-
-**Example:**
-
-```typescript
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CarouselModule } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
-import { ProductService } from '@/service/productservice';
-import { Product } from '@/domain/product';
-
-@Component({
-    template: `
-        <p-carousel [value]="products()" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
-            <ng-template let-product #item>
-                <div class="border border-surface rounded-border m-2 p-4">
-                    <div class="mb-4">
-                        <div class="relative mx-auto">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:bg-surface-900!" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                        </div>
-                    </div>
-                    <div class="mb-4 font-medium text-sm">{{ product.name }}</div>
-                    <div class="flex justify-between items-center">
-                        <div class="mt-0 font-semibold text-lg">{{ '$' + product.price }}</div>
-                        <span>
-                            <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                        </span>
-                    </div>
-                </div>
-            </ng-template>
-        </p-carousel>
-    `,
-    standalone: true,
-    imports: [ButtonModule, CarouselModule, TagModule],
-    providers: [ProductService]
-})
-export class CarouselBasicDemo implements OnInit {
-    private productService = inject(ProductService);
-    products = signal<Product[]>([]);
-    responsiveOptions: any[] | undefined;
-
-    ngOnInit() {
-        this.productService.getProductsSmall().then((data) => {
-            this.products.set(data.slice(0, 9));
-        });
-        this.responsiveOptions = [
-            {
-                breakpoint: '1400px',
-                numVisible: 2,
-                numScroll: 1
-            },
-            {
-                breakpoint: '1199px',
-                numVisible: 3,
-                numScroll: 1
-            },
-            {
-                breakpoint: '767px',
-                numVisible: 2,
-                numScroll: 1
-            },
-            {
-                breakpoint: '575px',
-                numVisible: 1,
-                numScroll: 1
-            }
-        ];
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
-}
-```
-
-## Composition Alignment
+## Alignment
 
 Use align to control snap alignment and slidesPerPage to show partial slides.
 
@@ -5523,12 +5436,12 @@ import { CarouselModule } from 'primeng/carousel';
     standalone: true,
     imports: [CarouselModule]
 })
-export class CarouselCarouselAlignmentDemo {
+export class CarouselAlignmentDemo {
     items: any[] = [1, 2, 3, 4, 5];
 }
 ```
 
-## Composition Basic
+## Basic
 
 Composition-based carousel using native scroll-snap with sub-components for root, content, items, navigation, and indicators.
 
@@ -5574,12 +5487,12 @@ import { CarouselModule } from 'primeng/carousel';
     standalone: true,
     imports: [CarouselModule]
 })
-export class CarouselCarouselBasicDemo {
+export class CarouselBasicDemo {
     items: any[] = [1, 2, 3, 4, 5];
 }
 ```
 
-## Composition Gallery
+## Gallery
 
 Two carousels synchronized via slide input to create a gallery with thumbnail navigation.
 
@@ -5617,7 +5530,7 @@ import { CarouselModule } from 'primeng/carousel';
     standalone: true,
     imports: [CarouselModule]
 })
-export class CarouselCarouselGalleryDemo {
+export class CarouselGalleryDemo {
     images: any = images;
     selectedImage = signal(0);
 
@@ -5631,7 +5544,7 @@ export class CarouselCarouselGalleryDemo {
 }
 ```
 
-## Composition Loop
+## Loop
 
 Enable continuous looping with the loop property. Use slidesPerPage to show partial slides.
 
@@ -5677,12 +5590,12 @@ import { CarouselModule } from 'primeng/carousel';
     standalone: true,
     imports: [CarouselModule]
 })
-export class CarouselCarouselLoopDemo {
+export class CarouselLoopDemo {
     items: any[] = [1, 2, 3, 4, 5];
 }
 ```
 
-## Composition Orientation
+## Orientation
 
 Set orientation to vertical for a vertical carousel layout.
 
@@ -5723,12 +5636,12 @@ import { CarouselModule } from 'primeng/carousel';
     standalone: true,
     imports: [CarouselModule]
 })
-export class CarouselCarouselOrientationDemo {
+export class CarouselOrientationDemo {
     items: any[] = [1, 2, 3, 4, 5];
 }
 ```
 
-## Composition Variable Size
+## Variable Size
 
 Enable autoSize to allow items with variable widths.
 
@@ -5774,246 +5687,8 @@ import { CarouselModule } from 'primeng/carousel';
     standalone: true,
     imports: [CarouselModule]
 })
-export class CarouselCarouselVariableSizeDemo {
+export class CarouselVariableSizeDemo {
     items: any[] = [{ width: '120px' }, { width: '80px' }, { width: '200px' }, { width: '160px' }, { width: '220px' }, { width: '180px' }, { width: '280px' }, { width: '100px' }];
-}
-```
-
-## Circular
-
-When autoplayInterval is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling circular property needs to be added which is enabled automatically in auto play mode.
-
-**Example:**
-
-```typescript
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CarouselModule } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
-import { ProductService } from '@/service/productservice';
-import { Product } from '@/domain/product';
-
-@Component({
-    template: `
-        <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
-            <ng-template let-product #item>
-                <div class="border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-4">
-                    <div class="mb-4">
-                        <div class="relative mx-auto">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:bg-surface-900!" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                        </div>
-                    </div>
-                    <div class="mb-4 font-medium text-sm">{{ product.name }}</div>
-                    <div class="flex justify-between items-center">
-                        <div class="mt-0 font-semibold text-lg">{{ '$' + product.price }}</div>
-                        <span>
-                            <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                        </span>
-                    </div>
-                </div>
-            </ng-template>
-        </p-carousel>
-    `,
-    standalone: true,
-    imports: [ButtonModule, CarouselModule, TagModule],
-    providers: [ProductService]
-})
-export class CarouselCircularDemo implements OnInit {
-    private productService = inject(ProductService);
-    products = signal<Product[]>([]);
-    responsiveOptions: any[] | undefined;
-
-    ngOnInit() {
-        this.productService.getProductsSmall().then((data) => {
-            this.products.set(data.slice(0, 9));
-        });
-        this.responsiveOptions = [
-            {
-                breakpoint: '1400px',
-                numVisible: 2,
-                numScroll: 1
-            },
-            {
-                breakpoint: '1199px',
-                numVisible: 3,
-                numScroll: 1
-            },
-            {
-                breakpoint: '767px',
-                numVisible: 2,
-                numScroll: 1
-            },
-            {
-                breakpoint: '575px',
-                numVisible: 1,
-                numScroll: 1
-            }
-        ];
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
-}
-```
-
-## Responsive
-
-Carousel supports specific configuration per screen size with the responsiveOptions property that takes an array of objects where each object defines the max-width breakpoint , numVisible for the number of items items per page and numScroll for number of items to scroll. When responsiveOptions is defined, the numScroll and numVisible properties of the Carousel are used as default when there is breakpoint that applies.
-
-**Example:**
-
-```typescript
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CarouselModule } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
-import { ProductService } from '@/service/productservice';
-import { Product } from '@/domain/product';
-
-@Component({
-    template: `
-        <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
-            <ng-template let-product #item>
-                <div class="border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-4">
-                    <div class="mb-4">
-                        <div class="relative mx-auto">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:bg-surface-900!" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                        </div>
-                    </div>
-                    <div class="mb-4 font-medium text-sm">{{ product.name }}</div>
-                    <div class="flex justify-between items-center">
-                        <div class="mt-0 font-semibold text-lg">{{ '$' + product.price }}</div>
-                        <span>
-                            <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                        </span>
-                    </div>
-                </div>
-            </ng-template>
-        </p-carousel>
-    `,
-    standalone: true,
-    imports: [ButtonModule, CarouselModule, TagModule],
-    providers: [ProductService]
-})
-export class CarouselResponsiveDemo implements OnInit {
-    private productService = inject(ProductService);
-    products = signal<Product[]>([]);
-    responsiveOptions: any[] | undefined;
-
-    ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products.set(products);
-        });
-        this.responsiveOptions = [
-            {
-                breakpoint: '1400px',
-                numVisible: 2,
-                numScroll: 1
-            },
-            {
-                breakpoint: '1199px',
-                numVisible: 3,
-                numScroll: 1
-            },
-            {
-                breakpoint: '767px',
-                numVisible: 2,
-                numScroll: 1
-            },
-            {
-                breakpoint: '575px',
-                numVisible: 1,
-                numScroll: 1
-            }
-        ];
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
-}
-```
-
-## Vertical
-
-To create a vertical Carousel, orientation needs to be set to vertical along with a verticalViewPortHeight .
-
-**Example:**
-
-```typescript
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CarouselModule } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
-import { ProductService } from '@/service/productservice';
-import { Product } from '@/domain/product';
-
-@Component({
-    template: `
-        <p-carousel [value]="products()" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
-            <ng-template let-product #item>
-                <div class="border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-3">
-                    <div class="mb-4">
-                        <div class="relative mx-auto">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-sm" />
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:bg-surface-900!" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                        </div>
-                    </div>
-                    <div class="mb-4 font-medium text-sm">{{ product.name }}</div>
-                    <div class="flex justify-between items-center">
-                        <div class="mt-0 font-semibold text-lg">{{ '$' + product.price }}</div>
-                        <span>
-                            <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                        </span>
-                    </div>
-                </div>
-            </ng-template>
-        </p-carousel>
-    `,
-    standalone: true,
-    imports: [ButtonModule, CarouselModule, TagModule],
-    providers: [ProductService]
-})
-export class CarouselVerticalDemo implements OnInit {
-    private productService = inject(ProductService);
-    products = signal<Product[]>([]);
-
-    ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products.set(products);
-        });
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
 }
 ```
 
@@ -6077,10 +5752,28 @@ Carousel is a content slider featuring various customization options.
 
 CarouselContent is the scrollable track element that contains carousel items.
 
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, CarouselContentPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+
 ## Carousel Indicators
 
 CarouselIndicators renders the list of page indicators.
 Auto-generates button indicators based on snap points.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, CarouselIndicatorsPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Carousel Item
 
@@ -6090,6 +5783,10 @@ CarouselItem represents an individual item in the composition-based carousel.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, CarouselItemPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 | value | unknown | - | The value/identifier of the carousel item. |
 
 ## Pass Through Options
@@ -6097,19 +5794,6 @@ CarouselItem represents an individual item in the composition-based carousel.
 | Name | Type | Description |
 |------|------|-------------|
 | root | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the root's DOM element. |
-| header | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the header's DOM element. |
-| contentContainer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content container's DOM element. |
-| content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
-| pcPrevButton | ButtonPassThroughOptions | Used to pass attributes to the previous button's DOM element. |
-| viewport | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the viewport's DOM element. |
-| itemList | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the item list's DOM element. |
-| item | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the item's DOM element. |
-| itemClone | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the item clone's DOM element. |
-| pcNextButton | ButtonPassThroughOptions | Used to pass attributes to the next button's DOM element. |
-| indicatorList | PassThroughOption<HTMLUListElement, I> | Used to pass attributes to the indicator list's DOM element. |
-| indicator | PassThroughOption<HTMLLIElement, I> | Used to pass attributes to the indicator's DOM element. |
-| indicatorButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the indicator button's DOM element. |
-| footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
 
 ## Theming
 
@@ -18621,7 +18305,7 @@ GalleryBackdrop represents the backdrop element for fullscreen mode.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryBackdropPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Content
@@ -18634,7 +18318,7 @@ GalleryContent represents the main content area of the gallery.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryContentPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Download
@@ -18647,7 +18331,7 @@ GalleryDownload represents the download action button.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryDownloadPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Flip X
@@ -18660,7 +18344,7 @@ GalleryFlipX represents the horizontal flip action button.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryFlipXPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Flip Y
@@ -18673,7 +18357,7 @@ GalleryFlipY represents the vertical flip action button.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryFlipYPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Footer
@@ -18686,7 +18370,7 @@ GalleryFooter represents the footer section of the gallery.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryFooterPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Full Screen
@@ -18699,7 +18383,7 @@ GalleryFullScreen represents the fullscreen toggle button.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryFullScreenPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Header
@@ -18712,7 +18396,7 @@ GalleryHeader represents the header section of the gallery.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryHeaderPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Item
@@ -18725,7 +18409,7 @@ GalleryItem represents an individual item in the gallery.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryItemPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 | normalScale | number | 1 | The normal scale of the gallery item. |
 | zoomedScale | number | 3 | The zoomed scale of the gallery item. |
@@ -18740,7 +18424,7 @@ GalleryNext represents the next navigation button.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryNextPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Prev
@@ -18753,7 +18437,7 @@ GalleryPrev represents the previous navigation button.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryPrevPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Rotate Left
@@ -18766,7 +18450,7 @@ GalleryRotateLeft represents the rotate left action button.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryRotateLeftPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Rotate Right
@@ -18779,12 +18463,21 @@ GalleryRotateRight represents the rotate right action button.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryRotateRightPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Thumbnail Content
 
 GalleryThumbnailContent represents the thumbnail carousel content area.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, GalleryThumbnailContentPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Thumbnail Item
 
@@ -18807,7 +18500,7 @@ GalleryThumbnail represents the thumbnail carousel wrapper.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryThumbnailPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 | autoSize | boolean | true | Whether the carousel should auto size items. |
 | loop | boolean | true | Whether the carousel should loop. |
@@ -18827,7 +18520,7 @@ GalleryToolbarItem represents an individual toolbar item.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryToolbarItemPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 | action | string | - | The action to dispatch when the toolbar item is clicked. |
 
@@ -18841,7 +18534,7 @@ GalleryToolbar represents the toolbar container.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryToolbarPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Zoom In
@@ -18854,7 +18547,7 @@ GalleryZoomIn represents the zoom in action button.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryZoomInPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Zoom Out
@@ -18867,7 +18560,7 @@ GalleryZoomOut represents the zoom out action button.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryZoomOutPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Gallery Zoom Toggle
@@ -18880,35 +18573,14 @@ GalleryZoomToggle represents the zoom toggle action button.
 |------|------|---------|-------------|
 | dt | Object | undefined | Defines scoped design tokens of the component. |
 | unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| pt | PassThrough<I, GalleryZoomTogglePassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Pass Through Options
 
 | Name | Type | Description |
 |------|------|-------------|
-| root | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the root's DOM element. |
-| backdrop | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the backdrop's DOM element. |
-| header | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the header's DOM element. |
-| footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
-| content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
-| item | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the item's DOM element. |
-| next | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the next button's DOM element. |
-| prev | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the prev button's DOM element. |
-| toolbar | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the toolbar's DOM element. |
-| toolbarItem | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the toolbar item's DOM element. |
-| thumbnail | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the thumbnail's DOM element. |
-| thumbnailContent | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the thumbnail content's DOM element. |
-| thumbnailItem | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the thumbnail item's DOM element. |
-| zoomIn | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the zoom in button's DOM element. |
-| zoomOut | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the zoom out button's DOM element. |
-| zoomToggle | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the zoom toggle button's DOM element. |
-| rotateLeft | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the rotate left button's DOM element. |
-| rotateRight | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the rotate right button's DOM element. |
-| flipX | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the flip x button's DOM element. |
-| flipY | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the flip y button's DOM element. |
-| download | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the download button's DOM element. |
-| fullScreen | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the fullscreen button's DOM element. |
+| root | PassThroughOption<HTMLElement, I> | Used to pass attributes to the root's DOM element. |
 
 ## Theming
 

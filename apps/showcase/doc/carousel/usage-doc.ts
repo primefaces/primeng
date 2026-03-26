@@ -17,6 +17,12 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-carousel />`
+        html: `<p-carousel align="center">
+    <p-carousel-content>
+        <p-carousel-item>Item 1</p-carousel-item>
+        <p-carousel-item>Item 2</p-carousel-item>
+    </p-carousel-content>
+    <p-carousel-indicators></p-carousel-indicators>
+</p-carousel>`
     };
 }
