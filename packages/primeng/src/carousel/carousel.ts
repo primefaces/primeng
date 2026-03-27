@@ -164,7 +164,7 @@ import { CarouselLegacyBase } from './carousel-legacy';
     host: {
         '[attr.id]': 'id',
         '[attr.role]': "'region'",
-        '[class]': "cx('root')",
+        '[class]': 'hostClass()',
         '[attr.data-scope]': 'dataScope()',
         '[attr.data-part]': 'dataPart()',
         '[attr.data-orientation]': 'dataOrientation()',
@@ -186,6 +186,8 @@ export class Carousel extends CarouselLegacyBase {
     _compositionContent = contentChildren(CarouselContentComp, { descendants: true });
 
     isCompositionMode = computed(() => this._compositionContent().length > 0);
+
+    hostClass = computed(() => (this.isCompositionMode() ? this.cx('compositionRoot') : this.cx('root')));
 
     /**
      * Alignment of the carousel items (composition mode).

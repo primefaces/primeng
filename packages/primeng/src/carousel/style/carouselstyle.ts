@@ -75,7 +75,10 @@ const classes = {
     indicatorButton: ({ instance }) => ['p-carousel-indicator-button', instance.indicatorStyleClass()],
     footer: 'p-carousel-footer',
     // Composition mode
+    compositionRoot: 'p-carousel p-component',
     compositionIndicator: ({ instance, index }) => ['p-carousel-indicator-button', { 'p-carousel-indicator-active': instance.pageState() === index }],
+    compositionContent: ({ instance }) => ['p-carousel-content', instance.orientation() === 'vertical' ? 'p-carousel-content-vertical' : 'p-carousel-content-horizontal'],
+    compositionItem: 'p-carousel-item',
     compositionPrev: ({ instance }) => [{ 'p-disabled': instance.isPrevDisabled() }],
     compositionNext: ({ instance }) => [{ 'p-disabled': instance.isNextDisabled() }]
 };

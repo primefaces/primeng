@@ -19,7 +19,7 @@ import { Component } from '@angular/core';
             header="Carousel"
             description="Carousel is a content slider featuring various customization options."
             [docs]="docs"
-            [apiDocs]="['Carousel']"
+            [apiDocs]="['Carousel', 'CarouselContent', 'CarouselItem', 'CarouselIndicators', 'CarouselNext', 'CarouselPrev', 'CarouselIndicator']"
             [ptDocs]="ptComponent"
             themeDocs="Carousel"
             [heroDoc]="heroDoc"

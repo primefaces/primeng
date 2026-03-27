@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, ViewEncaps
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { CAROUSEL_ROOT } from './carousel-token';
+import { CarouselStyle } from './style/carouselstyle';
 import type { CarouselItemPassThrough } from 'primeng/types/carousel';
 
 /**
@@ -13,10 +14,11 @@ import type { CarouselItemPassThrough } from 'primeng/types/carousel';
     standalone: true,
     imports: [BindModule],
     template: `<ng-content></ng-content>`,
-    providers: [{ provide: PARENT_INSTANCE, useExisting: CarouselItem }],
+    providers: [CarouselStyle, { provide: PARENT_INSTANCE, useExisting: CarouselItem }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
+        '[class]': "root.cx('compositionItem')",
         '[attr.data-scope]': "'carousel'",
         '[attr.data-part]': "'item'",
         '[attr.data-item]': "''",

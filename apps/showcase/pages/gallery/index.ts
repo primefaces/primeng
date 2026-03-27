@@ -34,6 +34,7 @@ import { Component } from '@angular/core';
             'GalleryFullScreen',
             'GalleryDownload',
             'GalleryThumbnail',
+            'GalleryThumbnailContent',
             'GalleryThumbnailItem'
         ]"
         [ptDocs]="ptComponent"

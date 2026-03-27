@@ -16,7 +16,18 @@ import { GalleryThumbnailItem } from './gallery-thumbnail-item';
     standalone: true,
     imports: [BindModule, NgTemplateOutlet, CarouselModule],
     template: `
-        <p-carousel [autoSize]="autoSize()" [loop]="loop()" [align]="align()" [spacing]="spacing()" [orientation]="orientation()" [snapType]="snapType()" [slidesPerPage]="slidesPerPage()" [slide]="slide()" [pt]="ptm('pcCarousel')">
+        <p-carousel
+            [autoSize]="autoSize()"
+            [loop]="loop()"
+            [align]="align()"
+            [spacing]="spacing()"
+            [orientation]="orientation()"
+            [snapType]="snapType()"
+            [slidesPerPage]="slidesPerPage()"
+            [slide]="slide()"
+            [unstyled]="gallery.$unstyled()"
+            [pt]="ptm('pcCarousel')"
+        >
             <p-carousel-content [pt]="ptm('pcCarouselContent')">
                 @if (thumbnailItems().length > 0) {
                     @for (item of thumbnailItems(); track item; let i = $index) {
@@ -42,6 +53,7 @@ import { GalleryThumbnailItem } from './gallery-thumbnail-item';
 })
 export class GalleryThumbnail extends BaseComponent<GalleryThumbnailPassThrough> {
     componentName = 'GalleryThumbnail';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     gallery = inject(Gallery);
