@@ -25,6 +25,7 @@ import type { GalleryFooterPassThrough } from 'primeng/types/gallery';
 })
 export class GalleryFooter extends BaseComponent<GalleryFooterPassThrough> {
     componentName = 'GalleryFooter';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     gallery = inject(Gallery);

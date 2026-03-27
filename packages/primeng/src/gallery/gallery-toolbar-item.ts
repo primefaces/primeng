@@ -26,6 +26,7 @@ import type { GalleryToolbarItemPassThrough } from 'primeng/types/gallery';
 })
 export class GalleryToolbarItem extends BaseComponent<GalleryToolbarItemPassThrough> {
     componentName = 'GalleryToolbarItem';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     /**

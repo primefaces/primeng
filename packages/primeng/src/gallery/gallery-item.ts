@@ -62,11 +62,17 @@ export class GalleryItem extends BaseComponent<GalleryItemPassThrough> {
     index = signal(-1);
 
     isActive = computed(() => this.gallery.activeIndex() === this.index());
+
     dataActive = computed(() => (this.isActive() ? 'true' : 'false'));
+
     stylePositionX = computed(() => this.position().x + 'px');
+
     stylePositionY = computed(() => this.position().y + 'px');
+
     styleRotation = computed(() => this.rotation() + 'deg');
+
     styleFlipX = computed(() => this.flip().x);
+
     styleFlipY = computed(() => this.flip().y);
 
     position = signal({ x: 0, y: 0 });

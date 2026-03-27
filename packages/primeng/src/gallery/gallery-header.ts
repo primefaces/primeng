@@ -25,6 +25,7 @@ import type { GalleryHeaderPassThrough } from 'primeng/types/gallery';
 })
 export class GalleryHeader extends BaseComponent<GalleryHeaderPassThrough> {
     componentName = 'GalleryHeader';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     gallery = inject(Gallery);

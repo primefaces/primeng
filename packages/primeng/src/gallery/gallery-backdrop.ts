@@ -25,6 +25,7 @@ import type { GalleryBackdropPassThrough } from 'primeng/types/gallery';
 })
 export class GalleryBackdrop extends BaseComponent<GalleryBackdropPassThrough> {
     componentName = 'GalleryBackdrop';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     gallery = inject(Gallery);

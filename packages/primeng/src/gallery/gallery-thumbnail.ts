@@ -31,7 +31,7 @@ import { GalleryThumbnailItem } from './gallery-thumbnail-item';
             <p-carousel-content [pt]="ptm('pcCarouselContent')">
                 @if (thumbnailItems().length > 0) {
                     @for (item of thumbnailItems(); track item; let i = $index) {
-                        <p-carousel-item [class]="item.hostClass()" [attr.data-active]="item.dataActive()" (click)="item.onClick()" [pt]="ptm('pcCarouselItem')">
+                        <p-carousel-item [class]="item.hostClass()" [attr.data-active]="item.dataActive()" [attr.tabindex]="0" (click)="item.onClick()" (keydown)="onItemKeydown($event, i)" [pt]="ptm('pcCarouselItem')">
                             <ng-container *ngTemplateOutlet="item.templateRef()"></ng-container>
                         </p-carousel-item>
                     }
@@ -114,4 +114,40 @@ export class GalleryThumbnail extends BaseComponent<GalleryThumbnailPassThrough>
     thumbnailItems = contentChildren(GalleryThumbnailItem, { descendants: true });
 
     slide = computed(() => this.gallery.activeIndex());
+
+    onItemKeydown(event: KeyboardEvent, index: number) {
+        const items = this.thumbnailItems();
+
+        switch (event.code) {
+            case 'Enter':
+            case 'Space':
+                event.preventDefault();
+                items[index]?.onClick();
+                break;
+            case 'ArrowRight':
+            case 'ArrowDown':
+                event.preventDefault();
+                this.focusItem((index + 1) % items.length);
+                break;
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                event.preventDefault();
+                this.focusItem((index - 1 + items.length) % items.length);
+                break;
+            case 'Home':
+                event.preventDefault();
+                this.focusItem(0);
+                break;
+            case 'End':
+                event.preventDefault();
+                this.focusItem(items.length - 1);
+                break;
+        }
+    }
+
+    private focusItem(nextIndex: number) {
+        this.gallery.selectItem(nextIndex);
+        const carouselItems = (this.$el as HTMLElement)?.querySelectorAll('[data-pc-name="pccarouselitem"][tabindex]');
+        (carouselItems?.[nextIndex] as HTMLElement)?.focus();
+    }
 }

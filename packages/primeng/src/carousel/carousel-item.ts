@@ -50,11 +50,17 @@ export class CarouselItem extends BaseComponent<CarouselItemPassThrough> {
     root = inject(CAROUSEL_ROOT);
 
     dataOrientation = computed(() => this.root.orientation());
+
     dataAlign = computed(() => this.root.align());
+
     dataPage = computed(() => this.root.pageState());
+
     dataSwiping = computed(() => (this.root.swiping() ? '' : null));
+
     dataAutosize = computed(() => (this.root.autoSize() ? '' : null));
+
     flexBasis = computed(() => (this.root.autoSize() ? 'auto' : 'calc(100% / var(--slides-per-page) - var(--spacing-items) * (var(--slides-per-page) - 1) / var(--slides-per-page))'));
+
     scrollSnapAlign = computed(() => this.root.align());
 
     onAfterViewChecked() {

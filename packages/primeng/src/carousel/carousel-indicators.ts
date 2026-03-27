@@ -41,9 +41,13 @@ export class CarouselIndicators extends BaseComponent<CarouselIndicatorsPassThro
     root = inject(CAROUSEL_ROOT);
 
     hostClass = computed(() => this.root.cx('indicatorList'));
+
     dataOrientation = computed(() => this.root.orientation());
+
     dataAlign = computed(() => this.root.align());
+
     dataPage = computed(() => this.root.pageState());
+
     dataSwiping = computed(() => (this.root.swiping() ? '' : null));
 
     pages = computed(() => {

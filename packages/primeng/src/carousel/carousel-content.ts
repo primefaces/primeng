@@ -54,18 +54,31 @@ export class CarouselContent extends BaseComponent<CarouselContentPassThrough> {
     root = inject(CAROUSEL_ROOT);
 
     isVertical = computed(() => this.root.orientation() === 'vertical');
+
     flexDirection = computed(() => (this.isVertical() ? 'column' : 'row'));
+
     overflowX = computed(() => (this.isVertical() ? null : 'scroll'));
+
     overflowY = computed(() => (this.isVertical() ? 'scroll' : null));
+
     overscrollX = computed(() => (this.isVertical() ? null : 'contain'));
+
     overscrollY = computed(() => (this.isVertical() ? 'contain' : null));
+
     dataAutosize = computed(() => (this.root.autoSize() ? '' : null));
+
     dataSwiping = computed(() => (this.root.swiping() ? '' : null));
+
     dataOrientation = computed(() => this.root.orientation());
+
     dataAlign = computed(() => this.root.align());
+
     dataPage = computed(() => this.root.pageState());
+
     slidesPerPage = computed(() => this.root.slidesPerPage());
+
     spacingItems = computed(() => this.root.spacing() + 'px');
+
     scrollSnapType = computed(() => this.root.resolveSnapType());
 
     onPointerDown(e: PointerEvent) {
