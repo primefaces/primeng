@@ -1,76 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-04T15:48:15.004Z",
+  "generatedAt": "2026-03-27T13:01:33.479Z",
   "totalDemos": 804,
   "demos": {
-    "Image-template-demo": {
-      "key": "Image-template-demo",
-      "selector": "Image-template-demo",
-      "component": "Image",
-      "section": "template",
-      "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" [preview]=\"true\" alt=\"Image\" width=\"250\">\n                <ng-template #indicator>\n                    <i class=\"pi pi-search\"></i>\n                </ng-template>\n                <ng-template #image>\n                    <img src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"image\" width=\"250\" />\n                </ng-template>\n                <ng-template #preview let-style=\"style\" let-previewCallback=\"previewCallback\">\n                    <img src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"image\" [style]=\"style\" (click)=\"previewCallback()\" />\n                </ng-template>\n            </p-image>\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImageTemplateDemo {}"
-      },
-      "metadata": {
-        "services": [],
-        "primeNGServices": [],
-        "extFiles": [],
-        "imports": [
-          "ImageModule"
-        ]
-      }
-    },
-    "Image-previewimagesource-demo": {
-      "key": "Image-previewimagesource-demo",
-      "selector": "Image-previewimagesource-demo",
-      "component": "Image",
-      "section": "previewimagesource",
-      "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" previewImageSrc=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"Image\" width=\"250\" [preview]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImagePreviewimagesourceDemo {}"
-      },
-      "metadata": {
-        "services": [],
-        "primeNGServices": [],
-        "extFiles": [],
-        "imports": [
-          "ImageModule"
-        ]
-      }
-    },
-    "Image-preview-demo": {
-      "key": "Image-preview-demo",
-      "selector": "Image-preview-demo",
-      "component": "Image",
-      "section": "preview",
-      "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg\" alt=\"Image\" width=\"250\" [preview]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImagePreviewDemo {}"
-      },
-      "metadata": {
-        "services": [],
-        "primeNGServices": [],
-        "extFiles": [],
-        "imports": [
-          "ImageModule"
-        ]
-      }
-    },
-    "Image-basic-demo": {
-      "key": "Image-basic-demo",
-      "selector": "Image-basic-demo",
-      "component": "Image",
-      "section": "basic",
-      "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg\" alt=\"Image\" width=\"250\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImageBasicDemo {}"
-      },
-      "metadata": {
-        "services": [],
-        "primeNGServices": [],
-        "extFiles": [],
-        "imports": [
-          "ImageModule"
-        ]
-      }
-    },
     "accordion-template-demo": {
       "key": "accordion-template-demo",
       "selector": "accordion-template-demo",
@@ -5189,6 +5121,74 @@
           "IftaLabelModule",
           "InputTextModule",
           "FormsModule"
+        ]
+      }
+    },
+    "image-template-demo": {
+      "key": "image-template-demo",
+      "selector": "image-template-demo",
+      "component": "image",
+      "section": "template",
+      "code": {
+        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" [preview]=\"true\" alt=\"Image\" width=\"250\">\n                <ng-template #indicator>\n                    <i class=\"pi pi-search\"></i>\n                </ng-template>\n                <ng-template #image>\n                    <img src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"image\" width=\"250\" />\n                </ng-template>\n                <ng-template #preview let-style=\"style\" let-previewCallback=\"previewCallback\">\n                    <img src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"image\" [style]=\"style\" (click)=\"previewCallback()\" />\n                </ng-template>\n            </p-image>\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImageTemplateDemo {}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": [
+          "ImageModule"
+        ]
+      }
+    },
+    "image-previewimagesource-demo": {
+      "key": "image-previewimagesource-demo",
+      "selector": "image-previewimagesource-demo",
+      "component": "image",
+      "section": "previewimagesource",
+      "code": {
+        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" previewImageSrc=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"Image\" width=\"250\" [preview]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImagePreviewimagesourceDemo {}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": [
+          "ImageModule"
+        ]
+      }
+    },
+    "image-preview-demo": {
+      "key": "image-preview-demo",
+      "selector": "image-preview-demo",
+      "component": "image",
+      "section": "preview",
+      "code": {
+        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg\" alt=\"Image\" width=\"250\" [preview]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImagePreviewDemo {}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": [
+          "ImageModule"
+        ]
+      }
+    },
+    "image-basic-demo": {
+      "key": "image-basic-demo",
+      "selector": "image-basic-demo",
+      "component": "image",
+      "section": "basic",
+      "code": {
+        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg\" alt=\"Image\" width=\"250\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImageBasicDemo {}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": [
+          "ImageModule"
         ]
       }
     },

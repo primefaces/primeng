@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-04",
+  "generatedAt": "2026-03-27",
   "components": [
     {
       "name": "accordion",
@@ -16273,6 +16273,550 @@
             "token": "iftalabel.input.padding.bottom",
             "variable": "--p-iftalabel-input-padding-bottom",
             "description": "Padding bottom of input"
+          }
+        ]
+      }
+    },
+    {
+      "name": "image",
+      "title": "Angular Image Component",
+      "description": "Displays an image with preview and tranformation options.",
+      "sections": [
+        {
+          "id": "accessibility",
+          "label": "Accessibility",
+          "description": "Screen Reader The preview button is a native button element with an aria-label that refers to the aria.zoomImage property of the locale API by default. When preview is active, dialog role with aria-modal is applied to the overlay image container. Button controls use aria.rotateRight , aria.rotateLeft , aria.zoomIn , aria.zoomOut and aria.close from the locale API as aria-label . ButtonBar Keyboard Support When preview is activated, close button receives the initial focus. Key Function tab Moves focus through button bar. enter Activates the button. space Activates the button. esc Closes the image preview.",
+          "examples": null
+        },
+        {
+          "id": "basic",
+          "label": "Basic",
+          "description": "Image is used as the native img element and supports all properties that the native element has. For multiple image, see Galleria.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg\" alt=\"Image\" width=\"250\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImageBasicDemo {}"
+          }
+        },
+        {
+          "id": "preview",
+          "label": "Preview",
+          "description": "Preview mode displays a modal layer when the image is clicked that provides transformation options such as rotating and zooming.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg\" alt=\"Image\" width=\"250\" [preview]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImagePreviewDemo {}"
+          }
+        },
+        {
+          "id": "previewimagesource",
+          "label": "previewimagesource-doc",
+          "description": "In case that you want to show different image on preview, you can set previewImageSrc attribute. It could come handy when wanted to use smaller image version at first and bigger one on preview.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" previewImageSrc=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"Image\" width=\"250\" [preview]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImagePreviewimagesourceDemo {}"
+          }
+        },
+        {
+          "id": "template",
+          "label": "Template",
+          "description": "An eye icon is displayed by default when the image is hovered in preview mode. Use the indicator template for custom content.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" [preview]=\"true\" alt=\"Image\" width=\"250\">\n                <ng-template #indicator>\n                    <i class=\"pi pi-search\"></i>\n                </ng-template>\n                <ng-template #image>\n                    <img src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"image\" width=\"250\" />\n                </ng-template>\n                <ng-template #preview let-style=\"style\" let-previewCallback=\"previewCallback\">\n                    <img src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"image\" [style]=\"style\" (click)=\"previewCallback()\" />\n                </ng-template>\n            </p-image>\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImageTemplateDemo {}"
+          }
+        }
+      ],
+      "api": {
+        "props": [
+          {
+            "name": "dt",
+            "type": "InputSignal<Object>",
+            "default": "undefined",
+            "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
+            "name": "pt",
+            "type": "InputSignal<ImagePassThrough>",
+            "default": "undefined",
+            "description": "Used to pass attributes to DOM elements inside the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "ptOptions",
+            "type": "InputSignal<PassThroughOptions>",
+            "default": "undefined",
+            "description": "Used to configure passthrough(pt) options of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "imageClass",
+            "type": "string",
+            "default": "-",
+            "description": "Style class of the image element.",
+            "deprecated": ""
+          },
+          {
+            "name": "imageStyle",
+            "type": "{ [klass: string]: any }",
+            "default": "-",
+            "description": "Inline style of the image element.",
+            "deprecated": ""
+          },
+          {
+            "name": "styleClass",
+            "type": "string",
+            "default": "-",
+            "description": "Class of the element.",
+            "deprecated": "since v20.0.0, use "
+          },
+          {
+            "name": "src",
+            "type": "string | SafeUrl",
+            "default": "-",
+            "description": "The source path for the main image.",
+            "deprecated": ""
+          },
+          {
+            "name": "srcSet",
+            "type": "string | SafeUrl",
+            "default": "-",
+            "description": "The srcset definition for the main image.",
+            "deprecated": ""
+          },
+          {
+            "name": "sizes",
+            "type": "string",
+            "default": "-",
+            "description": "The sizes definition for the main image.",
+            "deprecated": ""
+          },
+          {
+            "name": "previewImageSrc",
+            "type": "string | SafeUrl",
+            "default": "-",
+            "description": "The source path for the preview image.",
+            "deprecated": ""
+          },
+          {
+            "name": "previewImageSrcSet",
+            "type": "string | SafeUrl",
+            "default": "-",
+            "description": "The srcset definition for the preview image.",
+            "deprecated": ""
+          },
+          {
+            "name": "previewImageSizes",
+            "type": "string",
+            "default": "-",
+            "description": "The sizes definition for the preview image.",
+            "deprecated": ""
+          },
+          {
+            "name": "alt",
+            "type": "string",
+            "default": "-",
+            "description": "Attribute of the preview image element.",
+            "deprecated": ""
+          },
+          {
+            "name": "width",
+            "type": "string",
+            "default": "-",
+            "description": "Attribute of the image element.",
+            "deprecated": ""
+          },
+          {
+            "name": "height",
+            "type": "string",
+            "default": "-",
+            "description": "Attribute of the image element.",
+            "deprecated": ""
+          },
+          {
+            "name": "loading",
+            "type": "\"eager\" | \"lazy\"",
+            "default": "-",
+            "description": "Attribute of the image element.",
+            "deprecated": ""
+          },
+          {
+            "name": "preview",
+            "type": "boolean",
+            "default": "false",
+            "description": "Controls the preview functionality.",
+            "deprecated": ""
+          },
+          {
+            "name": "showTransitionOptions",
+            "type": "string",
+            "default": "150ms cubic-bezier(0, 0, 0.2, 1)",
+            "description": "Transition options of the show animation",
+            "deprecated": "since v21.0.0. Use "
+          },
+          {
+            "name": "hideTransitionOptions",
+            "type": "string",
+            "default": "150ms cubic-bezier(0, 0, 0.2, 1)",
+            "description": "Transition options of the hide animation",
+            "deprecated": "since v21.0.0. Use "
+          },
+          {
+            "name": "modalEnterAnimation",
+            "type": "InputSignal<string>",
+            "default": "'p-modal-enter'",
+            "description": "Enter animation class name of modal.",
+            "deprecated": ""
+          },
+          {
+            "name": "modalLeaveAnimation",
+            "type": "InputSignal<string>",
+            "default": "'p-modal-leave'",
+            "description": "Leave animation class name of modal.",
+            "deprecated": ""
+          },
+          {
+            "name": "appendTo",
+            "type": "InputSignal<any>",
+            "default": "'self'",
+            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "deprecated": ""
+          },
+          {
+            "name": "maskMotionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options for the mask.",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
+            "deprecated": ""
+          }
+        ],
+        "templates": [
+          {
+            "name": "indicator",
+            "type": "TemplateRef<void>",
+            "description": "Custom indicator template."
+          },
+          {
+            "name": "rotaterighticon",
+            "type": "TemplateRef<void>",
+            "description": "Custom rotate right icon template."
+          },
+          {
+            "name": "rotatelefticon",
+            "type": "TemplateRef<void>",
+            "description": "Custom rotate left icon template."
+          },
+          {
+            "name": "zoomouticon",
+            "type": "TemplateRef<void>",
+            "description": "Custom zoom out icon template."
+          },
+          {
+            "name": "zoominicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom zoom in icon template."
+          },
+          {
+            "name": "closeicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom close icon template."
+          },
+          {
+            "name": "preview",
+            "type": "TemplateRef<ImagePreviewTemplateContext>",
+            "description": "Custom preview template."
+          },
+          {
+            "name": "image",
+            "type": "TemplateRef<ImageImageTemplateContext>",
+            "description": "Custom image template."
+          }
+        ],
+        "emits": [
+          {
+            "name": "onShow",
+            "parameters": [
+              {
+                "name": "value",
+                "type": "any"
+              }
+            ],
+            "description": "Triggered when the preview overlay is shown."
+          },
+          {
+            "name": "onHide",
+            "parameters": [
+              {
+                "name": "value",
+                "type": "any"
+              }
+            ],
+            "description": "Triggered when the preview overlay is hidden."
+          },
+          {
+            "name": "onImageError",
+            "parameters": [
+              {
+                "name": "event",
+                "type": "Event"
+              }
+            ],
+            "description": "This event is triggered if an error occurs while loading an image file."
+          }
+        ],
+        "methods": null,
+        "pt": [
+          {
+            "name": "root",
+            "type": "PassThroughOption<HTMLSpanElement, I>",
+            "description": "Used to pass attributes to the root's DOM element."
+          },
+          {
+            "name": "image",
+            "type": "PassThroughOption<HTMLImageElement, I>",
+            "description": "Used to pass attributes to the image's DOM element."
+          },
+          {
+            "name": "previewMask",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the preview mask button's DOM element."
+          },
+          {
+            "name": "previewIcon",
+            "type": "PassThroughOption<SVGElement, I>",
+            "description": "Used to pass attributes to the preview icon's DOM element."
+          },
+          {
+            "name": "mask",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the mask's DOM element."
+          },
+          {
+            "name": "toolbar",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the toolbar's DOM element."
+          },
+          {
+            "name": "rotateRightButton",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the rotate right button's DOM element."
+          },
+          {
+            "name": "rotateLeftButton",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the rotate left button's DOM element."
+          },
+          {
+            "name": "zoomOutButton",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the zoom out button's DOM element."
+          },
+          {
+            "name": "zoomInButton",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the zoom in button's DOM element."
+          },
+          {
+            "name": "closeButton",
+            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "description": "Used to pass attributes to the close button's DOM element."
+          },
+          {
+            "name": "original",
+            "type": "PassThroughOption<HTMLImageElement, I>",
+            "description": "Used to pass attributes to the original/preview image's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
+          }
+        ],
+        "styles": [
+          {
+            "class": "p-image",
+            "description": "Class name of the root element"
+          },
+          {
+            "class": "p-image-preview-mask",
+            "description": "Class name of the preview mask element"
+          },
+          {
+            "class": "p-image-preview-icon",
+            "description": "Class name of the preview icon element"
+          },
+          {
+            "class": "p-image-mask",
+            "description": "Class name of the mask element"
+          },
+          {
+            "class": "p-image-toolbar",
+            "description": "Class name of the toolbar element"
+          },
+          {
+            "class": "p-image-rotate-right-button",
+            "description": "Class name of the rotate right button element"
+          },
+          {
+            "class": "p-image-rotate-left-button",
+            "description": "Class name of the rotate left button element"
+          },
+          {
+            "class": "p-image-zoom-out-button",
+            "description": "Class name of the zoom out button element"
+          },
+          {
+            "class": "p-image-zoom-in-button",
+            "description": "Class name of the zoom in button element"
+          },
+          {
+            "class": "p-image-close-button",
+            "description": "Class name of the close button element"
+          },
+          {
+            "class": "p-image-original",
+            "description": "Class name of the original element"
+          }
+        ],
+        "tokens": [
+          {
+            "token": "image.transition.duration",
+            "variable": "--p-image-transition-duration",
+            "description": "Transition duration of root"
+          },
+          {
+            "token": "image.preview.icon.size",
+            "variable": "--p-image-preview-icon-size",
+            "description": "Icon size of preview"
+          },
+          {
+            "token": "image.preview.mask.background",
+            "variable": "--p-image-preview-mask-background",
+            "description": "Mask background of preview"
+          },
+          {
+            "token": "image.preview.mask.color",
+            "variable": "--p-image-preview-mask-color",
+            "description": "Mask color of preview"
+          },
+          {
+            "token": "image.toolbar.position.left",
+            "variable": "--p-image-toolbar-position-left",
+            "description": "Position left of toolbar"
+          },
+          {
+            "token": "image.toolbar.position.right",
+            "variable": "--p-image-toolbar-position-right",
+            "description": "Position right of toolbar"
+          },
+          {
+            "token": "image.toolbar.position.top",
+            "variable": "--p-image-toolbar-position-top",
+            "description": "Position top of toolbar"
+          },
+          {
+            "token": "image.toolbar.position.bottom",
+            "variable": "--p-image-toolbar-position-bottom",
+            "description": "Position bottom of toolbar"
+          },
+          {
+            "token": "image.toolbar.blur",
+            "variable": "--p-image-toolbar-blur",
+            "description": "Blur of toolbar"
+          },
+          {
+            "token": "image.toolbar.background",
+            "variable": "--p-image-toolbar-background",
+            "description": "Background of toolbar"
+          },
+          {
+            "token": "image.toolbar.border.color",
+            "variable": "--p-image-toolbar-border-color",
+            "description": "Border color of toolbar"
+          },
+          {
+            "token": "image.toolbar.border.width",
+            "variable": "--p-image-toolbar-border-width",
+            "description": "Border width of toolbar"
+          },
+          {
+            "token": "image.toolbar.border.radius",
+            "variable": "--p-image-toolbar-border-radius",
+            "description": "Border radius of toolbar"
+          },
+          {
+            "token": "image.toolbar.padding",
+            "variable": "--p-image-toolbar-padding",
+            "description": "Padding of toolbar"
+          },
+          {
+            "token": "image.toolbar.gap",
+            "variable": "--p-image-toolbar-gap",
+            "description": "Gap of toolbar"
+          },
+          {
+            "token": "image.action.hover.background",
+            "variable": "--p-image-action-hover-background",
+            "description": "Hover background of action"
+          },
+          {
+            "token": "image.action.color",
+            "variable": "--p-image-action-color",
+            "description": "Color of action"
+          },
+          {
+            "token": "image.action.hover.color",
+            "variable": "--p-image-action-hover-color",
+            "description": "Hover color of action"
+          },
+          {
+            "token": "image.action.size",
+            "variable": "--p-image-action-size",
+            "description": "Size of action"
+          },
+          {
+            "token": "image.action.icon.size",
+            "variable": "--p-image-action-icon-size",
+            "description": "Icon size of action"
+          },
+          {
+            "token": "image.action.border.radius",
+            "variable": "--p-image-action-border-radius",
+            "description": "Border radius of action"
+          },
+          {
+            "token": "image.action.focus.ring.width",
+            "variable": "--p-image-action-focus-ring-width",
+            "description": "Focus ring width of action"
+          },
+          {
+            "token": "image.action.focus.ring.style",
+            "variable": "--p-image-action-focus-ring-style",
+            "description": "Focus ring style of action"
+          },
+          {
+            "token": "image.action.focus.ring.color",
+            "variable": "--p-image-action-focus-ring-color",
+            "description": "Focus ring color of action"
+          },
+          {
+            "token": "image.action.focus.ring.offset",
+            "variable": "--p-image-action-focus-ring-offset",
+            "description": "Focus ring offset of action"
+          },
+          {
+            "token": "image.action.focus.ring.shadow",
+            "variable": "--p-image-action-focus-ring-shadow",
+            "description": "Focus ring shadow of action"
           }
         ]
       }
