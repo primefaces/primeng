@@ -2,6 +2,12 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.1.4](https://github.com/primefaces/primeng/tree/21.1.4) (2026-03-27)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.3...21.1.4)
+
+**Fixed bugs:**
+- p-orderList: controlsPosition="right" not working anymore in PrimeNG 21 [#19505](https://github.com/primefaces/primeng/issues/19505)
+
 ## [21.1.3](https://github.com/primefaces/primeng/tree/21.1.3) (2026-03-04)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.1.2...21.1.3)
 
