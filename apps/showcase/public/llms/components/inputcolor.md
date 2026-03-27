@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
+import { EyeDropper } from '@primeicons/angular/eye-dropper';
 
 @Component({
     template: `
@@ -167,7 +168,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FloatLabelModule, InputGroupModule, FormsModule]
+    imports: [SelectModule, FloatLabelModule, InputGroupModule, FormsModule, EyeDropper]
 })
 export class InputColorAdvancedDemo {
     color: string = '';
@@ -190,6 +191,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
+import { EyeDropper } from '@primeicons/angular/eye-dropper';
 
 @Component({
     template: `
@@ -257,7 +259,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
         </p-inputcolor>
     `,
     standalone: true,
-    imports: [SelectModule, InputGroupModule, FormsModule]
+    imports: [SelectModule, InputGroupModule, FormsModule, EyeDropper]
 })
 export class InputColorBasicDemo {
     color: string = '#276def';
@@ -296,6 +298,7 @@ Demonstrates tracking color value changes during interaction and when interactio
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { EyeDropper } from '@primeicons/angular/eye-dropper';
 
 @Component({
     template: `
@@ -333,7 +336,7 @@ import { FormsModule } from '@angular/forms';
         </div>
     `,
     standalone: true,
-    imports: [FormsModule]
+    imports: [FormsModule, EyeDropper]
 })
 export class InputColorControlledDemo {
     value: ColorInstance = parseColor('#000000')!;
@@ -357,6 +360,7 @@ InputColor can be used inside a Popover, with a color swatch as the trigger.
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Popover, PopoverModule } from 'primeng/popover';
+import { EyeDropper } from '@primeicons/angular/eye-dropper';
 
 @Component({
     template: `
@@ -394,7 +398,7 @@ import { Popover, PopoverModule } from 'primeng/popover';
         </div>
     `,
     standalone: true,
-    imports: [PopoverModule, FormsModule]
+    imports: [PopoverModule, FormsModule, EyeDropper]
 })
 export class InputColorPopoverDemo {
     color: string = '#0099ff';

@@ -13,6 +13,8 @@ Use align to control snap alignment and slidesPerPage to show partial slides.
 ```typescript
 import { Component } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
+import { ChevronLeft } from '@primeicons/angular/chevron-left';
+import { ChevronRight } from '@primeicons/angular/chevron-right';
 
 @Component({
     template: `
@@ -48,7 +50,7 @@ import { CarouselModule } from 'primeng/carousel';
         </div>
     `,
     standalone: true,
-    imports: [CarouselModule]
+    imports: [CarouselModule, ChevronLeft, ChevronRight]
 })
 export class CarouselAlignmentDemo {
     items: any[] = [1, 2, 3, 4, 5];
@@ -62,6 +64,8 @@ Composition-based carousel using native scroll-snap with sub-components for root
 ```typescript
 import { Component } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
+import { ChevronLeft } from '@primeicons/angular/chevron-left';
+import { ChevronRight } from '@primeicons/angular/chevron-right';
 
 @Component({
     template: `
@@ -97,7 +101,7 @@ import { CarouselModule } from 'primeng/carousel';
         </div>
     `,
     standalone: true,
-    imports: [CarouselModule]
+    imports: [CarouselModule, ChevronLeft, ChevronRight]
 })
 export class CarouselBasicDemo {
     items: any[] = [1, 2, 3, 4, 5];
@@ -161,6 +165,8 @@ Enable continuous looping with the loop property. Use slidesPerPage to show part
 ```typescript
 import { Component } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
+import { ChevronLeft } from '@primeicons/angular/chevron-left';
+import { ChevronRight } from '@primeicons/angular/chevron-right';
 
 @Component({
     template: `
@@ -196,7 +202,7 @@ import { CarouselModule } from 'primeng/carousel';
         </div>
     `,
     standalone: true,
-    imports: [CarouselModule]
+    imports: [CarouselModule, ChevronLeft, ChevronRight]
 })
 export class CarouselLoopDemo {
     items: any[] = [1, 2, 3, 4, 5];
@@ -210,6 +216,8 @@ Set orientation to vertical for a vertical carousel layout.
 ```typescript
 import { Component } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
+import { ChevronUp } from '@primeicons/angular/chevron-up';
+import { ChevronDown } from '@primeicons/angular/chevron-down';
 
 @Component({
     template: `
@@ -240,7 +248,7 @@ import { CarouselModule } from 'primeng/carousel';
         </div>
     `,
     standalone: true,
-    imports: [CarouselModule]
+    imports: [CarouselModule, ChevronUp, ChevronDown]
 })
 export class CarouselOrientationDemo {
     items: any[] = [1, 2, 3, 4, 5];
@@ -254,6 +262,8 @@ Enable autoSize to allow items with variable widths.
 ```typescript
 import { Component } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
+import { ChevronLeft } from '@primeicons/angular/chevron-left';
+import { ChevronRight } from '@primeicons/angular/chevron-right';
 
 @Component({
     template: `
@@ -289,7 +299,7 @@ import { CarouselModule } from 'primeng/carousel';
         </div>
     `,
     standalone: true,
-    imports: [CarouselModule]
+    imports: [CarouselModule, ChevronLeft, ChevronRight]
 })
 export class CarouselVariableSizeDemo {
     items: any[] = [{ width: '120px' }, { width: '80px' }, { width: '200px' }, { width: '160px' }, { width: '220px' }, { width: '180px' }, { width: '280px' }, { width: '100px' }];

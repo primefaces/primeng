@@ -93,7 +93,6 @@ import type { GalleryActiveIndexChangeEvent } from 'primeng/types/gallery';
     `
 })
 export class GridDoc {
-    // [picsum photo id, width, height]
     photos: [number, number, number][] = [
         [10, 1200, 800],
         [11, 800, 1200],

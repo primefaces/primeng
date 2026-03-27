@@ -83,7 +83,6 @@ import { ChevronRight } from '@primeicons/angular/chevron-right';
     `
 })
 export class BasicDoc {
-    // [picsum photo id, width, height]
     photos: [number, number, number][] = [
         [10, 1200, 800],
         [11, 800, 1200],

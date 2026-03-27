@@ -12,6 +12,8 @@ CommandMenu requires a collection of options via the options property. Use group
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { ArrowUp } from '@primeicons/angular/arrow-up';
+import { ArrowDown } from '@primeicons/angular/arrow-down';
 
 @Component({
     template: `
@@ -37,7 +39,7 @@ import { Component, OnInit } from '@angular/core';
         </p-commandmenu>
     `,
     standalone: true,
-    imports: []
+    imports: [ArrowUp, ArrowDown]
 })
 export class CommandmenuBasicDemo implements OnInit {
     commands!: any[];
@@ -141,6 +143,8 @@ The search value can be controlled with two-way binding using [(search)] . An em
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { ArrowUp } from '@primeicons/angular/arrow-up';
+import { ArrowDown } from '@primeicons/angular/arrow-down';
 
 @Component({
     template: `
@@ -179,7 +183,7 @@ import { Component, OnInit } from '@angular/core';
         </p-commandmenu>
     `,
     standalone: true,
-    imports: []
+    imports: [ArrowUp, ArrowDown]
 })
 export class CommandmenuControlledDemo implements OnInit {
     commands!: any[];
@@ -284,6 +288,8 @@ Custom content can be displayed for each item using the item template.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { ArrowUp } from '@primeicons/angular/arrow-up';
+import { ArrowDown } from '@primeicons/angular/arrow-down';
 
 @Component({
     template: `
@@ -318,7 +324,7 @@ import { Component, OnInit } from '@angular/core';
         </p-commandmenu>
     `,
     standalone: true,
-    imports: []
+    imports: [ArrowUp, ArrowDown]
 })
 export class CommandmenuCustomDemo implements OnInit {
     commands!: any[];
@@ -422,6 +428,8 @@ A custom filter function can be provided with the filter property. The function 
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { ArrowUp } from '@primeicons/angular/arrow-up';
+import { ArrowDown } from '@primeicons/angular/arrow-down';
 
 @Component({
     template: `
@@ -458,7 +466,7 @@ import { Component, OnInit } from '@angular/core';
         </p-commandmenu>
     `,
     standalone: true,
-    imports: []
+    imports: [ArrowUp, ArrowDown]
 })
 export class CommandmenuFilterDemo implements OnInit {
     commands!: any[];
@@ -585,6 +593,8 @@ CommandMenu can be used inside a Dialog to create a command palette experience. 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { Dialog, DialogModule } from 'primeng/dialog';
+import { ArrowUp } from '@primeicons/angular/arrow-up';
+import { ArrowDown } from '@primeicons/angular/arrow-down';
 
 @Component({
     template: `
@@ -631,7 +641,7 @@ import { Dialog, DialogModule } from 'primeng/dialog';
         </p-dialog>
     `,
     standalone: true,
-    imports: [DialogModule]
+    imports: [DialogModule, ArrowUp, ArrowDown]
 })
 export class CommandmenuWithDialogDemo implements OnInit {
     visible: boolean = false;

@@ -149,6 +149,7 @@ const SELECTOR_TO_MODULE = {
     'p-fieldset': 'FieldsetModule',
     'p-fileupload': 'FileUploadModule',
     'p-floatlabel': 'FloatLabelModule',
+    'p-gallery': 'GalleryModule',
     'p-galleria': 'GalleriaModule',
     'p-iconfield': 'IconFieldModule',
     'p-iftalabel': 'IftaLabelModule',
@@ -345,7 +346,7 @@ function extractClassProperties(content) {
         const line = lines[lineIdx];
         // Match lines that start with exactly 4 spaces and a word character (property declaration)
         // Pattern 1: With type annotation - name: Type = value;
-        let propMatch = line.match(/^    ([\w]+)([!?]?):\s*([A-Za-z][\w<>\[\]|, ]*(?:\s*\|\s*[\w\[\]]+)*)(?:\s*=\s*(.+))?;?\s*$/);
+        let propMatch = line.match(/^    ([\w]+)([!?]?):\s*([A-Za-z\[][\w<>\[\]|, ]*(?:\s*\|\s*[\w\[\]]+)*)(?:\s*=\s*(.+))?;?\s*$/);
 
         // Pattern 2: Without type annotation - name = value;
         if (!propMatch) {
@@ -1083,6 +1084,16 @@ function detectPrimeNGModules(template) {
         }
     }
 
+    // Check for pGallery* directives
+    if (/pGallery/.test(template)) {
+        modules.add('GalleryModule');
+    }
+
+    // Check for pCarousel* directives
+    if (/pCarousel/.test(template)) {
+        modules.add('CarouselModule');
+    }
+
     // Check for pButton directive
     if (/pButton/.test(template)) {
         modules.add('ButtonModule');
@@ -1227,8 +1238,26 @@ function generateTypescript(componentName, template, services = [], fileContent 
         }
     }
 
+    // Detect and add @primeicons/angular imports from data-p-icon attributes
+    const iconNames = [...new Set([...template.matchAll(/data-p-icon="([^"]+)"/g)].map((m) => m[1]))];
+    for (const iconName of iconNames) {
+        const className = iconName
+            .split('-')
+            .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+            .join('');
+        importStatements += `import { ${className} } from '@primeicons/angular/${iconName}';\n`;
+    }
+
     // Build imports array for decorator (actual modules, not ImportsModule)
-    const decoratorImports = primeModules.filter((m) => m !== 'CommonModule');
+    const decoratorImports = [
+        ...primeModules.filter((m) => m !== 'CommonModule'),
+        ...iconNames.map((n) =>
+            n
+                .split('-')
+                .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+                .join('')
+        )
+    ];
 
     // Build providers if services exist (include both custom services and PrimeNG API services)
     const allProviders = [...services, ...primeNGServices];
