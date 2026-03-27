@@ -6031,126 +6031,6 @@
     },
     "button": {
         "components": {
-            "ButtonDirective": {
-                "description": "Button directive is an extension to button component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "any",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "PassThroughOptions",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        },
-                        {
-                            "name": "pButtonPT",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "PassThrough<I, ButtonPassThroughOptions<I>>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the Button component."
-                        },
-                        {
-                            "name": "pButtonUnstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "text",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Add a textual class to the button without a background initially."
-                        },
-                        {
-                            "name": "plain",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Add a plain textual class to the button without a background initially."
-                        },
-                        {
-                            "name": "raised",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Add a shadow to indicate elevation."
-                        },
-                        {
-                            "name": "size",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "\"small\" | \"large\"",
-                            "description": "Defines the size of the button."
-                        },
-                        {
-                            "name": "outlined",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Add a border class without a background initially."
-                        },
-                        {
-                            "name": "rounded",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Add a circular border radius to the button."
-                        },
-                        {
-                            "name": "fluid",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "undefined",
-                            "description": "Spans 100% width of the container when enabled."
-                        },
-                        {
-                            "name": "loading",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Whether the button is in loading state."
-                        },
-                        {
-                            "name": "severity",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warn\" | \"danger\" | \"help\" | \"primary\" | \"secondary\" | \"contrast\" | null | undefined",
-                            "description": "Defines the style of the button."
-                        }
-                    ]
-                }
-            },
             "Button": {
                 "description": "Button is an extension to standard button element with icons and theming.",
                 "props": {
@@ -6422,6 +6302,238 @@
                             "description": "Custom icon template.",
                             "type": "TemplateRef<ButtonIconTemplateContext>",
                             "parameters": []
+                        }
+                    ]
+                }
+            },
+            "ButtonLabel": {
+                "description": "ButtonLabel is a directive to apply label styling to an element inside a button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "pButtonLabelPT",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the pButtonLabel."
+                        },
+                        {
+                            "name": "pButtonLabelUnstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        }
+                    ]
+                }
+            },
+            "ButtonIcon": {
+                "description": "ButtonIcon is a directive to apply icon styling to an element inside a button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "pButtonIconPT",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the pButtonIcon."
+                        },
+                        {
+                            "name": "pButtonUnstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        }
+                    ]
+                }
+            },
+            "ButtonDirective": {
+                "description": "Button directive is an extension to button component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "pButtonPT",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThrough<I, ButtonPassThroughOptions<I>>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the Button component."
+                        },
+                        {
+                            "name": "pButtonUnstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "text",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Add a textual class to the button without a background initially."
+                        },
+                        {
+                            "name": "plain",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Add a plain textual class to the button without a background initially."
+                        },
+                        {
+                            "name": "raised",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Add a shadow to indicate elevation."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the button."
+                        },
+                        {
+                            "name": "outlined",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Add a border class without a background initially."
+                        },
+                        {
+                            "name": "rounded",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Add a circular border radius to the button."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "loading",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether the button is in loading state."
+                        },
+                        {
+                            "name": "severity",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"success\" | \"info\" | \"warn\" | \"danger\" | \"help\" | \"primary\" | \"secondary\" | \"contrast\" | null | undefined",
+                            "description": "Defines the style of the button."
                         }
                     ]
                 }
@@ -7163,6 +7275,53 @@
                     ]
                 }
             },
+            "CarouselIndicator": {
+                "description": "CarouselIndicator is a directive for an individual page indicator button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThrough<I, CarouselIndicatorPassThroughOptions<I>>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "page",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "The page index this indicator represents."
+                        }
+                    ]
+                }
+            },
             "CarouselIndicators": {
                 "description": "CarouselIndicators renders the list of page indicators.\nAuto-generates button indicators based on snap points.",
                 "props": {
@@ -7246,6 +7405,86 @@
                             "readonly": false,
                             "type": "unknown",
                             "description": "The value/identifier of the carousel item."
+                        }
+                    ]
+                }
+            },
+            "CarouselNext": {
+                "description": "CarouselNext is a directive for the next navigation button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThrough<I, CarouselNextPassThroughOptions<I>>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
+            },
+            "CarouselPrev": {
+                "description": "CarouselPrev is a directive for the previous navigation button.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThrough<I, CarouselPrevPassThroughOptions<I>>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "PassThroughOptions",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
                         }
                     ]
                 }

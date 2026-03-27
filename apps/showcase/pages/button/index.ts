@@ -29,7 +29,7 @@ import { PTComponent } from '@/doc/button/pt/PTComponent';
             header="Button"
             description="Button is an extension to standard button element with icons and theming."
             [docs]="docs"
-            [apiDocs]="['Button', 'ButtonDirective']"
+            [apiDocs]="['Button', 'ButtonDirective', 'ButtonLabel', 'ButtonIcon']"
             themeDocs="button"
             [ptDocs]="ptComponent"
             [heroDoc]="heroDoc"

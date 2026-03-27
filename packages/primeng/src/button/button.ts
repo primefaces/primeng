@@ -30,6 +30,10 @@ const INTERNAL_BUTTON_CLASSES = {
     labelOnly: 'p-button-loading-label-only'
 } as const;
 
+/**
+ * ButtonLabel is a directive to apply label styling to an element inside a button.
+ * @group Directives
+ */
 @Directive({
     selector: '[pButtonLabel]',
     providers: [ButtonStyle, { provide: BUTTON_LABEL_INSTANCE, useExisting: ButtonLabel }, { provide: PARENT_INSTANCE, useExisting: ButtonLabel }],
@@ -76,6 +80,10 @@ export class ButtonLabel extends BaseComponent {
     }
 }
 
+/**
+ * ButtonIcon is a directive to apply icon styling to an element inside a button.
+ * @group Directives
+ */
 @Directive({
     selector: '[pButtonIcon]',
     providers: [ButtonStyle, { provide: BUTTON_ICON_INSTANCE, useExisting: ButtonIcon }, { provide: PARENT_INSTANCE, useExisting: ButtonIcon }],
@@ -123,7 +131,7 @@ export class ButtonIcon extends BaseComponent {
 }
 /**
  * Button directive is an extension to button component.
- * @group Components
+ * @group Directives
  */
 @Directive({
     selector: '[pButton]',

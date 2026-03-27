@@ -112,7 +112,8 @@ async function main() {
                                 components: {}
                             };
                         }
-                        const module_components_group = module.groups.find((g) => g.title === 'Components');
+                        const module_components_groups = module.groups.filter((g) => g.title === 'Components' || g.title === 'Directives');
+                        const module_components_group = module_components_groups.length > 0 ? { children: module_components_groups.flatMap((g) => g.children) } : null;
                         const module_events_group = module.groups.find((g) => g.title === 'Events');
                         const module_templates_group = module.groups.find((g) => g.title === 'Templates');
                         const module_interface_group = module.groups.find((g) => g.title === 'Interface');

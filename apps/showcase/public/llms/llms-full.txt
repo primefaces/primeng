@@ -4954,30 +4954,6 @@ import { ButtonModule } from 'primeng/button';
 export class ButtonTextDemo {}
 ```
 
-## Button Directive
-
-Button directive is an extension to button component.
-
-### Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| dt | Object | undefined | Defines scoped design tokens of the component. |
-| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
-| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
-| pButtonPT | PassThrough<I, ButtonPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the Button component. |
-| pButtonUnstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
-| text | boolean | - | Add a textual class to the button without a background initially. |
-| plain | boolean | - | Add a plain textual class to the button without a background initially. |
-| raised | boolean | - | Add a shadow to indicate elevation. |
-| size | "small" \| "large" | - | Defines the size of the button. |
-| outlined | boolean | - | Add a border class without a background initially. |
-| rounded | boolean | - | Add a circular border radius to the button. |
-| fluid | boolean | undefined | Spans 100% width of the container when enabled. |
-| loading | boolean | - | Whether the button is in loading state. |
-| severity | "success" \| "info" \| "warn" \| "danger" \| "help" \| "primary" \| "secondary" \| "contrast" \| null \| undefined | - | Defines the style of the button. |
-
 ## Button
 
 Button is an extension to standard button element with icons and theming.
@@ -5031,6 +5007,60 @@ Button is an extension to standard button element with icons and theming.
 | content | TemplateRef<void> | Custom content template. |
 | loadingicon | TemplateRef<ButtonLoadingIconTemplateContext> | Custom loading icon template. |
 | icon | TemplateRef<ButtonIconTemplateContext> | Custom icon template. |
+
+## Button Label
+
+ButtonLabel is a directive to apply label styling to an element inside a button.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| pButtonLabelPT | any | undefined | Used to pass attributes to DOM elements inside the pButtonLabel. |
+| pButtonLabelUnstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+
+## Button Icon
+
+ButtonIcon is a directive to apply icon styling to an element inside a button.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| pButtonIconPT | any | undefined | Used to pass attributes to DOM elements inside the pButtonIcon. |
+| pButtonUnstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+
+## Button Directive
+
+Button directive is an extension to button component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | any | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| pButtonPT | PassThrough<I, ButtonPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the Button component. |
+| pButtonUnstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| text | boolean | - | Add a textual class to the button without a background initially. |
+| plain | boolean | - | Add a plain textual class to the button without a background initially. |
+| raised | boolean | - | Add a shadow to indicate elevation. |
+| size | "small" \| "large" | - | Defines the size of the button. |
+| outlined | boolean | - | Add a border class without a background initially. |
+| rounded | boolean | - | Add a circular border radius to the button. |
+| fluid | boolean | undefined | Spans 100% width of the container when enabled. |
+| loading | boolean | - | Whether the button is in loading state. |
+| severity | "success" \| "info" \| "warn" \| "danger" \| "help" \| "primary" \| "secondary" \| "contrast" \| null \| undefined | - | Defines the style of the button. |
 
 ## Pass Through Options
 
@@ -5771,6 +5801,20 @@ CarouselContent is the scrollable track element that contains carousel items.
 | pt | PassThrough<I, CarouselContentPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
+## Carousel Indicator
+
+CarouselIndicator is a directive for an individual page indicator button.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, CarouselIndicatorPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+| page | number | - | The page index this indicator represents. |
+
 ## Carousel Indicators
 
 CarouselIndicators renders the list of page indicators.
@@ -5798,6 +5842,32 @@ CarouselItem represents an individual item in the composition-based carousel.
 | pt | PassThrough<I, CarouselItemPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 | value | unknown | - | The value/identifier of the carousel item. |
+
+## Carousel Next
+
+CarouselNext is a directive for the next navigation button.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, CarouselNextPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
+
+## Carousel Prev
+
+CarouselPrev is a directive for the previous navigation button.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | Object | undefined | Defines scoped design tokens of the component. |
+| unstyled | boolean | undefined | Indicates whether the component should be rendered without styles. |
+| pt | PassThrough<I, CarouselPrevPassThroughOptions<I>> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | PassThroughOptions | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Pass Through Options
 
