@@ -348,6 +348,9 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
 
                 break;
 
+            case 'Tab':
+                break;
+
             default:
                 const target = event.target;
                 const hasSelection = target.selectionStart !== target.selectionEnd;
