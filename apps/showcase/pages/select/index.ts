@@ -1,6 +1,9 @@
 import { AccessibilityDoc } from '@/doc/select/accessibility-doc';
 import { BasicDoc } from '@/doc/select/basic-doc';
+import { CheckboxSelectionDoc } from '@/doc/select/checkboxselection-doc';
 import { CheckmarkDoc } from '@/doc/select/checkmark-doc';
+import { ChipDoc } from '@/doc/select/chip-doc';
+import { MultipleDoc } from '@/doc/select/multiple-doc';
 import { ClearIconDoc } from '@/doc/select/clearicon-doc';
 import { DisabledDoc } from '@/doc/select/disabled-doc';
 import { EditableDoc } from '@/doc/select/editable-doc';
@@ -60,6 +63,21 @@ export class SelectDemo {
                     id: 'checkmark',
                     label: 'Checkmark',
                     component: CheckmarkDoc
+                },
+                {
+                    id: 'multiple',
+                    label: 'Multiple',
+                    component: MultipleDoc
+                },
+                {
+                    id: 'checkbox-selection',
+                    label: 'Checkbox Selection',
+                    component: CheckboxSelectionDoc
+                },
+                {
+                    id: 'chip',
+                    label: 'Chip',
+                    component: ChipDoc
                 },
                 {
                     id: 'editable',

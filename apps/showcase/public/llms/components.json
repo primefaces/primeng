@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-30",
+  "generatedAt": "2026-03-31",
   "components": [
     {
       "name": "accordion",
@@ -26427,7 +26427,7 @@
         },
         {
           "id": "colored",
-          "label": "colored-doc",
+          "label": "Colored",
           "description": "Styling a specific node is configured with styleClass option of a TreeNode and custom templates.",
           "examples": {
             "typescript": "import { Component } from '@angular/core';\nimport { TreeNode } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"overflow-x-auto\">\n            <p-organization-chart [value]=\"data\" [collapsible]=\"true\">\n                <ng-template #node let-node>\n                    @if (node.type === 'person') {\n                        <div class=\"flex items-center gap-3\">\n                            <img [src]=\"node.data.image\" [alt]=\"node.data.name\" class=\"w-12 h-12\" />\n                            <div class=\"flex flex-col items-start gap-1\">\n                                <span class=\"font-bold\">{{ node.data.name }}</span>\n                                <span class=\"text-sm\">{{ node.data.title }}</span>\n                            </div>\n                        </div>\n                    } @else {\n                        <div>{{ node.label }}</div>\n                    }\n                </ng-template>\n            </p-organization-chart>\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class OrganizationChartColoredDemo {\n    data: TreeNode[] = [\n        {\n            expanded: true,\n            type: 'person',\n            styleClass: 'bg-rose-500/5! border-rose-500! text-rose-900! dark:text-rose-50! rounded-xl',\n            data: {\n                image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png',\n                name: 'Amy Elsner',\n                title: 'CEO'\n            },\n            children: [\n                {\n                    expanded: true,\n                    type: 'person',\n                    styleClass: 'bg-emerald-500/5! border-emerald-500! text-emerald-900! dark:text-emerald-50! rounded-xl',\n                    data: {\n                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png',\n                        name: 'Anna Fali',\n                        title: 'CMO'\n                    },\n                    children: [\n                        {\n                            label: 'Sales'\n                        },\n                        {\n                            label: 'Marketing'\n                        }\n                    ]\n                },\n                {\n                    expanded: true,\n                    type: 'person',\n                    styleClass: 'bg-blue-500/5! border-blue-500! text-blue-900! dark:text-blue-50! rounded-xl',\n                    data: {\n                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png',\n                        name: 'Stephen Shaw',\n                        title: 'CTO'\n                    },\n                    children: [\n                        {\n                            label: 'Development'\n                        },\n                        {\n                            label: 'UI/UX Design'\n                        }\n                    ]\n                }\n            ]\n        }\n    ];\n}"
@@ -26438,7 +26438,7 @@
           "label": "Default Collapsed & Selected",
           "description": "Nodes can define collapsedByDefault and selectedByDefault properties to configure the initial state.",
           "examples": {
-            "typescript": "import { Component } from '@angular/core';\nimport { TreeNode } from 'primeng/api';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center overflow-x-auto\">\n            <p-organization-chart [value]=\"data\" [collapsible]=\"true\" selectionMode=\"single\" />\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class OrganizationChartDefaultDemo {\n    data: TreeNode[] = [\n        {\n            label: 'Founder',\n            expanded: true,\n            children: [\n                {\n                    label: 'Product Lead',\n                    collapsedByDefault: true,\n                    expanded: true,\n                    children: [\n                        {\n                            label: 'UX/UI Designer'\n                        },\n                        {\n                            label: 'Product Manager'\n                        }\n                    ]\n                },\n                {\n                    label: 'Engineering Lead',\n                    expanded: true,\n                    children: [\n                        {\n                            label: 'Frontend Developer',\n                            selectedByDefault: true\n                        },\n                        {\n                            label: 'Backend Developer'\n                        }\n                    ]\n                }\n            ]\n        }\n    ];\n}"
+            "typescript": "import { Component } from '@angular/core';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center overflow-x-auto\">\n            <p-organization-chart [value]=\"data\" [collapsible]=\"true\" selectionMode=\"single\" />\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class OrganizationChartDefaultDemo {\n    data: OrgChartNode[] = [\n        {\n            label: 'Founder',\n            expanded: true,\n            children: [\n                {\n                    label: 'Product Lead',\n                    collapsedByDefault: true,\n                    expanded: true,\n                    children: [\n                        {\n                            label: 'UX/UI Designer'\n                        },\n                        {\n                            label: 'Product Manager'\n                        }\n                    ]\n                },\n                {\n                    label: 'Engineering Lead',\n                    expanded: true,\n                    children: [\n                        {\n                            label: 'Frontend Developer',\n                            selectedByDefault: true\n                        },\n                        {\n                            label: 'Backend Developer'\n                        }\n                    ]\n                }\n            ]\n        }\n    ];\n}"
           }
         },
         {
@@ -26446,7 +26446,7 @@
           "label": "Partial Collapsible & Selectable",
           "description": "Collapsible and selectable behaviors can be controlled at the node level using the collapsible and selectable properties of a TreeNode.",
           "examples": {
-            "typescript": "import { Component } from '@angular/core';\nimport { TreeNode } from 'primeng/api';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center overflow-x-auto\">\n            <p-organization-chart [value]=\"data\" selectionMode=\"single\" [(selection)]=\"selectedNode\" />\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class OrganizationChartPartialDemo {\n    selectedNode: any;\n    data: TreeNode[] = [\n        {\n            label: 'Founder',\n            expanded: true,\n            collapsible: true,\n            selectable: false,\n            children: [\n                {\n                    label: 'Product Lead',\n                    expanded: true,\n                    children: [\n                        {\n                            label: 'UX/UI Designer',\n                            selectable: false\n                        },\n                        {\n                            label: 'Product Manager'\n                        }\n                    ]\n                },\n                {\n                    label: 'Engineering Lead',\n                    expanded: true,\n                    selectable: false,\n                    collapsible: true,\n                    children: [\n                        {\n                            label: 'Frontend Developer'\n                        },\n                        {\n                            label: 'Backend Developer'\n                        }\n                    ]\n                }\n            ]\n        }\n    ];\n}"
+            "typescript": "import { Component } from '@angular/core';\nimport { TreeNode } from 'primeng/api';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center overflow-x-auto\">\n            <p-organization-chart [value]=\"data\" selectionMode=\"single\" [(selection)]=\"selectedNode\" />\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class OrganizationChartPartialDemo {\n    selectedNode: any;\n    data: OrgChartNode[] = [\n        {\n            label: 'Founder',\n            expanded: true,\n            collapsible: true,\n            selectable: false,\n            children: [\n                {\n                    label: 'Product Lead',\n                    expanded: true,\n                    children: [\n                        {\n                            label: 'UX/UI Designer',\n                            selectable: false\n                        },\n                        {\n                            label: 'Product Manager'\n                        }\n                    ]\n                },\n                {\n                    label: 'Engineering Lead',\n                    expanded: true,\n                    selectable: false,\n                    collapsible: true,\n                    children: [\n                        {\n                            label: 'Frontend Developer'\n                        },\n                        {\n                            label: 'Backend Developer'\n                        }\n                    ]\n                }\n            ]\n        }\n    ];\n}"
           }
         },
         {
@@ -26462,7 +26462,7 @@
           "label": "Template",
           "description": "Custom content instead of a node label is defined using the #node template reference.",
           "examples": {
-            "typescript": "import { Component } from '@angular/core';\nimport { TreeNode } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"overflow-x-auto\">\n            <p-organization-chart [value]=\"data\" [collapsible]=\"true\">\n                <ng-template #node let-node>\n                    <div class=\"flex items-start gap-2\">\n                        <img\n                            src=\"https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png\"\n                            [alt]=\"node.label\"\n                            [class]=\"'h-full !w-10 flag flag-' + node.data.flag\"\n                        />\n                        <div class=\"flex flex-col items-start gap-0.5\">\n                            <div class=\"font-semibold leading-none\">{{ node.label }}</div>\n                            <div class=\"text-xs leading-none opacity-75\">{{ node.data.description }}</div>\n                        </div>\n                    </div>\n                </ng-template>\n            </p-organization-chart>\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class OrganizationChartTemplateDemo {\n    data: TreeNode[] = [\n        {\n            label: 'USD',\n            expanded: true,\n            data: { flag: 'us', description: 'United States Dollar' },\n            children: [\n                {\n                    label: 'CAD',\n                    expanded: true,\n                    data: { flag: 'ca', description: 'Canadian Dollar' },\n                    children: [\n                        {\n                            label: 'AUD',\n                            data: { flag: 'au', description: 'Australian Dollar' }\n                        },\n                        {\n                            label: 'NZD',\n                            data: { flag: 'nz', description: 'New Zealand Dollar' }\n                        }\n                    ]\n                },\n                {\n                    label: 'MXN',\n                    expanded: true,\n                    data: { flag: 'mx', description: 'Mexican Peso' },\n                    children: [\n                        {\n                            label: 'COP',\n                            data: { flag: 'ar', description: 'Argentine Peso' }\n                        },\n                        {\n                            label: 'BRL',\n                            data: { flag: 'br', description: 'Brazilian Real' }\n                        }\n                    ]\n                }\n            ]\n        }\n    ];\n}"
+            "typescript": "import { Component } from '@angular/core';\nimport { TreeNode } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"overflow-x-auto\">\n            <p-organization-chart [value]=\"data\" [collapsible]=\"true\">\n                <ng-template #node let-node>\n                    <div class=\"flex items-start gap-2\">\n                        <img src=\"https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png\" [alt]=\"node.label\" [class]=\"'h-full !w-10 flag flag-' + node.data.flag\" />\n                        <div class=\"flex flex-col items-start gap-0.5\">\n                            <div class=\"font-semibold leading-none\">{{ node.label }}</div>\n                            <div class=\"text-xs leading-none opacity-75\">{{ node.data.description }}</div>\n                        </div>\n                    </div>\n                </ng-template>\n            </p-organization-chart>\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class OrganizationChartTemplateDemo {\n    data: TreeNode[] = [\n        {\n            label: 'USD',\n            expanded: true,\n            data: { flag: 'us', description: 'United States Dollar' },\n            children: [\n                {\n                    label: 'CAD',\n                    expanded: true,\n                    data: { flag: 'ca', description: 'Canadian Dollar' },\n                    children: [\n                        {\n                            label: 'AUD',\n                            data: { flag: 'au', description: 'Australian Dollar' }\n                        },\n                        {\n                            label: 'NZD',\n                            data: { flag: 'nz', description: 'New Zealand Dollar' }\n                        }\n                    ]\n                },\n                {\n                    label: 'MXN',\n                    expanded: true,\n                    data: { flag: 'mx', description: 'Mexican Peso' },\n                    children: [\n                        {\n                            label: 'COP',\n                            data: { flag: 'ar', description: 'Argentine Peso' }\n                        },\n                        {\n                            label: 'BRL',\n                            data: { flag: 'br', description: 'Brazilian Real' }\n                        }\n                    ]\n                }\n            ]\n        }\n    ];\n}"
           }
         }
       ],
@@ -26498,7 +26498,7 @@
           },
           {
             "name": "value",
-            "type": "TreeNode<any>[]",
+            "type": "OrgChartNode<any>[]",
             "default": "-",
             "description": "An array of nested TreeNodes.",
             "deprecated": ""
@@ -26537,6 +26537,11 @@
             "name": "togglericon",
             "type": "TemplateRef<any>",
             "description": "Custom toggler icon template."
+          },
+          {
+            "name": "collapsebutton",
+            "type": "TemplateRef<any>",
+            "description": "Custom collapse button template."
           },
           {
             "name": "node",
@@ -26619,9 +26624,14 @@
             "description": "Used to pass attributes to the collapse button's DOM element."
           },
           {
-            "name": "collapseButtonIcon",
+            "name": "collapseButtonDownIcon",
             "type": "PassThroughOption<HTMLElement, I>",
-            "description": "Used to pass attributes to the collapse button icon's DOM element."
+            "description": "Used to pass attributes to the collapse button down icon's DOM element."
+          },
+          {
+            "name": "collapseButtonUpIcon",
+            "type": "PassThroughOption<HTMLElement, I>",
+            "description": "Used to pass attributes to the collapse button up icon's DOM element."
           }
         ],
         "styles": [
@@ -26650,8 +26660,12 @@
             "description": "Class name of the collapse button element"
           },
           {
-            "class": "p-organizationchart-collapse-button-icon",
-            "description": "Class name of the collapse button icon element"
+            "class": "p-organizationchart-collapse-button-down-icon",
+            "description": "Class name of the collapse button down icon element"
+          },
+          {
+            "class": "p-organizationchart-collapse-button-up-icon",
+            "description": "Class name of the collapse button up icon element"
           }
         ],
         "tokens": [
@@ -32262,11 +32276,27 @@
           }
         },
         {
+          "id": "checkboxselection",
+          "label": "checkboxselection-doc",
+          "description": "Multiple selection with checkboxes using multiple and custom #item and #header templates.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { CheckboxModule } from 'primeng/checkbox';\nimport { SelectModule } from 'primeng/select';\n\ninterface City {\n    name: string;\n    code: string;\n}\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-select\n                [options]=\"cities\"\n                [(ngModel)]=\"selectedCities\"\n                [multiple]=\"true\"\n                optionLabel=\"name\"\n                optionValue=\"code\"\n                [showClear]=\"selectedCities.length > 0\"\n                placeholder=\"Select Cities\"\n                class=\"w-full md:w-56\"\n            >\n                <ng-template #header>\n                    <div class=\"px-3 py-2\">\n                        <p-checkbox [ngModel]=\"allSelected\" [binary]=\"true\" [indeterminate]=\"indeterminate\" (ngModelChange)=\"onToggleAll($event)\" label=\"Select All\" />\n                    </div>\n                </ng-template>\n                <ng-template #selectedItem>\n                    <span>{{ getLabel() }}</span>\n                </ng-template>\n                <ng-template let-city #item>\n                    <div class=\"flex items-center gap-2\">\n                        <p-checkbox [ngModel]=\"isItemSelected(city)\" [binary]=\"true\" [tabindex]=\"-1\" [readonly]=\"true\" />\n                        <span>{{ city.name }}</span>\n                    </div>\n                </ng-template>\n            </p-select>\n        </div>\n    `,\n    standalone: true,\n    imports: [CheckboxModule, SelectModule, FormsModule]\n})\nexport class SelectCheckboxSelectionDemo {\n    cities: City[] = [\n        { name: 'New York', code: 'NY' },\n        { name: 'Rome', code: 'RM' },\n        { name: 'London', code: 'LDN' },\n        { name: 'Istanbul', code: 'IST' },\n        { name: 'Paris', code: 'PRS' }\n    ];\n    selectedCities: string[] = [];\n\n    getLabel(): string {\n        if (this.selectedCities.length === 0) return '';\n        const first = this.cities.find((c) => c.code === this.selectedCities[0])?.name ?? this.selectedCities[0];\n        return this.selectedCities.length > 1 ? `${first} (+${this.selectedCities.length - 1} more)` : first;\n    }\n\n    isItemSelected(city: City): boolean {\n        return this.selectedCities.includes(city.code);\n    }\n\n    onToggleAll(checked: boolean) {\n        this.selectedCities = checked ? this.cities.map((c) => c.code) : [];\n    }\n}"
+          }
+        },
+        {
           "id": "checkmark",
           "label": "Checkmark",
           "description": "An alternative way to highlight the selected option is displaying a checkmark instead.",
           "examples": {
             "typescript": "import { Component, OnInit } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { SelectModule } from 'primeng/select';\n\ninterface City {\n    name: string;\n    code: string;\n}\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-select [options]=\"cities\" [(ngModel)]=\"selectedCity\" [checkmark]=\"true\" optionLabel=\"name\" [showClear]=\"true\" placeholder=\"Select a City\" class=\"w-full md:w-56\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [SelectModule, FormsModule]\n})\nexport class SelectCheckMarkDemo implements OnInit {\n    cities: City[];\n    selectedCity: City | undefined;\n\n    ngOnInit() {\n        this.cities = [\n            { name: 'New York', code: 'NY' },\n            { name: 'Rome', code: 'RM' },\n            { name: 'London', code: 'LDN' },\n            { name: 'Istanbul', code: 'IST' },\n            { name: 'Paris', code: 'PRS' }\n        ];\n    }\n}"
+          }
+        },
+        {
+          "id": "chip",
+          "label": "Chip",
+          "description": "Selected items displayed as chips using a custom #selectedItem template in multiple mode.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { ChipModule } from 'primeng/chip';\nimport { SelectModule } from 'primeng/select';\n\ninterface Member {\n    name: string;\n    code: string;\n    avatar: string;\n}\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-select\n                [options]=\"members\" \n                [(ngModel)]=\"selected\"\n                [multiple]=\"true\"\n                optionLabel=\"name\"\n                optionValue=\"code\"\n                [showClear]=\"selected.length > 0\"\n                placeholder=\"Select Members\"\n                class=\"w-full\"\n            >\n                <ng-template let-member #item>\n                    <div class=\"flex items-center gap-2\">\n                        <img [src]=\"member.avatar\" [alt]=\"member.name\" class=\"w-7 h-7 rounded-full\" />\n                        <span>{{ member.name }}</span>\n                    </div>\n                </ng-template>\n                <ng-template #selectedItem let-selectedOption>\n                    <div class=\"flex flex-wrap gap-1\">\n                        @for (code of selected; track code) {\n                            <p-chip [label]=\"getFirstName(code)\" [image]=\"getAvatar(code)\" [removable]=\"true\" (onRemove)=\"removeItem($event, code)\" [pt]=\"{ root: { class: 'py-0!' }, label: { class: 'text-xs!' }, image: { class: 'w-5! h-5!' } }\" />\n                        }\n                    </div>\n                </ng-template>\n            </p-select>\n        </div>\n    `,\n    standalone: true,\n    imports: [ChipModule, SelectModule, FormsModule]\n})\nexport class SelectChipDemo {\n    members: Member[] = [\n        { name: 'Amy Elsner', code: 'AE', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png' },\n        { name: 'Anna Fali', code: 'AF', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/annafali.png' },\n        { name: 'Asiya Javayant', code: 'AJ', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/asiyajavayant.png' },\n        { name: 'Bernardo Dominic', code: 'BD', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/bernardodominic.png' },\n        { name: 'Elwin Sharvill', code: 'ES', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/elwinsharvill.png' },\n        { name: 'Ioni Bowcher', code: 'IB', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/ionibowcher.png' },\n        { name: 'Ivan Magalhaes', code: 'IM', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/ivanmagalhaes.png' },\n        { name: 'Stephen Shaw', code: 'SS', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/stephenshaw.png' }\n    ];\n    selected: string[] = [];\n\n    getFirstName(code: string): string {\n        const member = this.members.find((m) => m.code === code);\n        return member ? member.name.split(' ')[0] : code;\n    }\n\n    getAvatar(code: string): string {\n        return this.members.find((m) => m.code === code)?.avatar ?? '';\n    }\n\n    removeItem(event: MouseEvent, code: string) {\n        event.stopPropagation();\n        this.selected = this.selected.filter((c) => c !== code);\n    }\n}"
           }
         },
         {
@@ -32371,6 +32401,14 @@
           "description": "Loading state can be used loading property.",
           "examples": {
             "typescript": "import { Component, OnInit } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { SelectModule } from 'primeng/select';\n\ninterface City {\n    name: string;\n    code: string;\n}\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-select [options]=\"cities\" [(ngModel)]=\"selectedCity\" [loading]=\"true\" optionLabel=\"name\" placeholder=\"Loading...\" class=\"w-full md:w-56\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [SelectModule, FormsModule]\n})\nexport class SelectLoadingStateDemo implements OnInit {\n    cities: City[];\n    selectedCity: City | undefined;\n\n    ngOnInit() {\n        this.cities = [\n            { name: 'New York', code: 'NY' },\n            { name: 'Rome', code: 'RM' },\n            { name: 'London', code: 'LDN' },\n            { name: 'Istanbul', code: 'IST' },\n            { name: 'Paris', code: 'PRS' }\n        ];\n    }\n}"
+          }
+        },
+        {
+          "id": "multiple",
+          "label": "Multiple",
+          "description": "When multiple is enabled, multiple items can be selected. Use checkmark to display a check indicator and a custom #selectedItem template for the label.",
+          "examples": {
+            "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { SelectModule } from 'primeng/select';\n\ninterface Topping {\n    label: string;\n    value: string;\n}\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-select\n                [options]=\"toppings\"\n                [(ngModel)]=\"selected\"\n                [multiple]=\"true\"\n                [checkmark]=\"true\"\n                optionLabel=\"label\"\n                optionValue=\"value\"\n                [showClear]=\"selected.length > 0\"\n                placeholder=\"Select Toppings\"\n                class=\"w-full md:w-56\"\n            >\n                <ng-template #selectedItem>\n                    <span>{{ getLabel() }}</span>\n                </ng-template>\n            </p-select>\n        </div>\n    `,\n    standalone: true,\n    imports: [SelectModule, FormsModule]\n})\nexport class SelectMultipleDemo {\n    toppings: Topping[] = [\n        { label: 'Pepperoni', value: 'pepperoni' },\n        { label: 'Mushrooms', value: 'mushrooms' },\n        { label: 'Onions', value: 'onions' },\n        { label: 'Black Olives', value: 'olives' },\n        { label: 'Green Peppers', value: 'peppers' },\n        { label: 'Mozzarella', value: 'mozzarella' },\n        { label: 'Basil', value: 'basil' },\n        { label: 'Tomatoes', value: 'tomatoes' }\n    ];\n    selected: string[] = [];\n\n    getLabel(): string {\n        if (this.selected.length === 0) return '';\n        const first = this.toppings.find((t) => t.value === this.selected[0])?.label ?? this.selected[0];\n        return this.selected.length > 1 ? `${first} (+${this.selected.length - 1} more)` : first;\n    }\n}"
           }
         },
         {
@@ -32855,6 +32893,13 @@
             "type": "boolean",
             "default": "-",
             "description": "Determines if the option will be selected on focus.",
+            "deprecated": ""
+          },
+          {
+            "name": "multiple",
+            "type": "boolean",
+            "default": "-",
+            "description": "When enabled, allows multiple items to be selected.",
             "deprecated": ""
           },
           {

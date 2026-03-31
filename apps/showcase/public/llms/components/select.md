@@ -45,6 +45,80 @@ export class SelectBasicDemo implements OnInit {
 }
 ```
 
+## checkboxselection-doc
+
+Multiple selection with checkboxes using multiple and custom #item and #header templates.
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="flex justify-center">
+            <p-select
+                [options]="cities"
+                [(ngModel)]="selectedCities"
+                [multiple]="true"
+                optionLabel="name"
+                optionValue="code"
+                [showClear]="selectedCities.length > 0"
+                placeholder="Select Cities"
+                class="w-full md:w-56"
+            >
+                <ng-template #header>
+                    <div class="px-3 py-2">
+                        <p-checkbox [ngModel]="allSelected" [binary]="true" [indeterminate]="indeterminate" (ngModelChange)="onToggleAll($event)" label="Select All" />
+                    </div>
+                </ng-template>
+                <ng-template #selectedItem>
+                    <span>{{ getLabel() }}</span>
+                </ng-template>
+                <ng-template let-city #item>
+                    <div class="flex items-center gap-2">
+                        <p-checkbox [ngModel]="isItemSelected(city)" [binary]="true" [tabindex]="-1" [readonly]="true" />
+                        <span>{{ city.name }}</span>
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+    `,
+    standalone: true,
+    imports: [CheckboxModule, SelectModule, FormsModule]
+})
+export class SelectCheckboxSelectionDemo {
+    cities: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
+    selectedCities: string[] = [];
+
+    getLabel(): string {
+        if (this.selectedCities.length === 0) return '';
+        const first = this.cities.find((c) => c.code === this.selectedCities[0])?.name ?? this.selectedCities[0];
+        return this.selectedCities.length > 1 ? `${first} (+${this.selectedCities.length - 1} more)` : first;
+    }
+
+    isItemSelected(city: City): boolean {
+        return this.selectedCities.includes(city.code);
+    }
+
+    onToggleAll(checked: boolean) {
+        this.selectedCities = checked ? this.cities.map((c) => c.code) : [];
+    }
+}
+```
+
 ## Checkmark
 
 An alternative way to highlight the selected option is displaying a checkmark instead.
@@ -80,6 +154,83 @@ export class SelectCheckMarkDemo implements OnInit {
             { name: 'Istanbul', code: 'IST' },
             { name: 'Paris', code: 'PRS' }
         ];
+    }
+}
+```
+
+## Chip
+
+Selected items displayed as chips using a custom #selectedItem template in multiple mode.
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ChipModule } from 'primeng/chip';
+import { SelectModule } from 'primeng/select';
+
+interface Member {
+    name: string;
+    code: string;
+    avatar: string;
+}
+
+@Component({
+    template: `
+        <div class="flex justify-center">
+            <p-select
+                [options]="members" 
+                [(ngModel)]="selected"
+                [multiple]="true"
+                optionLabel="name"
+                optionValue="code"
+                [showClear]="selected.length > 0"
+                placeholder="Select Members"
+                class="w-full"
+            >
+                <ng-template let-member #item>
+                    <div class="flex items-center gap-2">
+                        <img [src]="member.avatar" [alt]="member.name" class="w-7 h-7 rounded-full" />
+                        <span>{{ member.name }}</span>
+                    </div>
+                </ng-template>
+                <ng-template #selectedItem let-selectedOption>
+                    <div class="flex flex-wrap gap-1">
+                        @for (code of selected; track code) {
+                            <p-chip [label]="getFirstName(code)" [image]="getAvatar(code)" [removable]="true" (onRemove)="removeItem($event, code)" [pt]="{ root: { class: 'py-0!' }, label: { class: 'text-xs!' }, image: { class: 'w-5! h-5!' } }" />
+                        }
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+    `,
+    standalone: true,
+    imports: [ChipModule, SelectModule, FormsModule]
+})
+export class SelectChipDemo {
+    members: Member[] = [
+        { name: 'Amy Elsner', code: 'AE', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png' },
+        { name: 'Anna Fali', code: 'AF', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/annafali.png' },
+        { name: 'Asiya Javayant', code: 'AJ', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/asiyajavayant.png' },
+        { name: 'Bernardo Dominic', code: 'BD', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/bernardodominic.png' },
+        { name: 'Elwin Sharvill', code: 'ES', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/elwinsharvill.png' },
+        { name: 'Ioni Bowcher', code: 'IB', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/ionibowcher.png' },
+        { name: 'Ivan Magalhaes', code: 'IM', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/ivanmagalhaes.png' },
+        { name: 'Stephen Shaw', code: 'SS', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/stephenshaw.png' }
+    ];
+    selected: string[] = [];
+
+    getFirstName(code: string): string {
+        const member = this.members.find((m) => m.code === code);
+        return member ? member.name.split(' ')[0] : code;
+    }
+
+    getAvatar(code: string): string {
+        return this.members.find((m) => m.code === code)?.avatar ?? '';
+    }
+
+    removeItem(event: MouseEvent, code: string) {
+        event.stopPropagation();
+        this.selected = this.selected.filter((c) => c !== code);
     }
 }
 ```
@@ -713,6 +864,64 @@ export class SelectLoadingStateDemo implements OnInit {
 }
 ```
 
+## Multiple
+
+When multiple is enabled, multiple items can be selected. Use checkmark to display a check indicator and a custom #selectedItem template for the label.
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface Topping {
+    label: string;
+    value: string;
+}
+
+@Component({
+    template: `
+        <div class="flex justify-center">
+            <p-select
+                [options]="toppings"
+                [(ngModel)]="selected"
+                [multiple]="true"
+                [checkmark]="true"
+                optionLabel="label"
+                optionValue="value"
+                [showClear]="selected.length > 0"
+                placeholder="Select Toppings"
+                class="w-full md:w-56"
+            >
+                <ng-template #selectedItem>
+                    <span>{{ getLabel() }}</span>
+                </ng-template>
+            </p-select>
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectMultipleDemo {
+    toppings: Topping[] = [
+        { label: 'Pepperoni', value: 'pepperoni' },
+        { label: 'Mushrooms', value: 'mushrooms' },
+        { label: 'Onions', value: 'onions' },
+        { label: 'Black Olives', value: 'olives' },
+        { label: 'Green Peppers', value: 'peppers' },
+        { label: 'Mozzarella', value: 'mozzarella' },
+        { label: 'Basil', value: 'basil' },
+        { label: 'Tomatoes', value: 'tomatoes' }
+    ];
+    selected: string[] = [];
+
+    getLabel(): string {
+        if (this.selected.length === 0) return '';
+        const first = this.toppings.find((t) => t.value === this.selected[0])?.label ?? this.selected[0];
+        return this.selected.length > 1 ? `${first} (+${this.selected.length - 1} more)` : first;
+    }
+}
+```
+
 ## reactiveforms-doc
 
 Select can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
@@ -1055,6 +1264,7 @@ Select is used to choose an item from a collection of options.
 | tooltipStyleClass | string | - | Style class of the tooltip. |
 | focusOnHover | boolean | - | Fields used when filtering the options, defaults to optionLabel. |
 | selectOnFocus | boolean | - | Determines if the option will be selected on focus. |
+| multiple | boolean | - | When enabled, allows multiple items to be selected. |
 | autoOptionFocus | boolean | - | Whether to focus on the first visible or selected element when the overlay panel is shown. |
 | autofocusFilter | boolean | - | Applies focus to the filter element when the overlay is shown. |
 | filterValue | string | - | When specified, filter displays with this value. |

@@ -114,7 +114,7 @@ export class OrganizationChartCollapsibleDemo {
 }
 ```
 
-## colored-doc
+## Colored
 
 Styling a specific node is configured with styleClass option of a TreeNode and custom templates.
 
@@ -205,7 +205,6 @@ Nodes can define collapsedByDefault and selectedByDefault properties to configur
 
 ```typescript
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
 import { Product } from '@/domain/product';
 
 @Component({
@@ -218,7 +217,7 @@ import { Product } from '@/domain/product';
     imports: []
 })
 export class OrganizationChartDefaultDemo {
-    data: TreeNode[] = [
+    data: OrgChartNode[] = [
         {
             label: 'Founder',
             expanded: true,
@@ -275,7 +274,7 @@ import { Product } from '@/domain/product';
 })
 export class OrganizationChartPartialDemo {
     selectedNode: any;
-    data: TreeNode[] = [
+    data: OrgChartNode[] = [
         {
             label: 'Founder',
             expanded: true,
@@ -384,11 +383,7 @@ import { TreeNode } from 'primeng/api';
             <p-organization-chart [value]="data" [collapsible]="true">
                 <ng-template #node let-node>
                     <div class="flex items-start gap-2">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png"
-                            [alt]="node.label"
-                            [class]="'h-full !w-10 flag flag-' + node.data.flag"
-                        />
+                        <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'h-full !w-10 flag flag-' + node.data.flag" />
                         <div class="flex flex-col items-start gap-0.5">
                             <div class="font-semibold leading-none">{{ node.label }}</div>
                             <div class="text-xs leading-none opacity-75">{{ node.data.description }}</div>
@@ -454,7 +449,8 @@ export class OrganizationChartTemplateDemo {
 | node | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the node's DOM element. |
 | nodeContent | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the node content's DOM element. |
 | collapseButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the collapse button's DOM element. |
-| collapseButtonIcon | PassThroughOption<HTMLElement, I> | Used to pass attributes to the collapse button icon's DOM element. |
+| collapseButtonDownIcon | PassThroughOption<HTMLElement, I> | Used to pass attributes to the collapse button down icon's DOM element. |
+| collapseButtonUpIcon | PassThroughOption<HTMLElement, I> | Used to pass attributes to the collapse button up icon's DOM element. |
 
 ## Theming
 
@@ -468,7 +464,8 @@ export class OrganizationChartTemplateDemo {
 | p-organizationchart-node | Class name of the node element |
 | p-organizationchart-node-content | Class name of the node content element |
 | p-organizationchart-collapse-button | Class name of the collapse button element |
-| p-organizationchart-collapse-button-icon | Class name of the collapse button icon element |
+| p-organizationchart-collapse-button-down-icon | Class name of the collapse button down icon element |
+| p-organizationchart-collapse-button-up-icon | Class name of the collapse button up icon element |
 
 ### Design Tokens
 

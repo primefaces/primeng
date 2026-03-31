@@ -798,6 +798,47 @@ class TestComplexEdgeCasesComponent {
     }
 }
 
+@Component({
+    standalone: false,
+    template: `
+        <p-select
+            [options]="options"
+            [(ngModel)]="selectedValues"
+            [multiple]="true"
+            optionLabel="name"
+            optionValue="code"
+            [showClear]="showClear"
+            [checkmark]="checkmark"
+            placeholder="Select items"
+            (onChange)="onSelectionChange($event)"
+            (onClear)="onClearEvent($event)"
+        >
+        </p-select>
+    `
+})
+class TestMultipleSelectComponent {
+    options = [
+        { name: 'Option 1', code: 'opt1' },
+        { name: 'Option 2', code: 'opt2' },
+        { name: 'Option 3', code: 'opt3' },
+        { name: 'Option 4', code: 'opt4', disabled: true }
+    ];
+    selectedValues: string[] = [];
+    showClear = true;
+    checkmark = false;
+
+    changeEvent: any;
+    clearEvent: any;
+
+    onSelectionChange(event: any) {
+        this.changeEvent = event;
+    }
+
+    onClearEvent(event: any) {
+        this.clearEvent = event;
+    }
+}
+
 describe('Select', () => {
     let component: TestBasicSelectComponent;
     let fixture: ComponentFixture<TestBasicSelectComponent>;
@@ -817,7 +858,8 @@ describe('Select', () => {
                 TestDynamicDataSourcesComponent,
                 TestComprehensiveFormComponent,
                 TestViewChildComponent,
-                TestComplexEdgeCasesComponent
+                TestComplexEdgeCasesComponent,
+                TestMultipleSelectComponent
             ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -4412,6 +4454,166 @@ describe('Select PT (PassThrough)', () => {
                 expect(emptyMessage.nativeElement.classList.contains('CUSTOM_EMPTY_MESSAGE')).toBeTruthy();
                 expect(emptyMessage.nativeElement.getAttribute('data-empty')).toBe('true');
             }
+        });
+    });
+
+    describe('Multiple Selection', () => {
+        let multiFixture: ComponentFixture<TestMultipleSelectComponent>;
+        let multiComponent: TestMultipleSelectComponent;
+        let multiSelect: Select;
+
+        beforeEach(() => {
+            multiFixture = TestBed.createComponent(TestMultipleSelectComponent);
+            multiComponent = multiFixture.componentInstance;
+            multiSelect = multiFixture.debugElement.query(By.directive(Select)).componentInstance;
+            multiFixture.detectChanges();
+        });
+
+        it('should have multiple input set to true', () => {
+            expect(multiSelect.multiple()).toBe(true);
+        });
+
+        it('should select multiple options', async () => {
+            multiSelect.show();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            const options = multiFixture.debugElement.queryAll(By.css('p-select-item'));
+            expect(options.length).toBeGreaterThan(0);
+
+            options[0].nativeElement.querySelector('li').click();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            expect(multiComponent.selectedValues).toEqual(['opt1']);
+
+            options[1].nativeElement.querySelector('li').click();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            expect(multiComponent.selectedValues).toEqual(['opt1', 'opt2']);
+        });
+
+        it('should toggle selection on click', async () => {
+            multiComponent.selectedValues = ['opt1', 'opt2'];
+            multiFixture.detectChanges();
+
+            multiSelect.show();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            const options = multiFixture.debugElement.queryAll(By.css('p-select-item'));
+            options[0].nativeElement.querySelector('li').click();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            expect(multiComponent.selectedValues).toEqual(['opt2']);
+        });
+
+        it('should not close overlay on option select', async () => {
+            multiSelect.show();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            const options = multiFixture.debugElement.queryAll(By.css('p-select-item'));
+            options[0].nativeElement.querySelector('li').click();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            expect(multiSelect.overlayVisible()).toBeTruthy();
+        });
+
+        it('should display comma separated labels', async () => {
+            multiComponent.selectedValues = ['opt1', 'opt2'];
+            multiFixture.detectChanges();
+            await multiFixture.whenStable();
+
+            const label = multiSelect.label();
+            expect(label).toBe('Option 1, Option 2');
+        });
+
+        it('should show placeholder when nothing selected', () => {
+            expect(multiSelect.label()).toBe('Select items');
+        });
+
+        it('should clear to empty array', async () => {
+            multiComponent.selectedValues = ['opt1', 'opt2'];
+            multiFixture.detectChanges();
+
+            multiSelect.clear(new Event('click'));
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            expect(multiSelect.value).toEqual([]);
+        });
+
+        it('should emit onChange with array value', async () => {
+            multiSelect.show();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            const options = multiFixture.debugElement.queryAll(By.css('p-select-item'));
+            options[0].nativeElement.querySelector('li').click();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            expect(multiComponent.changeEvent).toBeDefined();
+            expect(multiComponent.changeEvent.value).toEqual(['opt1']);
+        });
+
+        it('should check isSelected correctly for multiple', () => {
+            multiComponent.selectedValues = ['opt1', 'opt3'];
+            multiFixture.detectChanges();
+
+            expect(multiSelect.isSelected(multiComponent.options[0])).toBe(true);
+            expect(multiSelect.isSelected(multiComponent.options[1])).toBe(false);
+            expect(multiSelect.isSelected(multiComponent.options[2])).toBe(true);
+        });
+
+        it('should have aria-multiselectable attribute', () => {
+            const trigger = multiFixture.debugElement.query(By.css('[role="combobox"]'));
+            expect(trigger.nativeElement.getAttribute('aria-multiselectable')).toBe('true');
+        });
+
+        it('should not have aria-multiselectable when not multiple', () => {
+            const singleFixture = TestBed.createComponent(TestBasicSelectComponent);
+            singleFixture.detectChanges();
+            const trigger = singleFixture.debugElement.query(By.css('[role="combobox"]'));
+            expect(trigger.nativeElement.getAttribute('aria-multiselectable')).toBeNull();
+        });
+
+        it('should show clear icon only when items selected', () => {
+            multiComponent.selectedValues = [];
+            multiFixture.detectChanges();
+            expect(multiSelect.isVisibleClearIcon()).toBe(false);
+
+            multiComponent.selectedValues = ['opt1'];
+            multiFixture.detectChanges();
+            expect(multiSelect.isVisibleClearIcon()).toBe(true);
+        });
+
+        it('should not close on enter key in multiple mode', async () => {
+            multiSelect.show();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            multiSelect.focusedOptionIndex.set(0);
+            const trigger = multiFixture.debugElement.query(By.css('[role="combobox"]'));
+            trigger.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            expect(multiSelect.overlayVisible()).toBeTruthy();
+        });
+
+        it('should isSelectedOptionEmpty return true for empty array', () => {
+            multiComponent.selectedValues = [];
+            multiFixture.detectChanges();
+            expect(multiSelect.isSelectedOptionEmpty()).toBe(true);
+
+            multiComponent.selectedValues = ['opt1'];
+            multiFixture.detectChanges();
+            expect(multiSelect.isSelectedOptionEmpty()).toBe(false);
         });
     });
 });

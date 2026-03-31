@@ -92,6 +92,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledby]="ariaLabelledBy()"
                 [attr.aria-haspopup]="'listbox'"
                 [attr.aria-expanded]="$ariaExpanded"
+                [attr.aria-multiselectable]="$ariaMultiselectable()"
                 [attr.aria-controls]="$ariaControls()"
                 [attr.tabindex]="$tabindex()"
                 [pAutoFocus]="autofocus()"
@@ -589,6 +590,11 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      */
     selectOnFocus = input(false, { transform: booleanAttribute });
     /**
+     * When enabled, allows multiple items to be selected.
+     * @group Props
+     */
+    multiple = input(false, { transform: booleanAttribute });
+    /**
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
@@ -842,7 +848,14 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     emptyFilterMessageLabel = computed(() => this.emptyFilterMessage() || this.translate(TranslationKeys.EMPTY_FILTER_MESSAGE));
 
-    isVisibleClearIcon = computed(() => this.modelValue() != null && this.hasSelectedOption() && this.showClear() && !this.$disabled());
+    isVisibleClearIcon = computed(() => {
+        if (!this.showClear() || this.$disabled()) return false;
+        const value = this.modelValue();
+        if (this.multiple()) {
+            return Array.isArray(value) && value.length > 0;
+        }
+        return value != null && this.hasSelectedOption();
+    });
 
     get listLabel(): string {
         return this.translate(TranslationKeys.ARIA, 'listLabel');
@@ -890,6 +903,21 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     });
 
     label = computed(() => {
+        if (this.multiple()) {
+            const currentValue = this.modelValue();
+            if (!Array.isArray(currentValue) || currentValue.length === 0) {
+                return this.placeholder() || 'p-emptylabel';
+            }
+            const options = this.getAllVisibleAndNonVisibleOptions();
+            const labels = currentValue
+                .map((val) => {
+                    const opt = options.find((o) => !this.isOptionGroup(o) && equals(val, this.getOptionValue(o), this.equalityKey()));
+                    return opt ? this.getOptionLabel(opt) : String(val);
+                })
+                .filter(Boolean);
+            return labels.join(', ');
+        }
+
         // use  getAllVisibleAndNonVisibleOptions verses just visible options
         // this will find the selected option whether or not the user is currently filtering  because the filtered (i.e. visible) options, are a subset of all the options
         const options = this.getAllVisibleAndNonVisibleOptions();
@@ -912,6 +940,8 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     $ariaLabel = computed(() => {
         return this.ariaLabel() || (this.label() === 'p-emptylabel' ? undefined : this.label());
     });
+
+    $ariaMultiselectable = computed(() => this.multiple() || undefined);
 
     $placeholder = computed(() => {
         const modelVal = this.modelValue();
@@ -1098,6 +1128,11 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             return;
         }
 
+        if (this.multiple()) {
+            this.onOptionSelectMultiple(event, option, preventChange);
+            return;
+        }
+
         if (!this.isSelected(option)) {
             const value = this.getOptionValue(option);
             this.updateModel(value, event);
@@ -1107,6 +1142,15 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         if (isHide) {
             this.hide(true);
         }
+    }
+
+    onOptionSelectMultiple(event, option, preventChange = false) {
+        const value = this.getOptionValue(option);
+        const currentValue = this.modelValue() ?? [];
+        const newValue = this.isSelected(option) ? currentValue.filter((v) => !equals(v, value, this.equalityKey())) : [...currentValue, value];
+
+        this.updateModel(newValue, event);
+        preventChange === false && this.onChange.emit({ originalEvent: event, value: newValue });
     }
 
     onOptionMouseEnter(event, index) {
@@ -1127,6 +1171,12 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     isSelected(option) {
+        if (this.multiple()) {
+            const currentValue = this.modelValue();
+            if (!Array.isArray(currentValue)) return false;
+            const optionValue = this.getOptionValue(option);
+            return currentValue.some((v) => equals(v, optionValue, this.equalityKey()));
+        }
         return this.isOptionValueEqualsModelValue(option);
     }
 
@@ -1190,6 +1240,10 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     isSelectedOptionEmpty() {
+        if (this.multiple()) {
+            const currentValue = this.modelValue();
+            return !Array.isArray(currentValue) || currentValue.length === 0;
+        }
         return isEmpty(this.selectedOption());
     }
 
@@ -1514,7 +1568,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             this.focusedOptionIndex.set(index);
             this.scrollInView();
 
-            if (this.selectOnFocus()) {
+            if (this.selectOnFocus() && !this.multiple()) {
                 const option = this.visibleOptions()[index];
                 this.onOptionSelect(event, option, false);
             }
@@ -1619,7 +1673,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
                 this.onOptionSelect(event, option);
             }
 
-            this.overlayVisible() && this.hide();
+            !this.multiple() && this.overlayVisible() && this.hide();
         } else {
             const optionIndex = this.focusedOptionIndex() !== -1 ? this.findPrevOptionIndex(this.focusedOptionIndex()) : this.clicked() ? this.findLastOptionIndex() : this.findLastFocusedOptionIndex();
 
@@ -1705,7 +1759,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
                 this.onOptionSelect(event, option);
             }
 
-            !pressedInInput && this.hide();
+            !pressedInInput && !this.multiple() && this.hide();
         }
 
         event.preventDefault();
@@ -1827,7 +1881,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * @group Method
      */
     public clear(event?: Event) {
-        this.updateModel(null, event);
+        this.updateModel(this.multiple() ? [] : null, event);
         this.clearEditableLabel();
         this.onModelTouched();
         this.onChange.emit({ originalEvent: event, value: this.value });

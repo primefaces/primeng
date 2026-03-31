@@ -3577,27 +3577,6 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "Whether the node is loading. Used in lazy loading."
-                        },
-                        {
-                            "name": "collapsible",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Whether the node can be collapsed/expanded."
-                        },
-                        {
-                            "name": "selectedByDefault",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Whether the node should be selected by default."
-                        },
-                        {
-                            "name": "collapsedByDefault",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Whether the node should be collapsed by default."
                         }
                     ]
                 }
@@ -3786,27 +3765,6 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "Whether the node is loading. Used in lazy loading."
-                        },
-                        {
-                            "name": "collapsible",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Whether the node can be collapsed/expanded."
-                        },
-                        {
-                            "name": "selectedByDefault",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Whether the node should be selected by default."
-                        },
-                        {
-                            "name": "collapsedByDefault",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Whether the node should be collapsed by default."
                         },
                         {
                             "name": "originalEvent",
@@ -31824,7 +31782,7 @@
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": "TreeNode<any>[]",
+                            "type": "OrgChartNode<any>[]",
                             "description": "An array of nested TreeNodes."
                         },
                         {
@@ -31918,6 +31876,18 @@
                             ]
                         },
                         {
+                            "name": "collapsebutton",
+                            "description": "Custom collapse button template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": [
+                                {
+                                    "name": "context",
+                                    "description": "collapse button data.",
+                                    "type": "any"
+                                }
+                            ]
+                        },
+                        {
                             "name": "node",
                             "description": "Custom node template.",
                             "type": "TemplateRef<any>",
@@ -31956,8 +31926,12 @@
                         "description": "Class name of the collapse button element"
                     },
                     {
-                        "class": "p-organizationchart-collapse-button-icon",
-                        "description": "Class name of the collapse button icon element"
+                        "class": "p-organizationchart-collapse-button-down-icon",
+                        "description": "Class name of the collapse button down icon element"
+                    },
+                    {
+                        "class": "p-organizationchart-collapse-button-up-icon",
+                        "description": "Class name of the collapse button up icon element"
                     }
                 ]
             }
@@ -32075,12 +32049,183 @@
                             }
                         ],
                         "description": "Custom toggler icon template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "collapsebutton",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: TreeNode, // Node instance.\n  \t expanded: boolean, // Whether the node is expanded.\n  \t collapsed: boolean, // Whether the node is collapsed.\n  \t childCount: number, // Number of child nodes.\n  \t toggle: undefined, // Function to toggle the node.\n  }",
+                                "description": "collapse button data."
+                            }
+                        ],
+                        "description": "Custom collapse button template."
                     }
                 ]
             },
             "interfaces": {
                 "description": "Defines the custom interfaces used by the module.",
                 "values": [
+                    {
+                        "name": "OrgChartNode",
+                        "description": "Represents a node in the OrganizationChart with additional properties.",
+                        "props": [
+                            {
+                                "name": "checked",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "label",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Label of the node."
+                            },
+                            {
+                                "name": "data",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "unknown",
+                                "description": "Data represented by the node."
+                            },
+                            {
+                                "name": "icon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Icon of the node to display next to content."
+                            },
+                            {
+                                "name": "expandedIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Icon to use in expanded state."
+                            },
+                            {
+                                "name": "collapsedIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Icon to use in collapsed state."
+                            },
+                            {
+                                "name": "leaf",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Specifies if the node has children. Used in lazy loading."
+                            },
+                            {
+                                "name": "expanded",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Expanded state of the node."
+                            },
+                            {
+                                "name": "type",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Type of the node to match a template."
+                            },
+                            {
+                                "name": "parent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "TreeNode<T>",
+                                "description": "Parent of the node."
+                            },
+                            {
+                                "name": "partialSelected",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Defines if value is partially selected."
+                            },
+                            {
+                                "name": "style",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Inline style of the node."
+                            },
+                            {
+                                "name": "styleClass",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the node."
+                            },
+                            {
+                                "name": "draggable",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Defines if the node is draggable."
+                            },
+                            {
+                                "name": "droppable",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Defines if the node is droppable."
+                            },
+                            {
+                                "name": "selectable",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the node is selectable when selection mode is enabled."
+                            },
+                            {
+                                "name": "key",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Mandatory unique key of the node."
+                            },
+                            {
+                                "name": "loading",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the node is loading. Used in lazy loading."
+                            },
+                            {
+                                "name": "children",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "OrgChartNode<T>[]",
+                                "description": "An array of child nodes."
+                            },
+                            {
+                                "name": "collapsible",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the node can be collapsed/expanded."
+                            },
+                            {
+                                "name": "selectedByDefault",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the node should be selected by default."
+                            },
+                            {
+                                "name": "collapsedByDefault",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the node should be collapsed by default."
+                            }
+                        ]
+                    },
                     {
                         "name": "OrganizationChartPassThroughOptions",
                         "description": "Custom pass-through(pt) options.",
@@ -32128,11 +32273,18 @@
                                 "description": "Used to pass attributes to the collapse button's DOM element."
                             },
                             {
-                                "name": "collapseButtonIcon",
+                                "name": "collapseButtonDownIcon",
                                 "optional": true,
                                 "readonly": false,
                                 "type": "PassThroughOption<HTMLElement, I>",
-                                "description": "Used to pass attributes to the collapse button icon's DOM element."
+                                "description": "Used to pass attributes to the collapse button down icon's DOM element."
+                            },
+                            {
+                                "name": "collapseButtonUpIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the collapse button up icon's DOM element."
                             }
                         ]
                     }
@@ -38976,6 +39128,13 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "Determines if the option will be selected on focus."
+                        },
+                        {
+                            "name": "multiple",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "When enabled, allows multiple items to be selected."
                         },
                         {
                             "name": "autoOptionFocus",
@@ -51657,27 +51816,6 @@
                                 "readonly": false,
                                 "type": "boolean",
                                 "description": "Whether the node is loading. Used in lazy loading."
-                            },
-                            {
-                                "name": "collapsible",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Whether the node can be collapsed/expanded."
-                            },
-                            {
-                                "name": "selectedByDefault",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Whether the node should be selected by default."
-                            },
-                            {
-                                "name": "collapsedByDefault",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Whether the node should be collapsed by default."
                             },
                             {
                                 "name": "originalEvent",
