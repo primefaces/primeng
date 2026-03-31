@@ -15,6 +15,7 @@ import {
     numberAttribute,
     output,
     signal,
+    untracked,
     TemplateRef,
     viewChild,
     ViewEncapsulation
@@ -687,8 +688,10 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         // Handle options input changes
         effect(() => {
             const opts = this.options();
-            this._options.set(opts);
-            this.updateTreeState();
+            untracked(() => {
+                this._options.set(opts);
+                this.updateTreeState();
+            });
         });
     }
 
