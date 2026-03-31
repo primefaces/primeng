@@ -1,7 +1,10 @@
 import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/organizationchart/accessibility-doc';
 import { BasicDoc } from '@/doc/organizationchart/basic-doc';
+import { CollapsibleDoc } from '@/doc/organizationchart/collapsible-doc';
 import { ColoredDoc } from '@/doc/organizationchart/colored-doc';
+import { DefaultDoc } from '@/doc/organizationchart/default-doc';
+import { PartialDoc } from '@/doc/organizationchart/partial-doc';
 import { PTComponent } from '@/doc/organizationchart/pt/PTComponent';
 import { SelectionDoc } from '@/doc/organizationchart/selection-doc';
 import { TemplateDoc } from '@/doc/organizationchart/template-doc';
@@ -42,19 +45,34 @@ export class OrganizationChartDemo {
                     component: BasicDoc
                 },
                 {
-                    id: 'template',
-                    label: 'Template',
-                    component: TemplateDoc
+                    id: 'collapsible',
+                    label: 'Collapsible',
+                    component: CollapsibleDoc
                 },
                 {
-                    id: 'selection',
-                    label: 'Selection',
+                    id: 'selectable',
+                    label: 'Selectable',
                     component: SelectionDoc
+                },
+                {
+                    id: 'partial',
+                    label: 'Partial Collapsible & Selectable',
+                    component: PartialDoc
+                },
+                {
+                    id: 'default',
+                    label: 'Default Collapsed & Selected',
+                    component: DefaultDoc
                 },
                 {
                     id: 'colored',
                     label: 'Colored',
                     component: ColoredDoc
+                },
+                {
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
                 }
             ]
         },

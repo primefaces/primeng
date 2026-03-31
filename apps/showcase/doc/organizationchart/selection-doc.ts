@@ -11,27 +11,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [OrganizationChartModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>
-                Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> properties. By default only one node can be selected, set <i>selectionMode</i> as <i>multiple</i> to select more than one.
-            </p></app-docsectiontext
-        >
+            <p>Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> properties. By default only one node can be selected, set <i>selectionMode</i> as <i>multiple</i> to select more than one.</p>
+        </app-docsectiontext>
         <app-demo-wrapper>
             <div class="flex justify-center overflow-x-auto">
-                <p-organization-chart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
-                    <ng-template #node let-node>
-                        @if (node.type === 'person') {
-                            <div class="flex flex-col">
-                                <div class="flex flex-col items-center">
-                                    <img [src]="node.data.image" class="mb-4 w-12 h-12" />
-                                    <div class="font-bold mb-2">{{ node.data.name }}</div>
-                                    <div>{{ node.data.title }}</div>
-                                </div>
-                            </div>
-                        } @else {
-                            <div>{{ node.label }}</div>
-                        }
-                    </ng-template>
-                </p-organization-chart>
+                <p-organization-chart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" />
             </div>
             <app-code></app-code>
         </app-demo-wrapper>
@@ -42,45 +26,30 @@ export class SelectionDoc {
 
     data: TreeNode[] = [
         {
+            label: 'Founder',
             expanded: true,
-            type: 'person',
-            data: {
-                image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png',
-                name: 'Amy Elsner',
-                title: 'CEO'
-            },
             children: [
                 {
+                    label: 'Product Lead',
                     expanded: true,
-                    type: 'person',
-                    data: {
-                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png',
-                        name: 'Anna Fali',
-                        title: 'CMO'
-                    },
                     children: [
                         {
-                            label: 'Sales'
+                            label: 'UX/UI Designer'
                         },
                         {
-                            label: 'Marketing'
+                            label: 'Product Manager'
                         }
                     ]
                 },
                 {
+                    label: 'Engineering Lead',
                     expanded: true,
-                    type: 'person',
-                    data: {
-                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png',
-                        name: 'Stephen Shaw',
-                        title: 'CTO'
-                    },
                     children: [
                         {
-                            label: 'Development'
+                            label: 'Frontend Developer'
                         },
                         {
-                            label: 'UI/UX Design'
+                            label: 'Backend Developer'
                         }
                     ]
                 }

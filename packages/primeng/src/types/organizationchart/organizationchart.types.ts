@@ -3,6 +3,32 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TreeNode } from 'primeng/api';
 
 /**
+ * Represents a node in the OrganizationChart with additional properties.
+ * @extends TreeNode
+ * @group Interface
+ */
+export interface OrgChartNode<T = any> extends TreeNode<T> {
+    /**
+     * An array of child nodes.
+     */
+    children?: OrgChartNode<T>[];
+    /**
+     * Whether the node can be collapsed/expanded.
+     */
+    collapsible?: boolean;
+    /**
+     * Whether the node should be selected by default.
+     * @defaultValue false
+     */
+    selectedByDefault?: boolean;
+    /**
+     * Whether the node should be collapsed by default.
+     * @defaultValue false
+     */
+    collapsedByDefault?: boolean;
+}
+
+/**
  * Defines the selection mode.
  */
 export type OrganizationChartSelectionMode = 'single' | 'multiple';
@@ -20,61 +46,33 @@ export interface OrganizationChartPassThroughOptions<I = unknown> {
      */
     root?: PassThroughOption<HTMLDivElement, I>;
     /**
-     * Used to pass attributes to the table's DOM element.
+     * Used to pass attributes to the subtree's DOM element.
      */
-    table?: PassThroughOption<HTMLTableElement, I>;
+    subtree?: PassThroughOption<HTMLUListElement, I>;
     /**
-     * Used to pass attributes to the body's DOM element.
+     * Used to pass attributes to the tree's DOM element.
      */
-    body?: PassThroughOption<HTMLTableSectionElement, I>;
-    /**
-     * Used to pass attributes to the row's DOM element.
-     */
-    row?: PassThroughOption<HTMLTableRowElement, I>;
-    /**
-     * Used to pass attributes to the cell's DOM element.
-     */
-    cell?: PassThroughOption<HTMLTableCellElement, I>;
+    tree?: PassThroughOption<HTMLLIElement, I>;
     /**
      * Used to pass attributes to the node's DOM element.
      */
     node?: PassThroughOption<HTMLDivElement, I>;
     /**
-     * Used to pass attributes to the node toggle button's DOM element.
+     * Used to pass attributes to the node content's DOM element.
      */
-    nodeToggleButton?: PassThroughOption<HTMLAnchorElement, I>;
+    nodeContent?: PassThroughOption<HTMLDivElement, I>;
     /**
-     * Used to pass attributes to the node toggle button icon's DOM element.
+     * Used to pass attributes to the collapse button's DOM element.
      */
-    nodeToggleButtonIcon?: PassThroughOption<HTMLElement, I>;
+    collapseButton?: PassThroughOption<HTMLButtonElement, I>;
     /**
-     * Used to pass attributes to the connectors' DOM element.
+     * Used to pass attributes to the collapse button down icon's DOM element.
      */
-    connectors?: PassThroughOption<HTMLTableRowElement, I>;
+    collapseButtonDownIcon?: PassThroughOption<HTMLElement, I>;
     /**
-     * Used to pass attributes to the line cell's DOM element.
+     * Used to pass attributes to the collapse button up icon's DOM element.
      */
-    lineCell?: PassThroughOption<HTMLTableCellElement, I>;
-    /**
-     * Used to pass attributes to the connector down's DOM element.
-     */
-    connectorDown?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the connector left's DOM element.
-     */
-    connectorLeft?: PassThroughOption<HTMLTableCellElement, I>;
-    /**
-     * Used to pass attributes to the connector right's DOM element.
-     */
-    connectorRight?: PassThroughOption<HTMLTableCellElement, I>;
-    /**
-     * Used to pass attributes to the node children's DOM element.
-     */
-    nodeChildren?: PassThroughOption<HTMLTableRowElement, I>;
-    /**
-     * Used to pass attributes to the node cell's DOM element.
-     */
-    nodeCell?: PassThroughOption<HTMLTableCellElement, I>;
+    collapseButtonUpIcon?: PassThroughOption<HTMLElement, I>;
 }
 
 /**
@@ -146,4 +144,30 @@ export interface OrganizationChartTemplates {
          */
         $implicit: boolean;
     }): TemplateRef<{ $implicit: boolean }>;
+    /**
+     * Custom collapse button template.
+     * @param {Object} context - collapse button data.
+     */
+    collapsebutton(context: {
+        /**
+         * Node instance.
+         */
+        $implicit: TreeNode;
+        /**
+         * Whether the node is expanded.
+         */
+        expanded: boolean;
+        /**
+         * Whether the node is collapsed.
+         */
+        collapsed: boolean;
+        /**
+         * Number of child nodes.
+         */
+        childCount: number;
+        /**
+         * Function to toggle the node.
+         */
+        toggle: (event: Event, node: TreeNode) => void;
+    }): TemplateRef<any>;
 }

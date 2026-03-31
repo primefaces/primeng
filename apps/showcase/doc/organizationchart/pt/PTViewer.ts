@@ -20,30 +20,30 @@ import { OrganizationChartModule } from 'primeng/organizationchart';
 export class PTViewer {
     data = [
         {
-            label: 'Argentina',
+            label: 'Founder',
             expanded: true,
             children: [
                 {
-                    label: 'Argentina',
+                    label: 'Product Lead',
                     expanded: true,
                     children: [
                         {
-                            label: 'Argentina'
+                            label: 'UX/UI Designer'
                         },
                         {
-                            label: 'Croatia'
+                            label: 'Product Manager'
                         }
                     ]
                 },
                 {
-                    label: 'France',
+                    label: 'Engineering Lead',
                     expanded: true,
                     children: [
                         {
-                            label: 'France'
+                            label: 'Frontend Developer'
                         },
                         {
-                            label: 'Morocco'
+                            label: 'Backend Developer'
                         }
                     ]
                 }

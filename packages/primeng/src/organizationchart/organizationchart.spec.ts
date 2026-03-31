@@ -203,8 +203,8 @@ describe('OrganizationChart', () => {
             fixture.detectChanges();
 
             expect(organizationChart.root()).toBeNull();
-            const table = fixture.debugElement.query(By.css('table'));
-            expect(table).toBeNull();
+            const subtree = fixture.debugElement.query(By.css('.p-organizationchart-subtree'));
+            expect(subtree).toBeNull();
         });
     });
 
@@ -399,7 +399,7 @@ describe('OrganizationChart', () => {
             expect(component.nodeSelectEvent).toBeUndefined();
         });
 
-        it('should ignore click on toggle button', async () => {
+        it('should ignore click on collapse button', async () => {
             component.selectionMode = 'single';
             component.collapsible = true;
             fixture.changeDetectorRef.markForCheck();
@@ -408,7 +408,7 @@ describe('OrganizationChart', () => {
 
             const node = component.data[0];
             const mockElement = document.createElement('div');
-            mockElement.setAttribute('data-pc-section', 'nodetogglebutton');
+            mockElement.setAttribute('data-pc-section', 'collapsebutton');
             const event = new MouseEvent('click');
             Object.defineProperty(event, 'target', {
                 value: mockElement,
@@ -470,7 +470,6 @@ describe('OrganizationChart', () => {
             const nodeComponent = nodeElements[0].componentInstance as OrganizationChartNode;
 
             expect(nodeComponent.leaf).toBe(true);
-            expect(nodeComponent.colspan).toBeNull();
         });
 
         it('should handle nodes with leaf property set to false', () => {
@@ -481,21 +480,6 @@ describe('OrganizationChart', () => {
             const nodeComponent = nodeElements[0].componentInstance as OrganizationChartNode;
 
             expect(nodeComponent.leaf).toBe(false);
-        });
-
-        it('should calculate colspan correctly', () => {
-            component.data = [
-                {
-                    label: 'Root',
-                    children: [{ label: 'Child 1' }, { label: 'Child 2' }, { label: 'Child 3' }]
-                }
-            ];
-            fixture.detectChanges();
-
-            const nodeElements = fixture.debugElement.queryAll(By.css('[pOrganizationChartNode]'));
-            const nodeComponent = nodeElements[0].componentInstance as OrganizationChartNode;
-
-            expect(nodeComponent.colspan).toBe(6); // 3 children * 2
         });
 
         it('should handle rapid selection changes', async () => {
@@ -580,7 +564,7 @@ describe('OrganizationChart', () => {
             expect(nodeDiv.nativeElement.className).toContain('custom-node-class');
         });
 
-        it('should apply visibility styles based on node expansion', () => {
+        it('should not render subtree when node is collapsed', () => {
             component.data = [
                 {
                     label: 'Root',
@@ -591,40 +575,31 @@ describe('OrganizationChart', () => {
             component.collapsible = true;
             fixture.detectChanges();
 
-            const nodeElements = fixture.debugElement.queryAll(By.css('[pOrganizationChartNode]'));
-            const nodeComponent = nodeElements[0].componentInstance as OrganizationChartNode;
-
-            const childStyle = nodeComponent.getChildStyle(component.data[0]);
-            expect(childStyle.visibility).toBe('hidden');
-
-            component.data[0].expanded = true;
-            const expandedStyle = nodeComponent.getChildStyle(component.data[0]);
-            expect(expandedStyle.visibility).toBe('inherit');
+            // Root node's subtree should not be rendered when collapsed
+            const subtrees = fixture.debugElement.queryAll(By.css('.p-organizationchart-subtree'));
+            // Only the root subtree should exist, not the children subtree
+            expect(subtrees.length).toBe(1);
         });
 
-        it('should apply connector classes correctly', () => {
+        it('should render subtree when node is expanded', () => {
             component.data = [
                 {
                     label: 'Root',
                     expanded: true,
-                    children: [{ label: 'Child 1' }, { label: 'Child 2' }, { label: 'Child 3' }]
+                    children: [{ label: 'Child 1' }, { label: 'Child 2' }]
                 }
             ];
+            component.collapsible = true;
             fixture.detectChanges();
 
-            const connectorDown = fixture.debugElement.query(By.css('.p-organizationchart-connector-down'));
-            expect(connectorDown).toBeTruthy();
-
-            const leftConnectors = fixture.debugElement.queryAll(By.css('.p-organizationchart-connector-left'));
-            expect(leftConnectors.length).toBeGreaterThan(0);
-
-            const rightConnectors = fixture.debugElement.queryAll(By.css('.p-organizationchart-connector-right'));
-            expect(rightConnectors.length).toBeGreaterThan(0);
+            const subtrees = fixture.debugElement.queryAll(By.css('.p-organizationchart-subtree'));
+            // Root subtree + children subtree
+            expect(subtrees.length).toBe(2);
         });
     });
 
     describe('Accessibility', () => {
-        it('should have correct tabindex on toggle button', () => {
+        it('should have role tree on root subtree', () => {
             component.data = [
                 {
                     label: 'Root',
@@ -632,11 +607,52 @@ describe('OrganizationChart', () => {
                     children: [{ label: 'Child' }]
                 }
             ];
-            component.collapsible = true;
             fixture.detectChanges();
 
-            const toggleButton = fixture.debugElement.query(By.css('.p-organizationchart-node-toggle-button'));
-            expect(toggleButton.nativeElement.getAttribute('tabindex')).toBe('0');
+            const rootSubtree = fixture.debugElement.query(By.css('.p-organizationchart-subtree-root'));
+            expect(rootSubtree.nativeElement.getAttribute('role')).toBe('tree');
+        });
+
+        it('should have role treeitem on tree items', () => {
+            component.data = [
+                {
+                    label: 'Root',
+                    expanded: true,
+                    children: [{ label: 'Child' }]
+                }
+            ];
+            fixture.detectChanges();
+
+            const treeItems = fixture.debugElement.queryAll(By.css('.p-organizationchart-tree'));
+            expect(treeItems.length).toBeGreaterThan(0);
+            treeItems.forEach((item) => {
+                expect(item.nativeElement.getAttribute('role')).toBe('treeitem');
+            });
+        });
+
+        it('should have role group on child subtrees', () => {
+            component.data = [
+                {
+                    label: 'Root',
+                    expanded: true,
+                    children: [{ label: 'Child' }]
+                }
+            ];
+            fixture.detectChanges();
+
+            const childSubtrees = fixture.debugElement.queryAll(By.css('.p-organizationchart-subtree:not(.p-organizationchart-subtree-root)'));
+            childSubtrees.forEach((subtree) => {
+                expect(subtree.nativeElement.getAttribute('role')).toBe('group');
+            });
+        });
+
+        it('should have data-selectable attribute on selectable nodes', () => {
+            component.data = [{ label: 'Root', selectable: true }];
+            component.selectionMode = 'single';
+            fixture.detectChanges();
+
+            const node = fixture.debugElement.query(By.css('.p-organizationchart-node'));
+            expect(node.nativeElement.getAttribute('data-selectable')).toBe('true');
         });
 
         it('should have correct CSS classes', () => {
@@ -650,8 +666,26 @@ describe('OrganizationChart', () => {
             fixture.detectChanges();
 
             expect(fixture.debugElement.query(By.css('.p-organizationchart'))).toBeTruthy();
-            expect(fixture.debugElement.query(By.css('.p-organizationchart-table'))).toBeTruthy();
+            expect(fixture.debugElement.query(By.css('.p-organizationchart-subtree'))).toBeTruthy();
+            expect(fixture.debugElement.query(By.css('.p-organizationchart-tree'))).toBeTruthy();
             expect(fixture.debugElement.query(By.css('.p-organizationchart-node'))).toBeTruthy();
+            expect(fixture.debugElement.query(By.css('.p-organizationchart-node-content'))).toBeTruthy();
+        });
+
+        it('should render collapse button with child count when collapsed', () => {
+            component.data = [
+                {
+                    label: 'Root',
+                    expanded: false,
+                    children: [{ label: 'Child 1' }, { label: 'Child 2' }]
+                }
+            ];
+            component.collapsible = true;
+            fixture.detectChanges();
+
+            const collapseButton = fixture.debugElement.query(By.css('.p-organizationchart-collapse-button'));
+            expect(collapseButton).toBeTruthy();
+            expect(collapseButton.nativeElement.textContent).toContain('+2');
         });
 
         it('should render correct icon based on expansion state', async () => {
@@ -665,16 +699,16 @@ describe('OrganizationChart', () => {
             component.collapsible = true;
             fixture.detectChanges();
 
-            const chevronDown = fixture.debugElement.query(By.css('[data-p-icon="chevron-down"]'));
-            expect(chevronDown).toBeTruthy();
+            const chevronUp = fixture.debugElement.query(By.css('[data-p-icon="chevron-up"]'));
+            expect(chevronUp).toBeTruthy();
 
             component.data[0].expanded = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const chevronUp = fixture.debugElement.query(By.css('[data-p-icon="chevron-up"]'));
-            expect(chevronUp).toBeTruthy();
+            const chevronDown = fixture.debugElement.query(By.css('[data-p-icon="chevron-down"]'));
+            expect(chevronDown).toBeTruthy();
         });
     });
 
@@ -683,11 +717,11 @@ describe('OrganizationChart', () => {
             const keyboardFixture = TestBed.createComponent(TestKeyboardNavigationComponent);
             keyboardFixture.detectChanges();
 
-            const toggleButton = keyboardFixture.debugElement.query(By.css('.p-organizationchart-node-toggle-button'));
+            const collapseButton = keyboardFixture.debugElement.query(By.css('.p-organizationchart-collapse-button'));
             const keyEvent = new KeyboardEvent('keydown', { key: 'Enter' });
 
             const initialExpanded = keyboardFixture.componentInstance.data[0].expanded;
-            toggleButton.nativeElement.dispatchEvent(keyEvent);
+            collapseButton.nativeElement.dispatchEvent(keyEvent);
             await keyboardFixture.whenStable();
 
             expect(keyboardFixture.componentInstance.data[0].expanded).toBe(!initialExpanded);
@@ -697,11 +731,11 @@ describe('OrganizationChart', () => {
             const keyboardFixture = TestBed.createComponent(TestKeyboardNavigationComponent);
             keyboardFixture.detectChanges();
 
-            const toggleButton = keyboardFixture.debugElement.query(By.css('.p-organizationchart-node-toggle-button'));
+            const collapseButton = keyboardFixture.debugElement.query(By.css('.p-organizationchart-collapse-button'));
             const keyEvent = new KeyboardEvent('keydown', { key: ' ' });
 
             const initialExpanded = keyboardFixture.componentInstance.data[0].expanded;
-            toggleButton.nativeElement.dispatchEvent(keyEvent);
+            collapseButton.nativeElement.dispatchEvent(keyEvent);
             await keyboardFixture.whenStable();
 
             expect(keyboardFixture.componentInstance.data[0].expanded).toBe(!initialExpanded);
@@ -730,6 +764,39 @@ describe('OrganizationChart', () => {
         });
     });
 
+    describe('Gap Property', () => {
+        it('should apply default gap values', () => {
+            component.data = [{ label: 'Root' }];
+            fixture.detectChanges();
+
+            const host = fixture.debugElement.query(By.directive(OrganizationChart));
+            expect(organizationChart.gapX()).toBe(40);
+            expect(organizationChart.gapY()).toBe(40);
+        });
+
+        it('should apply custom gap as single number', () => {
+            const gapFixture = TestBed.createComponent(OrganizationChart);
+            gapFixture.componentRef.setInput('value', [{ label: 'Root' }]);
+            gapFixture.componentRef.setInput('gap', 60);
+            gapFixture.detectChanges();
+
+            const orgChart = gapFixture.componentInstance;
+            expect(orgChart.gapX()).toBe(60);
+            expect(orgChart.gapY()).toBe(60);
+        });
+
+        it('should apply custom gap as tuple', () => {
+            const gapFixture = TestBed.createComponent(OrganizationChart);
+            gapFixture.componentRef.setInput('value', [{ label: 'Root' }]);
+            gapFixture.componentRef.setInput('gap', [30, 50]);
+            gapFixture.detectChanges();
+
+            const orgChart = gapFixture.componentInstance;
+            expect(orgChart.gapX()).toBe(30);
+            expect(orgChart.gapY()).toBe(50);
+        });
+    });
+
     describe('Component Lifecycle', () => {
         it('should clean up on destroy', () => {
             component.data = [{ label: 'Root' }];
@@ -752,14 +819,14 @@ describe('OrganizationChart', () => {
                 expect(hostElement.className).toContain('CUSTOM_ROOT_CLASS');
             });
 
-            it('should apply string class to table', () => {
+            it('should apply string class to subtree', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
                 ptFixture.componentRef.setInput('value', [{ label: 'Root' }]);
-                ptFixture.componentRef.setInput('pt', { table: 'CUSTOM_TABLE_CLASS' });
+                ptFixture.componentRef.setInput('pt', { subtree: 'CUSTOM_SUBTREE_CLASS' });
                 ptFixture.detectChanges();
 
-                const table = ptFixture.debugElement.query(By.css('table'));
-                expect(table.nativeElement.className).toContain('CUSTOM_TABLE_CLASS');
+                const subtree = ptFixture.debugElement.query(By.css('ul'));
+                expect(subtree.nativeElement.className).toContain('CUSTOM_SUBTREE_CLASS');
             });
 
             it('should apply string class to node', () => {
@@ -772,15 +839,15 @@ describe('OrganizationChart', () => {
                 expect(node).toBeTruthy(); // Verify node exists with PT configuration
             });
 
-            it('should apply string class to nodeToggleButton', () => {
+            it('should apply string class to collapseButton', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
                 ptFixture.componentRef.setInput('value', [{ label: 'Root', expanded: true, children: [{ label: 'Child' }] }]);
                 ptFixture.componentRef.setInput('collapsible', true);
-                ptFixture.componentRef.setInput('pt', { nodeToggleButton: 'CUSTOM_TOGGLE_CLASS' });
+                ptFixture.componentRef.setInput('pt', { collapseButton: 'CUSTOM_COLLAPSE_CLASS' });
                 ptFixture.detectChanges();
 
-                const toggleButton = ptFixture.debugElement.query(By.css('.p-organizationchart-node-toggle-button'));
-                expect(toggleButton).toBeTruthy(); // Verify button exists
+                const collapseButton = ptFixture.debugElement.query(By.css('.p-organizationchart-collapse-button'));
+                expect(collapseButton).toBeTruthy(); // Verify button exists
             });
         });
 
@@ -824,7 +891,7 @@ describe('OrganizationChart', () => {
                 ptFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 ptFixture.componentRef.setInput('pt', {
                     root: { class: 'MIXED_ROOT_CLASS' },
-                    table: 'MIXED_TABLE_STRING',
+                    subtree: 'MIXED_SUBTREE_STRING',
                     node: { style: { padding: '10px' } }
                 });
                 ptFixture.detectChanges();
@@ -832,8 +899,8 @@ describe('OrganizationChart', () => {
                 const hostElement = ptFixture.nativeElement;
                 expect(hostElement.className).toContain('MIXED_ROOT_CLASS');
 
-                const table = ptFixture.debugElement.query(By.css('table'));
-                expect(table.nativeElement.className).toContain('MIXED_TABLE_STRING');
+                const subtree = ptFixture.debugElement.query(By.css('ul'));
+                expect(subtree.nativeElement.className).toContain('MIXED_SUBTREE_STRING');
 
                 const node = ptFixture.debugElement.query(By.css('.p-organizationchart-node'));
                 expect(node).toBeTruthy(); // Verify node exists with PT configuration
@@ -969,34 +1036,14 @@ describe('OrganizationChart', () => {
                 ptFixture.componentRef.setInput('selectionMode', 'single');
                 ptFixture.componentRef.setInput('pt', {
                     node: ({ context }: any) => ({
-                        'data-expanded': context?.expanded,
-                        'data-selectable': context?.selectable
+                        'data-pt-expanded': context?.expanded,
+                        'data-pt-selectable': context?.selectable
                     })
                 });
                 ptFixture.detectChanges();
 
                 const node = ptFixture.debugElement.query(By.css('.p-organizationchart-node'));
                 expect(node).toBeTruthy(); // Verify node exists with context-aware PT
-            });
-
-            it('should use getNodeOptions with lineTop context', () => {
-                const ptFixture = TestBed.createComponent(OrganizationChart);
-                ptFixture.componentRef.setInput('value', [
-                    {
-                        label: 'Root',
-                        expanded: true,
-                        children: [{ label: 'Child 1' }, { label: 'Child 2' }]
-                    }
-                ]);
-                ptFixture.componentRef.setInput('pt', {
-                    connectorLeft: ({ context }: any) => ({
-                        'data-line-top': context?.lineTop
-                    })
-                });
-                ptFixture.detectChanges();
-
-                const connectors = ptFixture.debugElement.queryAll(By.css('.p-organizationchart-connector-left'));
-                expect(connectors.length).toBeGreaterThan(0);
             });
 
             it('should support toggleable context in PT', () => {
@@ -1010,14 +1057,14 @@ describe('OrganizationChart', () => {
                 ]);
                 ptFixture.componentRef.setInput('collapsible', true);
                 ptFixture.componentRef.setInput('pt', {
-                    nodeToggleButton: ({ context }: any) => ({
+                    collapseButton: ({ context }: any) => ({
                         'data-toggleable': context?.toggleable
                     })
                 });
                 ptFixture.detectChanges();
 
-                const toggleButton = ptFixture.debugElement.query(By.css('.p-organizationchart-node-toggle-button'));
-                expect(toggleButton).toBeTruthy(); // Verify toggle button exists with context PT
+                const collapseButton = ptFixture.debugElement.query(By.css('.p-organizationchart-collapse-button'));
+                expect(collapseButton).toBeTruthy(); // Verify collapse button exists with context PT
             });
 
             it('should support selected context in PT', async () => {
@@ -1028,7 +1075,7 @@ describe('OrganizationChart', () => {
                 ptFixture.componentRef.setInput('selectionMode', 'single');
                 ptFixture.componentRef.setInput('pt', {
                     node: ({ context }: any) => ({
-                        'data-selected': context?.selected
+                        'data-pt-selected': context?.selected
                     })
                 });
                 ptFixture.detectChanges();

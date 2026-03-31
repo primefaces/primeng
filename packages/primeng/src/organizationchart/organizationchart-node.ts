@@ -3,6 +3,7 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, inject,
 import { TreeNode } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BindModule } from 'primeng/bind';
+import { OrgChartNode } from 'primeng/types/organizationchart';
 import { ChevronDown as ChevronDownIcon } from '@primeicons/angular/chevron-down';
 import { ChevronUp as ChevronUpIcon } from '@primeicons/angular/chevron-up';
 import type { OrganizationChart } from './organizationchart';
@@ -15,70 +16,68 @@ import { OrganizationChartStyle } from './style/organizationchartstyle';
     imports: [NgTemplateOutlet, ChevronDownIcon, ChevronUpIcon, BindModule],
     template: `
         @if (node()) {
-            <tbody [pBind]="ptm('body')">
-                <tr [pBind]="ptm('row')">
-                    <td [attr.colspan]="colspan" [pBind]="ptm('cell')">
-                        <div [class]="cn(cx('node'), node()!.styleClass)" (click)="onNodeClick($event, node()!)" [pBind]="getPTOptions('node')">
-                            @if (!chart.getTemplateForNode(node()!)) {
-                                <div>{{ node()!.label }}</div>
+            <div
+                [class]="cn(cx('node'), node()!.styleClass)"
+                [attr.data-selectable]="isSelectable()"
+                [attr.data-selected]="isSelected()"
+                [attr.data-collapsible]="isCollapsible()"
+                [attr.data-collapsed]="isCollapsed()"
+                [attr.tabindex]="nodeTabIndex()"
+                (click)="onNodeClick($event, node()!)"
+                (keydown.enter)="onNodeKeyDown($event, node()!)"
+                (keydown.space)="onNodeKeyDown($event, node()!)"
+                [pBind]="getPTOptions('node')"
+            >
+                <div [class]="cx('nodeContent')" [pBind]="ptm('nodeContent')">
+                    @if (!chart.getTemplateForNode(node()!)) {
+                        {{ node()!.label }}
+                    } @else {
+                        <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node()!); context: { $implicit: node() }"></ng-container>
+                    }
+                </div>
+                @if (isCollapsible()) {
+                    @if (chart.collapseButtonTemplate()) {
+                        <ng-container *ngTemplateOutlet="chart.collapseButtonTemplate()!; context: getCollapseButtonContext()"></ng-container>
+                    } @else {
+                        <button type="button" [class]="cx('collapseButton')" (click)="toggleNode($event, node()!)" (keydown.enter)="toggleNode($event, node()!)" (keydown.space)="toggleNode($event, node()!)" [pBind]="getPTOptions('collapseButton')">
+                            @if (isCollapsed()) {
+                                <span>+{{ children().length }}</span>
                             } @else {
-                                <div>
-                                    <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node()!); context: { $implicit: node() }"></ng-container>
-                                </div>
+                                <span>Collapse</span>
                             }
-                            @if (collapsible()) {
-                                @if (!leaf) {
-                                    <a
-                                        tabindex="0"
-                                        [class]="cx('nodeToggleButton')"
-                                        (click)="toggleNode($event, node()!)"
-                                        (keydown.enter)="toggleNode($event, node()!)"
-                                        (keydown.space)="toggleNode($event, node()!)"
-                                        [pBind]="getPTOptions('nodeToggleButton')"
-                                    >
-                                        @if (!chart.togglerIconTemplate()) {
-                                            @if (node()!.expanded) {
-                                                <svg data-p-icon="chevron-down" [class]="cx('nodeToggleButtonIcon')" [pBind]="getPTOptions('nodeToggleButtonIcon')" />
-                                            } @else {
-                                                <svg data-p-icon="chevron-up" [class]="cx('nodeToggleButtonIcon')" [pBind]="getPTOptions('nodeToggleButtonIcon')" />
-                                            }
-                                        } @else {
-                                            <span [class]="cx('nodeToggleButtonIcon')" [pBind]="getPTOptions('nodeToggleButtonIcon')">
-                                                <ng-template *ngTemplateOutlet="chart.togglerIconTemplate()!; context: { $implicit: node()!.expanded }"></ng-template>
-                                            </span>
-                                        }
-                                    </a>
+                            @if (!chart.togglerIconTemplate()) {
+                                @if (isCollapsed()) {
+                                    <svg data-p-icon="chevron-down" [class]="cx('collapseButtonDownIcon')" [pBind]="getPTOptions('collapseButtonDownIcon')" />
+                                } @else {
+                                    <svg data-p-icon="chevron-up" [class]="cx('collapseButtonUpIcon')" [pBind]="getPTOptions('collapseButtonUpIcon')" />
                                 }
+                            } @else {
+                                <span [pBind]="getPTOptions(isCollapsed() ? 'collapseButtonDownIcon' : 'collapseButtonUpIcon')">
+                                    <ng-template *ngTemplateOutlet="chart.togglerIconTemplate()!; context: { $implicit: node()!.expanded }"></ng-template>
+                                </span>
                             }
-                        </div>
-                    </td>
-                </tr>
-                <tr [style]="getChildStyle(node()!)" [class]="cx('connectors')" [pBind]="ptm('connectors')">
-                    <td [pBind]="ptm('lineCell')" [attr.colspan]="colspan">
-                        <div [pBind]="ptm('connectorDown')" [class]="cx('connectorDown')"></div>
-                    </td>
-                </tr>
-                <tr [style]="getChildStyle(node()!)" [class]="cx('connectors')" [pBind]="ptm('connectors')">
-                    @if (hasSingleChild()) {
-                        <td [pBind]="ptm('lineCell')" [attr.colspan]="colspan">
-                            <div [pBind]="ptm('connectorDown')" [class]="cx('connectorDown')"></div>
-                        </td>
+                        </button>
                     }
-                    @if (hasMultipleChildren()) {
-                        @for (child of children(); track child) {
-                            <td [class]="cx('connectorLeft', { first: $first })" [pBind]="getNodeOptions(!$first, 'connectorLeft')">&nbsp;</td>
-                            <td [class]="cx('connectorRight', { last: $last })" [pBind]="getNodeOptions(!$last, 'connectorRight')">&nbsp;</td>
-                        }
-                    }
-                </tr>
-                <tr [style]="getChildStyle(node()!)" [class]="cx('nodeChildren')" [pBind]="ptm('nodeChildren')">
+                }
+            </div>
+            @if (!leaf && node()!.expanded) {
+                <ul [class]="cx('subtree')" role="group" [pBind]="ptm('subtree')">
                     @for (child of children(); track child) {
-                        <td colspan="2" [pBind]="ptm('nodeCell')">
-                            <table [class]="cx('table')" pOrganizationChartNode [unstyled]="unstyled()" [pt]="pt" [node]="child" [collapsible]="childrenCollapsible()"></table>
-                        </td>
+                        <li
+                            [class]="cx('tree')"
+                            role="treeitem"
+                            [attr.aria-expanded]="getAriaExpanded(child)"
+                            [attr.aria-selected]="chart.isSelected(child)"
+                            pOrganizationChartNode
+                            [node]="child"
+                            [collapsible]="collapsible()"
+                            [unstyled]="unstyled()"
+                            [pt]="pt"
+                            [pBind]="ptm('tree')"
+                        ></li>
                     }
-                </tr>
-            </tbody>
+                </ul>
+            }
         }
     `,
     encapsulation: ViewEncapsulation.None,
@@ -86,13 +85,9 @@ import { OrganizationChartStyle } from './style/organizationchartstyle';
     providers: [OrganizationChartStyle, { provide: PARENT_INSTANCE, useExisting: OrganizationChartNode }]
 })
 export class OrganizationChartNode extends BaseComponent {
-    node = input<TreeNode<any>>();
+    node = input<OrgChartNode<any>>();
 
     root = input(undefined, { transform: booleanAttribute });
-
-    first = input(undefined, { transform: booleanAttribute });
-
-    last = input(undefined, { transform: booleanAttribute });
 
     collapsible = input(undefined, { transform: booleanAttribute });
 
@@ -102,11 +97,9 @@ export class OrganizationChartNode extends BaseComponent {
 
     children = computed(() => this.node()?.children ?? []);
 
-    hasSingleChild = computed(() => this.children().length === 1);
+    toggleNodeFn = this.toggleNode.bind(this);
 
-    hasMultipleChildren = computed(() => this.children().length > 1);
-
-    childrenCollapsible = computed(() => this.children().length > 0 && !!this.collapsible());
+    nodeTabIndex = computed(() => (this.isSelectable() ? 0 : -1));
 
     get leaf() {
         const node = this.node();
@@ -115,40 +108,55 @@ export class OrganizationChartNode extends BaseComponent {
         }
     }
 
-    get colspan() {
-        const node = this.node();
-        if (node) {
-            return node.children && node.children.length ? node.children.length * 2 : null;
-        }
+    private _resolveCollapsible(): boolean {
+        return this.node()?.collapsible ?? !!this.collapsible();
     }
 
-    getChildStyle(node: TreeNode<any>) {
+    isCollapsible() {
+        return !this.leaf && this._resolveCollapsible();
+    }
+
+    isCollapsed() {
+        return this.isCollapsible() && !this.node()?.expanded;
+    }
+
+    isSelectable() {
+        return !!this.chart.selectionMode() && this.node()?.selectable !== false;
+    }
+
+    getCollapseButtonContext() {
         return {
-            visibility: !this.leaf && node.expanded ? 'inherit' : 'hidden'
+            $implicit: this.node(),
+            expanded: this.node()!.expanded,
+            collapsed: this.isCollapsed(),
+            childCount: this.children().length,
+            toggle: this.toggleNodeFn
         };
+    }
+
+    getAriaExpanded(node: TreeNode): true | undefined {
+        return node.expanded !== false && node.children && node.children.length > 0 ? true : undefined;
     }
 
     getPTOptions(key: string) {
         return this.ptm(key, {
             context: {
                 expanded: this.node()?.expanded,
-                selectable: this.node()?.selectable !== false && this.chart.selectionMode(),
+                selectable: this.isSelectable(),
                 selected: this.isSelected(),
-                toggleable: this.collapsible() && !this.leaf,
+                toggleable: this.isCollapsible(),
+                collapsed: this.isCollapsed(),
                 active: this.isSelected()
             }
         });
     }
 
-    getNodeOptions(lineTop: boolean, key: string) {
-        return this.ptm(key, {
-            context: {
-                lineTop
-            }
-        });
+    onNodeClick(event: Event, node: TreeNode) {
+        this.chart.onNodeClick(event, node);
     }
 
-    onNodeClick(event: Event, node: TreeNode) {
+    onNodeKeyDown(event: Event, node: TreeNode) {
+        event.preventDefault();
         this.chart.onNodeClick(event, node);
     }
 
@@ -158,6 +166,7 @@ export class OrganizationChartNode extends BaseComponent {
         else this.chart.onNodeCollapse.emit({ originalEvent: event, node: this.node() as TreeNode });
 
         event.preventDefault();
+        event.stopPropagation();
     }
 
     isSelected() {

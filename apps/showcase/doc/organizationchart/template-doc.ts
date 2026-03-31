@@ -17,9 +17,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <div class="overflow-x-auto">
                 <p-organization-chart [value]="data" [collapsible]="true">
                     <ng-template #node let-node>
-                        <div class="flex flex-col items-center">
-                            <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
-                            <div class="mt-4 font-medium">{{ node.label }}</div>
+                        <div class="flex items-start gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'h-full !w-10 flag flag-' + node.data.flag" />
+                            <div class="flex flex-col items-start gap-0.5">
+                                <div class="font-semibold leading-none">{{ node.label }}</div>
+                                <div class="text-xs leading-none opacity-75">{{ node.data.description }}</div>
+                            </div>
                         </div>
                     </ng-template>
                 </p-organization-chart>
@@ -31,37 +34,37 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 export class TemplateDoc {
     data: TreeNode[] = [
         {
-            label: 'Argentina',
+            label: 'USD',
             expanded: true,
-            data: 'ar',
+            data: { flag: 'us', description: 'United States Dollar' },
             children: [
                 {
-                    label: 'Argentina',
+                    label: 'CAD',
                     expanded: true,
-                    data: 'ar',
+                    data: { flag: 'ca', description: 'Canadian Dollar' },
                     children: [
                         {
-                            label: 'Argentina',
-                            data: 'ar'
+                            label: 'AUD',
+                            data: { flag: 'au', description: 'Australian Dollar' }
                         },
                         {
-                            label: 'Croatia',
-                            data: 'hr'
+                            label: 'NZD',
+                            data: { flag: 'nz', description: 'New Zealand Dollar' }
                         }
                     ]
                 },
                 {
-                    label: 'France',
+                    label: 'MXN',
                     expanded: true,
-                    data: 'fr',
+                    data: { flag: 'mx', description: 'Mexican Peso' },
                     children: [
                         {
-                            label: 'France',
-                            data: 'fr'
+                            label: 'COP',
+                            data: { flag: 'ar', description: 'Argentine Peso' }
                         },
                         {
-                            label: 'Morocco',
-                            data: 'ma'
+                            label: 'BRL',
+                            data: { flag: 'br', description: 'Brazilian Real' }
                         }
                     ]
                 }

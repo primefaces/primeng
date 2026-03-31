@@ -24,30 +24,30 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 export class BasicDoc {
     data: TreeNode[] = [
         {
-            label: 'Argentina',
+            label: 'Founder',
             expanded: true,
             children: [
                 {
-                    label: 'Argentina',
+                    label: 'Product Lead',
                     expanded: true,
                     children: [
                         {
-                            label: 'Argentina'
+                            label: 'UX/UI Designer'
                         },
                         {
-                            label: 'France'
+                            label: 'Product Manager'
                         }
                     ]
                 },
                 {
-                    label: 'France',
+                    label: 'Engineering Lead',
                     expanded: true,
                     children: [
                         {
-                            label: 'France'
+                            label: 'Frontend Developer'
                         },
                         {
-                            label: 'Morocco'
+                            label: 'Backend Developer'
                         }
                     ]
                 }

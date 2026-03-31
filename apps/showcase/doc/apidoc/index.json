@@ -3577,6 +3577,27 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "Whether the node is loading. Used in lazy loading."
+                        },
+                        {
+                            "name": "collapsible",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether the node can be collapsed/expanded."
+                        },
+                        {
+                            "name": "selectedByDefault",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether the node should be selected by default."
+                        },
+                        {
+                            "name": "collapsedByDefault",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether the node should be collapsed by default."
                         }
                     ]
                 }
@@ -3765,6 +3786,27 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "Whether the node is loading. Used in lazy loading."
+                        },
+                        {
+                            "name": "collapsible",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether the node can be collapsed/expanded."
+                        },
+                        {
+                            "name": "selectedByDefault",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether the node should be selected by default."
+                        },
+                        {
+                            "name": "collapsedByDefault",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether the node should be collapsed by default."
                         },
                         {
                             "name": "originalEvent",
@@ -31800,6 +31842,13 @@
                             "description": "Whether the nodes can be expanded or toggled."
                         },
                         {
+                            "name": "gap",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number | [number, number]",
+                            "description": "Defines the gap between nodes. Can be a single number or a tuple [gapX, gapY]."
+                        },
+                        {
                             "name": "selection",
                             "optional": false,
                             "readonly": false,
@@ -31887,40 +31936,28 @@
                         "description": "Class name of the root element"
                     },
                     {
-                        "class": "p-organizationchart-table",
-                        "description": "Class name of the table element"
+                        "class": "p-organizationchart-subtree",
+                        "description": "Class name of the subtree element"
+                    },
+                    {
+                        "class": "p-organizationchart-tree",
+                        "description": "Class name of the tree element"
                     },
                     {
                         "class": "p-organizationchart-node",
                         "description": "Class name of the node element"
                     },
                     {
-                        "class": "p-organizationchart-node-toggle-button",
-                        "description": "Class name of the node toggle button element"
+                        "class": "p-organizationchart-node-content",
+                        "description": "Class name of the node content element"
                     },
                     {
-                        "class": "p-organizationchart-node-toggle-button-icon",
-                        "description": "Class name of the node toggle button icon element"
+                        "class": "p-organizationchart-collapse-button",
+                        "description": "Class name of the collapse button element"
                     },
                     {
-                        "class": "p-organizationchart-connectors",
-                        "description": "Class name of the connectors element"
-                    },
-                    {
-                        "class": "p-organizationchart-connector-down",
-                        "description": "Class name of the connector down element"
-                    },
-                    {
-                        "class": "p-organizationchart-connector-left",
-                        "description": "Class name of the connector left element"
-                    },
-                    {
-                        "class": "p-organizationchart-connector-right",
-                        "description": "Class name of the connector right element"
-                    },
-                    {
-                        "class": "p-organizationchart-node-children",
-                        "description": "Class name of the node children element"
+                        "class": "p-organizationchart-collapse-button-icon",
+                        "description": "Class name of the collapse button icon element"
                     }
                 ]
             }
@@ -32056,32 +32093,18 @@
                                 "description": "Used to pass attributes to the root's DOM element."
                             },
                             {
-                                "name": "table",
+                                "name": "subtree",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "PassThroughOption<HTMLTableElement, I>",
-                                "description": "Used to pass attributes to the table's DOM element."
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the subtree's DOM element."
                             },
                             {
-                                "name": "body",
+                                "name": "tree",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "PassThroughOption<HTMLTableSectionElement, I>",
-                                "description": "Used to pass attributes to the body's DOM element."
-                            },
-                            {
-                                "name": "row",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLTableRowElement, I>",
-                                "description": "Used to pass attributes to the row's DOM element."
-                            },
-                            {
-                                "name": "cell",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLTableCellElement, I>",
-                                "description": "Used to pass attributes to the cell's DOM element."
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the tree's DOM element."
                             },
                             {
                                 "name": "node",
@@ -32091,67 +32114,25 @@
                                 "description": "Used to pass attributes to the node's DOM element."
                             },
                             {
-                                "name": "nodeToggleButton",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLAnchorElement, I>",
-                                "description": "Used to pass attributes to the node toggle button's DOM element."
-                            },
-                            {
-                                "name": "nodeToggleButtonIcon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLElement, I>",
-                                "description": "Used to pass attributes to the node toggle button icon's DOM element."
-                            },
-                            {
-                                "name": "connectors",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLTableRowElement, I>",
-                                "description": "Used to pass attributes to the connectors' DOM element."
-                            },
-                            {
-                                "name": "lineCell",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLTableCellElement, I>",
-                                "description": "Used to pass attributes to the line cell's DOM element."
-                            },
-                            {
-                                "name": "connectorDown",
+                                "name": "nodeContent",
                                 "optional": true,
                                 "readonly": false,
                                 "type": "PassThroughOption<HTMLDivElement, I>",
-                                "description": "Used to pass attributes to the connector down's DOM element."
+                                "description": "Used to pass attributes to the node content's DOM element."
                             },
                             {
-                                "name": "connectorLeft",
+                                "name": "collapseButton",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "PassThroughOption<HTMLTableCellElement, I>",
-                                "description": "Used to pass attributes to the connector left's DOM element."
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the collapse button's DOM element."
                             },
                             {
-                                "name": "connectorRight",
+                                "name": "collapseButtonIcon",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "PassThroughOption<HTMLTableCellElement, I>",
-                                "description": "Used to pass attributes to the connector right's DOM element."
-                            },
-                            {
-                                "name": "nodeChildren",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLTableRowElement, I>",
-                                "description": "Used to pass attributes to the node children's DOM element."
-                            },
-                            {
-                                "name": "nodeCell",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLTableCellElement, I>",
-                                "description": "Used to pass attributes to the node cell's DOM element."
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the collapse button icon's DOM element."
                             }
                         ]
                     }
@@ -51676,6 +51657,27 @@
                                 "readonly": false,
                                 "type": "boolean",
                                 "description": "Whether the node is loading. Used in lazy loading."
+                            },
+                            {
+                                "name": "collapsible",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the node can be collapsed/expanded."
+                            },
+                            {
+                                "name": "selectedByDefault",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the node should be selected by default."
+                            },
+                            {
+                                "name": "collapsedByDefault",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Whether the node should be collapsed by default."
                             },
                             {
                                 "name": "originalEvent",
