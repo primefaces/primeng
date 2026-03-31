@@ -156,7 +156,7 @@ export class InputColor extends BaseComponent<InputColorPassThrough> implements 
         if (color instanceof HSBColor && (channel === 'hue' || channel === 'saturation' || channel === 'brightness')) return color;
         if (color instanceof HSLColor && (channel === 'hue' || channel === 'saturation' || channel === 'lightness')) return color;
         if (color instanceof RGBColor && (channel === 'red' || channel === 'green' || channel === 'blue')) return color;
-        if (color instanceof OKLCHColor && (channel === 'oklchLightness' || channel === 'oklchChroma' || channel === 'oklchHue')) return color;
+        if (color instanceof OKLCHColor && (channel === 'oklchLightness' || channel === 'oklchChroma' || channel === 'oklchHue' || channel === 'L' || channel === 'C' || channel === 'H')) return color;
 
         // Otherwise convert to the appropriate format
         switch (channel) {
@@ -173,6 +173,9 @@ export class InputColor extends BaseComponent<InputColorPassThrough> implements 
             case 'oklchLightness':
             case 'oklchChroma':
             case 'oklchHue':
+            case 'L':
+            case 'C':
+            case 'H':
                 return color.toOKLCH();
             case 'alpha':
             default:

@@ -1254,7 +1254,7 @@ describe('PickList', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await ptFixture.whenStable();
 
-                const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+                const buttons = ptFixture.debugElement.queryAll(By.css('p-button button'));
                 // Check if any button has custom styling from PT
                 expect(buttons.length).toBeGreaterThan(0);
             });
@@ -1473,7 +1473,7 @@ describe('PickList', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await ptFixture.whenStable();
 
-                const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+                const buttons = ptFixture.debugElement.queryAll(By.css('p-button button'));
                 expect(buttons.length).toBeGreaterThan(0);
             });
 
@@ -1488,7 +1488,7 @@ describe('PickList', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await ptFixture.whenStable();
 
-                const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+                const buttons = ptFixture.debugElement.queryAll(By.css('p-button button'));
                 expect(buttons.length).toBeGreaterThan(0);
             });
 
@@ -1504,7 +1504,7 @@ describe('PickList', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await ptFixture.whenStable();
 
-                const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+                const buttons = ptFixture.debugElement.queryAll(By.css('p-button button'));
                 expect(buttons.length).toBeGreaterThan(0);
             });
         });

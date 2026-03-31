@@ -43,7 +43,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                         <i [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon())"></i>
                     } @else {
                         <ng-container>
-                            <svg [pBind]="ptm('loadingIcon')" data-p-icon="spinner" [spin]="true" [class]="cx('loadingIcon')" />
+                            <svg [pBind]="ptm('loadingIcon')" data-p-icon="spinner" [class]="cn(cx('loadingIcon'), 'animate-spin')" />
                             <ng-template *ngTemplateOutlet="loadingicon()"></ng-template>
                         </ng-container>
                     }

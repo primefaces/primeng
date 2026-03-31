@@ -264,12 +264,12 @@ describe('Overlay', () => {
                 expect(emitterAccessed).toBe(true);
             });
 
-            it('should access visibleChange emitter through instance in pt', async () => {
-                let emitterAccessed = false;
+            it('should access visible model through instance in pt', async () => {
+                let modelAccessed = false;
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
-                        if (instance.visibleChange) {
-                            emitterAccessed = true;
+                        if (instance.visible) {
+                            modelAccessed = true;
                         }
                         return {};
                     }
@@ -277,7 +277,7 @@ describe('Overlay', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                expect(emitterAccessed).toBe(true);
+                expect(modelAccessed).toBe(true);
             });
         });
 

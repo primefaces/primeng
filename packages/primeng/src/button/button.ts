@@ -394,7 +394,7 @@ export class ButtonDirective extends BaseComponent {
                     @if ($loadingIcon()) {
                         <span [class]="cn(cx('loadingIcon'), 'pi-spin', $loadingIcon())" [pBind]="ptm('loadingIcon')" [attr.aria-hidden]="true"></span>
                     } @else {
-                        <svg data-p-icon="spinner" [class]="cn(cx('loadingIcon'), cx('spinnerIcon'))" [pBind]="ptm('loadingIcon')" [spin]="true" [attr.aria-hidden]="true" />
+                        <svg data-p-icon="spinner" [class]="cn(cx('loadingIcon'), cx('spinnerIcon'), 'animate-spin')" [pBind]="ptm('loadingIcon')" [attr.aria-hidden]="true" />
                     }
                 } @else {
                     <ng-container *ngTemplateOutlet="loadingIconTemplate(); context: getLoadingIconTemplateContext()" />

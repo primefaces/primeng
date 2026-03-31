@@ -68,7 +68,7 @@ import { TreeStyle } from './style/treestyle';
                                 }
                             }
                             @if (showLoadingSpinner) {
-                                <svg data-p-icon="spinner" [class]="cx('nodeToggleIcon')" spin [pBind]="getPTOptions('nodeToggleIcon')" />
+                                <svg data-p-icon="spinner" [class]="cn(cx('nodeToggleIcon'), 'animate-spin')" [pBind]="getPTOptions('nodeToggleIcon')" />
                             }
                         }
                         @if (tree.togglerIconTemplate()) {

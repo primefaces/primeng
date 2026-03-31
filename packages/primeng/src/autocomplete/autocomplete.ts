@@ -217,7 +217,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR = {
         }
         @if (loading()) {
             @if (!loadingIconTemplate()) {
-                <svg data-p-icon="spinner" [pBind]="ptm('loader')" [class]="cx('loader')" [spin]="true" [attr.aria-hidden]="true" />
+                <svg data-p-icon="spinner" [pBind]="ptm('loader')" [class]="cn(cx('loader'), 'animate-spin')" [attr.aria-hidden]="true" />
             } @else {
                 <span [pBind]="ptm('loader')" [class]="cx('loader')" [attr.aria-hidden]="true">
                     <ng-container [ngTemplateOutlet]="loadingIconTemplate()!"></ng-container>

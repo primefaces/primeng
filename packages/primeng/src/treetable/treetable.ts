@@ -61,7 +61,7 @@ import { TREETABLE_INSTANCE, TreeTableService } from './treetable-service';
                 }
                 @if (!loadingIcon()) {
                     @if (!loadingIconTemplate()) {
-                        <svg data-p-icon="spinner" [spin]="true" [class]="cx('loadingIcon')" />
+                        <svg data-p-icon="spinner" [class]="cn(cx('loadingIcon'), 'animate-spin')" />
                     }
                     @if (loadingIconTemplate()) {
                         <span [class]="cx('loadingIcon')">

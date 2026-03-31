@@ -858,8 +858,7 @@ describe('Select', () => {
                 TestDynamicDataSourcesComponent,
                 TestComprehensiveFormComponent,
                 TestViewChildComponent,
-                TestComplexEdgeCasesComponent,
-                TestMultipleSelectComponent
+                TestComplexEdgeCasesComponent
             ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -4456,6 +4455,16 @@ describe('Select PT (PassThrough)', () => {
             }
         });
     });
+});
+
+describe('Select Multiple Selection', () => {
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
+            declarations: [TestMultipleSelectComponent, TestBasicSelectComponent],
+            providers: [provideZonelessChangeDetection()]
+        }).compileComponents();
+    });
 
     describe('Multiple Selection', () => {
         let multiFixture: ComponentFixture<TestMultipleSelectComponent>;
@@ -4495,9 +4504,7 @@ describe('Select PT (PassThrough)', () => {
         });
 
         it('should toggle selection on click', async () => {
-            multiComponent.selectedValues = ['opt1', 'opt2'];
-            multiFixture.detectChanges();
-
+            // First select two options
             multiSelect.show();
             await multiFixture.whenStable();
             multiFixture.detectChanges();
@@ -4507,7 +4514,18 @@ describe('Select PT (PassThrough)', () => {
             await multiFixture.whenStable();
             multiFixture.detectChanges();
 
-            expect(multiComponent.selectedValues).toEqual(['opt2']);
+            options[1].nativeElement.querySelector('li').click();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            expect(multiSelect.value).toEqual(['opt1', 'opt2']);
+
+            // Now deselect opt1
+            options[0].nativeElement.querySelector('li').click();
+            await multiFixture.whenStable();
+            multiFixture.detectChanges();
+
+            expect(multiSelect.value).toEqual(['opt2']);
         });
 
         it('should not close overlay on option select', async () => {
@@ -4523,25 +4541,22 @@ describe('Select PT (PassThrough)', () => {
             expect(multiSelect.overlayVisible()).toBeTruthy();
         });
 
-        it('should display comma separated labels', async () => {
-            multiComponent.selectedValues = ['opt1', 'opt2'];
+        it('should display comma separated labels', () => {
+            multiSelect.updateModel(['opt1', 'opt2']);
             multiFixture.detectChanges();
-            await multiFixture.whenStable();
 
-            const label = multiSelect.label();
-            expect(label).toBe('Option 1, Option 2');
+            expect(multiSelect.label()).toBe('Option 1, Option 2');
         });
 
         it('should show placeholder when nothing selected', () => {
             expect(multiSelect.label()).toBe('Select items');
         });
 
-        it('should clear to empty array', async () => {
-            multiComponent.selectedValues = ['opt1', 'opt2'];
+        it('should clear to empty array', () => {
+            multiSelect.updateModel(['opt1', 'opt2']);
             multiFixture.detectChanges();
 
             multiSelect.clear(new Event('click'));
-            await multiFixture.whenStable();
             multiFixture.detectChanges();
 
             expect(multiSelect.value).toEqual([]);
@@ -4562,7 +4577,7 @@ describe('Select PT (PassThrough)', () => {
         });
 
         it('should check isSelected correctly for multiple', () => {
-            multiComponent.selectedValues = ['opt1', 'opt3'];
+            multiSelect.updateModel(['opt1', 'opt3']);
             multiFixture.detectChanges();
 
             expect(multiSelect.isSelected(multiComponent.options[0])).toBe(true);
@@ -4583,11 +4598,9 @@ describe('Select PT (PassThrough)', () => {
         });
 
         it('should show clear icon only when items selected', () => {
-            multiComponent.selectedValues = [];
-            multiFixture.detectChanges();
             expect(multiSelect.isVisibleClearIcon()).toBe(false);
 
-            multiComponent.selectedValues = ['opt1'];
+            multiSelect.updateModel(['opt1']);
             multiFixture.detectChanges();
             expect(multiSelect.isVisibleClearIcon()).toBe(true);
         });
@@ -4607,11 +4620,9 @@ describe('Select PT (PassThrough)', () => {
         });
 
         it('should isSelectedOptionEmpty return true for empty array', () => {
-            multiComponent.selectedValues = [];
-            multiFixture.detectChanges();
             expect(multiSelect.isSelectedOptionEmpty()).toBe(true);
 
-            multiComponent.selectedValues = ['opt1'];
+            multiSelect.updateModel(['opt1']);
             multiFixture.detectChanges();
             expect(multiSelect.isSelectedOptionEmpty()).toBe(false);
         });

@@ -8,14 +8,13 @@ import { Message } from './message';
 @Component({
     standalone: false,
     template: `
-        <p-message [severity]="severity" [styleClass]="styleClass" [closable]="closable" [icon]="icon" [closeIcon]="closeIcon" [life]="life" [size]="size" [variant]="variant" (onClose)="onClose($event)">
+        <p-message [severity]="severity" [closable]="closable" [icon]="icon" [closeIcon]="closeIcon" [life]="life" [size]="size" [variant]="variant" (onClose)="onClose($event)">
             <div class="message-content">{{ content }}</div>
         </p-message>
     `
 })
 class TestBasicMessageComponent {
     severity: 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' = 'info';
-    styleClass: string | undefined;
     closable = false;
     icon: string | undefined;
     closeIcon: string | undefined;
@@ -459,22 +458,6 @@ describe('Message', () => {
             component = fixture.componentInstance;
         });
 
-        it('should apply styleClass correctly', () => {
-            component.styleClass = 'custom-message-class';
-            fixture.detectChanges();
-
-            const messageDiv = fixture.debugElement.query(By.css('.p-message'));
-            expect(messageDiv.nativeElement.classList).toContain('custom-message-class');
-        });
-
-        it('should apply styleClass correctly via component', () => {
-            component.styleClass = 'another-custom-class';
-            fixture.detectChanges();
-
-            const messageDiv = fixture.debugElement.query(By.css('.p-message'));
-            expect(messageDiv.nativeElement.classList).toContain('another-custom-class');
-        });
-
         it('should apply size classes', async () => {
             component.size = 'large';
             fixture.changeDetectorRef.markForCheck();
@@ -566,7 +549,6 @@ describe('Message', () => {
         it('should handle null/undefined values gracefully', () => {
             component.icon = undefined;
             component.closeIcon = undefined;
-            component.styleClass = undefined;
             fixture.detectChanges();
 
             const messageDiv = fixture.debugElement.query(By.css('.p-message'));
@@ -698,7 +680,7 @@ describe('Message', () => {
 
         it('should apply pt host class', () => {
             fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const hostElement = fixture.nativeElement;
@@ -707,7 +689,7 @@ describe('Message', () => {
 
         it('should apply pt root class', () => {
             fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.nativeElement;
@@ -716,7 +698,7 @@ describe('Message', () => {
 
         it('should apply pt content class', () => {
             fixture.componentRef.setInput('pt', { content: 'CONTENT_CLASS' });
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const contentElement = fixture.debugElement.query(By.css('.p-message-content'));
@@ -726,7 +708,7 @@ describe('Message', () => {
         it('should apply pt icon class', () => {
             fixture.componentRef.setInput('pt', { icon: 'ICON_CLASS' });
             fixture.componentRef.setInput('icon', 'pi pi-info');
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const iconElement = fixture.debugElement.query(By.css('i.pi-info'));
@@ -735,7 +717,7 @@ describe('Message', () => {
 
         it('should apply pt text class', () => {
             fixture.componentRef.setInput('pt', { text: 'TEXT_CLASS' });
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const textElement = fixture.debugElement.query(By.css('span'));
@@ -745,7 +727,7 @@ describe('Message', () => {
         it('should apply pt closeButton class', () => {
             fixture.componentRef.setInput('pt', { closeButton: 'CLOSE_BUTTON_CLASS' });
             fixture.componentRef.setInput('closable', true);
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const closeButtonElement = fixture.debugElement.query(By.css('button'));
@@ -755,7 +737,7 @@ describe('Message', () => {
         it('should apply pt closeIcon class', () => {
             fixture.componentRef.setInput('pt', { closeIcon: 'CLOSE_ICON_CLASS' });
             fixture.componentRef.setInput('closable', true);
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const closeIconElement = fixture.debugElement.query(By.css('button svg'));
@@ -769,7 +751,7 @@ describe('Message', () => {
                 content: 'CONTENT_CLASS',
                 text: 'TEXT_CLASS'
             });
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const hostElement = fixture.nativeElement;
@@ -807,7 +789,7 @@ describe('Message', () => {
                 }
             });
             fixture.componentRef.setInput('severity', 'error');
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.nativeElement;
@@ -826,27 +808,27 @@ describe('Message', () => {
                 }
             });
             fixture.componentRef.setInput('closable', true);
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const contentElement = fixture.debugElement.query(By.css('.p-message-content'));
             expect(contentElement.nativeElement.style.backgroundColor).toBe('yellow');
         });
 
-        it('should apply pt text class based on instance escape property', () => {
+        it('should apply pt text class based on instance severity property', () => {
             fixture.componentRef.setInput('pt', {
                 text: ({ instance }: any) => {
                     return {
-                        class: instance?.escape() ? 'ESCAPED_TEXT' : 'UNESCAPED_TEXT'
+                        class: instance?.severity() === 'error' ? 'ERROR_TEXT' : 'DEFAULT_TEXT'
                     };
                 }
             });
-            fixture.componentRef.setInput('escape', true);
-            fixture.componentRef.setInput('text', 'Test');
+            fixture.componentRef.setInput('severity', 'error');
+
             fixture.detectChanges();
 
             const textElement = fixture.debugElement.query(By.css('span'));
-            expect(textElement.nativeElement.classList.contains('ESCAPED_TEXT')).toBe(true);
+            expect(textElement.nativeElement.classList.contains('ERROR_TEXT')).toBe(true);
         });
 
         it('should apply pt closeButton data attribute based on instance', () => {
@@ -860,7 +842,7 @@ describe('Message', () => {
             });
             fixture.componentRef.setInput('closable', true);
             fixture.componentRef.setInput('severity', 'warn');
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const closeButtonElement = fixture.debugElement.query(By.css('button'));
@@ -880,7 +862,7 @@ describe('Message', () => {
             });
             fixture.componentRef.setInput('icon', 'pi pi-info');
             fixture.componentRef.setInput('size', 'large');
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const iconElement = fixture.debugElement.query(By.css('i.pi-info'));
@@ -897,7 +879,7 @@ describe('Message', () => {
                     };
                 }
             });
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.nativeElement;
@@ -914,8 +896,8 @@ describe('Message', () => {
         @Component({
             standalone: false,
             template: `
-                <p-message [text]="'First Message'" [closable]="true"></p-message>
-                <p-message [text]="'Second Message'" [closable]="true"></p-message>
+                <p-message [closable]="true">First Message</p-message>
+                <p-message [closable]="true">Second Message</p-message>
             `
         })
         class TestGlobalPtComponent {}
@@ -955,7 +937,7 @@ describe('Message', () => {
         it('should merge local pt with global pt configuration', async () => {
             @Component({
                 standalone: false,
-                template: `<p-message [pt]="{ root: 'LOCAL_ROOT_CLASS', content: 'LOCAL_CONTENT_CLASS' }" [text]="'Test'"></p-message>`
+                template: `<p-message [pt]="{ root: 'LOCAL_ROOT_CLASS', content: 'LOCAL_CONTENT_CLASS' }">Test</p-message>`
             })
             class TestMergedPtComponent {}
 
@@ -1012,7 +994,7 @@ describe('Message', () => {
                     }
                 }
             });
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             expect(onInitCalled).toBe(true);
@@ -1029,7 +1011,7 @@ describe('Message', () => {
                     }
                 }
             });
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             expect(onAfterViewInitCalled).toBe(true);
@@ -1046,7 +1028,7 @@ describe('Message', () => {
                     }
                 }
             });
-            fixture.componentRef.setInput('text', 'Test');
+
             fixture.detectChanges();
 
             fixture.destroy();

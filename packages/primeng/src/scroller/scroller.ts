@@ -55,7 +55,7 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
                             @if (loaderIconTemplate()) {
                                 <ng-container *ngTemplateOutlet="loaderIconTemplate(); context: loaderIconContext"></ng-container>
                             } @else {
-                                <svg data-p-icon="spinner" [class]="cx('loadingIcon')" [spin]="true" [pBind]="ptm('loadingIcon')" />
+                                <svg data-p-icon="spinner" [class]="cn(cx('loadingIcon'), 'animate-spin')" [pBind]="ptm('loadingIcon')" />
                             }
                         }
                     </div>

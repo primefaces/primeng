@@ -929,9 +929,11 @@ describe('SplitButton', () => {
         });
 
         it('should have proper ARIA attributes on dropdown button', () => {
-            expect(dropdownButton.getAttribute('aria-haspopup')).toBe('true');
-            expect(dropdownButton.getAttribute('aria-expanded')).toBe('false');
-            expect(dropdownButton.hasAttribute('aria-controls')).toBe(true);
+            const pButtons = fixture.debugElement.queryAll(By.css('p-button'));
+            const dropdownPButton = pButtons[1].nativeElement;
+            expect(dropdownPButton.getAttribute('aria-haspopup')).toBe('true');
+            expect(dropdownPButton.getAttribute('aria-expanded')).toBe('false');
+            expect(dropdownPButton.hasAttribute('aria-controls')).toBe(true);
         });
 
         it('should update aria-expanded when menu is shown', async () => {

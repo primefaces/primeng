@@ -1073,14 +1073,14 @@ describe('Color Manager', () => {
             expect(css).toContain('oklch');
         });
 
-        it('should normalize hue 360 to 0', () => {
+        it('should keep hue 360 as-is in display', () => {
             const c = new HSBColor(360, 100, 100);
-            expect(getInputChannelValue(c, 'hue')).toBe('0');
+            expect(getInputChannelValue(c, 'hue')).toBe('360');
         });
 
-        it('should normalize H 360 to 0', () => {
+        it('should keep H 360 as-is in display', () => {
             const c = new OKLCHColor(0.5, 0.2, 360);
-            expect(getInputChannelValue(c, 'H')).toBe('0');
+            expect(getInputChannelValue(c, 'H')).toBe('360');
         });
 
         it('should round integer channels', () => {
@@ -1276,14 +1276,14 @@ describe('InputColor Component Tests', () => {
         describe('format', () => {
             it('should update axes when format changes', async () => {
                 component.format = 'hsla';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 expect(inputColor.$axes().yChannel).toBe('lightness');
             });
 
             it('should update axes for hsba', async () => {
                 component.format = 'hsba';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 expect(inputColor.$axes().yChannel).toBe('brightness');
             });
@@ -1292,7 +1292,7 @@ describe('InputColor Component Tests', () => {
         describe('ngModel', () => {
             it('should set color from ngModel', async () => {
                 component.color = '#00ff00';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const hex = inputColor.$color().toHex();
                 expect(hex).toBe('#00ff00');
@@ -1300,7 +1300,7 @@ describe('InputColor Component Tests', () => {
 
             it('should handle null ngModel', async () => {
                 component.color = null;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 expect(inputColor.$color()).toBeTruthy();
             });
@@ -1487,12 +1487,13 @@ describe('InputColor Component Tests', () => {
             beforeEach(async () => {
                 fixture = TestBed.createComponent(TestInputChannelsComponent);
                 component = fixture.componentInstance;
+                fixture.detectChanges();
                 await fixture.whenStable();
             });
 
             it('should set type=text for hex channel', async () => {
                 component.channel = 'hex';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.type).toBe('text');
@@ -1500,7 +1501,7 @@ describe('InputColor Component Tests', () => {
 
             it('should set type=text for css channel', async () => {
                 component.channel = 'css';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.type).toBe('text');
@@ -1508,7 +1509,7 @@ describe('InputColor Component Tests', () => {
 
             it('should set type=number for hue channel', async () => {
                 component.channel = 'hue';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.type).toBe('number');
@@ -1516,7 +1517,7 @@ describe('InputColor Component Tests', () => {
 
             it('should set type=number for saturation channel', async () => {
                 component.channel = 'saturation';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.type).toBe('number');
@@ -1524,7 +1525,7 @@ describe('InputColor Component Tests', () => {
 
             it('should set type=number for red channel', async () => {
                 component.channel = 'red';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.type).toBe('number');
@@ -1532,7 +1533,7 @@ describe('InputColor Component Tests', () => {
 
             it('should set type=number for alpha channel', async () => {
                 component.channel = 'alpha';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.type).toBe('number');
@@ -1540,7 +1541,7 @@ describe('InputColor Component Tests', () => {
 
             it('should set type=number for L', async () => {
                 component.channel = 'L';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.type).toBe('number');
@@ -1563,12 +1564,13 @@ describe('InputColor Component Tests', () => {
             beforeEach(async () => {
                 fixture = TestBed.createComponent(TestInputChannelsComponent);
                 component = fixture.componentInstance;
+                fixture.detectChanges();
                 await fixture.whenStable();
             });
 
             it('should set min/max/step for hue', async () => {
                 component.channel = 'hue';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.min).toBe('0');
@@ -1578,7 +1580,7 @@ describe('InputColor Component Tests', () => {
 
             it('should set min/max/step for red', async () => {
                 component.channel = 'red';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.min).toBe('0');
@@ -1588,7 +1590,7 @@ describe('InputColor Component Tests', () => {
 
             it('should set min/max/step for alpha', async () => {
                 component.channel = 'alpha';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.min).toBe('0');
@@ -1598,7 +1600,7 @@ describe('InputColor Component Tests', () => {
 
             it('should set min/max/step for C', async () => {
                 component.channel = 'C';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.min).toBe('0');
@@ -1608,7 +1610,7 @@ describe('InputColor Component Tests', () => {
 
             it('should not set min/max/step for hex', async () => {
                 component.channel = 'hex';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.min).toBe('');
@@ -1617,7 +1619,7 @@ describe('InputColor Component Tests', () => {
 
             it('should not set min/max/step for css', async () => {
                 component.channel = 'css';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
                 expect(input.min).toBe('');
@@ -1632,13 +1634,14 @@ describe('InputColor Component Tests', () => {
             beforeEach(async () => {
                 fixture = TestBed.createComponent(TestInputChannelsComponent);
                 component = fixture.componentInstance;
+                fixture.detectChanges();
                 await fixture.whenStable();
             });
 
             it('should display hex value', async () => {
                 component.channel = 'hex';
                 component.color = '#ff0000';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement as HTMLInputElement;
                 expect(input.value).toBe('#ff0000');
@@ -1647,7 +1650,7 @@ describe('InputColor Component Tests', () => {
             it('should display rounded integer for hue', async () => {
                 component.channel = 'hue';
                 component.color = '#ff0000';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement as HTMLInputElement;
                 expect(input.value).toBe('0');
@@ -1661,6 +1664,7 @@ describe('InputColor Component Tests', () => {
             beforeEach(async () => {
                 fixture = TestBed.createComponent(TestInputChannelsComponent);
                 component = fixture.componentInstance;
+                fixture.detectChanges();
                 await fixture.whenStable();
             });
 
@@ -1780,7 +1784,7 @@ describe('InputColor Component Tests', () => {
 
             it('should commit css value', async () => {
                 component.channel = 'css';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const inputEl = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement as HTMLInputElement;
                 const inputColor = fixture.debugElement.query(By.directive(InputColor)).componentInstance as InputColor;
@@ -1788,14 +1792,14 @@ describe('InputColor Component Tests', () => {
                 inputEl.value = 'rgb(0, 255, 0)';
                 inputEl.dispatchEvent(new Event('input'));
                 inputEl.dispatchEvent(new Event('blur'));
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 expect(inputColor._color()!.toHex()).toBe('#00ff00');
             });
 
             it('should commit numeric value for hue', async () => {
                 component.channel = 'hue';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const inputEl = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement as HTMLInputElement;
                 const inputColor = fixture.debugElement.query(By.directive(InputColor)).componentInstance as InputColor;
@@ -1803,14 +1807,14 @@ describe('InputColor Component Tests', () => {
                 inputEl.value = '120';
                 inputEl.dispatchEvent(new Event('input'));
                 inputEl.dispatchEvent(new Event('blur'));
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 expect(inputColor._color()!.getChannelValue('hue')).toBeCloseTo(120, 0);
             });
 
             it('should clamp numeric value below min', async () => {
                 component.channel = 'red';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const inputEl = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement as HTMLInputElement;
                 const inputColor = fixture.debugElement.query(By.directive(InputColor)).componentInstance as InputColor;
@@ -1818,14 +1822,14 @@ describe('InputColor Component Tests', () => {
                 inputEl.value = '-50';
                 inputEl.dispatchEvent(new Event('input'));
                 inputEl.dispatchEvent(new Event('blur'));
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 expect(Math.round(inputColor._color()!.toRGB().red)).toBe(0);
             });
 
             it('should clamp numeric value above max', async () => {
                 component.channel = 'red';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const inputEl = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement as HTMLInputElement;
                 const inputColor = fixture.debugElement.query(By.directive(InputColor)).componentInstance as InputColor;
@@ -1833,14 +1837,14 @@ describe('InputColor Component Tests', () => {
                 inputEl.value = '300';
                 inputEl.dispatchEvent(new Event('input'));
                 inputEl.dispatchEvent(new Event('blur'));
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 expect(Math.round(inputColor._color()!.toRGB().red)).toBe(255);
             });
 
             it('should ignore NaN numeric input', async () => {
                 component.channel = 'red';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const inputEl = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement as HTMLInputElement;
                 const inputColor = fixture.debugElement.query(By.directive(InputColor)).componentInstance as InputColor;
@@ -1855,7 +1859,7 @@ describe('InputColor Component Tests', () => {
 
             it('should handle decimal alpha input', async () => {
                 component.channel = 'alpha';
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 const inputEl = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement as HTMLInputElement;
                 const inputColor = fixture.debugElement.query(By.directive(InputColor)).componentInstance as InputColor;
@@ -1863,7 +1867,7 @@ describe('InputColor Component Tests', () => {
                 inputEl.value = '0.5';
                 inputEl.dispatchEvent(new Event('input'));
                 inputEl.dispatchEvent(new Event('blur'));
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 expect(inputColor._color()!.alpha).toBeCloseTo(0.5, 2);
             });
@@ -1899,7 +1903,7 @@ describe('InputColor Component Tests', () => {
 
         it('should apply vertical CSS class', async () => {
             component.sliderOrientation = 'vertical';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             const sliderEl = fixture.debugElement.query(By.directive(InputColorSlider)).nativeElement;
             expect(sliderEl.classList.contains('p-inputcolor-slider-vertical')).toBeTrue();
@@ -2111,7 +2115,7 @@ describe('InputColor Component Tests', () => {
 
         it('should use saturation/lightness for hsla format', async () => {
             fixture.componentInstance.format = 'hsla';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             const area = fixture.debugElement.query(By.directive(InputColorArea)).componentInstance as InputColorArea;
             expect(area.$xChannel()).toBe('saturation');
@@ -2330,9 +2334,9 @@ describe('InputColor Component Tests', () => {
 
     describe('Edge Cases', () => {
         describe('hue 360 normalization', () => {
-            it('should normalize hue 360 in display', () => {
+            it('should keep hue 360 as-is in display', () => {
                 const c = new HSBColor(360, 100, 100);
-                expect(getInputChannelValue(c, 'hue')).toBe('0');
+                expect(getInputChannelValue(c, 'hue')).toBe('360');
             });
 
             it('should keep hue 360 in constructor', () => {

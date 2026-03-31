@@ -369,8 +369,8 @@ describe('SpeedDial', () => {
         });
 
         it('should render with correct structure', () => {
-            const container = fixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
-            const button = fixture.debugElement.query(By.css('button[pButton]'));
+            const container = fixture.debugElement.query(By.css('.p-speeddial'));
+            const button = fixture.debugElement.query(By.css('p-button button'));
             const list = fixture.debugElement.query(By.css('ul[role="menu"]'));
 
             expect(container).toBeTruthy();
@@ -526,7 +526,7 @@ describe('SpeedDial', () => {
 
     describe('Event Handling', () => {
         it('should emit onClick event when button is clicked', async () => {
-            const button = fixture.debugElement.query(By.css('button[pButton]'));
+            const button = fixture.debugElement.query(By.css('p-button button'));
             const clickSpy = spyOn(component, 'onButtonClick');
 
             button.nativeElement.click();
@@ -576,7 +576,7 @@ describe('SpeedDial', () => {
         });
 
         it('should toggle visibility on button click', async () => {
-            const button = fixture.debugElement.query(By.css('button[pButton]'));
+            const button = fixture.debugElement.query(By.css('p-button button'));
 
             expect(speedDialInstance.visible()).toBe(false);
 
@@ -600,7 +600,7 @@ describe('SpeedDial', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const button = fixture.debugElement.query(By.css('button[pButton]'));
+            const button = fixture.debugElement.query(By.css('p-button button'));
             button.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -766,10 +766,10 @@ describe('SpeedDial', () => {
 
     describe('Toggler Keyboard Navigation', () => {
         it('should handle arrow down on toggler button', async () => {
-            const button = fixture.debugElement.query(By.css('button[pButton]'));
+            const pButton = fixture.debugElement.query(By.css('p-button'));
             const keydownSpy = spyOn(speedDialInstance, 'onTogglerArrowDown').and.callThrough();
 
-            button.triggerEventHandler('keydown', { code: 'ArrowDown', preventDefault: () => {} });
+            pButton.triggerEventHandler('keydown', { code: 'ArrowDown', preventDefault: () => {} });
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
@@ -778,10 +778,10 @@ describe('SpeedDial', () => {
         });
 
         it('should handle arrow up on toggler button', async () => {
-            const button = fixture.debugElement.query(By.css('button[pButton]'));
+            const pButton = fixture.debugElement.query(By.css('p-button'));
             const keydownSpy = spyOn(speedDialInstance, 'onTogglerArrowUp').and.callThrough();
 
-            button.triggerEventHandler('keydown', { code: 'ArrowUp', preventDefault: () => {} });
+            pButton.triggerEventHandler('keydown', { code: 'ArrowUp', preventDefault: () => {} });
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
@@ -795,7 +795,7 @@ describe('SpeedDial', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const button = fixture.debugElement.query(By.css('button[pButton]'));
+            const button = fixture.debugElement.query(By.css('p-button button'));
             const keydownSpy = spyOn(speedDialInstance, 'onEscapeKey').and.callThrough();
 
             button.triggerEventHandler('keydown', { code: 'Escape', preventDefault: () => {} });
@@ -909,7 +909,7 @@ describe('SpeedDial', () => {
                 expect(sdInstance.buttonTemplate()).toBeDefined();
 
                 // Verify container is rendered
-                const container = contentTemplateFixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                const container = contentTemplateFixture.debugElement.query(By.css('.p-speeddial'));
                 expect(container).toBeTruthy();
             });
 
@@ -973,8 +973,8 @@ describe('SpeedDial', () => {
 
         describe('Template Integration Tests', () => {
             it('should use default templates when custom ones are not provided', () => {
-                const container = fixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
-                const button = fixture.debugElement.query(By.css('button[pButton]'));
+                const container = fixture.debugElement.query(By.css('.p-speeddial'));
+                const button = fixture.debugElement.query(By.css('p-button button'));
                 const list = fixture.debugElement.query(By.css('ul[role="menu"]'));
 
                 expect(container).toBeTruthy();
@@ -1003,24 +1003,25 @@ describe('SpeedDial', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const button = fixture.debugElement.query(By.css('button[pButton]'));
+            const innerButton = fixture.debugElement.query(By.css('p-button button'));
+            const pButton = fixture.debugElement.query(By.css('p-button'));
 
-            expect(button.nativeElement.getAttribute('aria-label')).toBe('Speed Dial Actions');
-            expect(button.nativeElement.getAttribute('aria-haspopup')).toBe('true');
-            expect(button.nativeElement.hasAttribute('aria-controls')).toBe(true);
+            expect(innerButton.nativeElement.getAttribute('aria-label')).toBe('Speed Dial Actions');
+            expect(pButton.nativeElement.getAttribute('aria-haspopup')).toBe('true');
+            expect(pButton.nativeElement.hasAttribute('aria-controls')).toBe(true);
         });
 
         it('should update aria-expanded based on visibility', async () => {
-            const button = fixture.debugElement.query(By.css('button[pButton]'));
+            const pButton = fixture.debugElement.query(By.css('p-button'));
 
-            expect(button.nativeElement.getAttribute('aria-expanded')).toBe('false');
+            expect(pButton.nativeElement.getAttribute('aria-expanded')).toBe('false');
 
             speedDialInstance.show();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(button.nativeElement.getAttribute('aria-expanded')).toBe('true');
+            expect(pButton.nativeElement.getAttribute('aria-expanded')).toBe('true');
         });
 
         it('should have proper ARIA attributes on menu', () => {
@@ -1482,7 +1483,7 @@ describe('SpeedDial', () => {
                 ptFixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
                 ptFixture.detectChanges();
 
-                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                const rootElement = ptFixture.nativeElement.querySelector('.p-speeddial');
                 expect(rootElement?.className).toContain('ROOT_CLASS');
             });
 
@@ -1542,7 +1543,7 @@ describe('SpeedDial', () => {
                 });
                 ptFixture.detectChanges();
 
-                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                const rootElement = ptFixture.nativeElement.querySelector('.p-speeddial');
                 expect(rootElement?.className).toContain('collapsed');
                 expect(rootElement?.style.backgroundColor).toBe('red');
                 expect(rootElement?.getAttribute('data-p-test')).toBe('true');
@@ -1637,7 +1638,7 @@ describe('SpeedDial', () => {
                 });
                 ptFixture.detectChanges();
 
-                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                const rootElement = ptFixture.nativeElement.querySelector('.p-speeddial');
                 const listElement = ptFixture.nativeElement.querySelector('ul[role="menu"]');
 
                 expect(rootElement?.className).toContain('ROOT_CLASS');
@@ -1687,7 +1688,7 @@ describe('SpeedDial', () => {
 
                 expect(capturedInstance).toBeDefined();
 
-                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                const rootElement = ptFixture.nativeElement.querySelector('.p-speeddial');
                 expect(rootElement?.getAttribute('data-is-visible')).toBe('true');
             });
 
@@ -1768,7 +1769,7 @@ describe('SpeedDial', () => {
                 });
                 ptFixture.detectChanges();
 
-                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                const rootElement = ptFixture.nativeElement.querySelector('.p-speeddial');
                 expect(rootElement).toBeTruthy();
                 expect(rootElement?.getAttribute('data-has-handler')).toBe('true');
             });
@@ -1816,7 +1817,7 @@ describe('SpeedDial', () => {
                 inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
                 inlineFixture.detectChanges();
 
-                const rootElement = inlineFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                const rootElement = inlineFixture.nativeElement.querySelector('.p-speeddial');
                 expect(rootElement?.className).toContain('INLINE_TEST_CLASS');
             });
 
@@ -1830,7 +1831,7 @@ describe('SpeedDial', () => {
                 });
                 inlineFixture.detectChanges();
 
-                const rootElement = inlineFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                const rootElement = inlineFixture.nativeElement.querySelector('.p-speeddial');
                 expect(rootElement?.className).toContain('INLINE_OBJECT_CLASS');
                 expect(rootElement?.style.border).toBe('1px solid red');
             });
@@ -1998,7 +1999,7 @@ describe('SpeedDial', () => {
                 await ptFixture.whenStable();
 
                 const hostElement = ptFixture.nativeElement.querySelector('p-speeddial');
-                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                const rootElement = ptFixture.nativeElement.querySelector('.p-speeddial');
                 const buttonElement = ptFixture.nativeElement.querySelector('[data-pc-name="pcbutton"]');
                 const listElement = ptFixture.nativeElement.querySelector('ul[role="menu"]');
                 const itemElements = ptFixture.nativeElement.querySelectorAll('li[role="menuitem"]');
@@ -2032,7 +2033,7 @@ describe('SpeedDial', () => {
 
                 expect(capturedInstance).toBeDefined();
 
-                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                const rootElement = ptFixture.nativeElement.querySelector('.p-speeddial');
                 expect(rootElement?.getAttribute('data-visible')).toBe('true');
                 expect(rootElement?.getAttribute('data-disabled')).toBe('false');
                 expect(rootElement?.getAttribute('data-masked')).toBe('false');

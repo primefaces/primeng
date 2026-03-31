@@ -63,7 +63,7 @@ import { TABLE_INSTANCE, TableService } from './table-service';
                 }
                 @if (!loadingIcon()) {
                     @if (!loadingIconTemplate()) {
-                        <svg data-p-icon="spinner" [spin]="true" [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')" />
+                        <svg data-p-icon="spinner" [class]="cn(cx('loadingIcon'), 'animate-spin')" [pBind]="ptm('loadingIcon')" />
                     }
                     @if (loadingIconTemplate()) {
                         <span [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')">
