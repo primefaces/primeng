@@ -2,6 +2,12 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.1.5](https://github.com/primefaces/primeng/tree/21.1.5) (2026-04-01)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.4...21.1.5)
+
+**Fixed bugs:**
+- Drawer does not close on outside click in zone mode [#19514](https://github.com/primefaces/primeng/issues/19514)
+
 ## [21.1.4](https://github.com/primefaces/primeng/tree/21.1.4) (2026-03-27)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.1.3...21.1.4)
 
