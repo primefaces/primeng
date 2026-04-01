@@ -393,6 +393,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     close(event: Event) {
         this.hide();
         this.visibleChange.emit(false);
+        this.cd.markForCheck();
         event.preventDefault();
     }
 
