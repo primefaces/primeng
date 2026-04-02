@@ -4378,7 +4378,8 @@ export class ResizableColumn extends BaseComponent {
     selector: '[pReorderableColumn]',
     standalone: false,
     host: {
-        '[class]': "cx('reorderableColumn')"
+        '[class]': "cx('reorderableColumn')",
+        '[style.cursor]': 'isEnabled() ? "move" : "default"'
     },
     providers: [TableStyle]
 })
