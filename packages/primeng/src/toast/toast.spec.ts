@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { Toast, ToastItem } from './toast';
+import { resolveDuration } from '@primeuix/motion';
 
 // Test Components for different scenarios
 @Component({
@@ -394,12 +395,23 @@ describe('Toast', () => {
             expect(toastInstance.messages?.length).toBe(1);
 
             spyOn(toastInstance, 'clearAll').and.callThrough();
-            messageService.clear();
+            messageService.clear('test');
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             fixture.detectChanges();
 
             expect(toastInstance.clearAll).toHaveBeenCalled();
+
+
+            const hideTransitionMs = resolveDuration(toastInstance.motionOptions()?.duration, 'leave') || +toastInstance.hideTransitionOptions.replaceAll(/[^0-9]/g, '')
+            const toastItemEl = fixture.debugElement.query(By.css('p-toastitem'));
+            const toastItemInstance = toastItemEl.componentInstance;
+            expect(toastItemInstance.visible()).toBeFalsy();
+
+
+            await new Promise((resolve) => setTimeout(resolve, hideTransitionMs));
+            const allItems = fixture.debugElement.queryAll(By.css('p-toastitem'));
+            expect(allItems.length).toBe(0);
         });
     });
 
