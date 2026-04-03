@@ -18,8 +18,8 @@ import { Ripple } from 'primeng/ripple';
                 toast.
             </p>
         </app-docsectiontext>
-        <p-toast />
         <app-demo-wrapper>
+            <p-toast />
             <div class="flex justify-center gap-2">
                 <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
                 <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />

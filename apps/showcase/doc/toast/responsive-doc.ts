@@ -17,8 +17,8 @@ import { ToastModule } from 'primeng/toast';
                 should be an object literal whose keys are the maximum screen sizes and values are the styles per screen.
             </p>
         </app-docsectiontext>
-        <p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
         <app-demo-wrapper>
+            <p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
             <div class="flex justify-center">
                 <p-button (click)="show()" label="Show" />
             </div>

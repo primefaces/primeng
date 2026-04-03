@@ -17,8 +17,8 @@ import { ButtonModule } from 'primeng/button';
                 calling it with a key, removes the messages displayed on a toast having the same key.
             </p>
         </app-docsectiontext>
-        <p-toast key="myKey" />
         <app-demo-wrapper>
+            <p-toast key="myKey" />
             <div class="flex justify-center gap-2">
                 <p-button (click)="show()" label="Show" />
                 <p-button (click)="clear()" label="Clear" severity="secondary" />

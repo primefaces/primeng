@@ -15,8 +15,8 @@ import { Ripple } from 'primeng/ripple';
         <app-docsectiontext>
             <p>Multiple toasts are displayed by passing an array to the <i>showAll</i> method of the <i>messageService</i>.</p>
         </app-docsectiontext>
-        <p-toast />
         <app-demo-wrapper>
+            <p-toast />
             <div class="flex justify-center">
                 <p-button pRipple (click)="show()" label="Multiple" severity="warn" />
             </div>

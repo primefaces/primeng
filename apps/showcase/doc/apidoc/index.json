@@ -46904,6 +46904,27 @@
                             "description": "Position of the toast in viewport."
                         },
                         {
+                            "name": "mode",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"single\" | \"stack\"",
+                            "description": "Display mode of the toast."
+                        },
+                        {
+                            "name": "stackGap",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Gap between stacked toast items in pixels."
+                        },
+                        {
+                            "name": "visibleLimit",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Maximum number of visible toasts in the stack."
+                        },
+                        {
                             "name": "preventOpenDuplicates",
                             "optional": false,
                             "readonly": false,

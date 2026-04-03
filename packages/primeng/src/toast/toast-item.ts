@@ -22,19 +22,26 @@ import { ToastStyle } from './style/toaststyle';
             #container
             [pMotion]="visible()"
             [pMotionAppear]="true"
-            [pMotionName]="'p-toast-message'"
+            [pMotionName]="motionName()"
             [pMotionOptions]="motionOptions()"
             (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+            (pMotionOnAfterEnter)="onAfterEnter()"
             (pMotionOnAfterLeave)="onAfterLeave($event)"
             [attr.id]="message()?.id"
             [pBind]="ptm('message')"
             [class]="cn(cx('message'), message()?.styleClass)"
+            [style]="stackStyles()"
             (mouseenter)="onMouseEnter()"
             (mouseleave)="onMouseLeave()"
             role="alert"
             aria-live="assertive"
             aria-atomic="true"
             [attr.data-p]="dataP()"
+            [attr.data-stack]="dataStack()"
+            [attr.data-mounted]="dataMounted()"
+            [attr.data-front]="dataFront()"
+            [attr.data-expanded]="dataExpanded()"
+            [attr.data-visible]="dataVisible()"
         >
             @if (headlessTemplate()) {
                 <ng-container *ngTemplateOutlet="headlessTemplate(); context: headlessContext()"></ng-container>
@@ -137,6 +144,36 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
      */
     clearAll = input<object | null>(null);
     /**
+     * Whether the toast is in stack mode.
+     * @group Props
+     */
+    stackMode = input(false);
+    /**
+     * Whether the stack is expanded.
+     * @group Props
+     */
+    stackExpanded = input(false);
+    /**
+     * Index of this toast in the stack.
+     * @group Props
+     */
+    stackIndex = input(0, { transform: numberAttribute });
+    /**
+     * Total number of toasts in the stack.
+     * @group Props
+     */
+    stackTotal = input(0, { transform: numberAttribute });
+    /**
+     * Cumulative offset for expanded state in pixels.
+     * @group Props
+     */
+    stackOffset = input(0, { transform: numberAttribute });
+    /**
+     * Whether this toast is within the visible limit.
+     * @group Props
+     */
+    stackIsVisible = input(false);
+    /**
      * Emits when animation starts.
      * @group Emits
      */
@@ -151,6 +188,11 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
      * @group Emits
      */
     onClose = output<ToastItemCloseEvent>();
+    /**
+     * Emits when toast height is measured (for stack mode).
+     * @group Emits
+     */
+    onHeightChange = output<{ index: number; height: number; removed?: boolean }>();
 
     _componentStyle = inject(ToastStyle);
 
@@ -164,6 +206,35 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     private isClosing = false;
 
+    mounted = signal(false);
+
+    measuredHeight = signal(0);
+
+    motionName = computed(() => (this.stackMode() ? 'p-toast-stack' : 'p-toast-message'));
+
+    dataStack = computed(() => (this.stackMode() ? '' : null));
+
+    dataMounted = computed(() => (this.stackMode() && this.mounted() ? '' : null));
+
+    dataFront = computed(() => (this.stackMode() && this.stackIndex() === 0 ? '' : null));
+
+    dataExpanded = computed(() => (this.stackMode() && this.stackExpanded() ? '' : null));
+
+    dataVisible = computed(() => (this.stackMode() && this.stackIsVisible() ? '' : null));
+
+    stackStyles = computed(() => {
+        if (!this.stackMode()) return null;
+        const idx = this.stackIndex();
+        const total = this.stackTotal();
+        return {
+            '--toast-index': idx,
+            '--toast-z-index': total - idx,
+            '--initial-height': this.measuredHeight() + 'px',
+            '--toast-offset': this.stackOffset() + 'px',
+            'z-index': total - idx
+        };
+    });
+
     constructor() {
         super();
 
@@ -172,10 +243,37 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
                 this.visible.set(false);
             }
         });
+
+        effect(() => {
+            if (this.stackMode()) {
+                const expanded = this.stackExpanded();
+
+                if (expanded) {
+                    this.pauseStackTimer();
+                } else {
+                    this.startStackTimer();
+                }
+            }
+        });
     }
 
     onBeforeEnter(event: MotionEvent) {
         this.onAnimationStart.emit(event.element as HTMLElement);
+    }
+
+    onAfterEnter() {
+        if (this.stackMode() && !this.mounted()) {
+            const el = this.el.nativeElement.querySelector('.p-toast-message') as HTMLElement;
+            if (el) {
+                const orig = el.style.height;
+                el.style.height = 'auto';
+                const height = el.getBoundingClientRect().height;
+                el.style.height = orig;
+                this.measuredHeight.set(height);
+                this.onHeightChange.emit({ index: this.index() as number, height });
+            }
+            this.mounted.set(true);
+        }
     }
 
     onAfterLeave(event: MotionEvent) {
@@ -193,7 +291,12 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     onAfterViewInit() {
         this.message()?.sticky && this.visible.set(true);
-        this.initTimeout();
+
+        if (this.stackMode()) {
+            this.visible.set(true);
+        } else {
+            this.initTimeout();
+        }
     }
 
     initTimeout() {
@@ -210,6 +313,32 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
         }
     }
 
+    private remainingTime = 0;
+
+    private timerStartTime = 0;
+
+    startStackTimer() {
+        const msg = this.message();
+        if (msg?.sticky) return;
+        this.clearTimeout();
+        if (this.remainingTime <= 0) {
+            this.remainingTime = msg?.life || this.life() || 3000;
+        }
+        this.timerStartTime = Date.now();
+        this.timeout = setTimeout(() => {
+            this.handleFocusOnRemove();
+            this.closeStack();
+        }, this.remainingTime);
+    }
+
+    pauseStackTimer() {
+        if (this.timerStartTime > 0 && this.timeout) {
+            const elapsed = Date.now() - this.timerStartTime;
+            this.remainingTime = Math.max(0, this.remainingTime - elapsed);
+        }
+        this.clearTimeout();
+    }
+
     clearTimeout() {
         if (this.timeout) {
             clearTimeout(this.timeout);
@@ -218,11 +347,13 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
     }
 
     onMouseEnter() {
-        this.clearTimeout();
+        if (!this.stackMode()) {
+            this.clearTimeout();
+        }
     }
 
     onMouseLeave() {
-        if (!this.isClosing) {
+        if (!this.isClosing && !this.stackMode()) {
             this.initTimeout();
         }
     }
@@ -230,9 +361,35 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
     onCloseIconClick = (event: Event) => {
         this.isClosing = true;
         this.clearTimeout();
-        this.visible.set(false);
+
+        if (this.stackMode()) {
+            this.handleFocusOnRemove();
+            this.closeStack();
+        } else {
+            this.visible.set(false);
+        }
+
         event.preventDefault();
     };
+
+    private closeStack() {
+        this.onHeightChange.emit({ index: this.index() as number, height: 0, removed: true });
+        this.visible.set(false);
+    }
+
+    private handleFocusOnRemove() {
+        const el = this.el.nativeElement;
+        const activeEl = this.document.activeElement as HTMLElement;
+        if (!el?.contains(activeEl)) return;
+        const container = el.querySelector('.p-toast-message') as HTMLElement;
+        if (!container) return;
+        const next = el.nextElementSibling?.querySelector('.p-toast-message') as HTMLElement;
+        const prev = el.previousElementSibling?.querySelector('.p-toast-message') as HTMLElement;
+        requestAnimationFrame(() => {
+            if (next) next.focus({ preventScroll: true });
+            else if (prev) prev.focus({ preventScroll: true });
+        });
+    }
 
     get closeAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;

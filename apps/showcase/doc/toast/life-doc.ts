@@ -14,8 +14,8 @@ import { ButtonModule } from 'primeng/button';
         <app-docsectiontext>
             <p>A toast disappears after 3000ms by default, set the <i>life</i> option on either the message or toast to override this.</p>
         </app-docsectiontext>
-        <p-toast [life]="10000" />
         <app-demo-wrapper>
+            <p-toast [life]="10000" />
             <div class="flex justify-center gap-2">
                 <p-button (click)="showLife()" label="Show Life" />
                 <p-button (click)="showLifeLong()" label="Show Life Long" />

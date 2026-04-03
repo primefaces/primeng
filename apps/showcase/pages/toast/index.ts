@@ -8,6 +8,7 @@ import { PositionDoc } from '@/doc/toast/position-doc';
 import { PTComponent } from '@/doc/toast/pt/PTComponent';
 import { ResponsiveDoc } from '@/doc/toast/responsive-doc';
 import { SeverityDoc } from '@/doc/toast/severity-doc';
+import { StackDoc } from '@/doc/toast/stack-doc';
 import { StickyDoc } from '@/doc/toast/sticky-doc';
 import { TemplateDoc } from '@/doc/toast/template-doc';
 import { Component } from '@angular/core';
@@ -48,6 +49,11 @@ export class ToastDemo {
                     id: 'severity',
                     label: 'Severity',
                     component: SeverityDoc
+                },
+                {
+                    id: 'stack',
+                    label: 'Stack',
+                    component: StackDoc
                 },
                 {
                     id: 'position',

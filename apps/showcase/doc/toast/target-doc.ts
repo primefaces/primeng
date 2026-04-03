@@ -17,9 +17,9 @@ import { ButtonModule } from 'primeng/button';
                 <i>key</i> property so that toast and the message can match.
             </p>
         </app-docsectiontext>
-        <p-toast key="toast1" />
-        <p-toast key="toast2" />
         <app-demo-wrapper>
+            <p-toast key="toast1" />
+            <p-toast key="toast2" />
             <div class="flex justify-center gap-2">
                 <p-button (click)="showToast1()" label="Show Success" />
                 <p-button (click)="showToast2()" label="Show Warning" severity="warn" />

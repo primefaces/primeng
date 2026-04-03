@@ -13,16 +13,18 @@ Toasts are displayed by calling the add and addAll method provided by the messag
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
+        <p-toast />
         <div class="flex justify-center">
             <p-button (onClick)="show()" label="Show" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule],
+    imports: [ButtonModule, ToastModule],
     providers: [MessageService]
 })
 export class ToastBasicDemo {
@@ -37,17 +39,19 @@ Clicking the close icon on the toast, removes it manually. Same can also be achi
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
+        <p-toast key="myKey" />
         <div class="flex justify-center gap-2">
             <p-button (click)="show()" label="Show" />
             <p-button (click)="clear()" label="Clear" severity="secondary" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule],
+    imports: [ButtonModule, ToastModule],
     providers: [MessageService]
 })
 export class ToastClearDemo {
@@ -66,16 +70,36 @@ Headless mode allows you to customize the entire user interface instead of the d
 ```typescript
 import { Component, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
+        <p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
+            <ng-template let-message #headless let-closeFn="closeFn">
+                <section class="flex flex-col p-4 gap-4 w-full bg-primary/70 rounded-xl">
+                    <div class="flex items-center gap-5">
+                        <i class="pi pi-cloud-upload text-white dark:text-black text-2xl"></i>
+                        <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <p-progressbar [value]="progress()" [showValue]="false" [style]="{ height: '4px' }" class="bg-primary/80!" />
+                        <label class="text-sm font-bold text-white dark:text-black">{{ progress() }}% uploaded</label>
+                    </div>
+                    <div class="flex gap-4 mb-4 justify-end">
+                        <p-button label="Another Upload?" (click)="closeFn($event)" size="small" />
+                        <p-button label="Cancel" (click)="closeFn($event)" size="small" />
+                    </div>
+                </section>
+            </ng-template>
+        </p-toast>
         <div class="flex justify-center">
             <p-button (click)="showConfirm()" label="Confirm" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule],
+    imports: [ButtonModule, ProgressBarModule, ToastModule],
     providers: [MessageService]
 })
 export class ToastHeadlessDemo {
@@ -126,17 +150,19 @@ A toast disappears after 3000ms by default, set the life option on either the me
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
+        <p-toast [life]="10000" />
         <div class="flex justify-center gap-2">
             <p-button (click)="showLife()" label="Show Life" />
             <p-button (click)="showLifeLong()" label="Show Life Long" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule],
+    imports: [ButtonModule, ToastModule],
     providers: [MessageService]
 })
 export class ToastLifeDemo {
@@ -155,17 +181,19 @@ Multiple toasts are displayed by passing an array to the showAll method of the m
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
+        <p-toast />
         <div class="flex justify-center">
             <p-button pRipple (click)="show()" label="Multiple" severity="warn" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, RippleModule],
+    imports: [ButtonModule, ToastModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastMultipleDemo {
@@ -180,11 +208,15 @@ Location of the toast is customized with the position property. Valid values are
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
+        <p-toast position="top-left" key="tl" />
+        <p-toast position="bottom-left" key="bl" />
+        <p-toast position="bottom-right" key="br" />
         <div class="flex justify-center">
             <div class="flex flex-wrap gap-2">
                 <p-button pRipple (click)="showTopLeft()" label="Top Left" />
@@ -194,7 +226,7 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, RippleModule],
+    imports: [ButtonModule, ToastModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastPositionDemo {
@@ -229,16 +261,18 @@ Toast styling can be adjusted per screen size with the breakpoints option. The v
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
+        <p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
         <div class="flex justify-center">
             <p-button (click)="show()" label="Show" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule],
+    imports: [ButtonModule, ToastModule],
     providers: [MessageService]
 })
 export class ToastResponsiveDemo {
@@ -253,11 +287,13 @@ The severity option specifies the type of the message. There are four types of m
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
+        <p-toast />
         <div class="flex justify-center gap-2">
             <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
             <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
@@ -268,7 +304,7 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, RippleModule],
+    imports: [ButtonModule, ToastModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastSeverityDemo {
@@ -296,6 +332,41 @@ export class ToastSeverityDemo {
 }
 ```
 
+## Stack
+
+Setting mode to stack displays toasts in a stacked layout. Toasts visually overlap with a subtle scale effect and expand on hover to reveal all messages. Use stackGap to control spacing and visibleLimit to set the maximum number of visible toasts.
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <p-toast key="stack" mode="stack" />
+        <div class="flex justify-center gap-2">
+            <p-button (onClick)="show()" label="Show" />
+            <p-button (onClick)="showMultiple()" label="Multiple" severity="secondary" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, ToastModule],
+    providers: [MessageService]
+})
+export class ToastStackDemo {
+    private messageService = inject(MessageService);
+
+    showMultiple() {
+        this.messageService.addAll([
+            { severity: 'info', summary: 'Info', detail: 'Message 1', key: 'stack', life: 10000 },
+            { severity: 'success', summary: 'Success', detail: 'Message 2', key: 'stack', life: 10000 },
+            { severity: 'warn', summary: 'Warning', detail: 'Message 3', key: 'stack', life: 10000 }
+        ]);
+    }
+}
+```
+
 ## Sticky
 
 A toast disappears after the time defined by the life option, set sticky option true on the message to override this and not hide the toast automatically.
@@ -303,11 +374,13 @@ A toast disappears after the time defined by the life option, set sticky option 
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
+        <p-toast />
         <div class="flex justify-center">
             <div class="flex flex-wrap gap-2">
                 <p-button pRipple (click)="show()" label="Sticky" />
@@ -316,7 +389,7 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, RippleModule],
+    imports: [ButtonModule, ToastModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastStickyDemo {
@@ -335,17 +408,20 @@ A page may have multiple toast components, in case you'd like to target a specif
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
+        <p-toast key="toast1" />
+        <p-toast key="toast2" />
         <div class="flex justify-center gap-2">
             <p-button (click)="showToast1()" label="Show Success" />
             <p-button (click)="showToast2()" label="Show Warning" severity="warn" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule],
+    imports: [ButtonModule, ToastModule],
     providers: [MessageService]
 })
 export class ToastTargetDemo {
@@ -364,17 +440,31 @@ Templating allows customizing the content where the message instance is availabl
 
 ```typescript
 import { Component, inject } from '@angular/core';
+import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
+        <p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
+            <ng-template let-message #message>
+                <div class="flex flex-col items-start flex-auto">
+                    <div class="flex items-center gap-2">
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <span class="font-bold">Amy Elsner</span>
+                    </div>
+                    <div class="font-medium text-lg my-4">{{ message.summary }}</div>
+                    <p-button severity="success" size="small" label="Reply" (click)="onConfirm()" />
+                </div>
+            </ng-template>
+        </p-toast>
         <div class="flex justify-center">
             <p-button (click)="showConfirm()" label="View" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule],
+    imports: [AvatarModule, ButtonModule, ToastModule],
     providers: [MessageService]
 })
 export class ToastTemplateDemo {
@@ -416,6 +506,9 @@ Toast is used to display messages in an overlay.
 | baseZIndex | number | - | Base zIndex value to use in layering. |
 | life | number | - | The default time to display messages for in milliseconds. |
 | position | "top-left" \| "top-center" \| "top-right" \| "bottom-left" \| "bottom-center" \| "bottom-right" \| "center" | - | Position of the toast in viewport. |
+| mode | "single" \| "stack" | - | Display mode of the toast. |
+| stackGap | number | - | Gap between stacked toast items in pixels. |
+| visibleLimit | number | - | Maximum number of visible toasts in the stack. |
 | preventOpenDuplicates | boolean | - | It does not add the new message if there is already a toast displayed with the same content |
 | preventDuplicates | boolean | - | Displays only once a message with the same content. |
 | motionOptions | MotionOptions | - | The motion options. |

@@ -4,7 +4,7 @@ import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
 import { MessageService, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ToastBreakpoints, ToastCloseEvent, ToastHeadlessTemplateContext, ToastItemCloseEvent, ToastMessageTemplateContext, ToastPassThrough, ToastPositionType } from 'primeng/types/toast';
+import { ToastBreakpoints, ToastCloseEvent, ToastHeadlessTemplateContext, ToastItemCloseEvent, ToastMessageTemplateContext, ToastModeType, ToastPassThrough, ToastPositionType } from 'primeng/types/toast';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ToastStyle } from './style/toaststyle';
@@ -35,6 +35,13 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                 [pt]="pt"
                 [unstyled]="unstyled()"
                 [motionOptions]="computedMotionOptions()"
+                [stackMode]="isStackMode()"
+                [stackExpanded]="expanded()"
+                [stackIndex]="getStackIndex(i)"
+                [stackTotal]="stackTotal()"
+                [stackOffset]="getStackOffset(i)"
+                [stackIsVisible]="isStackVisible(i)"
+                (onHeightChange)="onItemHeightChange($event)"
             ></p-toast-item>
         }
     `,
@@ -44,7 +51,13 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
     host: {
         '[class]': "cx('root')",
         '[style]': "sx('root')",
-        '[attr.data-p]': 'dataP()'
+        '[attr.data-p]': 'dataP()',
+        '[attr.data-expanded]': 'hostDataExpanded()',
+        '[style.--gap.px]': 'stackGapVar()',
+        '[style.--front-toast-height.px]': 'stackFrontHeightVar()',
+        '[style.--raise-factor]': 'stackRaiseFactorVar()',
+        '(mouseenter)': 'onContainerMouseEnter()',
+        '(mouseleave)': 'onContainerMouseLeave($event)'
     },
     hostDirectives: [Bind]
 })
@@ -83,6 +96,21 @@ export class Toast extends BaseComponent<ToastPassThrough> {
      * @group Props
      */
     position = input<ToastPositionType>('top-right');
+    /**
+     * Display mode of the toast.
+     * @group Props
+     */
+    mode = input<ToastModeType>('single');
+    /**
+     * Gap between stacked toast items in pixels.
+     * @group Props
+     */
+    stackGap = input(8, { transform: numberAttribute });
+    /**
+     * Maximum number of visible toasts in the stack.
+     * @group Props
+     */
+    stackVisibleLimit = input(3, { transform: numberAttribute });
     /**
      * It does not add the new message if there is already a toast displayed with the same content
      * @group Props
@@ -137,7 +165,7 @@ export class Toast extends BaseComponent<ToastPassThrough> {
 
     messages: ToastMessageOptions[] | null | undefined;
 
-    messagesArchieve: ToastMessageOptions[] | undefined;
+    messageArchive: ToastMessageOptions[] | undefined;
 
     messageService = inject(MessageService);
 
@@ -148,6 +176,71 @@ export class Toast extends BaseComponent<ToastPassThrough> {
     id: string = uuid('pn_id_');
 
     clearAllTrigger = signal<object | null>(null);
+
+    expanded = signal(false);
+
+    removingCount = signal(0);
+
+    heights = signal<{ index: number; height: number }[]>([]);
+
+    // Single sorted source — all stack computeds derive from this
+    sortedHeights = computed(() => [...this.heights()].sort((a, b) => b.index - a.index));
+
+    frontToastHeight = computed(() => this.sortedHeights()[0]?.height ?? 0);
+
+    stackOffsets = computed(() => {
+        const sorted = this.sortedHeights();
+        const offsets: number[] = [0];
+        for (let i = 1; i < sorted.length; i++) {
+            offsets[i] = offsets[i - 1] + sorted[i - 1].height;
+        }
+        return offsets;
+    });
+
+    visualStackIndices = computed(() => {
+        const map = new Map<number, number>();
+        this.sortedHeights().forEach((entry, idx) => map.set(entry.index, idx));
+        return map;
+    });
+
+    visibleIndices = computed(
+        () =>
+            new Set(
+                this.sortedHeights()
+                    .slice(0, this.stackVisibleLimit())
+                    .map((x) => x.index)
+            )
+    );
+
+    raiseFactor = computed(() => {
+        const pos = this.position();
+        return pos.startsWith('bottom') ? -1 : 1;
+    });
+
+    isStackMode = computed(() => this.mode() === 'stack');
+
+    hostDataExpanded = computed(() => (this.isStackMode() && this.expanded() ? '' : null));
+
+    stackGapVar = computed(() => (this.isStackMode() ? this.stackGap() : null));
+
+    stackFrontHeightVar = computed(() => (this.isStackMode() ? this.frontToastHeight() : null));
+
+    stackRaiseFactorVar = computed(() => (this.isStackMode() ? this.raiseFactor() : null));
+
+    stackTotal = computed(() => this.messages?.length ?? 0);
+
+    getStackIndex(domIndex: number): number {
+        return this.visualStackIndices().get(domIndex) ?? (this.messages?.length ?? 0) - 1 - domIndex;
+    }
+
+    getStackOffset(domIndex: number): number {
+        const visualIdx = this.visualStackIndices().get(domIndex) ?? 0;
+        return this.stackOffsets()[visualIdx] ?? 0;
+    }
+
+    isStackVisible(domIndex: number): boolean {
+        return this.visibleIndices().has(domIndex);
+    }
 
     dataP = computed(() => {
         const pos = this.position();
@@ -182,8 +275,11 @@ export class Toast extends BaseComponent<ToastPassThrough> {
     }
 
     clearAll() {
-        // trigger signal to clear all messages
         this.clearAllTrigger.set({});
+        this.heights.set([]);
+        this.removingCount.set(0);
+        this.expanded.set(false);
+        this.messageArchive = undefined;
     }
 
     onAfterViewInit() {
@@ -196,7 +292,7 @@ export class Toast extends BaseComponent<ToastPassThrough> {
         this.messages = this.messages ? [...this.messages, ...messages] : [...messages];
 
         if (this.preventDuplicates()) {
-            this.messagesArchieve = this.messagesArchieve ? [...this.messagesArchieve, ...messages] : [...messages];
+            this.messageArchive = this.messageArchive ? [...this.messageArchive, ...messages] : [...messages];
         }
 
         this.cd.markForCheck();
@@ -206,11 +302,11 @@ export class Toast extends BaseComponent<ToastPassThrough> {
         let allow = this.key() === message.key;
 
         if (allow && this.preventOpenDuplicates()) {
-            allow = !this.containsMessage(this.messages!, message);
+            allow = !this.containsMessage(this.messages ?? [], message);
         }
 
         if (allow && this.preventDuplicates()) {
-            allow = !this.containsMessage(this.messagesArchieve!, message);
+            allow = !this.containsMessage(this.messageArchive ?? [], message);
         }
 
         return allow;
@@ -231,6 +327,14 @@ export class Toast extends BaseComponent<ToastPassThrough> {
     onMessageClose(event: ToastItemCloseEvent) {
         this.messages?.splice(event.index, 1);
 
+        if (this.isStackMode()) {
+            this.heights.update((h) => h.filter((x) => x.index !== event.index).map((x) => (x.index > event.index ? { ...x, index: x.index - 1 } : x)));
+            this.removingCount.update((c) => Math.max(0, c - 1));
+            if ((this.messages?.length ?? 0) <= 1) {
+                this.expanded.set(false);
+            }
+        }
+
         this.onClose.emit({
             message: event.message
         });
@@ -249,6 +353,43 @@ export class Toast extends BaseComponent<ToastPassThrough> {
         if (this.autoZIndex() && isEmpty(this.messages)) {
             ZIndexUtils.clear(this.el?.nativeElement);
         }
+    }
+
+    onContainerMouseEnter() {
+        if (this.isStackMode()) {
+            this.expanded.set(true);
+        }
+    }
+
+    onContainerMouseLeave(event: MouseEvent) {
+        if (this.isStackMode()) {
+            const container = this.el?.nativeElement;
+            const relatedTarget = event.relatedTarget as Node | null;
+            if (relatedTarget && container?.contains(relatedTarget)) {
+                return;
+            }
+            if (this.removingCount() > 0) {
+                return;
+            }
+            this.expanded.set(false);
+        }
+    }
+
+    onItemHeightChange(event: { index: number; height: number; removed?: boolean }) {
+        if (event.removed) {
+            this.heights.update((h) => h.filter((x) => x.index !== event.index));
+            this.removingCount.update((c) => c + 1);
+            return;
+        }
+        this.heights.update((h) => {
+            const existing = h.findIndex((x) => x.index === event.index);
+            if (existing >= 0) {
+                const copy = [...h];
+                copy[existing] = event;
+                return copy;
+            }
+            return [...h, event].sort((a, b) => a.index - b.index);
+        });
     }
 
     createStyle() {

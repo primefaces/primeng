@@ -17,8 +17,8 @@ import { ButtonModule } from 'primeng/button';
                 <i>summary</i> and <i>detail</i>.
             </p>
         </app-docsectiontext>
-        <p-toast />
         <app-demo-wrapper>
+            <p-toast />
             <div class="flex justify-center">
                 <p-button (onClick)="show()" label="Show" />
             </div>

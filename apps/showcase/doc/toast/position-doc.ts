@@ -15,10 +15,10 @@ import { Ripple } from 'primeng/ripple';
         <app-docsectiontext>
             <p>Location of the toast is customized with the <i>position</i> property. Valid values are <i>top-left</i>, <i>top-center</i>, <i>top-right</i>, <i>bottom-left</i>, <i>bottom-center</i>, <i>bottom-right</i> and <i>center</i>.</p>
         </app-docsectiontext>
-        <p-toast position="top-left" key="tl" />
-        <p-toast position="bottom-left" key="bl" />
-        <p-toast position="bottom-right" key="br" />
         <app-demo-wrapper>
+            <p-toast position="top-left" key="tl" />
+            <p-toast position="bottom-left" key="bl" />
+            <p-toast position="bottom-right" key="br" />
             <div class="flex justify-center">
                 <div class="flex flex-wrap gap-2">
                     <p-button pRipple (click)="showTopLeft()" label="Top Left" />

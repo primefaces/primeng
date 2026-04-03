@@ -63,16 +63,7 @@ interface City {
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-select
-                [options]="cities"
-                [(ngModel)]="selectedCities"
-                [multiple]="true"
-                optionLabel="name"
-                optionValue="code"
-                [showClear]="selectedCities.length > 0"
-                placeholder="Select Cities"
-                class="w-full md:w-56"
-            >
+            <p-select [options]="cities" [(ngModel)]="selectedCities" [multiple]="true" optionLabel="name" optionValue="code" [showClear]="true" placeholder="Select Cities" class="w-full md:w-56">
                 <ng-template #header>
                     <div class="px-3 py-2">
                         <p-checkbox [ngModel]="allSelected" [binary]="true" [indeterminate]="indeterminate" (ngModelChange)="onToggleAll($event)" label="Select All" />
@@ -177,16 +168,7 @@ interface Member {
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-select
-                [options]="members" 
-                [(ngModel)]="selected"
-                [multiple]="true"
-                optionLabel="name"
-                optionValue="code"
-                [showClear]="selected.length > 0"
-                placeholder="Select Members"
-                class="w-full"
-            >
+            <p-select [options]="members" [(ngModel)]="selected" [multiple]="true" optionLabel="name" optionValue="code" [showClear]="true" placeholder="Select Members" class="w-full">
                 <ng-template let-member #item>
                     <div class="flex items-center gap-2">
                         <img [src]="member.avatar" [alt]="member.name" class="w-7 h-7 rounded-full" />
@@ -196,7 +178,13 @@ interface Member {
                 <ng-template #selectedItem let-selectedOption>
                     <div class="flex flex-wrap gap-1">
                         @for (code of selected; track code) {
-                            <p-chip [label]="getFirstName(code)" [image]="getAvatar(code)" [removable]="true" (onRemove)="removeItem($event, code)" [pt]="{ root: { class: 'py-0!' }, label: { class: 'text-xs!' }, image: { class: 'w-5! h-5!' } }" />
+                            <p-chip
+                                [label]="getFirstName(code)"
+                                [image]="getAvatar(code)"
+                                [removable]="true"
+                                (onRemove)="removeItem($event, code)"
+                                [pt]="{ root: { class: 'py-0!' }, label: { class: 'text-xs!' }, image: { class: 'w-5! h-5!' } }"
+                            />
                         }
                     </div>
                 </ng-template>
@@ -881,17 +869,7 @@ interface Topping {
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-select
-                [options]="toppings"
-                [(ngModel)]="selected"
-                [multiple]="true"
-                [checkmark]="true"
-                optionLabel="label"
-                optionValue="value"
-                [showClear]="selected.length > 0"
-                placeholder="Select Toppings"
-                class="w-full md:w-56"
-            >
+            <p-select [options]="toppings" [(ngModel)]="selected" [multiple]="true" [checkmark]="true" optionLabel="label" optionValue="value" [showClear]="true" placeholder="Select Toppings" class="w-full md:w-56">
                 <ng-template #selectedItem>
                     <span>{{ getLabel() }}</span>
                 </ng-template>

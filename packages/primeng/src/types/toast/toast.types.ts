@@ -113,6 +113,11 @@ export interface ToastTemplates {
 export type ToastPositionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'center';
 
 /**
+ * Defines the mode type for Toast display.
+ */
+export type ToastModeType = 'single' | 'stack';
+
+/**
  * Breakpoints configuration for responsive Toast styling.
  * Keys are media query breakpoints (e.g., '960px', '640px').
  * Values are CSS style objects.

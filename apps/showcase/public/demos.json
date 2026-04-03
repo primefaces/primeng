@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-31T10:04:06.027Z",
-  "totalDemos": 829,
+  "generatedAt": "2026-04-02T11:40:53.404Z",
+  "totalDemos": 830,
   "demos": {
     "accordion-template-demo": {
       "key": "accordion-template-demo",
@@ -10147,7 +10147,7 @@
       "component": "select",
       "section": "multiple",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { SelectModule } from 'primeng/select';\n\ninterface Topping {\n    label: string;\n    value: string;\n}\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-select\n                [options]=\"toppings\"\n                [(ngModel)]=\"selected\"\n                [multiple]=\"true\"\n                [checkmark]=\"true\"\n                optionLabel=\"label\"\n                optionValue=\"value\"\n                [showClear]=\"selected.length > 0\"\n                placeholder=\"Select Toppings\"\n                class=\"w-full md:w-56\"\n            >\n                <ng-template #selectedItem>\n                    <span>{{ getLabel() }}</span>\n                </ng-template>\n            </p-select>\n        </div>\n    `,\n    standalone: true,\n    imports: [SelectModule, FormsModule]\n})\nexport class SelectMultipleDemo {\n    toppings: Topping[] = [\n        { label: 'Pepperoni', value: 'pepperoni' },\n        { label: 'Mushrooms', value: 'mushrooms' },\n        { label: 'Onions', value: 'onions' },\n        { label: 'Black Olives', value: 'olives' },\n        { label: 'Green Peppers', value: 'peppers' },\n        { label: 'Mozzarella', value: 'mozzarella' },\n        { label: 'Basil', value: 'basil' },\n        { label: 'Tomatoes', value: 'tomatoes' }\n    ];\n    selected: string[] = [];\n\n    getLabel(): string {\n        if (this.selected.length === 0) return '';\n        const first = this.toppings.find((t) => t.value === this.selected[0])?.label ?? this.selected[0];\n        return this.selected.length > 1 ? `${first} (+${this.selected.length - 1} more)` : first;\n    }\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { SelectModule } from 'primeng/select';\n\ninterface Topping {\n    label: string;\n    value: string;\n}\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-select [options]=\"toppings\" [(ngModel)]=\"selected\" [multiple]=\"true\" [checkmark]=\"true\" optionLabel=\"label\" optionValue=\"value\" [showClear]=\"true\" placeholder=\"Select Toppings\" class=\"w-full md:w-56\">\n                <ng-template #selectedItem>\n                    <span>{{ getLabel() }}</span>\n                </ng-template>\n            </p-select>\n        </div>\n    `,\n    standalone: true,\n    imports: [SelectModule, FormsModule]\n})\nexport class SelectMultipleDemo {\n    toppings: Topping[] = [\n        { label: 'Pepperoni', value: 'pepperoni' },\n        { label: 'Mushrooms', value: 'mushrooms' },\n        { label: 'Onions', value: 'onions' },\n        { label: 'Black Olives', value: 'olives' },\n        { label: 'Green Peppers', value: 'peppers' },\n        { label: 'Mozzarella', value: 'mozzarella' },\n        { label: 'Basil', value: 'basil' },\n        { label: 'Tomatoes', value: 'tomatoes' }\n    ];\n    selected: string[] = [];\n\n    getLabel(): string {\n        if (this.selected.length === 0) return '';\n        const first = this.toppings.find((t) => t.value === this.selected[0])?.label ?? this.selected[0];\n        return this.selected.length > 1 ? `${first} (+${this.selected.length - 1} more)` : first;\n    }\n}"
       },
       "metadata": {
         "services": [],
@@ -10414,7 +10414,7 @@
       "component": "select",
       "section": "chip",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { ChipModule } from 'primeng/chip';\nimport { SelectModule } from 'primeng/select';\n\ninterface Member {\n    name: string;\n    code: string;\n    avatar: string;\n}\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-select\n                [options]=\"members\" \n                [(ngModel)]=\"selected\"\n                [multiple]=\"true\"\n                optionLabel=\"name\"\n                optionValue=\"code\"\n                [showClear]=\"selected.length > 0\"\n                placeholder=\"Select Members\"\n                class=\"w-full\"\n            >\n                <ng-template let-member #item>\n                    <div class=\"flex items-center gap-2\">\n                        <img [src]=\"member.avatar\" [alt]=\"member.name\" class=\"w-7 h-7 rounded-full\" />\n                        <span>{{ member.name }}</span>\n                    </div>\n                </ng-template>\n                <ng-template #selectedItem let-selectedOption>\n                    <div class=\"flex flex-wrap gap-1\">\n                        @for (code of selected; track code) {\n                            <p-chip [label]=\"getFirstName(code)\" [image]=\"getAvatar(code)\" [removable]=\"true\" (onRemove)=\"removeItem($event, code)\" [pt]=\"{ root: { class: 'py-0!' }, label: { class: 'text-xs!' }, image: { class: 'w-5! h-5!' } }\" />\n                        }\n                    </div>\n                </ng-template>\n            </p-select>\n        </div>\n    `,\n    standalone: true,\n    imports: [ChipModule, SelectModule, FormsModule]\n})\nexport class SelectChipDemo {\n    members: Member[] = [\n        { name: 'Amy Elsner', code: 'AE', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png' },\n        { name: 'Anna Fali', code: 'AF', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/annafali.png' },\n        { name: 'Asiya Javayant', code: 'AJ', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/asiyajavayant.png' },\n        { name: 'Bernardo Dominic', code: 'BD', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/bernardodominic.png' },\n        { name: 'Elwin Sharvill', code: 'ES', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/elwinsharvill.png' },\n        { name: 'Ioni Bowcher', code: 'IB', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/ionibowcher.png' },\n        { name: 'Ivan Magalhaes', code: 'IM', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/ivanmagalhaes.png' },\n        { name: 'Stephen Shaw', code: 'SS', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/stephenshaw.png' }\n    ];\n    selected: string[] = [];\n\n    getFirstName(code: string): string {\n        const member = this.members.find((m) => m.code === code);\n        return member ? member.name.split(' ')[0] : code;\n    }\n\n    getAvatar(code: string): string {\n        return this.members.find((m) => m.code === code)?.avatar ?? '';\n    }\n\n    removeItem(event: MouseEvent, code: string) {\n        event.stopPropagation();\n        this.selected = this.selected.filter((c) => c !== code);\n    }\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { ChipModule } from 'primeng/chip';\nimport { SelectModule } from 'primeng/select';\n\ninterface Member {\n    name: string;\n    code: string;\n    avatar: string;\n}\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-select [options]=\"members\" [(ngModel)]=\"selected\" [multiple]=\"true\" optionLabel=\"name\" optionValue=\"code\" [showClear]=\"true\" placeholder=\"Select Members\" class=\"w-full\">\n                <ng-template let-member #item>\n                    <div class=\"flex items-center gap-2\">\n                        <img [src]=\"member.avatar\" [alt]=\"member.name\" class=\"w-7 h-7 rounded-full\" />\n                        <span>{{ member.name }}</span>\n                    </div>\n                </ng-template>\n                <ng-template #selectedItem let-selectedOption>\n                    <div class=\"flex flex-wrap gap-1\">\n                        @for (code of selected; track code) {\n                            <p-chip\n                                [label]=\"getFirstName(code)\"\n                                [image]=\"getAvatar(code)\"\n                                [removable]=\"true\"\n                                (onRemove)=\"removeItem($event, code)\"\n                                [pt]=\"{ root: { class: 'py-0!' }, label: { class: 'text-xs!' }, image: { class: 'w-5! h-5!' } }\"\n                            />\n                        }\n                    </div>\n                </ng-template>\n            </p-select>\n        </div>\n    `,\n    standalone: true,\n    imports: [ChipModule, SelectModule, FormsModule]\n})\nexport class SelectChipDemo {\n    members: Member[] = [\n        { name: 'Amy Elsner', code: 'AE', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png' },\n        { name: 'Anna Fali', code: 'AF', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/annafali.png' },\n        { name: 'Asiya Javayant', code: 'AJ', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/asiyajavayant.png' },\n        { name: 'Bernardo Dominic', code: 'BD', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/bernardodominic.png' },\n        { name: 'Elwin Sharvill', code: 'ES', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/elwinsharvill.png' },\n        { name: 'Ioni Bowcher', code: 'IB', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/ionibowcher.png' },\n        { name: 'Ivan Magalhaes', code: 'IM', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/ivanmagalhaes.png' },\n        { name: 'Stephen Shaw', code: 'SS', avatar: 'https://primefaces.org/cdn/primevue/images/avatar/stephenshaw.png' }\n    ];\n    selected: string[] = [];\n\n    getFirstName(code: string): string {\n        const member = this.members.find((m) => m.code === code);\n        return member ? member.name.split(' ')[0] : code;\n    }\n\n    getAvatar(code: string): string {\n        return this.members.find((m) => m.code === code)?.avatar ?? '';\n    }\n\n    removeItem(event: MouseEvent, code: string) {\n        event.stopPropagation();\n        this.selected = this.selected.filter((c) => c !== code);\n    }\n}"
       },
       "metadata": {
         "services": [],
@@ -10451,7 +10451,7 @@
       "component": "select",
       "section": "checkboxselection",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { CheckboxModule } from 'primeng/checkbox';\nimport { SelectModule } from 'primeng/select';\n\ninterface City {\n    name: string;\n    code: string;\n}\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-select\n                [options]=\"cities\"\n                [(ngModel)]=\"selectedCities\"\n                [multiple]=\"true\"\n                optionLabel=\"name\"\n                optionValue=\"code\"\n                [showClear]=\"selectedCities.length > 0\"\n                placeholder=\"Select Cities\"\n                class=\"w-full md:w-56\"\n            >\n                <ng-template #header>\n                    <div class=\"px-3 py-2\">\n                        <p-checkbox [ngModel]=\"allSelected\" [binary]=\"true\" [indeterminate]=\"indeterminate\" (ngModelChange)=\"onToggleAll($event)\" label=\"Select All\" />\n                    </div>\n                </ng-template>\n                <ng-template #selectedItem>\n                    <span>{{ getLabel() }}</span>\n                </ng-template>\n                <ng-template let-city #item>\n                    <div class=\"flex items-center gap-2\">\n                        <p-checkbox [ngModel]=\"isItemSelected(city)\" [binary]=\"true\" [tabindex]=\"-1\" [readonly]=\"true\" />\n                        <span>{{ city.name }}</span>\n                    </div>\n                </ng-template>\n            </p-select>\n        </div>\n    `,\n    standalone: true,\n    imports: [CheckboxModule, SelectModule, FormsModule]\n})\nexport class SelectCheckboxSelectionDemo {\n    cities: City[] = [\n        { name: 'New York', code: 'NY' },\n        { name: 'Rome', code: 'RM' },\n        { name: 'London', code: 'LDN' },\n        { name: 'Istanbul', code: 'IST' },\n        { name: 'Paris', code: 'PRS' }\n    ];\n    selectedCities: string[] = [];\n\n    getLabel(): string {\n        if (this.selectedCities.length === 0) return '';\n        const first = this.cities.find((c) => c.code === this.selectedCities[0])?.name ?? this.selectedCities[0];\n        return this.selectedCities.length > 1 ? `${first} (+${this.selectedCities.length - 1} more)` : first;\n    }\n\n    isItemSelected(city: City): boolean {\n        return this.selectedCities.includes(city.code);\n    }\n\n    onToggleAll(checked: boolean) {\n        this.selectedCities = checked ? this.cities.map((c) => c.code) : [];\n    }\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { CheckboxModule } from 'primeng/checkbox';\nimport { SelectModule } from 'primeng/select';\n\ninterface City {\n    name: string;\n    code: string;\n}\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-select [options]=\"cities\" [(ngModel)]=\"selectedCities\" [multiple]=\"true\" optionLabel=\"name\" optionValue=\"code\" [showClear]=\"true\" placeholder=\"Select Cities\" class=\"w-full md:w-56\">\n                <ng-template #header>\n                    <div class=\"px-3 py-2\">\n                        <p-checkbox [ngModel]=\"allSelected\" [binary]=\"true\" [indeterminate]=\"indeterminate\" (ngModelChange)=\"onToggleAll($event)\" label=\"Select All\" />\n                    </div>\n                </ng-template>\n                <ng-template #selectedItem>\n                    <span>{{ getLabel() }}</span>\n                </ng-template>\n                <ng-template let-city #item>\n                    <div class=\"flex items-center gap-2\">\n                        <p-checkbox [ngModel]=\"isItemSelected(city)\" [binary]=\"true\" [tabindex]=\"-1\" [readonly]=\"true\" />\n                        <span>{{ city.name }}</span>\n                    </div>\n                </ng-template>\n            </p-select>\n        </div>\n    `,\n    standalone: true,\n    imports: [CheckboxModule, SelectModule, FormsModule]\n})\nexport class SelectCheckboxSelectionDemo {\n    cities: City[] = [\n        { name: 'New York', code: 'NY' },\n        { name: 'Rome', code: 'RM' },\n        { name: 'London', code: 'LDN' },\n        { name: 'Istanbul', code: 'IST' },\n        { name: 'Paris', code: 'PRS' }\n    ];\n    selectedCities: string[] = [];\n\n    getLabel(): string {\n        if (this.selectedCities.length === 0) return '';\n        const first = this.cities.find((c) => c.code === this.selectedCities[0])?.name ?? this.selectedCities[0];\n        return this.selectedCities.length > 1 ? `${first} (+${this.selectedCities.length - 1} more)` : first;\n    }\n\n    isItemSelected(city: City): boolean {\n        return this.selectedCities.includes(city.code);\n    }\n\n    onToggleAll(checked: boolean) {\n        this.selectedCities = checked ? this.cities.map((c) => c.code) : [];\n    }\n}"
       },
       "metadata": {
         "services": [],
@@ -13583,7 +13583,7 @@
       "component": "toast",
       "section": "template",
       "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-button (click)=\"showConfirm()\" label=\"View\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule],\n    providers: [MessageService]\n})\nexport class ToastTemplateDemo {\n    private messageService = inject(MessageService);\n\n    onReject() {\n        this.messageService.clear('confirm');\n        this.visible = false;\n    }\n\n    showConfirm() {\n        if (!this.visible) {\n            this.messageService.add({\n                key: 'confirm',\n                sticky: true,\n                severity: 'success',\n                summary: 'Can you send me the report?'\n            });\n            this.visible = true;\n        }\n    }\n}"
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { AvatarModule } from 'primeng/avatar';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast position=\"bottom-center\" key=\"confirm\" (onClose)=\"onReject()\" [baseZIndex]=\"5000\">\n            <ng-template let-message #message>\n                <div class=\"flex flex-col items-start flex-auto\">\n                    <div class=\"flex items-center gap-2\">\n                        <p-avatar image=\"https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png\" shape=\"circle\" />\n                        <span class=\"font-bold\">Amy Elsner</span>\n                    </div>\n                    <div class=\"font-medium text-lg my-4\">{{ message.summary }}</div>\n                    <p-button severity=\"success\" size=\"small\" label=\"Reply\" (click)=\"onConfirm()\" />\n                </div>\n            </ng-template>\n        </p-toast>\n        <div class=\"flex justify-center\">\n            <p-button (click)=\"showConfirm()\" label=\"View\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [AvatarModule, ButtonModule, ToastModule],\n    providers: [MessageService]\n})\nexport class ToastTemplateDemo {\n    private messageService = inject(MessageService);\n\n    onReject() {\n        this.messageService.clear('confirm');\n        this.visible = false;\n    }\n\n    showConfirm() {\n        if (!this.visible) {\n            this.messageService.add({\n                key: 'confirm',\n                sticky: true,\n                severity: 'success',\n                summary: 'Can you send me the report?'\n            });\n            this.visible = true;\n        }\n    }\n}"
       },
       "metadata": {
         "services": [],
@@ -13592,7 +13592,9 @@
         ],
         "extFiles": [],
         "imports": [
-          "ButtonModule"
+          "AvatarModule",
+          "ButtonModule",
+          "ToastModule"
         ]
       }
     },
@@ -13602,7 +13604,7 @@
       "component": "toast",
       "section": "target",
       "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center gap-2\">\n            <p-button (click)=\"showToast1()\" label=\"Show Success\" />\n            <p-button (click)=\"showToast2()\" label=\"Show Warning\" severity=\"warn\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule],\n    providers: [MessageService]\n})\nexport class ToastTargetDemo {\n    private messageService = inject(MessageService);\n\n    showToast2() {\n        this.messageService.clear();\n        this.messageService.add({ key: 'toast2', severity: 'warn', summary: 'Warning', detail: 'key: toast2' });\n    }\n}"
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast key=\"toast1\" />\n        <p-toast key=\"toast2\" />\n        <div class=\"flex justify-center gap-2\">\n            <p-button (click)=\"showToast1()\" label=\"Show Success\" />\n            <p-button (click)=\"showToast2()\" label=\"Show Warning\" severity=\"warn\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule],\n    providers: [MessageService]\n})\nexport class ToastTargetDemo {\n    private messageService = inject(MessageService);\n\n    showToast2() {\n        this.messageService.clear();\n        this.messageService.add({ key: 'toast2', severity: 'warn', summary: 'Warning', detail: 'key: toast2' });\n    }\n}"
       },
       "metadata": {
         "services": [],
@@ -13611,7 +13613,8 @@
         ],
         "extFiles": [],
         "imports": [
-          "ButtonModule"
+          "ButtonModule",
+          "ToastModule"
         ]
       }
     },
@@ -13621,7 +13624,7 @@
       "component": "toast",
       "section": "sticky",
       "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { RippleModule } from 'primeng/ripple';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <div class=\"flex flex-wrap gap-2\">\n                <p-button pRipple (click)=\"show()\" label=\"Sticky\" />\n                <p-button pRipple (click)=\"clear()\" severity=\"secondary\" label=\"Clear\" />\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, RippleModule],\n    providers: [MessageService]\n})\nexport class ToastStickyDemo {\n    private messageService = inject(MessageService);\n\n    clear() {\n        this.messageService.clear();\n    }\n}"
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { RippleModule } from 'primeng/ripple';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast />\n        <div class=\"flex justify-center\">\n            <div class=\"flex flex-wrap gap-2\">\n                <p-button pRipple (click)=\"show()\" label=\"Sticky\" />\n                <p-button pRipple (click)=\"clear()\" severity=\"secondary\" label=\"Clear\" />\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule, RippleModule],\n    providers: [MessageService]\n})\nexport class ToastStickyDemo {\n    private messageService = inject(MessageService);\n\n    clear() {\n        this.messageService.clear();\n    }\n}"
       },
       "metadata": {
         "services": [],
@@ -13631,7 +13634,28 @@
         "extFiles": [],
         "imports": [
           "ButtonModule",
+          "ToastModule",
           "RippleModule"
+        ]
+      }
+    },
+    "toast-stack-demo": {
+      "key": "toast-stack-demo",
+      "selector": "toast-stack-demo",
+      "component": "toast",
+      "section": "stack",
+      "code": {
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast key=\"stack\" mode=\"stack\" />\n        <div class=\"flex justify-center gap-2\">\n            <p-button (onClick)=\"show()\" label=\"Show\" />\n            <p-button (onClick)=\"showMultiple()\" label=\"Multiple\" severity=\"secondary\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule],\n    providers: [MessageService]\n})\nexport class ToastStackDemo {\n    private messageService = inject(MessageService);\n\n    showMultiple() {\n        this.messageService.addAll([\n            { severity: 'info', summary: 'Info', detail: 'Message 1', key: 'stack', life: 10000 },\n            { severity: 'success', summary: 'Success', detail: 'Message 2', key: 'stack', life: 10000 },\n            { severity: 'warn', summary: 'Warning', detail: 'Message 3', key: 'stack', life: 10000 }\n        ]);\n    }\n}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [
+          "MessageService"
+        ],
+        "extFiles": [],
+        "imports": [
+          "ButtonModule",
+          "ToastModule"
         ]
       }
     },
@@ -13641,7 +13665,7 @@
       "component": "toast",
       "section": "severity",
       "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { RippleModule } from 'primeng/ripple';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center gap-2\">\n            <p-button type=\"button\" pRipple (click)=\"showSuccess()\" label=\"Success\" severity=\"success\" />\n            <p-button type=\"button\" pRipple (click)=\"showInfo()\" label=\"Info\" severity=\"info\" />\n            <p-button type=\"button\" pRipple (click)=\"showWarn()\" label=\"Warn\" severity=\"warn\" />\n            <p-button type=\"button\" pRipple (click)=\"showError()\" label=\"Error\" severity=\"danger\" />\n            <p-button type=\"button\" pRipple (click)=\"showSecondary()\" label=\"Secondary\" severity=\"secondary\" />\n            <p-button type=\"button\" pRipple (click)=\"showContrast()\" label=\"Contrast\" severity=\"contrast\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, RippleModule],\n    providers: [MessageService]\n})\nexport class ToastSeverityDemo {\n    private messageService = inject(MessageService);\n\n    showInfo() {\n        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content' });\n    }\n\n    showWarn() {\n        this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Message Content' });\n    }\n\n    showError() {\n        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });\n    }\n\n    showContrast() {\n        this.messageService.add({ severity: 'contrast', summary: 'Contrast', detail: 'Message Content' });\n    }\n\n    showSecondary() {\n        this.messageService.add({ severity: 'secondary', summary: 'Secondary', detail: 'Message Content' });\n    }\n}"
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { RippleModule } from 'primeng/ripple';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast />\n        <div class=\"flex justify-center gap-2\">\n            <p-button type=\"button\" pRipple (click)=\"showSuccess()\" label=\"Success\" severity=\"success\" />\n            <p-button type=\"button\" pRipple (click)=\"showInfo()\" label=\"Info\" severity=\"info\" />\n            <p-button type=\"button\" pRipple (click)=\"showWarn()\" label=\"Warn\" severity=\"warn\" />\n            <p-button type=\"button\" pRipple (click)=\"showError()\" label=\"Error\" severity=\"danger\" />\n            <p-button type=\"button\" pRipple (click)=\"showSecondary()\" label=\"Secondary\" severity=\"secondary\" />\n            <p-button type=\"button\" pRipple (click)=\"showContrast()\" label=\"Contrast\" severity=\"contrast\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule, RippleModule],\n    providers: [MessageService]\n})\nexport class ToastSeverityDemo {\n    private messageService = inject(MessageService);\n\n    showInfo() {\n        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content' });\n    }\n\n    showWarn() {\n        this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Message Content' });\n    }\n\n    showError() {\n        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });\n    }\n\n    showContrast() {\n        this.messageService.add({ severity: 'contrast', summary: 'Contrast', detail: 'Message Content' });\n    }\n\n    showSecondary() {\n        this.messageService.add({ severity: 'secondary', summary: 'Secondary', detail: 'Message Content' });\n    }\n}"
       },
       "metadata": {
         "services": [],
@@ -13651,6 +13675,7 @@
         "extFiles": [],
         "imports": [
           "ButtonModule",
+          "ToastModule",
           "RippleModule"
         ]
       }
@@ -13661,26 +13686,7 @@
       "component": "toast",
       "section": "responsive",
       "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-button (click)=\"show()\" label=\"Show\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule],\n    providers: [MessageService]\n})\nexport class ToastResponsiveDemo {\n    private messageService = inject(MessageService);\n}"
-      },
-      "metadata": {
-        "services": [],
-        "primeNGServices": [
-          "MessageService"
-        ],
-        "extFiles": [],
-        "imports": [
-          "ButtonModule"
-        ]
-      }
-    },
-    "toast-position-demo": {
-      "key": "toast-position-demo",
-      "selector": "toast-position-demo",
-      "component": "toast",
-      "section": "position",
-      "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { RippleModule } from 'primeng/ripple';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <div class=\"flex flex-wrap gap-2\">\n                <p-button pRipple (click)=\"showTopLeft()\" label=\"Top Left\" />\n                <p-button pRipple (click)=\"showBottomLeft()\" label=\"Bottom Left\" />\n                <p-button pRipple (click)=\"showBottomRight()\" label=\"Bottom Right\" />\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, RippleModule],\n    providers: [MessageService]\n})\nexport class ToastPositionDemo {\n    private messageService = inject(MessageService);\n\n    showBottomLeft() {\n        this.messageService.add({\n            severity: 'warn',\n            summary: 'Warn Message',\n            detail: 'Message Content',\n            key: 'bl',\n            life: 3000\n        });\n    }\n\n    showBottomRight() {\n        this.messageService.add({\n            severity: 'success',\n            summary: 'Success Message',\n            detail: 'Message Content',\n            key: 'br',\n            life: 3000\n        });\n    }\n}"
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast [breakpoints]=\"{ '920px': { width: '50%', right: 'auto' } }\" />\n        <div class=\"flex justify-center\">\n            <p-button (click)=\"show()\" label=\"Show\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule],\n    providers: [MessageService]\n})\nexport class ToastResponsiveDemo {\n    private messageService = inject(MessageService);\n}"
       },
       "metadata": {
         "services": [],
@@ -13690,6 +13696,27 @@
         "extFiles": [],
         "imports": [
           "ButtonModule",
+          "ToastModule"
+        ]
+      }
+    },
+    "toast-position-demo": {
+      "key": "toast-position-demo",
+      "selector": "toast-position-demo",
+      "component": "toast",
+      "section": "position",
+      "code": {
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { RippleModule } from 'primeng/ripple';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast position=\"top-left\" key=\"tl\" />\n        <p-toast position=\"bottom-left\" key=\"bl\" />\n        <p-toast position=\"bottom-right\" key=\"br\" />\n        <div class=\"flex justify-center\">\n            <div class=\"flex flex-wrap gap-2\">\n                <p-button pRipple (click)=\"showTopLeft()\" label=\"Top Left\" />\n                <p-button pRipple (click)=\"showBottomLeft()\" label=\"Bottom Left\" />\n                <p-button pRipple (click)=\"showBottomRight()\" label=\"Bottom Right\" />\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule, RippleModule],\n    providers: [MessageService]\n})\nexport class ToastPositionDemo {\n    private messageService = inject(MessageService);\n\n    showBottomLeft() {\n        this.messageService.add({\n            severity: 'warn',\n            summary: 'Warn Message',\n            detail: 'Message Content',\n            key: 'bl',\n            life: 3000\n        });\n    }\n\n    showBottomRight() {\n        this.messageService.add({\n            severity: 'success',\n            summary: 'Success Message',\n            detail: 'Message Content',\n            key: 'br',\n            life: 3000\n        });\n    }\n}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [
+          "MessageService"
+        ],
+        "extFiles": [],
+        "imports": [
+          "ButtonModule",
+          "ToastModule",
           "RippleModule"
         ]
       }
@@ -13700,7 +13727,7 @@
       "component": "toast",
       "section": "multiple",
       "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { RippleModule } from 'primeng/ripple';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-button pRipple (click)=\"show()\" label=\"Multiple\" severity=\"warn\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, RippleModule],\n    providers: [MessageService]\n})\nexport class ToastMultipleDemo {\n    private messageService = inject(MessageService);\n}"
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { RippleModule } from 'primeng/ripple';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast />\n        <div class=\"flex justify-center\">\n            <p-button pRipple (click)=\"show()\" label=\"Multiple\" severity=\"warn\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule, RippleModule],\n    providers: [MessageService]\n})\nexport class ToastMultipleDemo {\n    private messageService = inject(MessageService);\n}"
       },
       "metadata": {
         "services": [],
@@ -13710,6 +13737,7 @@
         "extFiles": [],
         "imports": [
           "ButtonModule",
+          "ToastModule",
           "RippleModule"
         ]
       }
@@ -13720,7 +13748,7 @@
       "component": "toast",
       "section": "life",
       "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center gap-2\">\n            <p-button (click)=\"showLife()\" label=\"Show Life\" />\n            <p-button (click)=\"showLifeLong()\" label=\"Show Life Long\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule],\n    providers: [MessageService]\n})\nexport class ToastLifeDemo {\n    private messageService = inject(MessageService);\n\n    showLifeLong() {\n        this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 20000ms', life: 20000 });\n    }\n}"
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast [life]=\"10000\" />\n        <div class=\"flex justify-center gap-2\">\n            <p-button (click)=\"showLife()\" label=\"Show Life\" />\n            <p-button (click)=\"showLifeLong()\" label=\"Show Life Long\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule],\n    providers: [MessageService]\n})\nexport class ToastLifeDemo {\n    private messageService = inject(MessageService);\n\n    showLifeLong() {\n        this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 20000ms', life: 20000 });\n    }\n}"
       },
       "metadata": {
         "services": [],
@@ -13729,7 +13757,8 @@
         ],
         "extFiles": [],
         "imports": [
-          "ButtonModule"
+          "ButtonModule",
+          "ToastModule"
         ]
       }
     },
@@ -13739,7 +13768,7 @@
       "component": "toast",
       "section": "headless",
       "code": {
-        "typescript": "import { Component, inject, signal } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-button (click)=\"showConfirm()\" label=\"Confirm\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule],\n    providers: [MessageService]\n})\nexport class ToastHeadlessDemo {\n    private messageService = inject(MessageService);\n    visible: boolean = false;\n    progress = signal(0);\n    interval: any = null;\n\n    showConfirm() {\n        if (!this.visible) {\n            this.messageService.add({\n                key: 'confirm',\n                sticky: true,\n                severity: 'custom',\n                summary: 'Uploading your files.',\n                styleClass: 'backdrop-blur-lg rounded-2xl'\n            });\n            this.visible = true;\n            this.progress.set(0);\n        \n            if (this.interval) {\n                clearInterval(this.interval);\n            }\n        \n            this.interval = setInterval(() => {\n                if (this.progress() <= 100) {\n                    this.progress.update((v) => v + 20);\n                }\n        \n                if (this.progress() >= 100) {\n                    this.progress.set(100);\n                    clearInterval(this.interval);\n                }\n            }, 1000);\n        }\n    }\n\n    onClose() {\n        this.visible = false;\n    }\n}"
+        "typescript": "import { Component, inject, signal } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ProgressBarModule } from 'primeng/progressbar';\nimport { ToastModule } from 'primeng/toast';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast position=\"top-center\" key=\"confirm\" (onClose)=\"onClose()\" [baseZIndex]=\"5000\">\n            <ng-template let-message #headless let-closeFn=\"closeFn\">\n                <section class=\"flex flex-col p-4 gap-4 w-full bg-primary/70 rounded-xl\">\n                    <div class=\"flex items-center gap-5\">\n                        <i class=\"pi pi-cloud-upload text-white dark:text-black text-2xl\"></i>\n                        <span class=\"font-bold text-base text-white dark:text-black\">{{ message.summary }}</span>\n                    </div>\n                    <div class=\"flex flex-col gap-2\">\n                        <p-progressbar [value]=\"progress()\" [showValue]=\"false\" [style]=\"{ height: '4px' }\" class=\"bg-primary/80!\" />\n                        <label class=\"text-sm font-bold text-white dark:text-black\">{{ progress() }}% uploaded</label>\n                    </div>\n                    <div class=\"flex gap-4 mb-4 justify-end\">\n                        <p-button label=\"Another Upload?\" (click)=\"closeFn($event)\" size=\"small\" />\n                        <p-button label=\"Cancel\" (click)=\"closeFn($event)\" size=\"small\" />\n                    </div>\n                </section>\n            </ng-template>\n        </p-toast>\n        <div class=\"flex justify-center\">\n            <p-button (click)=\"showConfirm()\" label=\"Confirm\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ProgressBarModule, ToastModule],\n    providers: [MessageService]\n})\nexport class ToastHeadlessDemo {\n    private messageService = inject(MessageService);\n    visible: boolean = false;\n    progress = signal(0);\n    interval: any = null;\n\n    showConfirm() {\n        if (!this.visible) {\n            this.messageService.add({\n                key: 'confirm',\n                sticky: true,\n                severity: 'custom',\n                summary: 'Uploading your files.',\n                styleClass: 'backdrop-blur-lg rounded-2xl'\n            });\n            this.visible = true;\n            this.progress.set(0);\n        \n            if (this.interval) {\n                clearInterval(this.interval);\n            }\n        \n            this.interval = setInterval(() => {\n                if (this.progress() <= 100) {\n                    this.progress.update((v) => v + 20);\n                }\n        \n                if (this.progress() >= 100) {\n                    this.progress.set(100);\n                    clearInterval(this.interval);\n                }\n            }, 1000);\n        }\n    }\n\n    onClose() {\n        this.visible = false;\n    }\n}"
       },
       "metadata": {
         "services": [],
@@ -13748,7 +13777,9 @@
         ],
         "extFiles": [],
         "imports": [
-          "ButtonModule"
+          "ButtonModule",
+          "ProgressBarModule",
+          "ToastModule"
         ]
       }
     },
@@ -13758,7 +13789,7 @@
       "component": "toast",
       "section": "clear",
       "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center gap-2\">\n            <p-button (click)=\"show()\" label=\"Show\" />\n            <p-button (click)=\"clear()\" label=\"Clear\" severity=\"secondary\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule],\n    providers: [MessageService]\n})\nexport class ToastClearDemo {\n    private messageService = inject(MessageService);\n\n    clear() {\n        this.messageService.clear();\n    }\n}"
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast key=\"myKey\" />\n        <div class=\"flex justify-center gap-2\">\n            <p-button (click)=\"show()\" label=\"Show\" />\n            <p-button (click)=\"clear()\" label=\"Clear\" severity=\"secondary\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule],\n    providers: [MessageService]\n})\nexport class ToastClearDemo {\n    private messageService = inject(MessageService);\n\n    clear() {\n        this.messageService.clear();\n    }\n}"
       },
       "metadata": {
         "services": [],
@@ -13767,7 +13798,8 @@
         ],
         "extFiles": [],
         "imports": [
-          "ButtonModule"
+          "ButtonModule",
+          "ToastModule"
         ]
       }
     },
@@ -13777,7 +13809,7 @@
       "component": "toast",
       "section": "basic",
       "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"flex justify-center\">\n            <p-button (onClick)=\"show()\" label=\"Show\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule],\n    providers: [MessageService]\n})\nexport class ToastBasicDemo {\n    private messageService = inject(MessageService);\n}"
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast />\n        <div class=\"flex justify-center\">\n            <p-button (onClick)=\"show()\" label=\"Show\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule],\n    providers: [MessageService]\n})\nexport class ToastBasicDemo {\n    private messageService = inject(MessageService);\n}"
       },
       "metadata": {
         "services": [],
@@ -13786,7 +13818,8 @@
         ],
         "extFiles": [],
         "imports": [
-          "ButtonModule"
+          "ButtonModule",
+          "ToastModule"
         ]
       }
     },
