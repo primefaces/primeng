@@ -17,8 +17,7 @@ const stackStyle = `
         opacity: 1;
         transform: translateY(0);
     }
-
-    /* pMotion leave — specificity (0,5,0) to override mounted (0,4,0) */
+    
     .p-toast-stacked .p-toast-message[data-stack][data-mounted].p-toast-stack-leave-to {
         opacity: 0;
         transform: translateY(calc(var(--raise-factor) * -100%));
