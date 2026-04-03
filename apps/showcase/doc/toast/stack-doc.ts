@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -29,10 +29,9 @@ import { ButtonModule } from 'primeng/button';
     providers: [MessageService]
 })
 export class StackDoc {
+    private messageService = inject(MessageService);
     private counter = 0;
     private severities = ['info', 'success', 'warn', 'error'];
-
-    constructor(private messageService: MessageService) {}
 
     show() {
         const sev = this.severities[this.counter++ % this.severities.length];

@@ -29,6 +29,10 @@ import { MessageService } from 'primeng/api';
 })
 export class ToastBasicDemo {
     private messageService = inject(MessageService);
+
+    show() {
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content', life: 3000 });
+    }
 }
 ```
 
@@ -56,6 +60,10 @@ import { MessageService } from 'primeng/api';
 })
 export class ToastClearDemo {
     private messageService = inject(MessageService);
+
+    show() {
+        this.messageService.add({ key: 'myKey', severity: 'success', summary: 'Message 1', detail: 'Message Content' });
+    }
 
     clear() {
         this.messageService.clear();
@@ -168,6 +176,10 @@ import { MessageService } from 'primeng/api';
 export class ToastLifeDemo {
     private messageService = inject(MessageService);
 
+    showLife() {
+        this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 10000ms' });
+    }
+
     showLifeLong() {
         this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 20000ms', life: 20000 });
     }
@@ -198,6 +210,15 @@ import { MessageService } from 'primeng/api';
 })
 export class ToastMultipleDemo {
     private messageService = inject(MessageService);
+
+    show() {
+        this.messageService.addAll([
+            { severity: 'success', summary: 'Message 1', detail: 'Message Content' },
+            { severity: 'info', summary: 'Message 2', detail: 'Message Content' },
+            { severity: 'warn', summary: 'Message 3', detail: 'Message Content' },
+            { severity: 'error', summary: 'Message 4', detail: 'Message Content' }
+        ]);
+    }
 }
 ```
 
@@ -231,6 +252,16 @@ import { MessageService } from 'primeng/api';
 })
 export class ToastPositionDemo {
     private messageService = inject(MessageService);
+
+    showTopLeft() {
+        this.messageService.add({
+            severity: 'info',
+            summary: 'Info Message',
+            detail: 'Message Content',
+            key: 'tl',
+            life: 3000
+        });
+    }
 
     showBottomLeft() {
         this.messageService.add({
@@ -277,6 +308,10 @@ import { MessageService } from 'primeng/api';
 })
 export class ToastResponsiveDemo {
     private messageService = inject(MessageService);
+
+    show() {
+        this.messageService.add({ severity: 'contrast', summary: 'Success', detail: 'Message Content' });
+    }
 }
 ```
 
@@ -310,6 +345,10 @@ import { MessageService } from 'primeng/api';
 export class ToastSeverityDemo {
     private messageService = inject(MessageService);
 
+    showSuccess() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+    }
+
     showInfo() {
         this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content' });
     }
@@ -334,7 +373,7 @@ export class ToastSeverityDemo {
 
 ## Stack
 
-Setting mode to stack displays toasts in a stacked layout. Toasts visually overlap with a subtle scale effect and expand on hover to reveal all messages. Use stackGap to control spacing and visibleLimit to set the maximum number of visible toasts.
+Setting mode to stack displays toasts in a stacked layout. Toasts visually overlap with a subtle scale effect and expand on hover to reveal all messages. Use stackGap to control spacing and stackVisibleLimit to set the maximum number of visible toasts.
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -357,11 +396,22 @@ import { MessageService } from 'primeng/api';
 export class ToastStackDemo {
     private messageService = inject(MessageService);
 
+    show() {
+        const sev = this.severities[this.counter++ % this.severities.length];
+        this.messageService.add({
+            severity: sev,
+            summary: sev.charAt(0).toUpperCase() + sev.slice(1),
+            detail: 'Toast message content',
+            key: 'stack',
+            life: 3000
+        });
+    }
+
     showMultiple() {
         this.messageService.addAll([
-            { severity: 'info', summary: 'Info', detail: 'Message 1', key: 'stack', life: 10000 },
-            { severity: 'success', summary: 'Success', detail: 'Message 2', key: 'stack', life: 10000 },
-            { severity: 'warn', summary: 'Warning', detail: 'Message 3', key: 'stack', life: 10000 }
+            { severity: 'info', summary: 'Info', detail: 'Message 1', key: 'stack', life: 3000 },
+            { severity: 'success', summary: 'Success', detail: 'Message 2', key: 'stack', life: 3000 },
+            { severity: 'warn', summary: 'Warning', detail: 'Message 3', key: 'stack', life: 3000 }
         ]);
     }
 }
@@ -395,6 +445,10 @@ import { MessageService } from 'primeng/api';
 export class ToastStickyDemo {
     private messageService = inject(MessageService);
 
+    show() {
+        this.messageService.add({ severity: 'info', summary: 'Sticky', detail: 'Message Content', sticky: true });
+    }
+
     clear() {
         this.messageService.clear();
     }
@@ -426,6 +480,11 @@ import { MessageService } from 'primeng/api';
 })
 export class ToastTargetDemo {
     private messageService = inject(MessageService);
+
+    showToast1() {
+        this.messageService.clear();
+        this.messageService.add({ key: 'toast1', severity: 'success', summary: 'Success', detail: 'key: toast1' });
+    }
 
     showToast2() {
         this.messageService.clear();
@@ -469,6 +528,12 @@ import { MessageService } from 'primeng/api';
 })
 export class ToastTemplateDemo {
     private messageService = inject(MessageService);
+    visible: boolean = false;
+
+    onConfirm() {
+        this.messageService.clear('confirm');
+        this.visible = false;
+    }
 
     onReject() {
         this.messageService.clear('confirm');
@@ -508,7 +573,7 @@ Toast is used to display messages in an overlay.
 | position | "top-left" \| "top-center" \| "top-right" \| "bottom-left" \| "bottom-center" \| "bottom-right" \| "center" | - | Position of the toast in viewport. |
 | mode | "single" \| "stack" | - | Display mode of the toast. |
 | stackGap | number | - | Gap between stacked toast items in pixels. |
-| visibleLimit | number | - | Maximum number of visible toasts in the stack. |
+| stackVisibleLimit | number | - | Maximum number of visible toasts in the stack. |
 | preventOpenDuplicates | boolean | - | It does not add the new message if there is already a toast displayed with the same content |
 | preventDuplicates | boolean | - | Displays only once a message with the same content. |
 | motionOptions | MotionOptions | - | The motion options. |

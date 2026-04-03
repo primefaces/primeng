@@ -46918,7 +46918,7 @@
                             "description": "Gap between stacked toast items in pixels."
                         },
                         {
-                            "name": "visibleLimit",
+                            "name": "stackVisibleLimit",
                             "optional": false,
                             "readonly": false,
                             "type": "number",

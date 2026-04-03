@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -30,7 +30,7 @@ import { ButtonModule } from 'primeng/button';
     providers: [MessageService]
 })
 export class TargetDoc {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     showToast1() {
         this.messageService.clear();

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -26,7 +26,7 @@ import { ButtonModule } from 'primeng/button';
     providers: [MessageService]
 })
 export class LifeDoc {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     showLife() {
         this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 10000ms' });
