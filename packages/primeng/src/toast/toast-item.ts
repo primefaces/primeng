@@ -263,7 +263,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     onAfterEnter() {
         if (this.stackMode() && !this.mounted()) {
-            const el = this.el.nativeElement.querySelector('.p-toast-message') as HTMLElement;
+            const el = this.el.nativeElement.querySelector('[data-stack]') as HTMLElement;
             if (el) {
                 const orig = el.style.height;
                 el.style.height = 'auto';
@@ -381,10 +381,8 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
         const el = this.el.nativeElement;
         const activeEl = this.document.activeElement as HTMLElement;
         if (!el?.contains(activeEl)) return;
-        const container = el.querySelector('.p-toast-message') as HTMLElement;
-        if (!container) return;
-        const next = el.nextElementSibling?.querySelector('.p-toast-message') as HTMLElement;
-        const prev = el.previousElementSibling?.querySelector('.p-toast-message') as HTMLElement;
+        const next = el.nextElementSibling?.querySelector('[data-pc-section="closebutton"]') as HTMLElement;
+        const prev = el.previousElementSibling?.querySelector('[data-pc-section="closebutton"]') as HTMLElement;
         requestAnimationFrame(() => {
             if (next) next.focus({ preventScroll: true });
             else if (prev) prev.focus({ preventScroll: true });
