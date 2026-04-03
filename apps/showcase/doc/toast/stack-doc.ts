@@ -40,15 +40,15 @@ export class StackDoc {
             summary: sev.charAt(0).toUpperCase() + sev.slice(1),
             detail: 'Toast message content',
             key: 'stack',
-            life: 3000
+            life: 10000
         });
     }
 
     showMultiple() {
         this.messageService.addAll([
-            { severity: 'info', summary: 'Info', detail: 'Message 1', key: 'stack', life: 3000 },
-            { severity: 'success', summary: 'Success', detail: 'Message 2', key: 'stack', life: 3000 },
-            { severity: 'warn', summary: 'Warning', detail: 'Message 3', key: 'stack', life: 3000 }
+            { severity: 'info', summary: 'Info', detail: 'Message 1', key: 'stack', life: 10000 },
+            { severity: 'success', summary: 'Success', detail: 'Message 2', key: 'stack', life: 10000 },
+            { severity: 'warn', summary: 'Warning', detail: 'Message 3', key: 'stack', life: 10000 }
         ]);
     }
 }
