@@ -151,7 +151,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                             <p-progressbar [value]="progress()" [showValue]="false" [pt]="ptm('pcProgressBar')"></p-progressbar>
                         }
                         @for (message of msgs(); track message) {
-                            <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></p-message>
+                            <p-message [severity]="message.severity" [pt]="ptm('pcMessage')" [unstyled]="unstyled()">{{ message.text }}</p-message>
                         }
 
                         @if (hasFiles()) {
@@ -195,7 +195,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
         @if (isBasicMode()) {
             <div [class]="cn(cx('root'), styleClass())" [pBind]="ptm('root')">
                 @for (message of msgs(); track message) {
-                    <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></p-message>
+                    <p-message [severity]="message.severity" [pt]="ptm('pcMessage')" [unstyled]="unstyled()">{{ message.text }}</p-message>
                 }
 
                 <div [class]="cx('basicContent')" [pBind]="ptm('basicContent')">
