@@ -2,6 +2,12 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.1.6](https://github.com/primefaces/primeng/tree/21.1.6) (2026-04-13)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.5...21.1.6)
+
+**Fixed bugs:**
+- v21 accordion creates scrolling out of the DOM [#19229](https://github.com/primefaces/primeng/issues/19229)
+
 ## [21.1.5](https://github.com/primefaces/primeng/tree/21.1.5) (2026-04-01)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.1.4...21.1.5)
 
