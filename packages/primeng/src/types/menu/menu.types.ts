@@ -27,6 +27,10 @@ export interface MenuPassThroughOptions<I = unknown> {
      */
     submenuLabel?: PassThroughOption<HTMLLIElement, I>;
     /**
+     * Used to pass attributes to the submenu icon's DOM element.
+     */
+    submenuIcon?: PassThroughOption<SVGElement, I>;
+    /**
      * Used to pass attributes to the separator's DOM element.
      */
     separator?: PassThroughOption<HTMLLIElement, I>;
@@ -113,4 +117,9 @@ export interface MenuTemplates {
      * @param {Object} context - submenu header context.
      */
     submenuheader(context: MenuSubmenuHeaderTemplateContext): TemplateRef<MenuSubmenuHeaderTemplateContext>;
+    /**
+     * Custom template of submenu toggle icon.
+     * @param {Object} context - submenu header context.
+     */
+    submenuicon(context: MenuSubmenuHeaderTemplateContext): TemplateRef<MenuSubmenuHeaderTemplateContext>;
 }

@@ -32,6 +32,10 @@ export interface MenuItem {
      */
     expanded?: boolean;
     /**
+     * Whether the submenu can be toggled (collapsed/expanded).
+     */
+    toggleable?: boolean;
+    /**
      * When set as true, disables the menuitem.
      */
     disabled?: boolean;

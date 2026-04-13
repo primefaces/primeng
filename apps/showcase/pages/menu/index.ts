@@ -7,6 +7,7 @@ import { PopupDoc } from '@/doc/menu/popup-doc';
 import { PTComponent } from '@/doc/menu/pt/PTComponent';
 import { RouterDoc } from '@/doc/menu/router-doc';
 import { TemplateDoc } from '@/doc/menu/template-doc';
+import { ToggleableDoc } from '@/doc/menu/toggleable-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -43,7 +44,8 @@ export class MenuDemo {
                 { id: 'popup', label: 'Popup', component: PopupDoc },
                 { id: 'template', label: 'Template', component: TemplateDoc },
                 { id: 'command', label: 'Command', component: CommandDoc },
-                { id: 'router', label: 'Router', component: RouterDoc }
+                { id: 'router', label: 'Router', component: RouterDoc },
+                { id: 'toggleable', label: 'Toggleable', component: ToggleableDoc }
             ]
         },
         {

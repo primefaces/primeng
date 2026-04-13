@@ -12,6 +12,7 @@ import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { VoidListener } from 'primeng/ts-helpers';
 import { MenuItemTemplateContext, MenuPassThrough, MenuSubmenuHeaderTemplateContext } from 'primeng/types/menu';
 import { ZIndexUtils } from 'primeng/utils';
+import { ChevronDown as ChevronDownIcon } from '@primeicons/angular/chevron-down';
 import { MenuItemContent, SafeHtmlPipe } from './menu-item-content';
 import { MENU_INSTANCE } from './menu-token';
 import { MenuStyle } from './style/menustyle';
@@ -23,7 +24,7 @@ import { MenuStyle } from './style/menustyle';
 @Component({
     selector: 'p-menu',
     standalone: true,
-    imports: [NgTemplateOutlet, MenuItemContent, TooltipModule, SharedModule, SafeHtmlPipe, BindModule, MotionModule],
+    imports: [NgTemplateOutlet, MenuItemContent, TooltipModule, SharedModule, SafeHtmlPipe, BindModule, MotionModule, ChevronDownIcon],
     template: `
         @if (!popup() || overlayVisible()) {
             <div
@@ -62,90 +63,103 @@ import { MenuStyle } from './style/menustyle';
                     (blur)="onListBlur($event)"
                     (keydown)="onListKeyDown($event)"
                 >
-                    @if (hasSubMenu()) {
-                        @for (submenu of model(); track submenu; let i = $index) {
-                            @if (isSeparatorVisible(submenu)) {
+                    <ng-container *ngTemplateOutlet="recursiveItems; context: { $implicit: model(), depth: 0, parentId: $id() }"></ng-container>
+                    <ng-template #recursiveItems let-items let-depth="depth" let-parentId="parentId">
+                        @for (item of items; track item; let i = $index) {
+                            @if (isSeparatorVisible(item)) {
                                 <li [class]="cx('separator')" [pBind]="ptm('separator')" role="separator" [attr.data-pc-section]="'separator'"></li>
                             }
-                            @if (!submenu.separator) {
-                                <li
-                                    [class]="cx('submenuLabel')"
-                                    [pBind]="ptm('submenuLabel')"
-                                    [attr.data-automationid]="submenu.automationId"
-                                    pTooltip
-                                    [tooltipOptions]="submenu.tooltipOptions"
-                                    [pTooltipUnstyled]="unstyled()"
-                                    role="none"
-                                    [attr.id]="menuitemId(submenu, $id(), i)"
-                                    [attr.data-pc-section]="'submenulabel'"
-                                >
-                                    @if (!submenuHeaderTemplate()) {
-                                        @if (submenu.escape !== false) {
-                                            <span>{{ submenu.label }}</span>
-                                        } @else {
-                                            <span [innerHTML]="submenu.label | safeHtml"></span>
-                                        }
+                            @if (!item.separator && isVisible(item)) {
+                                @if (item.items?.length) {
+                                    @if (isSubmenuToggleable(item, depth)) {
+                                        <li [class]="cx('submenu')" [attr.data-pc-section]="'submenu'">
+                                            <div
+                                                [class]="cx('submenuLabel', { toggleable: true })"
+                                                [pBind]="ptm('submenuLabel')"
+                                                [attr.data-automationid]="item.automationId"
+                                                pTooltip
+                                                [tooltipOptions]="item.tooltipOptions"
+                                                [pTooltipUnstyled]="unstyled()"
+                                                role="button"
+                                                [attr.id]="menuitemId(item, parentId, i)"
+                                                [attr.data-pc-section]="'submenulabel'"
+                                                [attr.aria-expanded]="isSubmenuExpanded(item, depth)"
+                                                tabindex="0"
+                                                (click)="onSubmenuHeaderClick($event, item)"
+                                                (keydown)="onSubmenuHeaderKeydown($event, item)"
+                                            >
+                                                @if (!submenuHeaderTemplate()) {
+                                                    @if (item.icon) {
+                                                        <span [class]="cn(cx('submenuLabelIcon'), item.iconClass, item.icon)" [style]="item.iconStyle" [pBind]="ptm('submenuLabelIcon')"></span>
+                                                    }
+                                                    @if (item.escape !== false) {
+                                                        <span>{{ item.label }}</span>
+                                                    } @else {
+                                                        <span [innerHTML]="item.label | safeHtml"></span>
+                                                    }
+                                                }
+                                                <ng-container *ngTemplateOutlet="submenuHeaderTemplate(); context: { $implicit: item }"></ng-container>
+                                                @if (submenuIconTemplate()) {
+                                                    <ng-container *ngTemplateOutlet="submenuIconTemplate(); context: { $implicit: item }"></ng-container>
+                                                } @else {
+                                                    <svg [pBind]="ptm('submenuIcon')" data-p-icon="chevron-down" [class]="cx('submenuIcon')" [attr.aria-hidden]="true" [attr.data-p-expanded]="isSubmenuExpanded(item, depth) || null" />
+                                                }
+                                            </div>
+                                            @if (isSubmenuExpanded(item, depth)) {
+                                                <ul [class]="cx('submenuList')" role="group">
+                                                    <ng-container *ngTemplateOutlet="recursiveItems; context: { $implicit: item.items, depth: depth + 1, parentId: menuitemId(item, parentId, i) }"></ng-container>
+                                                </ul>
+                                            }
+                                        </li>
+                                    } @else {
+                                        <li
+                                            [class]="cx('submenuLabel', { toggleable: false })"
+                                            [attr.data-p-depth]="depth || null"
+                                            [pBind]="ptm('submenuLabel')"
+                                            [attr.data-automationid]="item.automationId"
+                                            pTooltip
+                                            [tooltipOptions]="item.tooltipOptions"
+                                            [pTooltipUnstyled]="unstyled()"
+                                            role="none"
+                                            [attr.id]="menuitemId(item, parentId, i)"
+                                            [attr.data-pc-section]="'submenulabel'"
+                                        >
+                                            @if (!submenuHeaderTemplate()) {
+                                                @if (item.escape !== false) {
+                                                    <span>{{ item.label }}</span>
+                                                } @else {
+                                                    <span [innerHTML]="item.label | safeHtml"></span>
+                                                }
+                                            }
+                                            <ng-container *ngTemplateOutlet="submenuHeaderTemplate(); context: { $implicit: item }"></ng-container>
+                                        </li>
+                                        <ng-container *ngTemplateOutlet="recursiveItems; context: { $implicit: item.items, depth: depth + 1, parentId: menuitemId(item, parentId, i) }"></ng-container>
                                     }
-                                    <ng-container *ngTemplateOutlet="submenuHeaderTemplate(); context: { $implicit: submenu }"></ng-container>
-                                </li>
-                            }
-                            @for (item of submenu.items; track item; let j = $index) {
-                                @if (isSubmenuSeparatorVisible(item, submenu)) {
-                                    <li [class]="cx('separator')" [pBind]="ptm('separator')" role="separator" [attr.data-pc-section]="'separator'"></li>
-                                }
-                                @if (isSubmenuItemVisible(item, submenu)) {
+                                } @else {
                                     <li
-                                        [class]="cn(cx('item', { item, id: menuitemId(item, $id(), i, j) }), item?.styleClass)"
+                                        [class]="cn(cx('item', { item, id: menuitemId(item, parentId, i) }), item?.styleClass)"
                                         [pBind]="ptm('item')"
                                         [pMenuItemContent]="item"
                                         [itemTemplate]="itemTemplate()"
-                                        [idx]="j"
-                                        [menuitemId]="menuitemId(item, $id(), i, j)"
+                                        [idx]="i"
+                                        [menuitemId]="menuitemId(item, parentId, i)"
                                         [style]="item.style"
-                                        (onMenuItemClick)="itemClick($event, menuitemId(item, $id(), i, j))"
+                                        (onMenuItemClick)="itemClick($event, menuitemId(item, parentId, i))"
                                         pTooltip
                                         [tooltipOptions]="item.tooltipOptions"
                                         [pTooltipUnstyled]="unstyled()"
                                         [unstyled]="unstyled()"
                                         role="menuitem"
                                         [attr.aria-label]="label(item.label)"
-                                        [attr.data-p-focused]="isItemFocused(menuitemId(item, $id(), i, j))"
+                                        [attr.data-p-focused]="isItemFocused(menuitemId(item, parentId, i))"
                                         [attr.data-p-disabled]="disabled(item.disabled)"
                                         [attr.aria-disabled]="disabled(item.disabled)"
-                                        [attr.id]="menuitemId(item, $id(), i, j)"
+                                        [attr.id]="menuitemId(item, parentId, i)"
                                     ></li>
                                 }
                             }
                         }
-                    } @else {
-                        @for (item of model(); track item; let i = $index) {
-                            @if (isSeparatorVisible(item)) {
-                                <li [class]="cx('separator')" [pBind]="ptm('separator')" role="separator" [attr.data-pc-section]="'separator'"></li>
-                            }
-                            @if (isItemVisible(item)) {
-                                <li
-                                    [class]="cn(cx('item', { item, id: menuitemId(item, $id(), i) }), item?.styleClass)"
-                                    [pBind]="ptm('item')"
-                                    [pMenuItemContent]="item"
-                                    [itemTemplate]="itemTemplate()"
-                                    [idx]="i"
-                                    [menuitemId]="menuitemId(item, $id(), i)"
-                                    [style]="item.style"
-                                    (onMenuItemClick)="itemClick($event, menuitemId(item, $id(), i))"
-                                    pTooltip
-                                    [tooltipOptions]="item.tooltipOptions"
-                                    [unstyled]="unstyled()"
-                                    [pTooltipUnstyled]="unstyled()"
-                                    role="menuitem"
-                                    [attr.aria-label]="label(item.label)"
-                                    [attr.data-p-focused]="isItemFocused(menuitemId(item, $id(), i))"
-                                    [attr.data-p-disabled]="disabled(item.disabled)"
-                                    [attr.aria-disabled]="disabled(item.disabled)"
-                                    [attr.id]="menuitemId(item, $id(), i)"
-                                ></li>
-                            }
-                        }
-                    }
+                    </ng-template>
                 </ul>
                 @if (endTemplate()) {
                     <div [class]="cx('end')" [pBind]="ptm('end')" [attr.data-pc-section]="'end'">
@@ -276,6 +290,14 @@ export class Menu extends BaseComponent<MenuPassThrough> {
      * @group Templates
      */
     submenuHeaderTemplate = contentChild<TemplateRef<MenuSubmenuHeaderTemplateContext>>('submenuheader', { descendants: false });
+
+    /**
+     * Custom submenu toggle icon template.
+     * @param {MenuSubmenuHeaderTemplateContext} context - submenu header context.
+     * @see {@link MenuSubmenuHeaderTemplateContext}
+     * @group Templates
+     */
+    submenuIconTemplate = contentChild<TemplateRef<MenuSubmenuHeaderTemplateContext>>('submenuicon', { descendants: false });
 
     listViewChild = viewChild<ElementRef>('list');
 
@@ -758,6 +780,33 @@ export class Menu extends BaseComponent<MenuPassThrough> {
 
     hasSubMenu(): boolean {
         return this.model()?.some((item) => item.items) ?? false;
+    }
+
+    isSubmenuToggleable(submenu: MenuItem, depth: number = 0): boolean {
+        if (submenu.toggleable !== undefined) {
+            return submenu.toggleable;
+        }
+        return depth > 0;
+    }
+
+    isSubmenuExpanded(submenu: MenuItem, depth: number = 0): boolean {
+        if (!this.isSubmenuToggleable(submenu, depth)) {
+            return true;
+        }
+        return submenu.expanded === true;
+    }
+
+    onSubmenuHeaderClick(event: Event, submenu: MenuItem) {
+        submenu.expanded = submenu.expanded === true ? false : true;
+        this.cd.markForCheck();
+        event.preventDefault();
+    }
+
+    onSubmenuHeaderKeydown(event: KeyboardEvent, submenu: MenuItem) {
+        if (event.code === 'Enter' || event.code === 'Space') {
+            this.onSubmenuHeaderClick(event, submenu);
+            event.preventDefault();
+        }
     }
 
     isItemHidden(item: MenuItem): boolean {
