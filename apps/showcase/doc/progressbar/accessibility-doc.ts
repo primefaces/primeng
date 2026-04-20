@@ -24,7 +24,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        html: `<span id="label_status">Status</span>
+        typescript: `<span id="label_status">Status</span>
 <p-progressbar aria-labelledby="label_status" />
 
 <p-progressbar aria-label="Status" />`

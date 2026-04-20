@@ -93,11 +93,11 @@ import { RouterModule } from '@angular/router';
 })
 export class DesignerApiDoc {
     code1 = {
-        basic: `https://primeui.store/api/designer/integration/theme/create`
+        typescript: `https://primeui.store/api/designer/integration/theme/create`
     };
 
     code2 = {
-        basic: `const response = await fetch(https://primeui.store/api/designer/integration/theme/create, {
+        typescript: `const response = await fetch(https://primeui.store/api/designer/integration/theme/create, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ export class DesignerApiDoc {
     };
 
     code3 = {
-        basic: `{
+        typescript: `{
     error: {
         code: 'download_failed',
         message: 'Failed to create archieve.'

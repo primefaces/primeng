@@ -41,7 +41,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        basic: `<label for="address1">Address 1</label>
+        typescript: `<label for="address1">Address 1</label>
 <textarea pTextarea id="address1"></textarea>
 
 <span id="address2">Address 2</span>

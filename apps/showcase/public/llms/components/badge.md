@@ -10,18 +10,9 @@ Screen Reader Badge does not include any roles and attributes by default, any at
 
 Content of the badge is specified using the value property.
 
-```html
-<p-badge value="2" />
-```
-
 ## Button
 
 Buttons have built-in support for badges to display a badge inline.
-
-```html
-<p-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
-<p-button label="Inbox" icon="pi pi-inbox" badge="2" badgeSeverity="contrast" outlined />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -48,10 +39,6 @@ export class BadgeButtonDemo {}
 
 Content of the badge is specified using the value property.
 
-```html
-<i class="pi pi-bell !text-3xl" pBadge value="2"></i>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -74,18 +61,6 @@ export class BadgeDirectiveDemo {}
 ## Overlay
 
 A badge can be added to any element by encapsulating the content with the OverlayBadge component.
-
-```html
-<p-overlaybadge value="2">
-    <i class="pi pi-bell" style="font-size: 2rem"></i>
-</p-overlaybadge>
-<p-overlaybadge value="4" severity="danger">
-    <i class="pi pi-calendar" style="font-size: 2rem"></i>
-</p-overlaybadge>
-<p-overlaybadge severity="danger">
-    <i class="pi pi-envelope" style="font-size: 2rem"></i>
-</p-overlaybadge>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -119,12 +94,6 @@ export class BadgeOverlayDemo {}
 
 A Badge can be positioned at the top right corner of an element by adding p-overlay-badge style class to the element and embedding the badge inside.
 
-```html
-<i class="pi pi-bell mr-6 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
-<i class="pi pi-calendar mr-6 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
-<i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -149,16 +118,6 @@ export class BadgePositionDemo {}
 ## Severity
 
 Severity defines the color of the badge, possible values are success , info , warn and danger
-
-```html
-<p-badge value="2" />
-<p-badge value="6" severity="secondary" />
-<p-badge value="8" severity="success" />
-<p-badge value="4" severity="info" />
-<p-badge value="9" severity="warn" />
-<p-badge value="3" severity="danger" />
-<p-badge value="5" severity="contrast" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -189,13 +148,6 @@ export class BadgeSeverityDemo {}
 ## Size
 
 Badge sizes are adjusted with the badgeSize property that accepts small , large and xlarge as the possible alternatives to the default size. Currently sizes only apply to component mode.
-
-```html
-<p-badge value="8" badgeSize="xlarge" severity="success" />
-<p-badge value="6" badgeSize="large" severity="warn" />
-<p-badge value="4" severity="info" />
-<p-badge value="2" badgeSize="small" />
-```
 
 <details>
 <summary>TypeScript Example</summary>

@@ -23,6 +23,8 @@ const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
     providers: [TooltipStyle, { provide: TOOLTIP_INSTANCE, useExisting: Tooltip }, { provide: PARENT_INSTANCE, useExisting: Tooltip }]
 })
 export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
+    componentName = 'Tooltip';
+
     $pcTooltip: Tooltip | undefined = inject(TOOLTIP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     /**

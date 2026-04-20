@@ -12,6 +12,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             feature to list the available tokens to choose from. The <i>pi-sort-alt</i> symbol over the input, transfers the token between the common tokens and color scheme specific tokens so that you are able to define tokens based on light and
             dark mode as well.
         </p>
+        <div class="px-8 pt-8 bg-surface-0 dark:bg-surface-900 rounded-2xl border border-surface" style="max-width: 48rem">
+            <img alt="Designer Dashboard" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/designer/guide-editor.png" class="w-full" />
+        </div>
     </app-docsectiontext>`
 })
 export class IntelligentCompletionDoc {}

@@ -125,6 +125,8 @@ export class MeterGroupLabel extends BaseComponent<MeterGroupPassThrough> {
     hostDirectives: [Bind]
 })
 export class MeterGroup extends BaseComponent<MeterGroupPassThrough> {
+    componentName = 'MeterGroup';
+
     $pcMeterGroup: MeterGroup | undefined = inject(METERGROUP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'colors-doc',
@@ -37,7 +37,7 @@ export class ColorsDoc {
     colors = ['emerald', 'green', 'lime', 'red', 'orange', 'amber', 'yellow', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose', 'slate', 'gray', 'zinc', 'neutral', 'stone'];
 
     code = {
-        basic: `// With CSS
+        typescript: `// With CSS
 var(--p-blue-500)
 
 // With JS

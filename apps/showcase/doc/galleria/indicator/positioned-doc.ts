@@ -1,5 +1,5 @@
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit, model } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GalleriaModule } from 'primeng/galleria';
@@ -40,6 +40,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class PositionedDoc implements OnInit {
+    private photoService = inject(PhotoService);
+
     images = model([]);
 
     position: 'left' | 'right' | 'top' | 'bottom' = 'bottom';
@@ -64,8 +66,6 @@ export class PositionedDoc implements OnInit {
             value: 'right'
         }
     ];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));

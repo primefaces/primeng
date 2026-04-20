@@ -948,6 +948,8 @@ export class PanelMenuList extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
+    componentName = 'PanelMenu';
+
     /**
      * An array of menuitems.
      * @group Props

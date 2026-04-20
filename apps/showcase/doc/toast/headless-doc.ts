@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -23,8 +23,8 @@ import { ProgressBar } from 'primeng/progressbar';
                             <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
-                            <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
+                            <p-progressbar [value]="progress()" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
+                            <label class="text-sm font-bold text-white dark:text-black">{{ progress() }}% uploaded</label>
                         </div>
                         <div class="flex gap-4 mb-4 justify-end">
                             <p-button label="Another Upload?" (click)="closeFn($event)" size="small" />
@@ -50,16 +50,13 @@ import { ProgressBar } from 'primeng/progressbar';
     providers: [MessageService]
 })
 export class HeadlessDoc {
+    private messageService = inject(MessageService);
+
     visible: boolean = false;
 
-    progress: number = 0;
+    progress = signal(0);
 
     interval = null;
-
-    constructor(
-        private messageService: MessageService,
-        private cdr: ChangeDetectorRef
-    ) {}
 
     showConfirm() {
         if (!this.visible) {
@@ -71,22 +68,21 @@ export class HeadlessDoc {
                 styleClass: 'backdrop-blur-lg rounded-2xl'
             });
             this.visible = true;
-            this.progress = 0;
+            this.progress.set(0);
 
             if (this.interval) {
                 clearInterval(this.interval);
             }
 
             this.interval = setInterval(() => {
-                if (this.progress <= 100) {
-                    this.progress = this.progress + 20;
+                if (this.progress() <= 100) {
+                    this.progress.update((v) => v + 20);
                 }
 
-                if (this.progress >= 100) {
-                    this.progress = 100;
+                if (this.progress() >= 100) {
+                    this.progress.set(100);
                     clearInterval(this.interval);
                 }
-                this.cdr.markForCheck();
             }, 1000);
         }
     }

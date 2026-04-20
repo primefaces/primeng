@@ -434,7 +434,7 @@ export class AnimationsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-select [(ngModel)]="animation" [options]="animations" placeholder="Select One" class="w-full sm:w-44" />
+        typescript: `<p-select [(ngModel)]="animation" [options]="animations" placeholder="Select One" class="w-full sm:w-44" />
 <div class="py-8 overflow-hidden">
    <div [ngClass]="dynamicAnimationClasses"></div>
 </div>`

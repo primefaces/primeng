@@ -75,6 +75,8 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
     hostDirectives: [Bind]
 })
 export class TabList extends BaseComponent<TabListPassThrough> {
+    componentName = 'TabList';
+
     $pcTabList: TabList | undefined = inject(TABLIST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

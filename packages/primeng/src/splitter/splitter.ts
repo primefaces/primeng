@@ -61,6 +61,7 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Splitter extends BaseComponent<SplitterPassThrough> {
+    componentName = 'Splitter';
     $pcSplitter: Splitter | undefined = inject(SPLITTER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

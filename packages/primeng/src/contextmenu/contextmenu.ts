@@ -489,6 +489,8 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
     providers: [ContextMenuStyle, { provide: CONTEXTMENU_INSTANCE, useExisting: ContextMenu }]
 })
 export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
+    componentName = 'ContextMenu';
+
     /**
      * An array of menuitems.
      * @group Props

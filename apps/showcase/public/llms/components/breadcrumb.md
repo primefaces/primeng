@@ -10,17 +10,9 @@ Screen Reader Breadcrumb uses the nav element and since any attribute is passed 
 
 Breadcrumb provides contextual information about page hierarchy.
 
-```html
-<p-breadcrumb [model]="items" [home]="home" />
-```
-
 ## Router
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
-
-```html
-<p-breadcrumb [home]="home" [model]="items" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -49,17 +41,6 @@ export class BreadcrumbRouterDemo {
 ## Template
 
 Custom content can be placed inside the items using the item template. The divider between the items has its own separator template.
-
-```html
-<p-breadcrumb [model]="items" [home]="home">
-    <ng-template #item let-item>
-        <a class="cursor-pointer" [routerLink]="item.url">
-            <i [class]="item.icon"></i>
-        </a>
-    </ng-template>
-    <ng-template #separator> / </ng-template>
-</p-breadcrumb>
-```
 
 <details>
 <summary>TypeScript Example</summary>

@@ -278,8 +278,6 @@ function getCodeExamplesFromDemos(componentName, sectionId) {
         const demo = demosData.demos[selector];
         if (demo && demo.code) {
             const examples = {};
-            if (demo.code.basic) examples.basic = demo.code.basic;
-            if (demo.code.html) examples.html = demo.code.html;
             if (demo.code.typescript) examples.typescript = demo.code.typescript;
             if (demo.code.data) examples.data = demo.code.data;
             if (demo.code.scss) examples.scss = demo.code.scss;
@@ -319,14 +317,10 @@ function extractCodeFromFile(content) {
             return match ? match[1].trim() : null;
         };
 
-        const basic = extractBetweenBackticks(codeContent, 'basic:');
-        const html = extractBetweenBackticks(codeContent, 'html:');
         const typescript = extractBetweenBackticks(codeContent, 'typescript:');
         const command = extractBetweenBackticks(codeContent, 'command:');
         const scss = extractBetweenBackticks(codeContent, 'scss:');
 
-        if (basic) examples.basic = basic;
-        if (html) examples.html = html;
         if (typescript) examples.typescript = typescript;
         if (command) examples.command = command;
         if (scss) examples.scss = scss;
@@ -370,8 +364,6 @@ function getCodeExamplesBySelector(selector) {
     const demo = demosData.demos[selector];
     if (demo && demo.code) {
         const examples = {};
-        if (demo.code.basic) examples.basic = demo.code.basic;
-        if (demo.code.html) examples.html = demo.code.html;
         if (demo.code.typescript) examples.typescript = demo.code.typescript;
         if (demo.code.data) examples.data = demo.code.data;
         if (demo.code.scss) examples.scss = demo.code.scss;
@@ -973,18 +965,10 @@ function generateMarkdownOutput(components, apiDocs, guidePages = []) {
                 }
 
                 if (section.examples) {
-                    if (section.examples.basic) {
-                        markdown += '```html\n';
-                        markdown += section.examples.basic;
-                        markdown += '\n```\n\n';
-                    }
-
                     if (section.examples.typescript) {
-                        markdown += '<details>\n<summary>TypeScript Example</summary>\n\n';
                         markdown += '```typescript\n';
                         markdown += section.examples.typescript;
-                        markdown += '\n```\n';
-                        markdown += '</details>\n\n';
+                        markdown += '\n```\n\n';
                     }
                 }
             }
@@ -1011,19 +995,11 @@ function generateMarkdownOutput(components, apiDocs, guidePages = []) {
             }
 
             if (section.examples) {
-                if (section.examples.basic) {
-                    markdown += '**Basic Usage:**\n\n';
-                    markdown += '```html\n';
-                    markdown += section.examples.basic;
-                    markdown += '\n```\n\n';
-                }
-
-                if (section.examples.typescript && section.id !== 'basic') {
-                    markdown += '<details>\n<summary>TypeScript Example</summary>\n\n';
+                if (section.examples.typescript) {
+                    markdown += '**Example:**\n\n';
                     markdown += '```typescript\n';
                     markdown += section.examples.typescript;
-                    markdown += '\n```\n';
-                    markdown += '</details>\n\n';
+                    markdown += '\n```\n\n';
                 }
 
                 if (section.examples.data) {
@@ -1104,10 +1080,10 @@ function generateIndividualMarkdownFiles(components, apiDocs) {
 
         // Import section
         const importSection = comp.sections.find((s) => s.id === 'import');
-        if (importSection && importSection.examples && importSection.examples.basic) {
+        if (importSection && importSection.examples && importSection.examples.typescript) {
             markdown += '## Import\n\n';
             markdown += '```typescript\n';
-            markdown += importSection.examples.basic;
+            markdown += importSection.examples.typescript;
             markdown += '\n```\n\n';
         }
 
@@ -1122,18 +1098,10 @@ function generateIndividualMarkdownFiles(components, apiDocs) {
             }
 
             if (section.examples) {
-                if (section.examples.basic) {
-                    markdown += '```html\n';
-                    markdown += section.examples.basic;
-                    markdown += '\n```\n\n';
-                }
-
-                if (section.examples.typescript && section.id !== 'basic') {
-                    markdown += '<details>\n<summary>TypeScript Example</summary>\n\n';
+                if (section.examples.typescript) {
                     markdown += '```typescript\n';
                     markdown += section.examples.typescript;
-                    markdown += '\n```\n';
-                    markdown += '</details>\n\n';
+                    markdown += '\n```\n\n';
                 }
             }
         }
@@ -1258,18 +1226,10 @@ function generatePageMarkdownFiles(pages) {
             }
 
             if (section.examples) {
-                if (section.examples.basic) {
-                    markdown += '```html\n';
-                    markdown += section.examples.basic;
-                    markdown += '\n```\n\n';
-                }
-
                 if (section.examples.typescript) {
-                    markdown += '<details>\n<summary>TypeScript Example</summary>\n\n';
                     markdown += '```typescript\n';
                     markdown += section.examples.typescript;
-                    markdown += '\n```\n';
-                    markdown += '</details>\n\n';
+                    markdown += '\n```\n\n';
                 }
 
                 if (section.examples.command) {

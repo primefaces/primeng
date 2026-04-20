@@ -234,7 +234,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        basic: `<label for="date1">Date</label>
+        typescript: `<label for="date1">Date</label>
 <p-datepicker inputId="date1"/>
 
 <span id="date2">Date</span>

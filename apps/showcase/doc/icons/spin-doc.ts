@@ -1,7 +1,7 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'spin-doc',
@@ -20,7 +20,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class SpinDoc {
     code: Code = {
-        basic: `<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+        typescript: `<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
 <i class="pi pi-spin pi-cog" style="font-size: 2rem"></i>`
     };
 }

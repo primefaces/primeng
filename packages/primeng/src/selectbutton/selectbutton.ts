@@ -81,6 +81,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> implements AfterViewChecked {
+    componentName = 'SelectButton';
     /**
      * An array of selectitems to display as the available options.
      * @group Props

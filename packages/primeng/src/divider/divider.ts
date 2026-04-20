@@ -34,6 +34,8 @@ const DIVIDER_INSTANCE = new InjectionToken<Divider>('DIVIDER_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Divider extends BaseComponent<DividerPassThrough> {
+    componentName = 'Divider';
+
     $pcDivider: Divider | undefined = inject(DIVIDER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

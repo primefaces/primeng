@@ -2,7 +2,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 
 @Component({
@@ -15,7 +15,7 @@ import { OrderListModule } from 'primeng/orderlist';
             <p>OrderList is used as a controlled input with <i>value</i> property. Content of a list item needs to be defined with the <i>item</i> template that receives an object in the list as parameter.</p>
         </app-docsectiontext>
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px">
+            <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px">
                 <ng-template #item let-option>
                     {{ option.name }}
                 </ng-template>
@@ -34,17 +34,13 @@ import { OrderListModule } from 'primeng/orderlist';
     ]
 })
 export class BasicDoc implements OnInit {
-    products!: Product[];
+    private productService = inject(ProductService);
 
-    constructor(
-        private productService: ProductService,
-        private cdr: ChangeDetectorRef
-    ) {}
+    products = signal<Product[]>([]);
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
-            this.products = cars;
-            this.cdr.detectChanges();
+            this.products.set(cars);
         });
     }
 

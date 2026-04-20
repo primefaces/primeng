@@ -70,7 +70,7 @@ export class DialogDoc {
     }
 
     code = {
-        basic: `.p-dialog-enter-active {
+        typescript: `.p-dialog-enter-active {
     animation: demo-dialog-in 500ms ease-out;
 }
     

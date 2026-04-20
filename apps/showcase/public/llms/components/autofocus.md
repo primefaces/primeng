@@ -6,10 +6,6 @@ AutoFocus manages focus on focusable element on load.
 
 AutoFocus is applied to any focusable input element with the pAutoFocus directive.
 
-```html
-<input type="text" pInputText [pAutoFocus]="true" placeholder="Automatically focused" />
-```
-
 ## Auto Focus
 
 AutoFocus manages focus on focusable element on load.

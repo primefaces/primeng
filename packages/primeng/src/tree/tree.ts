@@ -867,6 +867,8 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
     hostDirectives: [Bind]
 })
 export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI {
+    componentName = 'Tree';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcTree: Tree | undefined = inject(TREE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

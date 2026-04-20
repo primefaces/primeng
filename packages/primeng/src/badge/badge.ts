@@ -287,6 +287,8 @@ export class BadgeDirective extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class Badge extends BaseComponent<BadgePassThrough> {
+    componentName = 'Badge';
+
     $pcBadge: Badge | undefined = inject(BADGE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
