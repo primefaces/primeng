@@ -335,6 +335,8 @@ export class FileContent extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class FileUpload extends BaseComponent<FileUploadPassThrough> implements BlockableUI {
+    componentName = 'FileUpload';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     onAfterViewChecked(): void {

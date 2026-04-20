@@ -152,6 +152,8 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
     hostDirectives: [Bind]
 })
 export class OrderList extends BaseComponent<OrderListPassThrough> {
+    componentName = 'OrderList';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcOrderList: OrderList | undefined = inject(ORDERLIST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

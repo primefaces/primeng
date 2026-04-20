@@ -102,6 +102,8 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Galleria extends BaseComponent<GalleriaPassThrough> {
+    componentName = 'Galleria';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcGalleria: Galleria | undefined = inject(GALLERIA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

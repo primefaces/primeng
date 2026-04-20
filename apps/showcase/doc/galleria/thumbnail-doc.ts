@@ -1,5 +1,5 @@
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GalleriaModule } from 'primeng/galleria';
@@ -22,7 +22,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
                 </div>
             </div>
-            <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <p-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
                 </ng-template>
@@ -37,7 +37,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class ThumbnailDoc implements OnInit {
-    images: any[] | undefined;
+    private photoService = inject(PhotoService);
+
+    images = signal<any[]>([]);
 
     position: 'left' | 'right' | 'top' | 'bottom' = 'bottom';
 
@@ -71,9 +73,7 @@ export class ThumbnailDoc implements OnInit {
         }
     ];
 
-    constructor(private photoService: PhotoService) {}
-
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 }

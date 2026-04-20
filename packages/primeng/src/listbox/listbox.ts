@@ -355,6 +355,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
+    componentName = 'Listbox';
+
     @Input() hostName: any = '';
 
     bindDirectiveInstance = inject(Bind, { self: true });

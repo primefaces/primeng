@@ -6,59 +6,30 @@ PickList is used to reorder items between different lists.
 
 Screen Reader Value to describe the source listbox and target listbox can be provided with ariaLabelledBy or ariaLabel props. The list elements has a listbox role with the aria-multiselectable attribute. Each list item has an option role with aria-selected and aria-disabled as their attributes. Controls buttons are button elements with an aria-label that refers to the aria.moveTop , aria.moveUp , aria.moveDown , aria.moveBottom , aria.moveTo , aria.moveAllTo , aria.moveFrom and aria.moveAllFrom properties of the locale API by default, alternatively you may use moveTopButtonProps , moveUpButtonProps , moveDownButtonProps , moveToButtonProps , moveAllToButtonProps , moveFromButtonProps , moveFromButtonProps and moveAllFromButtonProps to customize the buttons like overriding the default aria-label attributes. PickList Keyboard Support Key Function tab Moves focus to the first selected option, if there is none then first option receives the focus. up arrow Moves focus to the previous option. down arrow Moves focus to the next option. enter Toggles the selected state of the focused option. space Toggles the selected state of the focused option. home Moves focus to the first option. end Moves focus to the last option. shift + down arrow Moves focus to the next option and toggles the selection state. shift + up arrow Moves focus to the previous option and toggles the selection state. shift + space Selects the items between the most recently selected option and the focused option. control + shift + home Selects the focused options and all the options up to the first one. control + shift + end Selects the focused options and all the options down to the first one. control + a Selects all options. Buttons Keyboard Support Key Function enter Executes button action. space Executes button action.
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+<span id="lb">Options</span>
+<p-picklist ariaLabelledBy="lb" />
+
+<p-picklist ariaLabel="City" />
+```
+</details>
+
 ## Basic
 
 PickList is used as a controlled input with source and target properties. Content of a list item needs to be defined with the item template that receives an object in the list as parameter. Drag & drop functionality depends on &#64;angular/cdk package.
-
-```html
-<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
-    <ng-template let-item #item>
-        {{ item.name }}
-    </ng-template>
-</p-picklist>
-```
 
 ## Filter
 
 Filter value is checked against the property of an object configured with the filterBy property.
 
-```html
-<p-picklist
-    [source]="sourceProducts"
-    [target]="targetProducts"
-    [dragdrop]="true"
-    [responsive]="true"
-    filterBy="name"
-    sourceFilterPlaceholder="Search by name"
-    targetFilterPlaceholder="Search by name"
-    breakpoint="1400px"
-    scrollHeight="20rem"
->
-    <ng-template let-option let-selected="selected" #option>
-        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
-            <div class="flex-1 flex flex-col">
-                <span class="font-medium text-sm">{{ option.name }}</span>
-                <span
-                    [ngClass]="{
-                        'text-surface-500': !selected,
-                        'dark:text-surface-400': !selected,
-                        'text-inherit': selected
-                    }"
-                    >{{ option.category }}</span
-                >
-            </div>
-            <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
-        </div>
-    </ng-template>
-</p-picklist>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -67,8 +38,8 @@ import { Product } from '@/domain/product';
     template: `
         <div class="card">
             <p-picklist
-                [source]="sourceProducts"
-                [target]="targetProducts"
+                [source]="sourceProducts()"
+                [target]="targetProducts()"
                 [dragdrop]="true"
                 [responsive]="true"
                 filterBy="name"
@@ -102,17 +73,14 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class PicklistFilterDemo implements OnInit {
-    sourceProducts!: Product[];
-    targetProducts!: Product[];
-
-    constructor(private carService: ProductService) {}
+    private productService = inject(ProductService);
+    sourceProducts = signal<Product[]>([]);
+    targetProducts = signal<Product[]>([]);
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {
-            this.sourceProducts = products;
-            this.cdr.markForCheck();
+            this.sourceProducts.set(products);
         });
-        this.targetProducts = [];
     }
 }
 ```
@@ -122,33 +90,11 @@ export class PicklistFilterDemo implements OnInit {
 
 For custom content support define an item template that gets the item instance as a parameter. In addition sourceheader and targetheader templates are provided for further customization.
 
-```html
-<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
-    <ng-template let-option let-selected="selected" #item>
-        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
-            <div class="flex-1 flex flex-col">
-                <span class="font-medium text-sm">{{ option.name }}</span>
-                <span
-                    [ngClass]="{
-                        'text-surface-500': !selected,
-                        'dark:text-surface-400': !selected,
-                        'text-inherit': selected
-                    }"
-                    >{{ option.category }}</span
-                >
-            </div>
-            <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
-        </div>
-    </ng-template>
-</p-picklist>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -156,7 +102,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
+            <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -182,123 +128,20 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class PicklistTemplateDemo implements OnInit {
-    sourceProducts!: Product[];
-    targetProducts!: Product[];
-
-    constructor(private carService: ProductService) {}
+    private productService = inject(ProductService);
+    sourceProducts = signal<Product[]>([]);
+    targetProducts = signal<Product[]>([]);
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {
-            this.sourceProducts = products;
-            this.cdr.markForCheck();
+            this.sourceProducts.set(products);
         });
-        this.targetProducts = [];
     }
 }
 ```
 </details>
 
 ## templates-doc
-
-```html
-<div class="doc-tablewrapper">
-    <table class="doc-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Parameters</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>item</td>
-                <td>
-                    $implicit: Data of the item<br />
-                    index: Index of the item
-                </td>
-            </tr>
-            <tr>
-                <td>sourceHeader</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>targetHeader</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>sourceFilter</td>
-                <td>
-                    options.filter: Callback to filter data by the value param<br />
-                    options.reset: Resets the filters.
-                </td>
-            </tr>
-            <tr>
-                <td>targetFilter</td>
-                <td>
-                    options.filter: Callback to filter data by the value param<br />
-                    options.reset: Resets the filters
-                </td>
-            </tr>
-            <tr>
-                <td>emptymessagesource</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>emptyfiltermessagesource</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>emptymessagetarget</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>emptyfiltermessagetarget</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>moveupicon</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>movetopicon</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>movedownicon</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>movebottomicon</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>movetotargeticon</td>
-                <td>$implicit: viewChanged</td>
-            </tr>
-            <tr>
-                <td>movealltotargeticon</td>
-                <td>$implicit: viewChanged</td>
-            </tr>
-            <tr>
-                <td>movetosourceicon</td>
-                <td>$implicit: viewChanged</td>
-            </tr>
-            <tr>
-                <td>movealltosourceicon</td>
-                <td>$implicit: viewChanged</td>
-            </tr>
-            <tr>
-                <td>targetfiltericon</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>sourcefiltericon</td>
-                <td>-</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-```
 
 <details>
 <summary>TypeScript Example</summary>

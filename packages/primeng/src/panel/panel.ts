@@ -119,6 +119,8 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Panel extends BaseComponent<PanelPassThrough> implements BlockableUI {
+    componentName = 'Panel';
+
     $pcPanel: Panel | undefined = inject(PANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     _componentStyle = inject(PanelStyle);

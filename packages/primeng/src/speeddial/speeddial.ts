@@ -132,6 +132,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
     hostDirectives: [Bind]
 })
 export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
+    componentName = 'SpeedDial';
     $pcSpeedDial: SpeedDial | undefined = inject(SPEED_DIAL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

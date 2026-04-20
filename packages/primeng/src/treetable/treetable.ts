@@ -282,6 +282,8 @@ export class TreeTableService {
     hostDirectives: [Bind]
 })
 export class TreeTable extends BaseComponent<TreeTablePassThrough> implements BlockableUI {
+    componentName = 'TreeTable';
+
     _componentStyle = inject(TreeTableStyle);
 
     bindDirectiveInstance = inject(Bind, { self: true });

@@ -34,6 +34,8 @@ const AVATAR_INSTANCE = new InjectionToken<Avatar>('AVATAR_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Avatar extends BaseComponent<AvatarPassThrough> {
+    componentName = 'Avatar';
+
     $pcAvatar: Avatar | undefined = inject(AVATAR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

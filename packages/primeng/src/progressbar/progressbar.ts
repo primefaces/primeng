@@ -40,6 +40,8 @@ const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTAN
     hostDirectives: [Bind]
 })
 export class ProgressBar extends BaseComponent<ProgressBarPassThrough> {
+    componentName = 'ProgressBar';
+
     $pcProgressBar: ProgressBar | undefined = inject(PROGRESSBAR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

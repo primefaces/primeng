@@ -1,8 +1,8 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'theme-doc',
@@ -21,7 +21,7 @@ export class ThemeDoc {
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 
-import Aura from '@primeng/themes/aura';
+import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [

@@ -1,5 +1,5 @@
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit, model } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GalleriaModule } from 'primeng/galleria';
 import { AppCode } from '@/components/doc/app.code';
@@ -24,9 +24,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class HoverEventDoc implements OnInit {
-    images = model([]);
+    private photoService = inject(PhotoService);
 
-    constructor(private photoService: PhotoService) {}
+    images = model([]);
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));

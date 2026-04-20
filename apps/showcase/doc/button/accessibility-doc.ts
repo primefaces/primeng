@@ -53,7 +53,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        basic: `<p-button icon="pi pi-check" aria-label="Submit" />
+        typescript: `<p-button icon="pi pi-check" aria-label="Submit" />
 <p-button icon="pi pi-check" label="Submit" />
 
 <p-button class="youtube p-0" aria-label="Youtube">

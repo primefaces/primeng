@@ -145,6 +145,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class Slider extends BaseEditableHolder<SliderPassThrough> {
+    componentName = 'Slider';
     $pcSlider: Slider | undefined = inject(SLIDER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

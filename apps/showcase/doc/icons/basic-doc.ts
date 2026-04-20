@@ -1,7 +1,7 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'basic-doc',
@@ -22,7 +22,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `<i class="pi pi-check"></i>
+        typescript: `<i class="pi pi-check"></i>
 <i class="pi pi-times"></i>
 <span class="pi pi-search"></span>
 <span class="pi pi-user"></span>`

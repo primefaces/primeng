@@ -91,14 +91,6 @@ function testDemoCodeStructure(demos) {
             const hasNoDocImports = !ts.includes('AppCode') && !ts.includes('DeferredDemo') && !ts.includes('AppDocSectionText');
             allPassed &= logTest('No doc-specific imports', hasNoDocImports);
         }
-
-        // Test: Has basic code
-        const hasBasic = !!demo.code?.basic;
-        allPassed &= logTest('Has basic code snippet', hasBasic);
-
-        // Test: Has html code
-        const hasHtml = !!demo.code?.html;
-        allPassed &= logTest('Has html code', hasHtml);
     }
 
     return allPassed;
@@ -302,40 +294,22 @@ function testContentMatching(demos) {
 
         log(`\n  Testing: ${selector}`, 'blue');
 
-        const { basic, html, typescript } = demo.code;
+        const { typescript } = demo.code;
 
-        // Test: Basic code appears in HTML
-        if (basic && html) {
-            // Extract the main component tag from basic
-            const mainTagMatch = basic.match(/<(p-[\w-]+)/);
-            if (mainTagMatch) {
-                const mainTag = mainTagMatch[1];
-                const basicInHtml = html.includes(mainTag);
-                allPassed &= logTest(`Basic code component (${mainTag}) in HTML`, basicInHtml);
-            }
-        }
+        // Test: TypeScript has inline template with PrimeNG components
+        if (typescript) {
+            const hasTemplate = typescript.includes('template:') && typescript.includes('`');
+            allPassed &= logTest('TypeScript has inline template', hasTemplate);
 
-        // Test: HTML appears in TypeScript template
-        if (html && typescript) {
-            // Get first significant line from HTML (skip wrapper divs)
-            const htmlLines = html.split('\n').filter((l) => l.trim() && !l.trim().startsWith('<div'));
-            const firstSignificantLine = htmlLines[0]?.trim();
-
-            if (firstSignificantLine) {
-                const htmlInTs = typescript.includes(firstSignificantLine.substring(0, 30));
-                allPassed &= logTest('HTML content in TypeScript template', htmlInTs);
-            }
+            // Check for PrimeNG component in template
+            const hasPrimeNGComponent = /p-[\w-]+/.test(typescript);
+            allPassed &= logTest('Template contains PrimeNG component', hasPrimeNGComponent);
         }
 
         // Test: Component class name matches selector
         const classMatch = typescript?.match(/export class (\w+)/);
         if (classMatch) {
             const className = classMatch[1];
-            const expectedClass = selector
-                .split('-')
-                .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-                .join('')
-                .replace('Demo', 'Demo');
             // Just check it's a valid class name
             allPassed &= logTest(`Class name is valid (${className})`, /^[A-Z][\w]*$/.test(className));
         }

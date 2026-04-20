@@ -1,6 +1,6 @@
 {
     "name": "@primeng/themes",
-    "version": "21.0.2",
+    "version": "21.0.4",
     "author": "PrimeTek Informatics",
     "description": "",
     "homepage": "https://primeng.org/",
@@ -13,6 +13,7 @@
     "bugs": {
         "url": "https://github.com/primefaces/primeng/issues"
     },
+    "private": true,
     "main": "./src/index.ts",
     "module": "./src/index.ts",
     "exports": {
