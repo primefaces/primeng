@@ -1301,7 +1301,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
         if (this.customSort) {
             this.sortFunction.emit({
-                data: this.value,
+                data: nodes,
                 mode: this.sortMode,
                 multiSortMeta: this.multiSortMeta
             });
