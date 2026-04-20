@@ -10,33 +10,9 @@ Screen Reader Fieldset component uses the semantic fieldset element. When toggle
 
 A simple Fieldset is created with a legend property along with the content as children.
 
-```html
-<p-fieldset legend="Header">
-    <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-</p-fieldset>
-```
-
 ## Template
 
 Header section can also be defined with custom content instead of primitive values.
-
-```html
-<p-fieldset>
-    <ng-template #header>
-        <div class="flex items-center gap-2 px-2">
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-            <span class="font-bold">Amy Elsner</span>
-        </div>
-    </ng-template>
-    <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-</p-fieldset>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -73,15 +49,6 @@ export class FieldsetTemplateDemo {}
 ## Toggleable
 
 Content of the fieldset can be expanded and collapsed using toggleable option, default state is defined with collapsed option.
-
-```html
-<p-fieldset legend="Header" [toggleable]="true">
-    <p style="margin:0">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-</p-fieldset>
-```
 
 <details>
 <summary>TypeScript Example</summary>

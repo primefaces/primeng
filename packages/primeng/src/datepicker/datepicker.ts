@@ -537,6 +537,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
     }
 })
 export class DatePicker extends BaseInput<DatePickerPassThrough> {
+    componentName = 'DatePicker';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcDatePicker: DatePicker | undefined = inject(DATEPICKER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

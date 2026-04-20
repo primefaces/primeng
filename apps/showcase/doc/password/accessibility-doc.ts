@@ -47,7 +47,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        basic: `<label for="pwd1">Password</label>
+        typescript: `<label for="pwd1">Password</label>
 <p-password inputId="pwd1" />
 
 <span id="pwd2">Password</span>

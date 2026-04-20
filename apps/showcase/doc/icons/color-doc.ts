@@ -1,7 +1,7 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'color-doc',
@@ -22,7 +22,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ColorDoc {
     code: Code = {
-        basic: `<i class="pi pi-check" style="color: slateblue"></i>
+        typescript: `<i class="pi pi-check" style="color: slateblue"></i>
 <i class="pi pi-times" style="color: green"></i>
 <i class="pi pi-search" style="color: var(--primary-color)"></i>
 <i class="pi pi-user" style="color: #708090"></i>`

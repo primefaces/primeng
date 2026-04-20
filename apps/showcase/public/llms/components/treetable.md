@@ -10,73 +10,7 @@ Screen Reader Default role of the table is table . Header, body and footer eleme
 
 TreeTable requires a collection of TreeNode instances as a value components as children for the representation.
 
-```html
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Type</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <div class="flex items-center gap-2">
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    <span>{{ rowData.name }}</span>
-                </div>
-            </td>
-            <td>{{ rowData.size }}</td>
-            <td>{{ rowData.type }}</td>
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 ## Column Group
-
-```html
-<p-treetable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
-        <tr>
-            <th rowspan="3">Brand</th>
-            <th colspan="4">Sale Rate</th>
-        </tr>
-        <tr>
-            <th colspan="2">Sales</th>
-            <th colspan="2">Profits</th>
-        </tr>
-        <tr>
-            <th>Last Year</th>
-            <th>This Year</th>
-            <th>Last Year</th>
-            <th>This Year</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <div class="flex items-center gap-2">
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    <span>{{ rowData.brand }}</span>
-                </div>
-            </td>
-            <td>{{ rowData.lastYearSale }}</td>
-            <td>{{ rowData.thisYearSale }}</td>
-            <td>{{ rowData.lastYearProfit }}</td>
-            <td>{{ rowData.thisYearProfit }}</td>
-        </tr>
-    </ng-template>
-    <ng-template #footer>
-        <tr>
-            <td colspan="3">Totals</td>
-            <td>$3,283,772</td>
-            <td>$2,126,925</td>
-        </tr>
-    </ng-template>
-</p-treetable>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -397,41 +331,11 @@ export class TreetableColumngroupDemo implements OnInit {
 
 Setting columnResizeMode as expand changes the table width as well.
 
-```html
-<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th ttResizableColumn>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -476,10 +380,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumnresizeexpandDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -497,41 +400,11 @@ export class TreetableColumnresizeexpandDemo implements OnInit {
 
 Columns can be resized with drag and drop when resizableColumns is enabled. Default resize mode is fit that does not change the overall table width.
 
-```html
-<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th ttResizableColumn>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -576,10 +449,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumnresizefitDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -597,48 +469,11 @@ export class TreetableColumnresizefitDemo implements OnInit {
 
 To utilize the column resize modes with a scrollable TreeTable, a colgroup template must be defined. The default value of scrollHeight is "flex," it can also be set as a string value.
 
-```html
-<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
-    <ng-template #colgroup let-columns>
-        <colgroup>
-            @for (col of columns; track col) {
-                <col />
-            }
-        </colgroup>
-    </ng-template>
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th ttResizableColumn>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -691,10 +526,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumnresizescrollableDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -712,46 +546,11 @@ export class TreetableColumnresizescrollableDemo implements OnInit {
 
 Column visibility based on a condition can be implemented with dynamic columns, in this sample a MultiSelect is used to manage the visible columns.
 
-```html
-<p-treetable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #caption>
-        <div style="text-align:left">
-            <p-multiselect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" placeholder="Choose Columns" display="chip" />
-        </div>
-    </ng-template>
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TreeTableModule } from 'primeng/treetable';
@@ -803,11 +602,10 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumntoggleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
     selectedColumns!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -826,41 +624,11 @@ export class TreetableColumntoggleDemo implements OnInit {
 
 Particular rows and cells can be styled based on conditions. The ngClass receives a row data as a parameter to return a style class for a row whereas cells are customized using the body template.
 
-```html
-<p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ngClass]="{ '!bg-surface-100 dark:!bg-surface-800': rowData.size.endsWith('kb') }">
-            @for (col of columns; let first = $first; track col) {
-                <td [class]="{ 'line-through': col.field === 'size' && rowData.size.endsWith('kb') }">
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -905,10 +673,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableConditionalstyleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -926,41 +693,11 @@ export class TreetableConditionalstyleDemo implements OnInit {
 
 TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a table, add ttContextMenuRow directive to the rows that can be selected with context menu, define a local template variable for the menu and bind it to the contextMenu property of the table. This enables displaying the menu whenever a row is right clicked. A separate contextMenuSelection property is used to get a hold of the right clicked row. For dynamic columns, setting ttContextMenuRowDisabled property as true disables context menu for that particular row.
 
-```html
-<p-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode, MenuItem, MessageService } from 'primeng/api';
@@ -1006,12 +743,12 @@ interface Column {
     providers: [NodeService, MessageService]
 })
 export class TreetableContextmenuDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files!: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
     items!: MenuItem[];
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1042,35 +779,11 @@ export class TreetableContextmenuDemo implements OnInit {
 
 Expansion state is controlled with expandedKeys property.
 
-```html
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Type</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <div class="flex items-center gap-2">
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    <span>{{ rowData.name }}</span>
-                </div>
-            </td>
-            <td>{{ rowData.size }}</td>
-            <td>{{ rowData.type }}</td>
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -1104,9 +817,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableControlledDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => {
@@ -1129,41 +841,11 @@ export class TreetableControlledDemo implements OnInit {
 
 Columns can be created programmatically.
 
-```html
-<p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -1208,10 +890,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableDynamiccolumnsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1229,36 +910,11 @@ export class TreetableDynamiccolumnsDemo implements OnInit {
 
 Incell editing is enabled by defining input elements with treeTableCellEditor .
 
-```html
-<p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                <p-treetableCellEditor>
-                    <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
-                    </ng-template>
-                    <ng-template pTemplate="output">{{ rowData[col.field] }}</ng-template>
-                </p-treetableCellEditor>
-            </td>
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeTableModule } from 'primeng/treetable';
 import { InputTextModule } from 'primeng/inputtext';
@@ -1300,10 +956,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableEditDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1321,61 +976,11 @@ export class TreetableEditDemo implements OnInit {
 
 The filterMode specifies the filtering strategy, in lenient mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand, in strict mode when the query matches a node, filtering continues on all descendants. A general filled called filterGlobal is also provided to search all columns that support filtering.
 
-```html
-<p-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #caption>
-        <div class="flex justify-end items-center">
-            <p-iconfield>
-                <p-inputicon class="pi pi-search" />
-                <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
-            </p-iconfield>
-        </div>
-    </ng-template>
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            @for (col of cols; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #emptymessage>
-        <tr>
-            <td [attr.colspan]="cols?.length">No data found.</td>
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { TreeTableModule } from 'primeng/treetable';
@@ -1443,12 +1048,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableFilterDemo implements OnInit {
+    private nodeService = inject(NodeService);
     filterMode: string = 'lenient';
     filterModes: any[];
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1466,43 +1070,11 @@ export class TreetableFilterDemo implements OnInit {
 
 Flex scroll feature makes the scrollable viewport section dynamic instead of a fixed value so that it can grow or shrink relative to the parent size of the table. Click the button below to display a maximizable Dialog where data viewport adjusts itself according to the size changes.
 
-```html
-<p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
-<p-dialog [(visible)]="dialogVisible" header="Flex Scroll" [style]="{ width: '75vw' }" maximizable modal [contentStyle]="{ height: '300px' }">
-    <ng-template #content>
-        <p-treetable [value]="files" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header>
-                <tr>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Type</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData">
-                <tr [ttRow]="rowNode">
-                    <td>
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
-                            <span>{{ rowData.name }}</span>
-                        </div>
-                    </td>
-                    <td>{{ rowData.size }}</td>
-                    <td>{{ rowData.type }}</td>
-                </tr>
-            </ng-template>
-        </p-treetable>
-    </ng-template>
-    <ng-template #footer>
-        <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
-    </ng-template>
-</p-dialog>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Dialog, DialogModule } from 'primeng/dialog';
 import { TreeTableModule } from 'primeng/treetable';
@@ -1546,10 +1118,9 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableFlexiblescrollDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     dialogVisible: boolean = false;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => {
@@ -1564,35 +1135,11 @@ export class TreetableFlexiblescrollDemo implements OnInit {
 
 Enabling showGridlines displays grid lines.
 
-```html
-<p-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Type</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <div class="flex items-center gap-2">
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    <span>{{ rowData.name }}</span>
-                </div>
-            </td>
-            <td>{{ rowData.size }}</td>
-            <td>{{ rowData.type }}</td>
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -1626,9 +1173,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableGridlinesDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1641,53 +1187,11 @@ export class TreetableGridlinesDemo implements OnInit {
 
 Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking corresponding callbacks everytime paging , sorting and filtering occurs. Sample below imitates lazy loading data from a remote datasource using an in-memory list and timeouts to mimic network connection. Enabling the lazy property and assigning the logical number of rows to totalRecords by doing a projection query are the key elements of the implementation so that paginator displays the UI assuming there are actually records of totalRecords size although in reality they are not present on page, only the records that are displayed on the current page exist. In addition, only the root elements should be loaded, children can be loaded on demand using onNodeExpand callback.
 
-```html
-<p-treetable
-    [value]="files"
-    [columns]="cols"
-    [paginator]="true"
-    [rows]="10"
-    [lazy]="true"
-    (onLazyLoad)="loadNodes($event)"
-    [totalRecords]="1000"
-    [loading]="loading"
-    (onNodeExpand)="onNodeExpand($event)"
-    [scrollable]="true"
-    [tableStyle]="{ 'min-width': '50rem' }"
->
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -1746,12 +1250,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableLazyloadDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
     totalRecords!: number;
     loading: boolean = false;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.cols = [
@@ -1822,35 +1325,11 @@ export class TreetableLazyloadDemo implements OnInit {
 
 The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
 
-```html
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
-    <ng-template #header>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Type</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <div class="flex items-center gap-2">
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    <span>{{ rowData.name }}</span>
-                </div>
-            </td>
-            <td>{{ rowData.size }}</td>
-            <td>{{ rowData.type }}</td>
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -1886,9 +1365,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableLoadingmaskDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1901,30 +1379,11 @@ export class TreetableLoadingmaskDemo implements OnInit {
 
 Skeleton component can be used as a placeholder during the loading process.
 
-```html
-<p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Type</th>
-        </tr>
-    </ng-template>
-    <ng-template #body>
-        <tr>
-            <td><p-skeleton /></td>
-            <td><p-skeleton /></td>
-            <td><p-skeleton /></td>
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
@@ -1956,9 +1415,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableLoadingskeletonDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>([]);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => this.files.set(files));
@@ -1970,36 +1428,6 @@ export class TreetableLoadingskeletonDemo implements OnInit {
 ## Basic
 
 Pagination is enabled by adding paginator property and defining rows per page.
-
-```html
-<p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -2085,42 +1513,6 @@ export class TreetablePaginatorbasicDemo implements OnInit {
 ## Template
 
 Paginator UI is customized using the paginatorleft and paginatorright property. Each element can also be customized further with your own UI to replace the default one, refer to the Paginator component for more information about the advanced customization options.
-
-```html
-<p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #paginatorleft>
-        <p-button icon="pi pi-refresh" text />
-    </ng-template>
-    <ng-template #paginatorright>
-        <p-button icon="pi pi-download" text />
-    </ng-template>
-</p-treetable>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -2215,41 +1607,11 @@ export class TreetablePaginatortemplateDemo implements OnInit {
 
 Order of the columns can be changed using drag and drop when reorderableColumns is present.
 
-```html
-<p-treetable [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th ttReorderableColumn>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2294,10 +1656,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableReorderDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -2315,51 +1676,11 @@ export class TreetableReorderDemo implements OnInit {
 
 A column can be fixed during horizontal scrolling by enabling the frozenColumns property.
 
-```html
-<p-treetable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #colgroup let-columns>
-        <colgroup>
-            @for (col of columns; track col) {
-                <col style="width:250px" />
-            }
-        </colgroup>
-    </ng-template>
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" style="height: 57px">
-            @for (col of columns; track col) {
-                <td>
-                    {{ rowData[col.field] }}
-                </td>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #frozenbody let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode" style="height: 57px">
-            <td>
-                <div class="flex items-center gap-2">
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    <span class="font-bold">{{ rowData.name }}</span>
-                </div>
-            </td>
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2414,12 +1735,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableScrollfrozencolumnsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
     frozenCols!: Column[];
     scrollableCols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -2446,48 +1766,11 @@ export class TreetableScrollfrozencolumnsDemo implements OnInit {
 
 Horizontal scrolling is enabled when the total width of columns exceeds table width.
 
-```html
-<p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #colgroup let-columns>
-        <colgroup>
-            @for (col of columns; track col) {
-                <col style="width:500px" />
-            }
-        </colgroup>
-    </ng-template>
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2539,10 +1822,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableScrollhorizontalDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -2560,41 +1842,11 @@ export class TreetableScrollhorizontalDemo implements OnInit {
 
 Adding scrollable property along with a scrollHeight for the data viewport enables vertical scrolling with fixed headers.
 
-```html
-<p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2639,10 +1891,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableScrollverticalDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -2660,42 +1911,11 @@ export class TreetableScrollverticalDemo implements OnInit {
 
 Selection of multiple nodes via checkboxes is enabled by configuring selectionMode as checkbox . In checkbox selection mode, value binding should be a key-value pair where key (or the dataKey) is the node key and value is an object that has checked and partialChecked properties to represent the checked state of a node.
 
-```html
-<p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
-                            <p-treetable-checkbox [value]="rowNode" />
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2741,11 +1961,10 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSelectioncheckboxDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     selectionKeys: any = {};
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getTreeTableNodes().then((files) => {
@@ -2783,51 +2002,11 @@ export class TreetableSelectioncheckboxDemo implements OnInit {
 
 TreeTable provides onNodeSelect and onNodeUnselect events to listen selection events.
 
-```html
-<p-treetable
-    [value]="files"
-    [columns]="cols"
-    selectionMode="single"
-    [(selection)]="selectedNode"
-    dataKey="name"
-    (onNodeSelect)="nodeSelect($event)"
-    (onNodeUnselect)="nodeUnselect($event)"
-    [scrollable]="true"
-    [tableStyle]="{ 'min-width': '50rem' }"
->
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode, MessageService } from 'primeng/api';
@@ -2887,11 +2066,11 @@ interface NodeEvent {
     providers: [NodeService, MessageService]
 })
 export class TreetableSelectioneventscDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files!: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -2917,41 +2096,11 @@ export class TreetableSelectioneventscDemo implements OnInit {
 
 More than one node is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. ⌘ ) is necessary to add to existing selections however this can be configured with disabling the metaKeySelection property. Note that in touch enabled devices, TreeTable always ignores metaKey.
 
-```html
-<p-treetable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2997,12 +2146,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSelectionmultipleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
     selectedNodes!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -3020,41 +2168,11 @@ export class TreetableSelectionmultipleDemo implements OnInit {
 
 Single node selection is configured by setting selectionMode as single along with selection properties to manage the selection value binding. By default, metaKey press (e.g. ⌘ ) is necessary to unselect a node however this can be configured with disabling the metaKeySelection property. In touch enabled devices this option has no effect and behavior is same as setting it to false
 
-```html
-<p-treetable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -3099,12 +2217,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSelectionsingleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -3122,35 +2239,11 @@ export class TreetableSelectionsingleDemo implements OnInit {
 
 In addition to a regular treetable, alternatives with alternative sizes are available. Add p-treetable-sm class to reduce the size of treetable or p-treetable-lg to enlarge it.
 
-```html
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [class]="selectedSize">
-    <ng-template #header>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Type</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <div class="flex items-center gap-2">
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    <span>{{ rowData.name }}</span>
-                </div>
-            </td>
-            <td>{{ rowData.size }}</td>
-            <td>{{ rowData.type }}</td>
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -3184,11 +2277,10 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableSizeDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     sizes!: any[];
     selectedSize: any = '';
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -3206,44 +2298,11 @@ export class TreetableSizeDemo implements OnInit {
 
 Multiple columns can be sorted by defining sortMode as multiple . This mode requires metaKey (e.g. ⌘ ) to be pressed when clicking a header.
 
-```html
-<p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th [ttSortableColumn]="col.field">
-                    <div class="flex items-center gap-2">
-                        {{ col.header }}
-                        <p-treetable-sort-icon [field]="col.field" />
-                    </div>
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -3291,10 +2350,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSortmultiplecolumnsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -3312,44 +2370,11 @@ export class TreetableSortmultiplecolumnsDemo implements OnInit {
 
 The removable sort can be implemented using the customSort property.
 
-```html
-<p-treetable
-    #tt
-    [value]="files"
-    (sortFunction)="customSort($event)"
-    [customSort]="true"
-    [columns]="cols"
-    selectionMode="single"
-    [metaKeySelection]="metaKeySelection"
-    [(selection)]="selectedNode"
-    dataKey="name"
-    [scrollable]="true"
-    [tableStyle]="{ 'min-width': '50rem' }"
->
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                {{ col.header }}
-                <p-treetableSortIcon [field]="col.field" />
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode, SortEvent } from 'primeng/api';
@@ -3398,14 +2423,13 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSortremovableDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
     initialValue: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
     isSorted: boolean = null;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => {
@@ -3455,44 +2479,11 @@ export class TreetableSortremovableDemo implements OnInit {
 
 Sorting on a column is enabled by adding the ttSortableColumn property.
 
-```html
-<p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th [ttSortableColumn]="col.field">
-                    <div class="flex items-center gap-2">
-                        {{ col.header }}
-                        <p-treetable-sort-icon [field]="col.field" />
-                    </div>
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -3540,10 +2531,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSortsinglecolumnDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -3561,52 +2551,11 @@ export class TreetableSortsinglecolumnDemo implements OnInit {
 
 Custom content at caption , header , body and summary sections are supported via templating.
 
-```html
-<p-treetable [value]="files" [columns]="cols" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #caption><div class="text-xl font-bold">File Viewer</div> </ng-template>
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; let last = $last; track col) {
-                <th [class]="{ 'w-40': last }">
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            @for (col of columns; let first = $first; let last = $last; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else if (last) {
-                        <div class="flex flex-wrap gap-2">
-                            <p-button icon="pi pi-search" rounded="true" severity="secondary" />
-                            <p-button icon="pi pi-pencil" rounded="true" severity="secondary" />
-                        </div>
-                    } @else {
-                        <span>{{ rowData[col.field] }}</span>
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #summary>
-        <div style="text-align:left">
-            <p-button icon="pi pi-refresh" label="Reload" severity="warn" />
-        </div>
-    </ng-template>
-</p-treetable>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
@@ -3663,10 +2612,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableTemplateDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

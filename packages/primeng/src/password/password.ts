@@ -518,6 +518,8 @@ export const Password_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class Password extends BaseInput<PasswordPassThrough> {
+    componentName = 'Password';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcPassword: Password | undefined = inject(PASSWORD_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

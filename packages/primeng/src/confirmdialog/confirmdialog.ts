@@ -151,6 +151,8 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
     hostDirectives: [Bind]
 })
 export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> implements OnInit, AfterContentInit, OnDestroy {
+    componentName = 'ConfirmDialog';
+
     $pcConfirmDialog: ConfirmDialog | undefined = inject(CONFIRMDIALOG_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Code } from '@/domain/code';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'introduction-doc',
@@ -26,15 +26,15 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 })
 export class IntroductionDoc {
     code1: Code = {
-        basic: `git clone https://github.com/primefaces/primeng.git
+        typescript: `git clone https://github.com/primefaces/primeng.git
 cd primeng`
     };
     code2: Code = {
-        basic: `pnpm run setup
+        typescript: `pnpm run setup
 pnpm run dev`
     };
     code3: Code = {
-        basic: `- app
+        typescript: `- app
   - showcase                // website
   - components              // main directory of components and directives`
     };

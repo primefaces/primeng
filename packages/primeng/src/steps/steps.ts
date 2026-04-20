@@ -86,6 +86,7 @@ import { StepsStyle } from './style/stepsstyle';
     providers: [StepsStyle]
 })
 export class Steps extends BaseComponent {
+    componentName = 'Steps';
     /**
      * Index of the active item.
      * @group Props

@@ -854,15 +854,18 @@ describe('MegaMenu', () => {
         });
 
         it('should handle blur events', () => {
+            jasmine.clock().install();
             const blurEvent = new FocusEvent('blur');
             megaMenuInstance.focused = true;
 
             megaMenuInstance.onMenuBlur(blurEvent);
+            jasmine.clock().tick(10);
 
             expect(megaMenuInstance.focused).toBe(false);
             expect(megaMenuInstance.focusedItemInfo().index).toBe(-1);
             expect(megaMenuInstance.searchValue).toBe('' as any);
             expect(megaMenuInstance.dirty).toBe(false);
+            jasmine.clock().uninstall();
         });
 
         it('should get focusedItemId correctly', () => {

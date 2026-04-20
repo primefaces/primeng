@@ -363,6 +363,7 @@ export class TableService {
     hostDirectives: [Bind]
 })
 export class Table<RowData = any> extends BaseComponent<TablePassThrough> implements BlockableUI {
+    componentName = 'DataTable';
     /**
      * An array of objects to represent dynamic columns that are frozen.
      * @group Props
@@ -2642,7 +2643,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     onColumnResizeEnd() {
-        const delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        const isRTL = getComputedStyle(this.el?.nativeElement ?? document.documentElement).direction === 'rtl';
+        const rawDelta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        const delta = isRTL ? -rawDelta : rawDelta;
         const columnWidth = this.resizeColumnElement.offsetWidth;
         const newColumnWidth = columnWidth + delta;
         const elementMinWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '');
@@ -4714,7 +4717,7 @@ export class EditableColumn extends BaseComponent {
     findCell(element: any) {
         if (element) {
             let cell = element;
-            while (cell && find(cell as HTMLElement, '[data-p-cell-editing="true"]')) {
+            while (cell && !findSingle(cell as HTMLElement, '[data-p-cell-editing="true"]')) {
                 cell = cell.parentElement;
             }
 
@@ -4773,7 +4776,7 @@ export class EditableColumn extends BaseComponent {
         }
 
         if (prevCell) {
-            if (find(prevCell, '[data-p-editable-column="true"]')) return prevCell;
+            if (findSingle(prevCell, '[data-p-editable-column="true"]')) return prevCell;
             else return this.findPreviousEditableColumn(prevCell);
         } else {
             return null;
@@ -4791,7 +4794,7 @@ export class EditableColumn extends BaseComponent {
         }
 
         if (nextCell) {
-            if (find(nextCell, '[data-p-editable-column="true"]')) return nextCell;
+            if (findSingle(nextCell, '[data-p-editable-column="true"]')) return nextCell;
             else return this.findNextEditableColumn(nextCell);
         } else {
             return null;
@@ -4804,7 +4807,7 @@ export class EditableColumn extends BaseComponent {
         if (nextRow) {
             let nextCell = nextRow.children[index];
 
-            if (nextCell && find(nextCell, '[data-p-editable-column="true"]')) {
+            if (nextCell && findSingle(nextCell, '[data-p-editable-column="true"]')) {
                 return nextCell;
             }
 
@@ -4820,7 +4823,7 @@ export class EditableColumn extends BaseComponent {
         if (prevRow) {
             let prevCell = prevRow.children[index];
 
-            if (prevCell && find(prevCell, '[data-p-editable-column="true"]')) {
+            if (prevCell && findSingle(prevCell, '[data-p-editable-column="true"]')) {
                 return prevCell;
             }
 

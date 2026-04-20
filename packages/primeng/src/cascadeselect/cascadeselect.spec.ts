@@ -815,9 +815,12 @@ describe('CascadeSelect', () => {
             testComponent.options = mockCountries;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
+            testFixture.detectChanges();
 
             const trigger = testFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
-            trigger.nativeElement.click();
+            trigger.nativeElement.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+            testFixture.changeDetectorRef.markForCheck();
+            testFixture.detectChanges();
             await testFixture.whenStable();
 
             const hiddenInput = testFixture.debugElement.query(By.css('.p-hidden-accessible input'));

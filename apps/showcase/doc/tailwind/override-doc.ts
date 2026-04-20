@@ -37,15 +37,15 @@ import { Component } from '@angular/core';
 })
 export class OverrideDoc {
     code1 = {
-        basic: `<input pInputText placeholder="Overriden" class="p-8!" />`
+        typescript: `<input pInputText placeholder="Overriden" class="p-8!" />`
     };
 
     code2 = {
-        basic: `<input pInputText placeholder="Overriden" class="!p-8" />`
+        typescript: `<input pInputText placeholder="Overriden" class="!p-8" />`
     };
 
     code3 = {
-        basic: `providePrimeNG({
+        typescript: `providePrimeNG({
     theme: {
         preset: Aura,
         options: {
@@ -59,12 +59,12 @@ export class OverrideDoc {
     };
 
     code4 = {
-        basic: `@import "tailwindcss";
+        typescript: `@import "tailwindcss";
 @import "tailwindcss-primeui";`
     };
 
     code5 = {
-        basic: `providePrimeNG({
+        typescript: `providePrimeNG({
     theme: {
         preset: Aura,
         options: {
@@ -78,7 +78,7 @@ export class OverrideDoc {
     };
 
     code6 = {
-        basic: `@layer tailwind-base, primeng, tailwind-utilities;
+        typescript: `@layer tailwind-base, primeng, tailwind-utilities;
 
 @layer tailwind-base {
   @tailwind base;

@@ -268,7 +268,7 @@ describe('InputOtp', () => {
             spyOn(secondInput, 'focus');
             spyOn(secondInput, 'select');
 
-            const rightArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
+            const rightArrowEvent = new KeyboardEvent('keydown', { key: 'ArrowRight' });
             firstInput.dispatchEvent(rightArrowEvent);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -285,7 +285,7 @@ describe('InputOtp', () => {
             spyOn(firstInput, 'focus');
             spyOn(firstInput, 'select');
 
-            const leftArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
+            const leftArrowEvent = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
             secondInput.dispatchEvent(leftArrowEvent);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -298,11 +298,11 @@ describe('InputOtp', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             const firstInput = inputs[0].nativeElement;
 
-            const upEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
-            const downEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+            const upEvent = new KeyboardEvent('keydown', { key: 'ArrowUp', cancelable: true });
+            const downEvent = new KeyboardEvent('keydown', { key: 'ArrowDown', cancelable: true });
 
-            spyOn(upEvent, 'preventDefault');
-            spyOn(downEvent, 'preventDefault');
+            spyOn(upEvent, 'preventDefault').and.callThrough();
+            spyOn(downEvent, 'preventDefault').and.callThrough();
 
             firstInput.dispatchEvent(upEvent);
             firstInput.dispatchEvent(downEvent);

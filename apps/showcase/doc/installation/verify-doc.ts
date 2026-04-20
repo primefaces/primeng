@@ -1,7 +1,7 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -36,6 +36,6 @@ export class ButtonDemo {}`
     };
 
     code2: Code = {
-        html: `<p-button label="Check" />`
+        typescript: `<p-button label="Check" />`
     };
 }

@@ -9,7 +9,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <ul class="leading-normal px-10 list-disc">
             <li class="py-2">
                 <div class="font-bold">Primitive</div>
-                <p>This collection contains the most foundational variables, such as base colors and border radius, elements that are considered "primitive" by nature.</p>
+                <p>This collection contains the most foundational variables, such as base colors and border radius, elements that are considered “primitive” by nature.</p>
             </li>
             <li class="py-2">
                 <div class="font-bold">Semantic Common & Semantic Color Scheme</div>
@@ -37,7 +37,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <div class="font-bold">Custom</div>
                 <p>
                     If you're using the Figma to Theme feature and want your newly created custom variables to appear in your Theme Designer themes, place them in this collection. Even if you're not using the Theme Designer, we still recommend
-                    creating a separate collection — or using the existing "Custom" collection — for your own variables. Making changes to the default collections, especially deleting variables or altering reference values, can lead to
+                    creating a separate collection — or using the existing “Custom” collection — for your own variables. Making changes to the default collections, especially deleting variables or altering reference values, can lead to
                     inconsistencies with the library variables and cause additional work during development.
                 </p>
             </li>

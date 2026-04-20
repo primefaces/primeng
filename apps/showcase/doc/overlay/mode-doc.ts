@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 })
 export class ModeDoc {
     code2 = {
-        basic: `import { OverlayOptions, ResponsiveOverlayDirectionType } from 'primeng/api';
+        typescript: `import { OverlayOptions, ResponsiveOverlayDirectionType } from 'primeng/api';
 import { PrimeNG } from 'primeng/config';
 
 const responsiveOptions: ResponsiveOverlayOptions = {

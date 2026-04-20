@@ -198,6 +198,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class InputNumber extends BaseInput<InputNumberPassThrough> {
+    componentName = 'InputNumber';
+
     $pcInputNumber: InputNumber | undefined = inject(INPUTNUMBER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     _componentStyle = inject(InputNumberStyle);

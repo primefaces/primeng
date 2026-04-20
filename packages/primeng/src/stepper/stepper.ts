@@ -455,6 +455,8 @@ export class StepPanels extends BaseComponent<StepPanelsPassThrough> {
     hostDirectives: [Bind]
 })
 export class Stepper extends BaseComponent<StepperPassThrough> {
+    componentName = 'Stepper';
+
     $pcStepper: Stepper | undefined = inject(STEPPER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

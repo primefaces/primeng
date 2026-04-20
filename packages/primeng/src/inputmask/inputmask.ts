@@ -127,6 +127,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     }
 })
 export class InputMask extends BaseInput<InputMaskPassThrough> {
+    componentName = 'InputMask';
+
     _componentStyle = inject(InputMaskStyle);
 
     $pcInputMask: InputMask | undefined = inject(INPUTMASK_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

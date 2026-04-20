@@ -844,14 +844,6 @@ function extractExistingCodeObject(content) {
     const codeBlock = content.substring(startIndex, endIndex);
     const code = {};
 
-    // Extract basic
-    const basicMatch = codeBlock.match(/basic:\s*`([\s\S]*?)`/);
-    if (basicMatch) code.basic = basicMatch[1];
-
-    // Extract html
-    const htmlMatch = codeBlock.match(/html:\s*`([\s\S]*?)`/);
-    if (htmlMatch) code.html = htmlMatch[1];
-
     // Extract typescript
     const tsMatch = codeBlock.match(/typescript:\s*`([\s\S]*?)`/);
     if (tsMatch) code.typescript = tsMatch[1];
@@ -1059,8 +1051,8 @@ function generateTypescript(componentName, template, services = [], fileContent 
     // Check if we have signal properties
     const hasSignals = properties.some((p) => p.type === '__signal__');
 
-    // Check if we have inject() properties
-    const hasInject = properties.some((p) => p.type === '__inject__');
+    // Check if we have inject() properties or services that need inject()
+    const hasInject = properties.some((p) => p.type === '__inject__') || services.length > 0 || primeNGServices.length > 0;
 
     // Build import statements with actual modules
     let importStatements = '';
@@ -1164,9 +1156,19 @@ function generateTypescript(componentName, template, services = [], fileContent 
     // Build class body
     let classBody = '';
 
+    // Add inject() statements for services first (before other properties)
+    const allServices = [...services, ...primeNGServices];
+    if (allServices.length > 0) {
+        classBody += '\n';
+        for (const service of allServices) {
+            const serviceName = service.charAt(0).toLowerCase() + service.slice(1);
+            classBody += `    private ${serviceName} = inject(${service});\n`;
+        }
+    }
+
     // Add properties
     if (properties.length > 0) {
-        classBody += '\n';
+        if (allServices.length === 0) classBody += '\n';
         for (const prop of properties) {
             if (prop.type === '__signal__' || prop.type === '__inject__') {
                 // Signal/inject properties: name = signal<Type>(value); or name = inject(Service);
@@ -1179,17 +1181,9 @@ function generateTypescript(componentName, template, services = [], fileContent 
         }
     }
 
-    // Add constructor if needed (skip if using inject() pattern)
-    if (constructor && constructor.params && !hasInject) {
-        classBody += `\n    constructor(${constructor.params}) {`;
-        if (constructor.body) {
-            classBody += `\n        ${constructor.body.replace(/\n/g, '\n        ')}\n    `;
-        }
-        classBody += '}\n';
-    } else if (services.length > 0 && !hasInject) {
-        // Generate constructor for services (only if not using inject pattern)
-        const serviceParams = services.map((s) => `private ${s.charAt(0).toLowerCase() + s.slice(1)}: ${s}`).join(', ');
-        classBody += `\n    constructor(${serviceParams}) {}\n`;
+    // Add constructor only if it has body content (not just service injections)
+    if (constructor && constructor.body && constructor.body.trim()) {
+        classBody += `\n    constructor() {\n        ${constructor.body.replace(/\n/g, '\n        ')}\n    }\n`;
     }
 
     // Add ngOnInit if needed
@@ -1262,9 +1256,6 @@ function parseDocFile(filePath, componentDir) {
     // Remove doc suffix (handles both "basicdoc" and "basic-doc" patterns)
     const section = fileName.replace(/-?doc$/, '');
 
-    // Generate basic code
-    const basicCode = extractBasicCode(demoContent);
-
     // Derive selector from filename - no need for app-code selector attribute
     const uniqueKey = deriveSelectorFromFilename(fileName, componentDir);
 
@@ -1285,8 +1276,6 @@ function parseDocFile(filePath, componentDir) {
         component: componentDir,
         section,
         code: {
-            basic: basicCode || existingCode?.basic || '',
-            html: demoContent,
             typescript: generatedTypescript, // Always use generated TypeScript
             data: existingCode?.data,
             scss: existingCode?.scss

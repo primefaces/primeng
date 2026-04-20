@@ -29,6 +29,7 @@ const SKELETON_INSTANCE = new InjectionToken<Skeleton>('SKELETON_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Skeleton extends BaseComponent<SkeletonPassThrough> {
+    componentName = 'Skeleton';
     $pcSkeleton: Skeleton | undefined = inject(SKELETON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

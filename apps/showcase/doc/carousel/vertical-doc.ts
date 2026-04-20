@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -17,7 +17,7 @@ import { TagModule } from 'primeng/tag';
             <p>To create a vertical Carousel, <i>orientation</i> needs to be set to <i>vertical</i> along with a <i>verticalViewPortHeight</i>.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
+            <p-carousel [value]="products()" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
@@ -42,17 +42,13 @@ import { TagModule } from 'primeng/tag';
     `
 })
 export class VerticalDoc implements OnInit {
-    products: Product[] | undefined;
+    private productService = inject(ProductService);
 
-    constructor(
-        private productService: ProductService,
-        private cdr: ChangeDetectorRef
-    ) {}
+    products = signal<Product[]>([]);
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
-            this.products = products;
-            this.cdr.detectChanges();
+            this.products.set(products);
         });
     }
 
