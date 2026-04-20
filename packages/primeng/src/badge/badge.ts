@@ -316,7 +316,7 @@ export class Badge extends BaseComponent<BadgePassThrough> {
      * Severity type of the badge.
      * @group Props
      */
-    severity = input<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null>();
+    severity = input<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | 'primary' | 'help' | null>();
     /**
      * Value to display inside the badge.
      * @group Props
