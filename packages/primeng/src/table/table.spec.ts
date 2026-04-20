@@ -193,6 +193,91 @@ describe('Table', () => {
 
     @Component({
         standalone: false,
+        selector: 'test-virtual-scroll-percent-height-table',
+        template: `
+            <div style="height: 480px;">
+                <p-table [value]="products" [scrollable]="true" [virtualScroll]="true" [virtualScrollItemSize]="40" [scrollHeight]="'100%'">
+                    <ng-template #header>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product>
+                        <tr style="height: 40px">
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        `
+    })
+    class TestVirtualScrollPercentHeightTableComponent {
+        products = Array.from({ length: 1000 }, (_, i) => ({
+            id: i + 1,
+            name: `Product ${i + 1}`
+        }));
+    }
+
+    @Component({
+        standalone: false,
+        selector: 'test-scrollable-non-virtual-table',
+        template: `
+            <p-table [value]="products" [scrollable]="true" [scrollHeight]="'400px'">
+                <ng-template #header>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-product>
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.name }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        `
+    })
+    class TestScrollableNonVirtualTableComponent {
+        products = Array.from({ length: 20 }, (_, i) => ({
+            id: i + 1,
+            name: `Product ${i + 1}`
+        }));
+    }
+
+    @Component({
+        standalone: false,
+        selector: 'test-virtual-scroll-flex-height-table',
+        template: `
+            <div style="height: 480px;">
+                <p-table [value]="products" [scrollable]="true" [virtualScroll]="true" [virtualScrollItemSize]="40" [scrollHeight]="'flex'">
+                    <ng-template #header>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product>
+                        <tr style="height: 40px">
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        `
+    })
+    class TestVirtualScrollFlexHeightTableComponent {
+        products = Array.from({ length: 1000 }, (_, i) => ({
+            id: i + 1,
+            name: `Product ${i + 1}`
+        }));
+    }
+
+    @Component({
+        standalone: false,
         template: `
             <p-table [value]="products" [lazy]="true" [totalRecords]="totalRecords" [paginator]="true" [rows]="10" (onLazyLoad)="loadProducts($event)">
                 <ng-template #header>
@@ -410,6 +495,55 @@ describe('Table', () => {
 
         it('should handle large datasets efficiently', () => {
             expect(testComponent.products.length).toBe(10000);
+        });
+
+        it('should apply host and container height for virtual scroll with 100% scrollHeight', async () => {
+            const percentHeightFixture = TestBed.createComponent(TestVirtualScrollPercentHeightTableComponent);
+            await percentHeightFixture.whenStable();
+            percentHeightFixture.detectChanges();
+
+            const tableElement = percentHeightFixture.debugElement.query(By.css('p-table')).nativeElement as HTMLElement;
+            const containerElement = percentHeightFixture.nativeElement.querySelector('.p-datatable-table-container') as HTMLElement;
+            const scrollerElement = percentHeightFixture.nativeElement.querySelector('.p-virtualscroller');
+
+            expect(tableElement.style.height).toBe('100%');
+            expect(containerElement.style.height).toBe('100%');
+            expect(scrollerElement).toBeTruthy();
+            expect(scrollerElement.offsetHeight).toBeGreaterThan(0);
+        });
+
+        it('should apply explicit height for virtual scroll with pixel scrollHeight', () => {
+            const tableElement = testFixture.debugElement.query(By.css('p-table')).nativeElement as HTMLElement;
+            const containerElement = testFixture.nativeElement.querySelector('.p-datatable-table-container') as HTMLElement;
+
+            expect(tableElement.style.height).toBe('400px');
+            expect(containerElement.style.height).toBe('400px');
+        });
+
+        it('should not apply host height when virtualScroll is false', async () => {
+            const nonVirtualFixture = TestBed.createComponent(TestScrollableNonVirtualTableComponent);
+            await nonVirtualFixture.whenStable();
+            nonVirtualFixture.detectChanges();
+
+            const tableElement = nonVirtualFixture.debugElement.query(By.css('p-table')).nativeElement as HTMLElement;
+            const containerElement = nonVirtualFixture.nativeElement.querySelector('.p-datatable-table-container') as HTMLElement;
+
+            expect(tableElement.style.height).toBe('');
+            expect(containerElement.style.maxHeight).toBe('400px');
+        });
+
+        it('should keep flex mode on class-based path without inline height', async () => {
+            const flexFixture = TestBed.createComponent(TestVirtualScrollFlexHeightTableComponent);
+            await flexFixture.whenStable();
+            flexFixture.detectChanges();
+
+            const tableElement = flexFixture.debugElement.query(By.css('p-table')).nativeElement as HTMLElement;
+            const containerElement = flexFixture.nativeElement.querySelector('.p-datatable-table-container') as HTMLElement;
+            const rootElement = flexFixture.nativeElement.querySelector('.p-datatable') as HTMLElement;
+
+            expect(tableElement.style.height).toBe('');
+            expect(containerElement.style.height).toBe('');
+            expect(rootElement.classList.contains('p-datatable-flex-scrollable')).toBeTrue();
         });
     });
 
