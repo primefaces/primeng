@@ -76,6 +76,8 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
     }
 })
 export class Message extends BaseComponent<MessagePassThrough> {
+    componentName = 'Message';
+
     _componentStyle = inject(MessageStyle);
 
     bindDirectiveInstance = inject(Bind, { self: true });

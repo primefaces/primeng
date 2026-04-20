@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -22,7 +22,7 @@ import { TagModule } from 'primeng/tag';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+            <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
@@ -47,14 +47,11 @@ import { TagModule } from 'primeng/tag';
     `
 })
 export class ResponsiveDoc implements OnInit {
-    products: Product[] | undefined;
+    private productService = inject(ProductService);
+
+    products = signal<Product[]>([]);
 
     responsiveOptions: any[] | undefined;
-
-    constructor(
-        private productService: ProductService,
-        private cdr: ChangeDetectorRef
-    ) {}
 
     getSeverity(status: string) {
         switch (status) {
@@ -69,8 +66,7 @@ export class ResponsiveDoc implements OnInit {
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
-            this.products = products;
-            this.cdr.detectChanges();
+            this.products.set(products);
         });
 
         this.responsiveOptions = [

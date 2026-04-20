@@ -1086,4 +1086,375 @@ describe('Table', () => {
             expect(tableEl).toBeTruthy();
         });
     });
+
+    describe('Cell Navigation', () => {
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+        });
+
+        @Component({
+            standalone: false,
+            template: `
+                <p-table [value]="products" [dataKey]="'id'" editMode="cell">
+                    <ng-template #header>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td [pEditableColumn]="product" [pEditableColumnField]="'name'" [pEditableColumnRowIndex]="rowIndex">
+                                <p-cellEditor>
+                                    <ng-template #input>
+                                        <input pInputText type="text" [(ngModel)]="product.name" class="name-input" />
+                                    </ng-template>
+                                    <ng-template #output>
+                                        {{ product.name }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td [pEditableColumn]="product" [pEditableColumnField]="'price'" [pEditableColumnRowIndex]="rowIndex">
+                                <p-cellEditor>
+                                    <ng-template #input>
+                                        <input pInputText type="text" [(ngModel)]="product.price" class="price-input" />
+                                    </ng-template>
+                                    <ng-template #output>
+                                        {{ product.price | currency }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            `
+        })
+        class TestCellNavigationComponent {
+            products = [
+                { id: '1001', name: 'Gaming Laptop', price: 1299.99 },
+                { id: '1002', name: 'Wireless Mouse', price: 29.99 },
+                { id: '1003', name: 'Mechanical Keyboard', price: 149.99 }
+            ];
+        }
+
+        it('should render editable columns with proper data attributes', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            expect(editableCells.length).toBe(6); // 2 editable columns x 3 rows
+        });
+
+        it('should open cell editor on click and show input for correct field', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const nameCell = editableCells[0]; // First name cell
+
+            nameCell.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Verify the name cell is now editing
+            const editingCell = fixture.nativeElement.querySelector('[data-p-cell-editing="true"]');
+            expect(editingCell).toBeTruthy();
+
+            // Verify the name input is shown
+            const nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeTruthy();
+
+            // Verify no price input is shown
+            const priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeFalsy();
+        });
+
+        it('should navigate from name cell to price cell on arrow right key', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const nameCell = editableCells[0]; // First name cell (row 1)
+
+            // Open the name cell for editing
+            nameCell.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Verify name input is shown initially
+            let nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeTruthy();
+
+            // Dispatch arrow right key event on the cell
+            const arrowRightEvent = new KeyboardEvent('keydown', {
+                key: 'ArrowRight',
+                code: 'ArrowRight',
+                bubbles: true
+            });
+            nameInput.dispatchEvent(arrowRightEvent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // After navigation, price input should be shown
+            const priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeTruthy();
+
+            // Name input should no longer be visible
+            nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeFalsy();
+        });
+
+        it('should navigate from price cell to name cell on arrow left key', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const priceCell = editableCells[1]; // First price cell (row 1)
+
+            // Open the price cell for editing
+            priceCell.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Verify price input is shown initially
+            let priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeTruthy();
+
+            // Dispatch arrow left key event
+            const arrowLeftEvent = new KeyboardEvent('keydown', {
+                key: 'ArrowLeft',
+                code: 'ArrowLeft',
+                bubbles: true
+            });
+            priceInput.dispatchEvent(arrowLeftEvent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // After navigation, name input should be shown
+            const nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeTruthy();
+
+            // Price input should no longer be visible
+            priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeFalsy();
+        });
+
+        it('should navigate to next row when pressing arrow right on last column', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const priceCellRow1 = editableCells[1]; // Price cell in row 1
+            const nameCellRow2 = editableCells[2]; // Name cell in row 2
+
+            // Verify they are in different rows
+            expect(priceCellRow1.parentElement).not.toBe(nameCellRow2.parentElement);
+
+            // Open price cell in row 1
+            priceCellRow1.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            let priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeTruthy();
+
+            // Dispatch arrow right to navigate to next row
+            const arrowRightEvent = new KeyboardEvent('keydown', {
+                key: 'ArrowRight',
+                code: 'ArrowRight',
+                bubbles: true
+            });
+            priceInput.dispatchEvent(arrowRightEvent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Should now be editing name cell in row 2
+            const nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeTruthy();
+
+            // The editing cell should be in row 2
+            const editingCell = fixture.nativeElement.querySelector('[data-p-cell-editing="true"]');
+            expect(editingCell.parentElement).toBe(nameCellRow2.parentElement);
+        });
+
+        it('should navigate to previous row when pressing arrow left on first column', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const priceCellRow1 = editableCells[1]; // Price cell in row 1
+            const nameCellRow2 = editableCells[2]; // Name cell in row 2
+
+            // Open name cell in row 2
+            nameCellRow2.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            let nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeTruthy();
+
+            // Dispatch arrow left to navigate to previous row
+            const arrowLeftEvent = new KeyboardEvent('keydown', {
+                key: 'ArrowLeft',
+                code: 'ArrowLeft',
+                bubbles: true
+            });
+            nameInput.dispatchEvent(arrowLeftEvent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Should now be editing price cell in row 1
+            const priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeTruthy();
+
+            // The editing cell should be in row 1
+            const editingCell = fixture.nativeElement.querySelector('[data-p-cell-editing="true"]');
+            expect(editingCell.parentElement).toBe(priceCellRow1.parentElement);
+        });
+
+        it('should not navigate when disabled', async () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-table [value]="products" [dataKey]="'id'" editMode="cell">
+                        <ng-template #header>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-product let-rowIndex="rowIndex">
+                            <tr>
+                                <td [pEditableColumn]="product" [pEditableColumnField]="'name'" [pEditableColumnRowIndex]="rowIndex" [pEditableColumnDisabled]="true">
+                                    <p-cellEditor>
+                                        <ng-template #input>
+                                            <input pInputText type="text" [(ngModel)]="product.name" class="name-input" />
+                                        </ng-template>
+                                        <ng-template #output>
+                                            {{ product.name }}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td [pEditableColumn]="product" [pEditableColumnField]="'price'" [pEditableColumnRowIndex]="rowIndex">
+                                    <p-cellEditor>
+                                        <ng-template #input>
+                                            <input pInputText type="text" [(ngModel)]="product.price" class="price-input" />
+                                        </ng-template>
+                                        <ng-template #output>
+                                            {{ product.price | currency }}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                `
+            })
+            class TestDisabledCellComponent {
+                products = [{ id: '1001', name: 'Gaming Laptop', price: 1299.99 }];
+            }
+
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestDisabledCellComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestDisabledCellComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const disabledNameCell = editableCells[0];
+
+            // Click on disabled cell
+            disabledNameCell.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Should not open editing on disabled cell - no input should be visible
+            const nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeFalsy();
+
+            // No cell should be in editing state
+            const editingCell = fixture.nativeElement.querySelector('[data-p-cell-editing="true"]');
+            expect(editingCell).toBeFalsy();
+        });
+
+        it('findCell should traverse up DOM tree to find cell with editing attribute', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const nameCell = editableCells[0];
+
+            // Open the cell for editing
+            nameCell.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Get the input element which is nested inside the cell
+            const input = fixture.nativeElement.querySelector('.name-input');
+            expect(input).toBeTruthy();
+
+            // The input should be a descendant of the editing cell
+            const editingCell = fixture.nativeElement.querySelector('[data-p-cell-editing="true"]');
+            expect(editingCell).toBeTruthy();
+            expect(editingCell.contains(input)).toBe(true);
+
+            // Verify the editing cell has the correct data attribute
+            expect(editingCell.querySelector('[data-p-cell-editing="true"]') || editingCell.getAttribute('data-p-cell-editing')).toBeTruthy();
+        });
+    });
 });

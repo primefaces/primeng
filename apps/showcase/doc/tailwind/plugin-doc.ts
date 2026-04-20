@@ -34,16 +34,16 @@ import { Component } from '@angular/core';
 })
 export class PluginDoc {
     code1 = {
-        basic: `npm i tailwindcss-primeui`
+        typescript: `npm i tailwindcss-primeui`
     };
 
     code2 = {
-        basic: `@import "tailwindcss";
+        typescript: `@import "tailwindcss";
 @import "tailwindcss-primeui";`
     };
 
     code3 = {
-        basic: `// tailwind.config.js
+        typescript: `// tailwind.config.js
 import PrimeUI from 'tailwindcss-primeui';
 
 export default {

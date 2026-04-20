@@ -26,6 +26,8 @@ const FLOATLABEL_INSTANCE = new InjectionToken<FloatLabel>('FLOATLABEL_INSTANCE'
     hostDirectives: [Bind]
 })
 export class FloatLabel extends BaseComponent<FloatLabelPassThrough> implements AfterViewChecked {
+    componentName = 'FloatLabel';
+
     _componentStyle = inject(FloatLabelStyle);
 
     $pcFloatLabel: FloatLabel | undefined = inject(FLOATLABEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

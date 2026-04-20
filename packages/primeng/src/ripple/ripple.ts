@@ -18,6 +18,8 @@ import { RippleStyle } from './style/ripplestyle';
     providers: [RippleStyle]
 })
 export class Ripple extends BaseComponent {
+    componentName = 'Ripple';
+
     zone: NgZone = inject(NgZone);
 
     _componentStyle = inject(RippleStyle);

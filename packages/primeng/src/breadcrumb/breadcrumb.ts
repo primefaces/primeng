@@ -171,6 +171,8 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
     hostDirectives: [Bind]
 })
 export class Breadcrumb extends BaseComponent<BreadcrumbPassThrough> {
+    componentName = 'Breadcrumb';
+
     bindDirectiveInstance = inject(Bind, { self: true });
     /**
      * An array of menuitems.

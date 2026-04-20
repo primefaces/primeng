@@ -32,6 +32,8 @@ const BLOCKUI_INSTANCE = new InjectionToken<BlockUI>('BLOCKUI_INSTANCE');
     hostDirectives: [Bind]
 })
 export class BlockUI extends BaseComponent<BlockUIPassThrough> {
+    componentName = 'BlockUI';
+
     $pcBlockUI: BlockUI | undefined = inject(BLOCKUI_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

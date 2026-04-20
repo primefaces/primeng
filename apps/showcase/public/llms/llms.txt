@@ -118,4 +118,3 @@
 - [LLMs.txt - PrimeNG](https://primeng.org/llms): LLM-optimized documentation endpoints for PrimeNG components.
 - [MCP Server - PrimeNG](https://primeng.org/mcp): Model Context Protocol (MCP) server for PrimeNG component library. Provides AI assistants with comprehensive access to PrimeNG component documentation.
 - [Overlay API - PrimeNG](https://primeng.org/overlay): This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
-- [uikit](https://primeng.org/uikit): 

@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { Popover, PopoverModule } from 'primeng/popover';
@@ -20,7 +20,7 @@ import { TagModule } from 'primeng/tag';
             <p>Place the Popover outside of the data iteration components to avoid rendering it multiple times.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
+            <p-table [value]="products()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
                 <ng-template #header>
                     <tr>
                         <th class="w-1/6">Id</th>
@@ -46,24 +46,24 @@ import { TagModule } from 'primeng/tag';
                     </tr>
                 </ng-template>
             </p-table>
-            <p-popover #op (onHide)="selectedProduct = null">
+            <p-popover #op (onHide)="selectedProduct.set(null)">
                 <ng-template #content>
-                    <div *ngIf="selectedProduct" class="rounded flex flex-col">
+                    <div *ngIf="selectedProduct()" class="rounded flex flex-col">
                         <div class="flex justify-center rounded">
                             <div class="relative mx-auto">
-                                <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct.image" [alt]="selectedProduct.name" />
-                                <p-tag [value]="selectedProduct.inventoryStatus" [severity]="getSeverity(selectedProduct)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
+                                <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                         </div>
                         <div class="pt-4">
                             <div class="flex flex-row justify-between items-start gap-2 mb-4">
                                 <div>
-                                    <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ selectedProduct.category }}</span>
-                                    <div class="text-lg font-medium mt-1">{{ selectedProduct.name }}</div>
+                                    <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ selectedProduct().category }}</span>
+                                    <div class="text-lg font-medium mt-1">{{ selectedProduct().name }}</div>
                                 </div>
                                 <div class="bg-surface-100 p-1" style="border-radius: 30px">
                                     <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
-                                        <span class="text-surface-900 font-medium text-sm">{{ selectedProduct.rating }}</span>
+                                        <span class="text-surface-900 font-medium text-sm">{{ selectedProduct().rating }}</span>
                                         <i class="pi pi-star-fill text-yellow-500"></i>
                                     </div>
                                 </div>
@@ -71,8 +71,8 @@ import { TagModule } from 'primeng/tag';
                             <div class="flex gap-2">
                                 <p-button
                                     icon="pi pi-shopping-cart"
-                                    [label]="'Buy Now | $' + selectedProduct.price"
-                                    [disabled]="selectedProduct.inventoryStatus === 'OUTOFSTOCK'"
+                                    [label]="'Buy Now | $' + selectedProduct().price"
+                                    [disabled]="selectedProduct().inventoryStatus === 'OUTOFSTOCK'"
                                     class="flex-auto"
                                     styleClass="w-full whitespace-nowrap"
                                     (onClick)="hidePopover()"
@@ -88,30 +88,26 @@ import { TagModule } from 'primeng/tag';
     `
 })
 export class DataTableDoc implements OnInit {
-    constructor(
-        private productService: ProductService,
-        private cdr: ChangeDetectorRef
-    ) {}
+    private productService = inject(ProductService);
 
     @ViewChild('op') op!: Popover;
 
-    products: Product[] | undefined;
+    products = signal<Product[]>([]);
 
-    selectedProduct: Product | undefined;
+    selectedProduct = signal<Product | null>(null);
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
-            this.products = products;
-            this.cdr.markForCheck();
+            this.products.set(products);
         });
     }
 
     displayProduct(event, product) {
-        if (this.selectedProduct?.id === product.id) {
+        if (this.selectedProduct()?.id === product.id) {
             this.op.hide();
-            this.selectedProduct = null;
+            this.selectedProduct.set(null);
         } else {
-            this.selectedProduct = product;
+            this.selectedProduct.set(product);
             this.op.show(event);
 
             if (this.op.container) {

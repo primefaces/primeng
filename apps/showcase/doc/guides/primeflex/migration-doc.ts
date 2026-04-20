@@ -34,9 +34,9 @@ import { Component } from '@angular/core';
 })
 export class MigrationDoc {
     code1: Code = {
-        basic: `npm install -g primeclt`
+        typescript: `npm install -g primeclt`
     };
     code2: Code = {
-        basic: `prime pf2tw`
+        typescript: `prime pf2tw`
     };
 }

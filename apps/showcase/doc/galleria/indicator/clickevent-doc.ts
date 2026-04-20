@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, model } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
@@ -24,9 +24,9 @@ import { GalleriaModule } from 'primeng/galleria';
     `
 })
 export class ClickEventDoc implements OnInit {
-    images = model([]);
+    private photoService = inject(PhotoService);
 
-    constructor(private photoService: PhotoService) {}
+    images = model([]);
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));

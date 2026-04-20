@@ -198,6 +198,8 @@ export class OrganizationChartNode extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class OrganizationChart extends BaseComponent<OrganizationChartPassThrough> {
+    componentName = 'OrganizationChart';
+
     /**
      * An array of nested TreeNodes.
      * @group Props

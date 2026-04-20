@@ -3500,7 +3500,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
-                            "description": "Mandatory unique key of the node."
+                            "description": "Whether the node is loading. Used in lazy loading."
                         }
                     ]
                 }
@@ -3688,7 +3688,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
-                            "description": "Mandatory unique key of the node."
+                            "description": "Whether the node is loading. Used in lazy loading."
                         },
                         {
                             "name": "originalEvent",
@@ -49192,7 +49192,7 @@
                                 "optional": true,
                                 "readonly": false,
                                 "type": "boolean",
-                                "description": "Mandatory unique key of the node."
+                                "description": "Whether the node is loading. Used in lazy loading."
                             },
                             {
                                 "name": "originalEvent",

@@ -1,8 +1,8 @@
+import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'bitbucket-doc',
@@ -29,15 +29,15 @@ import { AppCode } from '@/components/doc/app.code';
 
         <h4>3. Test Integration</h4>
         <p>
-            Edit a token in Token Studio in Figma and click <b>Push to BitBucket</b> button to update the tokens file in your Git repository, triggering the configured BitBucket Pipe. The pipe then sends the updated file content to the Theme Designer
-            API, receives the generated theme code, and commits the resulting changes back to your repository. An <a href="https://bitbucket.org/cagataycivici/theme-designer-ci-test" target="_blank" rel="noopener noreferrer">example repository</a> is
-            available at BitBucket that you may use as a starter.
+            Edit a token in Tokens Studio in Figma and click <b>Push to BitBucket</b> button to update the tokens file in your Git repository, triggering the configured BitBucket Pipe. The pipe then sends the updated file content to the Theme
+            Designer API, receives the generated theme code, and commits the resulting changes back to your repository. An
+            <a href="https://bitbucket.org/cagataycivici/theme-designer-ci-test" target="_blank" rel="noopener noreferrer">example repository</a> is available at BitBucket that you may use as a starter.
         </p>
     </app-docsectiontext>`
 })
 export class BitbucketDoc {
     code = {
-        basic: `image: atlassian/default-image:4
+        typescript: `image: atlassian/default-image:4
 
 pipelines:
     default:

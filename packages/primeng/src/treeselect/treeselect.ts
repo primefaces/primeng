@@ -226,6 +226,8 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
     }
 })
 export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
+    componentName = 'TreeSelect';
+
     $pcTreeSelect: TreeSelect | undefined = inject(TREESELECT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

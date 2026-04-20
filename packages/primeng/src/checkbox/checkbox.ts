@@ -95,6 +95,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
+    componentName = 'Checkbox';
+
     @Input() hostName: any = '';
     /**
      * Value of the checkbox.

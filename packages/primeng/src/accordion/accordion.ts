@@ -397,6 +397,8 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
     providers: [AccordionStyle, { provide: ACCORDION_INSTANCE, useExisting: Accordion }, { provide: PARENT_INSTANCE, useExisting: Accordion }]
 })
 export class Accordion extends BaseComponent<AccordionPassThrough> implements BlockableUI {
+    componentName = 'Accordion';
+
     $pcAccordion: Accordion | undefined = inject(ACCORDION_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

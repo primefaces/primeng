@@ -86,6 +86,8 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class ToggleSwitch extends BaseEditableHolder<ToggleSwitchPassThrough> {
+    componentName = 'ToggleSwitch';
+
     $pcToggleSwitch: ToggleSwitch | undefined = inject(TOGGLESWITCH_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

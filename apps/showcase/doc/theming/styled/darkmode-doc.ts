@@ -1,7 +1,7 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'darkmode-doc',
@@ -50,7 +50,7 @@ export class DarkModeDoc {
     };
 
     code2 = {
-        basic: `<p-button label="Toggle Dark Mode" (onClick)="toggleDarkMode()"/>`
+        typescript: `<p-button label="Toggle Dark Mode" (onClick)="toggleDarkMode()"/>`
     };
 
     code3 = {
@@ -61,7 +61,7 @@ export class DarkModeDoc {
     };
 
     code4 = {
-        html: `<html class="my-app-dark">`
+        typescript: `<html class="my-app-dark">`
     };
 
     code5: Code = {

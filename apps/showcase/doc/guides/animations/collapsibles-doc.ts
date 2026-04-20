@@ -91,7 +91,7 @@ import { AccordionModule } from 'primeng/accordion';
 })
 export class CollapsiblesDoc {
     code = {
-        basic: `.p-collapsible-enter-active {
+        typescript: `.p-collapsible-enter-active {
     animation: demo-collapsible-expand 500ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 

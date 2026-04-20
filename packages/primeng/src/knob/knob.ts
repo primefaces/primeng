@@ -63,6 +63,8 @@ export const KNOB_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class Knob extends BaseEditableHolder<KnobPassThrough> {
+    componentName = 'Knob';
+
     $pcKnob: Knob | undefined = inject(KNOB_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

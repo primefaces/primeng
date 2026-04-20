@@ -46,6 +46,8 @@ const TIMELINE_INSTANCE = new InjectionToken<Timeline>('TIMELINE_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Timeline extends BaseComponent<TimelinePassThrough> implements BlockableUI {
+    componentName = 'Timeline';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcTimeline: Timeline | undefined = inject(TIMELINE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
