@@ -132,7 +132,14 @@ export class AppDocSectionNav implements OnInit {
                 .subscribe(() => this.onScroll());
         }
 
-        this.ad = this.ads[Math.floor(Math.random() * this.ads.length)];
+        // this.ad = this.ads[Math.floor(Math.random() * this.ads.length)];
+        this.ad = {
+            lightImage: 'https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/store.images/discount/apr26/primestore-spring-2026-sm.jpg',
+            darkImage: 'https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/store.images/discount/apr26/primestore-spring-2026-sm.jpg',
+            title: 'Spring Sale',
+            details: 'Spring Sale is here. 50% OFF everything at PrimeStore and PrimeBlocks.',
+            href: 'https://primeui.store/'
+        };
     }
 
     scrollCurrentUrl() {
