@@ -240,7 +240,7 @@ export class SelectItem extends BaseComponent {
             [attr.data-p]="labelDataP"
         />
         <ng-container *ngIf="isVisibleClearIcon">
-            <svg data-p-icon="times" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
+            <svg data-p-icon="times" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" aria-hidden="true" />
             <span [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear($event)" *ngIf="clearIconTemplate || _clearIconTemplate" [attr.data-pc-section]="'clearicon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate; context: { class: cx('clearIcon') }"></ng-template>
             </span>
@@ -259,8 +259,8 @@ export class SelectItem extends BaseComponent {
 
             <ng-template #elseBlock>
                 <ng-container *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate">
-                    <span [class]="cn(cx('dropdownIcon'), dropdownIcon)" [pBind]="ptm('dropdownIcon')" *ngIf="dropdownIcon"></span>
-                    <svg data-p-icon="chevron-down" *ngIf="!dropdownIcon" [class]="cx('dropdownIcon')" [pBind]="ptm('dropdownIcon')" />
+                    <span [class]="cn(cx('dropdownIcon'), dropdownIcon)" [pBind]="ptm('dropdownIcon')" *ngIf="dropdownIcon" aria-hidden="true"></span>
+                    <svg data-p-icon="chevron-down" *ngIf="!dropdownIcon" [class]="cx('dropdownIcon')" [pBind]="ptm('dropdownIcon')" aria-hidden="true" />
                 </ng-container>
                 <span *ngIf="dropdownIconTemplate || _dropdownIconTemplate" [class]="cx('dropdownIcon')" [pBind]="ptm('dropdownIcon')">
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate; context: { class: cx('dropdownIcon') }"></ng-template>
@@ -700,11 +700,13 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         const options = this._options();
         return options;
     }
+
     set options(val: any[] | null | undefined) {
         if (!deepEquals(val, this._options())) {
             this._options.set(val);
         }
     }
+
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
@@ -1397,6 +1399,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
         !this.overlayVisible && isNotEmpty(value) && this.show();
     }
+
     /**
      * Displays the panel.
      * @group Method
@@ -1448,6 +1451,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.onModelTouched();
         this.onHide.emit(event);
     }
+
     /**
      * Hides the panel.
      * @group Method
@@ -1936,6 +1940,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         if (this.editable) (findSingle(this.el.nativeElement, '[data-pc-section="label"]') as any).focus();
         else focus(this.focusInputViewChild?.nativeElement);
     }
+
     /**
      * Applies focus.
      * @group Method
@@ -1943,6 +1948,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     public focus(): void {
         this.applyFocus();
     }
+
     /**
      * Clears the model.
      * @group Method
