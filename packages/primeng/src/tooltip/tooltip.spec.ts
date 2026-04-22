@@ -514,6 +514,18 @@ describe('Tooltip', () => {
         it('should handle template content', () => {
             expect(tooltipDirective.content).toEqual(component.tooltipTemplate);
         });
+
+        it('should not duplicate template content when rerendering', () => {
+            tooltipDirective.tooltipText = document.createElement('div');
+            tooltipDirective.setOption({ tooltipLabel: component.tooltipTemplate });
+
+            tooltipDirective.updateText();
+            expect(tooltipDirective.tooltipText.querySelectorAll('.custom-tooltip').length).toBe(1);
+
+            tooltipDirective.updateText();
+
+            expect(tooltipDirective.tooltipText.querySelectorAll('.custom-tooltip').length).toBe(1);
+        });
     });
 
     describe('Tooltip Options', () => {
@@ -581,6 +593,17 @@ describe('Tooltip', () => {
             expect(() => {
                 tooltipDirective.remove();
             }).not.toThrow();
+        });
+
+        it('should remove the container mouseleave listener on cleanup', () => {
+            const unlisten = jasmine.createSpy('unlisten');
+
+            tooltipDirective.containerMouseleaveListener = unlisten;
+
+            tooltipDirective.remove();
+
+            expect(unlisten).toHaveBeenCalled();
+            expect(tooltipDirective.containerMouseleaveListener).toBeNull();
         });
 
         it('should handle window resize events', () => {
