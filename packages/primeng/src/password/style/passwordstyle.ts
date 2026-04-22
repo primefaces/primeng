@@ -3,24 +3,51 @@ import { style as password_style } from '@primeuix/styles/password';
 import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
-    ${password_style}
+${password_style}
 
-    /* For PrimeNG */
-    p-password.ng-invalid.ng-dirty .p-inputtext {
-        border-color: dt('inputtext.invalid.border.color');
-    }
+/* For PrimeNG */
+.p-password-overlay {
+    min-width: 100%;
+}
 
-    p-password.ng-invalid.ng-dirty .p-inputtext:enabled:focus {
-        border-color: dt('inputtext.focus.border.color');
-    }
+p-password.ng-invalid.ng-dirty .p-inputtext {
+    border-color: dt('inputtext.invalid.border.color');
+}
 
-    p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
-        color: dt('inputtext.invalid.placeholder.color');
-    }
+p-password.ng-invalid.ng-dirty .p-inputtext:enabled:focus {
+    border-color: dt('inputtext.focus.border.color');
+}
 
-    .p-password-fluid-directive {
-        width: 100%;
+p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
+    color: dt('inputtext.invalid.placeholder.color');
+}
+
+.p-password-fluid-directive {
+    width: 100%;
+}
+
+/* Animations */
+.p-password-enter {
+    animation: p-animate-password-enter 300ms cubic-bezier(.19,1,.22,1);
+}
+
+.p-password-leave {
+    animation: p-animate-password-leave 300ms cubic-bezier(.19,1,.22,1);
+}
+
+@keyframes p-animate-password-enter {
+    from {
+        opacity: 0;
+        transform: scale(0.93);
     }
+}
+
+@keyframes p-animate-password-leave {
+    to {
+        opacity: 0;
+        transform: scale(0.93);
+    }
+}
 `;
 
 const inlineStyles = {

@@ -1,10 +1,10 @@
-import { AccessibilityDoc } from '@/doc/fileupload/accessibilitydoc';
-import { AdvancedDoc } from '@/doc/fileupload/advanceddoc';
-import { AutoDoc } from '@/doc/fileupload/autodoc';
-import { BasicDoc } from '@/doc/fileupload/basicdoc';
-import { ImportDoc } from '@/doc/fileupload/importdoc';
+import { AccessibilityDoc } from '@/doc/fileupload/accessibility-doc';
+import { AdvancedDoc } from '@/doc/fileupload/advanced-doc';
+import { AutoDoc } from '@/doc/fileupload/auto-doc';
+import { BasicDoc } from '@/doc/fileupload/basic-doc';
+import { ImportDoc } from '@/doc/fileupload/import-doc';
 import { PTComponent } from '@/doc/fileupload/pt/PTComponent';
-import { TemplateDoc } from '@/doc/fileupload/templatedoc';
+import { TemplateDoc } from '@/doc/fileupload/template-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

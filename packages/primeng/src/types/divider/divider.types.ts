@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Divider } from 'primeng/divider';
 
 /**
  * Custom pass-through(pt) options.

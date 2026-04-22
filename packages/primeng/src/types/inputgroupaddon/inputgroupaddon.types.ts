@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import { InputGroupAddon } from 'primeng/inputgroupaddon';
 
 /**
  * Custom pass-through(pt) options.

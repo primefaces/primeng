@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -15,7 +14,6 @@ import {
     Input,
     NgModule,
     numberAttribute,
-    OnInit,
     Output,
     QueryList,
     TemplateRef
@@ -28,7 +26,7 @@ import { Bind } from 'primeng/bind';
 import { BindModule } from 'primeng/bind';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
-import { ToggleButtonPassThrough, ToggleButtonChangeEvent } from 'primeng/types/togglebutton';
+import { ToggleButtonChangeEvent, ToggleButtonContentTemplateContext, ToggleButtonIconTemplateContext, ToggleButtonPassThrough } from 'primeng/types/togglebutton';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
 
 const TOGGLEBUTTON_INSTANCE = new InjectionToken<ToggleButton>('TOGGLEBUTTON_INSTANCE');
@@ -54,9 +52,12 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         '[attr.aria-pressed]': 'checked ? "true" : "false"',
         '[attr.role]': '"button"',
         '[attr.tabindex]': 'tabindex !== undefined ? tabindex : (!$disabled() ? 0 : -1)',
-        '[attr.data-pc-name]': "'togglebutton'"
+        '[attr.data-pc-name]': "'togglebutton'",
+        '[attr.data-p-checked]': 'active',
+        '[attr.data-p-disabled]': '$disabled()',
+        '[attr.data-p]': 'dataP'
     },
-    template: `<span [class]="cx('content')" [pBind]="ptm('content')">
+    template: `<span [class]="cx('content')" [pBind]="ptm('content')" [attr.data-p]="dataP">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
         @if (!contentTemplate) {
             @if (!iconTemplate) {
@@ -190,14 +191,18 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
     @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();
     /**
      * Custom icon template.
+     * @param {ToggleButtonIconTemplateContext} context - icon context.
+     * @see {@link ToggleButtonIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) iconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('icon', { descendants: false }) iconTemplate: Nullable<TemplateRef<ToggleButtonIconTemplateContext>>;
     /**
      * Custom content template.
+     * @param {ToggleButtonContentTemplateContext} context - content context.
+     * @see {@link ToggleButtonContentTemplateContext}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<ToggleButtonContentTemplateContext>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -227,9 +232,9 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
         return this.checked === true;
     }
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<ToggleButtonIconTemplateContext> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<ToggleButtonContentTemplateContext> | undefined;
 
     onAfterContentInit() {
         this.templates.forEach((item) => {
@@ -257,6 +262,14 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
         this.checked = value;
         setModelValue(value);
         this.cd.markForCheck();
+    }
+
+    get dataP() {
+        return this.cn({
+            checked: this.active,
+            invalid: this.invalid(),
+            [this.size as string]: this.size
+        });
     }
 }
 

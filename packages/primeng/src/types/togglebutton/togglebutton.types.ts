@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ToggleButton } from 'primeng/togglebutton';
 
 /**
  * Custom pass-through(pt) options.
@@ -51,33 +50,40 @@ export interface ToggleButtonChangeEvent {
 }
 
 /**
+ * Custom icon template context.
+ * @group Interface
+ */
+export interface ToggleButtonIconTemplateContext {
+    /**
+     * Checked state.
+     */
+    $implicit: boolean;
+}
+
+/**
+ * Custom content template context.
+ * @group Interface
+ */
+export interface ToggleButtonContentTemplateContext {
+    /**
+     * Checked state.
+     */
+    $implicit: boolean;
+}
+
+/**
  * Defines valid templates in ToggleButton.
  * @group Templates
  */
 export interface ToggleButtonTemplates {
     /**
      * Custom icon template.
-     * @param {boolean} context - checked state as boolean.
+     * @param {ToggleButtonIconTemplateContext} context - icon context.
      */
-    icon(context: {
-        /**
-         * Checked.
-         */
-        $implicit: boolean;
-    }): TemplateRef<{ $implicit: boolean }>;
-
+    icon(context: ToggleButtonIconTemplateContext): TemplateRef<ToggleButtonIconTemplateContext>;
     /**
      * Custom content template.
-     * @param {Object} context - content data.
+     * @param {ToggleButtonContentTemplateContext} context - content context.
      */
-    content(context: {
-        /**
-         * Checked.
-         */
-        $implicit: boolean;
-        /**
-         * Label of the component.
-         */
-        label: string;
-    }): TemplateRef<{ $implicit: boolean | null; label: string }>;
+    content(context: ToggleButtonContentTemplateContext): TemplateRef<ToggleButtonContentTemplateContext>;
 }

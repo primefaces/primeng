@@ -1,13 +1,13 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { BreakingChangesDoc } from '@/doc/migration/v19/breakingchangesdoc';
 import { DeprecatedComponentsDoc } from '@/doc/migration/v19/deprecatedcomponentsdoc';
 import { MigrationOverviewDoc } from '@/doc/migration/v19/migrationoverviewdoc';
 import { RenamedComponentsDoc } from '@/doc/migration/v19/renamedcomponentsdoc';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: `<app-doc docTitle="Migration - PrimeNG" header="Migration" description="Migration guide to PrimeNG v19" [docs]="docs"></app-doc>`
+    template: `<app-doc docTitle="Migration - PrimeNG" header="Migration to v19" description="Migration guide to PrimeNG v19" [docs]="docs" docType="page"></app-doc>`
 })
 export class v19MigrationDemoComponent {
     docs = [

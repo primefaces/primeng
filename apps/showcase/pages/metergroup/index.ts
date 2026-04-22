@@ -1,13 +1,13 @@
-import { AccessibilityDoc } from '@/doc/metergroup/accessibilitydoc';
-import { BasicDoc } from '@/doc/metergroup/basicdoc';
-import { IconDoc } from '@/doc/metergroup/icondoc';
-import { ImportDoc } from '@/doc/metergroup/importdoc';
-import { LabelDoc } from '@/doc/metergroup/labeldoc';
-import { MinMaxDoc } from '@/doc/metergroup/minmaxdoc';
-import { MultipleDoc } from '@/doc/metergroup/multipledoc';
+import { AccessibilityDoc } from '@/doc/metergroup/accessibility-doc';
+import { BasicDoc } from '@/doc/metergroup/basic-doc';
+import { IconDoc } from '@/doc/metergroup/icon-doc';
+import { ImportDoc } from '@/doc/metergroup/import-doc';
+import { LabelDoc } from '@/doc/metergroup/label-doc';
+import { MinMaxDoc } from '@/doc/metergroup/minmax-doc';
+import { MultipleDoc } from '@/doc/metergroup/multiple-doc';
 import { PTComponent } from '@/doc/metergroup/pt/PTComponent';
-import { TemplateDoc } from '@/doc/metergroup/templatedoc';
-import { VerticalDoc } from '@/doc/metergroup/verticaldoc';
+import { TemplateDoc } from '@/doc/metergroup/template-doc';
+import { VerticalDoc } from '@/doc/metergroup/vertical-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

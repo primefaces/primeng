@@ -1,6 +1,6 @@
 import { Doc } from '@/domain/doc';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, Input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppDocService } from './app.doc.service';
@@ -16,11 +16,13 @@ import { AppDocThemingSection } from './app.docthemingsection';
     providers: [AppDocService],
     template: ` <div class="doc-component">
         <ul class="doc-tabmenu">
-            @if (docs && apiDocs) {
+            @if (isComponentDoc()) {
                 <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 0 }">
                     <button type="button" (click)="activateTab(0)">FEATURES</button>
                 </li>
-                <li *ngIf="apiDocs" [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 1 }">
+            }
+            @if (apiDocs()) {
+                <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 1 }">
                     <button type="button" (click)="activateTab(1)">API</button>
                 </li>
             }
@@ -36,18 +38,25 @@ import { AppDocThemingSection } from './app.docthemingsection';
             }
         </ul>
         <div class="doc-tabpanels">
-            @if (docs) {
-                <app-docfeaturessection [header]="header() ?? _componentName()" [description]="description" [docs]="docs" [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }" />
+            @if (docs()) {
+                <app-docfeaturessection
+                    [header]="header() ?? _componentName()"
+                    [description]="description()"
+                    [docs]="docs()"
+                    [componentName]="isComponentDoc() ? _componentName() : ''"
+                    [docType]="docType()"
+                    [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }"
+                />
             }
-            @if (apiDocs) {
+            @if (apiDocs()) {
                 @defer (when docService.activeTab() === 1) {
-                    <app-docapisection [docs]="apiDocs" [header]="header() ?? _componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }" />
+                    <app-docapisection [docs]="apiDocs()" [header]="header() ?? _componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }" />
                 }
             }
 
             @if (themeDocs()) {
                 @defer (when docService.activeTab() === 2) {
-                    <app-docthemingsection [header]="header()" [docs]="themeDocs" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
+                    <app-docthemingsection [header]="header()" [docs]="themeDocs()" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
                 }
             }
             @if (ptDocs()) {
@@ -61,13 +70,13 @@ import { AppDocThemingSection } from './app.docthemingsection';
     encapsulation: ViewEncapsulation.None
 })
 export class AppDoc implements OnInit, OnChanges {
-    @Input() docTitle!: string;
+    docTitle = input<string>('');
 
-    @Input() docs!: Doc[];
+    docs = input<Doc[]>();
 
-    @Input() description!: string;
+    description = input<string>('');
 
-    @Input() apiDocs!: string[];
+    apiDocs = input<string[]>();
 
     themeDocs = input<string>('');
 
@@ -75,9 +84,13 @@ export class AppDoc implements OnInit, OnChanges {
 
     componentName = input<string>('');
 
+    docType = input<'component' | 'page'>('component');
+
     _componentName = computed(() => {
         return this.componentName() || this.themeDocs() || this.header();
     });
+
+    isComponentDoc = computed(() => !!(this.docs() && (this.apiDocs() || this.themeDocs() || this.ptDocs())));
 
     ptDocs = input<any>();
 

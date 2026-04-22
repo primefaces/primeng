@@ -1,5 +1,5 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Dock } from 'primeng/dock';
+import { TemplateRef } from '@angular/core';
+import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Custom pass-through(pt) options.
@@ -46,3 +46,26 @@ export interface DockPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type DockPassThrough<I = unknown> = PassThrough<I, DockPassThroughOptions<I>>;
+
+/**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface DockItemTemplateContext {
+    /**
+     * Menu item instance.
+     */
+    $implicit: MenuItem;
+}
+
+/**
+ * Defines valid templates in Dock.
+ * @group Templates
+ */
+export interface DockTemplates {
+    /**
+     * Custom template of item.
+     * @param {Object} context - item data.
+     */
+    item(context: DockItemTemplateContext): TemplateRef<DockItemTemplateContext>;
+}

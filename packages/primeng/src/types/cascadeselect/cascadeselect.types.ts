@@ -1,7 +1,5 @@
 import { ElementRef, TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import { Overlay } from 'primeng/overlay';
-import type { CascadeSelect } from 'primeng/cascadeselect';
 
 /**
  * Custom pass-through(pt) options.
@@ -94,11 +92,11 @@ export interface CascadeSelectShowEvent {
     /**
      * Overlay element.
      */
-    overlay?: Overlay | ElementRef | TemplateRef<any> | HTMLElement | null | undefined;
+    overlay?: ElementRef | TemplateRef<any> | HTMLElement | null | undefined;
     /**
      * Target element.
      */
-    target?: Overlay | ElementRef | TemplateRef<any> | HTMLElement | null | undefined;
+    target?: ElementRef | TemplateRef<any> | HTMLElement | null | undefined;
     /**
      * Overlay mode.
      */
@@ -145,48 +143,72 @@ export interface CascadeSelectChangeEvent {
     isFocus?: boolean;
 }
 /**
+ * Custom value template context.
+ * @group Interface
+ */
+export interface CascadeSelectValueTemplateContext<T = any> {
+    /**
+     * Selected value.
+     */
+    $implicit: T;
+    /**
+     * Placeholder text.
+     */
+    placeholder: string;
+}
+
+/**
+ * Custom option template context.
+ * @group Interface
+ */
+export interface CascadeSelectOptionTemplateContext<T = any> {
+    /**
+     * Option instance.
+     */
+    $implicit: T;
+    /**
+     * Level of the option in the hierarchy.
+     */
+    level: number;
+}
+
+/**
  * Defines valid templates in CascadeSelect.
  * @group Templates
  */
-export interface CascadeSelectTemplates {
+export interface CascadeSelectTemplates<T = any> {
     /**
      * Custom value template.
      * @param {Object} context - value data.
      */
-    value(context: {
-        /**
-         * Value.
-         */
-        $implicit: any;
-        /**
-         * Placeholder.
-         */
-        placeholder: string;
-    }): TemplateRef<{ $implicit: any; placeholder: string }>;
+    value(context: CascadeSelectValueTemplateContext<T>): TemplateRef<CascadeSelectValueTemplateContext<T>>;
     /**
      * Custom option template.
      * @param {Object} context - option data.
      */
-    option(context: {
-        /**
-         * Option instance.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    option(context: CascadeSelectOptionTemplateContext<T>): TemplateRef<CascadeSelectOptionTemplateContext<T>>;
+    /**
+     * Custom header template.
+     */
+    header(): TemplateRef<void>;
+    /**
+     * Custom footer template.
+     */
+    footer(): TemplateRef<void>;
     /**
      * Custom dropdown trigger icon template.
      */
-    triggericon(): TemplateRef<any>;
+    triggericon(): TemplateRef<void>;
     /**
      * Custom clear icon template.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(): TemplateRef<void>;
     /**
      * Custom option group icon template.
      */
-    optiongroupicon(): TemplateRef<any>;
+    optiongroupicon(): TemplateRef<void>;
     /**
      * Custom loading icon template.
      */
-    loadingicon(): TemplateRef<any>;
+    loadingicon(): TemplateRef<void>;
 }

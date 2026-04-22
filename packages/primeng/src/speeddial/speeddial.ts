@@ -28,7 +28,7 @@ import { ButtonModule, ButtonProps } from 'primeng/button';
 import { PlusIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { SpeedDialPassThrough } from 'primeng/types/speeddial';
+import { SpeedDialButtonTemplateContext, SpeedDialItemTemplateContext, SpeedDialPassThrough } from 'primeng/types/speeddial';
 import { asapScheduler } from 'rxjs';
 import { SpeedDialStyle } from './style/speeddialstyle';
 
@@ -62,8 +62,9 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                     (keydown)="onTogglerKeydown($event)"
                     [buttonProps]="buttonProps"
                     [pt]="ptm('pcButton')"
+                    [unstyled]="unstyled()"
                 >
-                    <svg data-p-icon="plus" pButtonIcon [pt]="ptm('pcButton')['icon']" data-pc-section="icon" *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
+                    <svg data-p-icon="plus" pButtonIcon [pt]="ptm('pcButton')['icon']" *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
                     <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
                 </button>
             </ng-container>
@@ -89,6 +90,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                     [ngStyle]="getItemStyle(i)"
                     [class]="cx('item', { item, i })"
                     pTooltip
+                    [pTooltipUnstyled]="unstyled()"
                     [tooltipOptions]="item.tooltipOptions || getTooltipOptions(item)"
                     [id]="id + '_' + i"
                     [attr.aria-controls]="id + '_item'"
@@ -108,13 +110,13 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                             [rounded]="true"
                             size="small"
                             role="menuitem"
-                            [icon]="item.icon"
                             (click)="onItemClick($event, item)"
                             [disabled]="item?.disabled"
                             (keydown.enter)="onItemClick($event, item)"
                             [attr.aria-label]="item.label"
                             [attr.tabindex]="item.disabled || !visible ? null : item.tabindex ? item.tabindex : '0'"
                             [pt]="getPTOptions(id + '_' + i, 'pcAction')"
+                            [unstyled]="unstyled()"
                         >
                             <span *ngIf="item.icon" pButtonIcon [pt]="getPTOptions(id + '_' + i, 'actionIcon')" [class]="item.icon"></span>
                         </button>
@@ -122,7 +124,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                 </li>
             </ul>
         </div>
-        <div *ngIf="mask && visible" [pBind]="ptm('mask')" [class]="cn(cx('mask'), maskClassName)" [ngStyle]="maskStyle"></div>
+        <div *ngIf="mask && visible" [pBind]="ptm('mask')" [class]="cn(cx('mask'), maskClassName)" [ngStyle]="maskStyle" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -300,29 +302,32 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
 
     @ViewChild('list') list: ElementRef | undefined;
     /**
-     * Template of the button.
+     * Custom button template.
+     * @param {SpeedDialButtonTemplateContext} context - button context.
+     * @see {@link SpeedDialButtonTemplateContext}
      * @group Templates
      */
-    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<any> | undefined;
+    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<SpeedDialButtonTemplateContext> | undefined;
     /**
-     * Template of the item.
+     * Custom item template.
+     * @param {SpeedDialItemTemplateContext} context - item context.
+     * @see {@link SpeedDialItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
-
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<SpeedDialItemTemplateContext> | undefined;
     /**
-     * Template of the item.
+     * Custom icon template.
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _buttonTemplate: TemplateRef<any> | undefined;
+    _buttonTemplate: TemplateRef<SpeedDialButtonTemplateContext> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<SpeedDialItemTemplateContext> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<void> | undefined;
 
     isItemClicked: boolean = false;
 
@@ -348,7 +353,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
         return this.ptm(key, {
             context: {
                 active: this.isItemActive(id),
-                hidden: !this._visible
+                hidden: !this.visible
             }
         });
     }
@@ -364,8 +369,8 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
     onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.type !== 'linear') {
-                const button = <any>findSingle(this.container?.nativeElement, '.p-speeddial-button');
-                const firstItem = <any>findSingle(this.list?.nativeElement, '.p-speeddial-item');
+                const button = <any>findSingle(this.container?.nativeElement, '[data-pc-name="pcbutton"]');
+                const firstItem = <any>findSingle(this.list?.nativeElement, '[data-pc-section="item"]');
 
                 if (button && firstItem) {
                     const wDiff = Math.abs(button.offsetWidth - firstItem.offsetWidth);
@@ -537,7 +542,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
     }
 
     onEnterKey(event: any) {
-        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
         const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex());
 
         if (itemIndex !== -1 && this.model && this.model[itemIndex]) {
@@ -619,7 +624,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
     }
 
     findPrevOptionIndex(index) {
-        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
 
         const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[filteredItems.length - 1].id : index;
@@ -631,7 +636,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
     }
 
     findNextOptionIndex(index) {
-        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
         const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[0].id : index;
         let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
@@ -642,7 +647,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
     }
 
     changeFocusedOptionIndex(index) {
-        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
         const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
 
         if (filteredItems[index]) {

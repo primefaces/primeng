@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Knob } from 'primeng/knob';
 
 /**
  * Custom pass-through(pt) options.

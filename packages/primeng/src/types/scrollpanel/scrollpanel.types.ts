@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ScrollPanel } from 'primeng/scrollpanel';
 
 /**
  * Custom pass-through(pt) options.
@@ -48,5 +47,5 @@ export interface ScrollPanelTemplates {
     /**
      * Custom content template.
      */
-    content(): TemplateRef<any>;
+    content(): TemplateRef<void>;
 }

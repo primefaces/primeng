@@ -1,6 +1,7 @@
+import type { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
-import type { Panel } from 'primeng/panel';
 
 /**
  * Custom pass-through(pt) options.
@@ -40,6 +41,10 @@ export interface PanelPassThroughOptions<I = unknown> {
      */
     contentContainer?: PassThroughOption<HTMLDivElement, I>;
     /**
+     * Used to pass attributes to the content wrapper DOM element.
+     */
+    contentWrapper?: PassThroughOption<HTMLDivElement, I>;
+    /**
      * Used to pass attributes to the content's DOM element.
      */
     content?: PassThroughOption<HTMLDivElement, I>;
@@ -47,6 +52,10 @@ export interface PanelPassThroughOptions<I = unknown> {
      * Used to pass attributes to the footer's DOM element.
      */
     footer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -91,4 +100,32 @@ export interface PanelHeaderIconsTemplateContext {
      * Collapsed state as a boolean, implicit value.
      */
     $implicit: boolean;
+}
+
+/**
+ * Defines valid templates in Panel.
+ * @group Templates
+ */
+export interface PanelTemplates {
+    /**
+     * Custom header template.
+     */
+    header(): TemplateRef<void>;
+    /**
+     * Custom icons template.
+     */
+    icons(): TemplateRef<void>;
+    /**
+     * Custom content template.
+     */
+    content(): TemplateRef<void>;
+    /**
+     * Custom footer template.
+     */
+    footer(): TemplateRef<void>;
+    /**
+     * Custom header icons template.
+     * @param {PanelHeaderIconsTemplateContext} context - header icons context.
+     */
+    headericons(context: PanelHeaderIconsTemplateContext): TemplateRef<PanelHeaderIconsTemplateContext>;
 }

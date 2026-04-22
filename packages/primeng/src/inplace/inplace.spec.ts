@@ -1,11 +1,11 @@
-import { Component, DebugElement, TemplateRef, ViewChild, input } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { Inplace, InplaceModule, InplaceDisplay, InplaceContent } from './inplace';
+import { Inplace, InplaceContent, InplaceDisplay, InplaceModule } from './inplace';
 
 @Component({
     standalone: false,
@@ -266,7 +266,7 @@ class TestInplaceDynamicComponent {
 describe('Inplace', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [InplaceModule, SharedModule, ButtonModule, FormsModule, NoopAnimationsModule],
+            imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
             declarations: [
                 TestBasicInplaceComponent,
                 TestInplaceWithEventsComponent,
@@ -280,7 +280,8 @@ describe('Inplace', () => {
                 TestInplaceKeyboardComponent,
                 TestInplaceComplexContentComponent,
                 TestInplaceDynamicComponent
-            ]
+            ],
+            providers: [provideZonelessChangeDetection()]
         });
     });
 
@@ -366,20 +367,19 @@ describe('Inplace', () => {
             expect(contentDiv).toBeFalsy();
         });
 
-        it('should show content when activated', fakeAsync(() => {
+        it('should show content when activated', async () => {
             const component = fixture.debugElement.query(By.directive(Inplace)).componentInstance;
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
 
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const editInput = element.querySelector('.edit-input');
 
             expect(component.active).toBe(true);
             expect(editInput).toBeTruthy();
-            flush();
-        }));
+        });
     });
 
     describe('Activation and Deactivation', () => {
@@ -398,29 +398,27 @@ describe('Inplace', () => {
             element = inplaceDebugElement.nativeElement;
         });
 
-        it('should activate on click', fakeAsync(() => {
+        it('should activate on click', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
 
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(true);
             expect(component.activateEvent).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should emit onActivate event', fakeAsync(() => {
+        it('should emit onActivate event', async () => {
             spyOn(component, 'onActivate');
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
 
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(component.onActivate).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
         it('should activate programmatically', () => {
             const mockEvent = new MouseEvent('click');
@@ -431,11 +429,11 @@ describe('Inplace', () => {
             expect(component.activateEvent).toBe(mockEvent);
         });
 
-        it('should deactivate programmatically', fakeAsync(() => {
+        it('should deactivate programmatically', async () => {
             // First activate
             inplaceComponent.activate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(true);
 
@@ -443,29 +441,27 @@ describe('Inplace', () => {
             const mockEvent = new MouseEvent('click');
             inplaceComponent.deactivate(mockEvent);
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(false);
             expect(component.deactivateEvent).toBe(mockEvent);
-            flush();
-        }));
+        });
 
-        it('should emit onDeactivate event', fakeAsync(() => {
+        it('should emit onDeactivate event', async () => {
             spyOn(component, 'onDeactivate');
 
             // Activate first
             inplaceComponent.activate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Then deactivate
             inplaceComponent.deactivate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(component.onDeactivate).toHaveBeenCalled();
-            flush();
-        }));
+        });
     });
 
     describe('Disabled State', () => {
@@ -484,43 +480,47 @@ describe('Inplace', () => {
             element = inplaceDebugElement.nativeElement;
         });
 
-        it('should not activate when disabled', fakeAsync(() => {
+        it('should not activate when disabled', async () => {
             component.disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should apply disabled class when disabled', () => {
+        it('should apply disabled class when disabled', async () => {
             component.disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]');
             expect(displayDiv?.classList.contains('p-disabled')).toBe(true);
         });
 
-        it('should remove disabled class when enabled', () => {
+        it('should remove disabled class when enabled', async () => {
             component.disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]');
             expect(displayDiv?.classList.contains('p-disabled')).toBe(true);
 
             component.disabled = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(displayDiv?.classList.contains('p-disabled')).toBe(false);
         });
 
-        it('should not activate programmatically when disabled', () => {
+        it('should not activate programmatically when disabled', async () => {
             component.disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             inplaceComponent.activate();
             fixture.detectChanges();
@@ -528,26 +528,26 @@ describe('Inplace', () => {
             expect(inplaceComponent.active).toBe(false);
         });
 
-        it('should not deactivate programmatically when disabled', fakeAsync(() => {
+        it('should not deactivate programmatically when disabled', async () => {
             // First enable and activate
             inplaceComponent.activate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(true);
 
             // Then disable and try to deactivate
             component.disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             inplaceComponent.deactivate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Should remain active because disabled
             expect(inplaceComponent.active).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Closable Functionality', () => {
@@ -566,39 +566,38 @@ describe('Inplace', () => {
             element = inplaceDebugElement.nativeElement;
         });
 
-        it('should show close button when active and closable', fakeAsync(() => {
+        it('should show close button when active and closable', async () => {
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const closeButton = element.querySelector('p-button');
             expect(closeButton).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should not show close button when not closable', fakeAsync(() => {
+        it('should not show close button when not closable', async () => {
             component.closable = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const closeButton = element.querySelector('p-button');
             expect(closeButton).toBeFalsy();
-            flush();
-        }));
+        });
 
-        it('should close when close button is clicked', fakeAsync(() => {
+        it('should close when close button is clicked', async () => {
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(true);
 
@@ -606,41 +605,40 @@ describe('Inplace', () => {
             const closeButton = element.querySelector('p-button') as HTMLElement;
             closeButton.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should display custom close icon', fakeAsync(() => {
+        it('should display custom close icon', async () => {
             component.closeIcon = 'pi pi-check';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const iconElement = element.querySelector('.pi-check');
             expect(iconElement).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should set aria-label on close button', fakeAsync(() => {
+        it('should set aria-label on close button', async () => {
             component.closeAriaLabel = 'Close Editor';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const closeButton = element.querySelector('p-button') as HTMLElement;
             expect(closeButton.getAttribute('aria-label')).toBe('Close Editor');
-            flush();
-        }));
+        });
     });
 
     describe('Prevent Click', () => {
@@ -659,35 +657,36 @@ describe('Inplace', () => {
             element = inplaceDebugElement.nativeElement;
         });
 
-        it('should not activate when preventClick is true', fakeAsync(() => {
+        it('should not activate when preventClick is true', async () => {
             component.preventClick = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should activate normally when preventClick is false', fakeAsync(() => {
+        it('should activate normally when preventClick is false', async () => {
             component.preventClick = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should allow programmatic activation even when preventClick is true', () => {
+        it('should allow programmatic activation even when preventClick is true', async () => {
             component.preventClick = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             inplaceComponent.activate();
             fixture.detectChanges();
@@ -718,37 +717,37 @@ describe('Inplace', () => {
             expect(inplaceComponent.active).toBe(false);
         });
 
-        it('should start in active state when active=true', () => {
+        it('should start in active state when active=true', async () => {
             component.active = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(true);
             expect(element.querySelector('div[role="button"]')).toBeFalsy();
             expect(inplaceComponent.active).toBe(true);
         });
 
-        it('should toggle state dynamically', fakeAsync(() => {
+        it('should toggle state dynamically', async () => {
             // Initially inactive
             expect(element.querySelector('div[role="button"]')).toBeTruthy();
             expect(inplaceComponent.active).toBe(false);
 
             // Activate
             component.active = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.querySelector('div[role="button"]')).toBeFalsy();
             expect(inplaceComponent.active).toBe(true);
 
             // Deactivate
             component.active = false;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.querySelector('div[role="button"]')).toBeTruthy();
             expect(inplaceComponent.active).toBe(false);
-            flush();
-        }));
+        });
     });
 
     describe('Style Class', () => {
@@ -767,9 +766,10 @@ describe('Inplace', () => {
             expect(element.classList.contains('custom-inplace')).toBe(true);
         });
 
-        it('should update style class dynamically', () => {
+        it('should update style class dynamically', async () => {
             component.styleClass = 'new-custom-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.classList.contains('new-custom-class')).toBe(true);
         });
@@ -798,11 +798,11 @@ describe('Inplace', () => {
             expect(templateDisplay?.textContent?.trim()).toBe('Custom Display Template');
         });
 
-        it('should render custom content template when activated', fakeAsync(() => {
+        it('should render custom content template when activated', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const templateContent = element.querySelector('.template-content');
             const templateInput = element.querySelector('.template-input');
@@ -811,17 +811,16 @@ describe('Inplace', () => {
             expect(templateContent).toBeTruthy();
             expect(templateInput).toBeTruthy();
             expect(templateCloseBtn).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should provide closeCallback to content template', fakeAsync(() => {
+        it('should provide closeCallback to content template', async () => {
             const inplaceComponent = fixture.debugElement.query(By.directive(Inplace)).componentInstance;
 
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(true);
 
@@ -829,24 +828,22 @@ describe('Inplace', () => {
             const templateCloseBtn = element.querySelector('.template-close-btn') as HTMLElement;
             templateCloseBtn.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should render custom close icon template', fakeAsync(() => {
+        it('should render custom close icon template', async () => {
             // Activate inplace to show close button
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const customCloseIcon = element.querySelector('.custom-close-icon');
             expect(customCloseIcon).toBeTruthy();
             expect(customCloseIcon?.classList.contains('pi-trash')).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('PrimeNG Templates', () => {
@@ -875,19 +872,18 @@ describe('Inplace', () => {
             expect(pTemplateDisplay?.textContent?.trim()).toBe('PrimeNG Template Display');
         });
 
-        it('should render pTemplate content when activated', fakeAsync(() => {
+        it('should render pTemplate content when activated', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const pTemplateContent = element.querySelector('.p-template-content');
             const pTemplateInput = element.querySelector('.p-template-input');
 
             expect(pTemplateContent).toBeTruthy();
             expect(pTemplateInput).toBeTruthy();
-            flush();
-        }));
+        });
 
         it('should handle both template types (# and pTemplate)', () => {
             // Component should have both contentTemplate and _contentTemplate defined
@@ -911,33 +907,31 @@ describe('Inplace', () => {
             element = inplaceDebugElement.nativeElement;
         });
 
-        it('should activate on Enter key', fakeAsync(() => {
+        it('should activate on Enter key', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             if (displayDiv) {
                 const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
 
                 displayDiv.dispatchEvent(enterEvent);
                 fixture.detectChanges();
-                tick();
+                await fixture.whenStable();
 
                 expect(inplaceComponent.active).toBe(true);
             }
-            flush();
-        }));
+        });
 
-        it('should not activate on other keys', fakeAsync(() => {
+        it('should not activate on other keys', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             if (displayDiv) {
                 const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
 
                 displayDiv.dispatchEvent(spaceEvent);
                 fixture.detectChanges();
-                tick();
+                await fixture.whenStable();
 
                 expect(inplaceComponent.active).toBe(false);
             }
-            flush();
-        }));
+        });
 
         it('should prevent default on Enter key', () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
@@ -951,10 +945,11 @@ describe('Inplace', () => {
             }
         });
 
-        it('should handle keyboard events when disabled', fakeAsync(() => {
+        it('should handle keyboard events when disabled', async () => {
             const inplaceComponent = fixture.debugElement.query(By.directive(Inplace)).componentInstance;
             inplaceComponent.disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             if (displayDiv) {
@@ -962,12 +957,11 @@ describe('Inplace', () => {
 
                 displayDiv.dispatchEvent(enterEvent);
                 fixture.detectChanges();
-                tick();
+                await fixture.whenStable();
 
                 expect(inplaceComponent.active).toBe(false);
             }
-            flush();
-        }));
+        });
     });
 
     describe('Complex Content', () => {
@@ -994,11 +988,11 @@ describe('Inplace', () => {
             expect(productName?.textContent).toContain('Sample Product');
         });
 
-        it('should show complex edit form in content mode', fakeAsync(() => {
+        it('should show complex edit form in content mode', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const complexContent = element.querySelector('.complex-content');
             const nameInput = element.querySelector('.product-name-input') as HTMLInputElement;
@@ -1018,20 +1012,19 @@ describe('Inplace', () => {
             nameInput.dispatchEvent(new Event('input'));
             priceInput.dispatchEvent(new Event('input'));
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Check that values are correctly set
             expect(nameInput.value).toBe('Sample Product');
             expect(+priceInput.value).toBe(29.99);
-            flush();
-        }));
+        });
 
-        it('should handle form interactions', fakeAsync(() => {
+        it('should handle form interactions', async () => {
             // Activate edit mode
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const nameInput = element.querySelector('.product-name-input') as HTMLInputElement;
             const saveBtn = element.querySelector('.save-btn') as HTMLButtonElement;
@@ -1046,8 +1039,7 @@ describe('Inplace', () => {
             saveBtn.click();
 
             expect(nameInput.value).toBe('Updated Product');
-            flush();
-        }));
+        });
     });
 
     describe('Dynamic Properties', () => {
@@ -1066,72 +1058,70 @@ describe('Inplace', () => {
             element = inplaceDebugElement.nativeElement;
         });
 
-        it('should handle dynamic active state', fakeAsync(() => {
+        it('should handle dynamic active state', async () => {
             expect(inplaceComponent.active).toBe(false);
             expect(element.querySelector('div[role="button"]')).toBeTruthy();
 
             component.dynamicActive = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(true);
             expect(inplaceComponent.active).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle dynamic disabled state', fakeAsync(() => {
+        it('should handle dynamic disabled state', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
 
             // Should activate when not disabled
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
             expect(inplaceComponent.active).toBe(true);
 
             // Reset
             inplaceComponent.deactivate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Now disable and try to activate
             component.dynamicDisabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should handle dynamic closable state', fakeAsync(() => {
+        it('should handle dynamic closable state', async () => {
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Initially not closable
             expect(element.querySelector('p-button')).toBeFalsy();
 
             // Enable closable
             component.dynamicClosable = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.querySelector('p-button')).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should handle dynamic content changes', fakeAsync(() => {
+        it('should handle dynamic content changes', async () => {
             const displaySpan = element.querySelector('.dynamic-display');
             expect(displaySpan?.textContent).toContain('Click to edit');
 
             component.displayText = 'Updated display text';
             component.contentText = 'Updated content';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(displaySpan?.textContent).toContain('Updated display text');
 
@@ -1139,35 +1129,33 @@ describe('Inplace', () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             displayDiv.click();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const contentInput = element.querySelector('.dynamic-input') as HTMLInputElement;
             expect(contentInput.value).toBe('Updated content');
-            flush();
-        }));
+        });
 
-        it('should handle rapid property changes', fakeAsync(() => {
+        it('should handle rapid property changes', async () => {
             // Rapid changes
             component.dynamicActive = true;
             component.dynamicDisabled = true;
             component.dynamicClosable = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.dynamicActive = false;
             component.dynamicDisabled = false;
             component.dynamicClosable = false;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.dynamicActive = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Should end up in active state
             expect(inplaceComponent.active).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Edge Cases', () => {
@@ -1187,57 +1175,53 @@ describe('Inplace', () => {
             }).not.toThrow();
         });
 
-        it('should handle multiple rapid activations', fakeAsync(() => {
+        it('should handle multiple rapid activations', async () => {
             inplaceComponent.activate();
             inplaceComponent.activate();
             inplaceComponent.activate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle activation while already active', fakeAsync(() => {
+        it('should handle activation while already active', async () => {
             inplaceComponent.activate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(true);
 
             // Activate again
             inplaceComponent.activate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle deactivation while inactive', fakeAsync(() => {
+        it('should handle deactivation while inactive', async () => {
             expect(inplaceComponent.active).toBe(false);
 
             inplaceComponent.deactivate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.active).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should reset hover state on deactivation', fakeAsync(() => {
+        it('should reset hover state on deactivation', async () => {
             inplaceComponent.hover = true;
             inplaceComponent.activate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             inplaceComponent.deactivate();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(inplaceComponent.hover).toBe(false);
-            flush();
-        }));
+        });
     });
 
     describe('Accessibility', () => {
@@ -1260,18 +1244,17 @@ describe('Inplace', () => {
             expect(displayDiv.getAttribute('tabindex')).toBe('0');
         });
 
-        it('should support keyboard navigation', fakeAsync(() => {
+        it('should support keyboard navigation', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
 
             displayDiv.dispatchEvent(enterEvent);
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const inplaceComponent = fixture.debugElement.query(By.directive(Inplace)).componentInstance;
             expect(inplaceComponent.active).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('PassThrough API', () => {
@@ -1327,16 +1310,15 @@ describe('Inplace', () => {
                 expect(displayElement?.classList.contains('DISPLAY_CLASS')).toBe(true);
             });
 
-            it('should apply string class to content section', fakeAsync(() => {
+            it('should apply string class to content section', async () => {
                 fixture.componentRef.setInput('pt', { content: 'CONTENT_CLASS' });
                 fixture.componentRef.setInput('active', true);
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const contentElement = inplaceElement.nativeElement.querySelector('[data-pc-section="content"]');
                 expect(contentElement?.classList.contains('CONTENT_CLASS')).toBe(true);
-                flush();
-            }));
+            });
         });
 
         describe('Case 2: Objects (class, style, data, aria)', () => {
@@ -1400,16 +1382,15 @@ describe('Inplace', () => {
                 expect(displayElement?.style.padding).toBe('10px');
             });
 
-            it('should apply object to content section', fakeAsync(() => {
+            it('should apply object to content section', async () => {
                 fixture.componentRef.setInput('pt', { content: { class: 'CONTENT_OBJ_CLASS' } });
                 fixture.componentRef.setInput('active', true);
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const contentElement = inplaceElement.nativeElement.querySelector('[data-pc-section="content"]');
                 expect(contentElement?.classList.contains('CONTENT_OBJ_CLASS')).toBe(true);
-                flush();
-            }));
+            });
         });
 
         describe('Case 3: Mixed object and string values', () => {
@@ -1607,7 +1588,7 @@ describe('Inplace', () => {
         });
 
         describe('Case 8: Test hooks', () => {
-            it('should call onAfterViewInit hook in pt', fakeAsync(() => {
+            it('should call onAfterViewInit hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
                 hookFixture.componentRef.setInput('pt', {
@@ -1618,14 +1599,13 @@ describe('Inplace', () => {
                     }
                 });
                 hookFixture.detectChanges();
-                tick();
+                await hookFixture.whenStable();
 
                 expect(hookCalled).toBe(true);
                 hookFixture.destroy();
-                flush();
-            }));
+            });
 
-            it('should call onAfterContentInit hook in pt', fakeAsync(() => {
+            it('should call onAfterContentInit hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
                 hookFixture.componentRef.setInput('pt', {
@@ -1636,14 +1616,13 @@ describe('Inplace', () => {
                     }
                 });
                 hookFixture.detectChanges();
-                tick();
+                await hookFixture.whenStable();
 
                 expect(hookCalled).toBe(true);
                 hookFixture.destroy();
-                flush();
-            }));
+            });
 
-            it('should call onAfterViewChecked hook in pt', fakeAsync(() => {
+            it('should call onAfterViewChecked hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
                 hookFixture.componentRef.setInput('pt', {
@@ -1654,14 +1633,13 @@ describe('Inplace', () => {
                     }
                 });
                 hookFixture.detectChanges();
-                tick();
+                await hookFixture.whenStable();
 
                 expect(hookCalled).toBe(true);
                 hookFixture.destroy();
-                flush();
-            }));
+            });
 
-            it('should call onDestroy hook in pt', fakeAsync(() => {
+            it('should call onDestroy hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
                 hookFixture.componentRef.setInput('pt', {
@@ -1672,12 +1650,11 @@ describe('Inplace', () => {
                     }
                 });
                 hookFixture.detectChanges();
-                tick();
+                await hookFixture.whenStable();
 
                 hookFixture.destroy();
                 expect(hookCalled).toBe(true);
-                flush();
-            }));
+            });
         });
     });
 });

@@ -1,6 +1,6 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
@@ -12,12 +12,12 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-tree [value]="nodes" [(selection)]="selectedKey" filter selectionMode="checkbox" class="w-full md:w-[30rem]" />
+            <p-tree [value]="nodes()" [(selection)]="selectedKey" filter selectionMode="checkbox" class="w-full md:w-[30rem]" />
         </app-docptviewer>
     `
 })
 export class PTViewer implements OnInit {
-    nodes: TreeNode[] | undefined;
+    nodes = signal<TreeNode[] | undefined>(undefined);
 
     selectedKey: any = null;
 
@@ -31,6 +31,6 @@ export class PTViewer implements OnInit {
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getTreeNodes().then((data) => (this.nodes = data));
+        this.nodeService.getTreeNodes().then((data) => this.nodes.set(data));
     }
 }

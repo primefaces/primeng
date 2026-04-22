@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { BlockUI } from 'primeng/blockui';
 
 /**
  * Custom pass-through(pt) options.

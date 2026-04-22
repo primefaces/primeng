@@ -1,10 +1,10 @@
-import { AccessibilityDoc } from '@/doc/timeline/accessibilitydoc';
-import { AlignmentDoc } from '@/doc/timeline/alignmentdoc';
-import { BasicDoc } from '@/doc/timeline/basicdoc';
-import { HorizontalDoc } from '@/doc/timeline/horizontaldoc';
-import { ImportDoc } from '@/doc/timeline/importdoc';
-import { OppositeDoc } from '@/doc/timeline/oppositedoc';
-import { TemplateDoc } from '@/doc/timeline/templatedoc';
+import { AccessibilityDoc } from '@/doc/timeline/accessibility-doc';
+import { AlignmentDoc } from '@/doc/timeline/alignment-doc';
+import { BasicDoc } from '@/doc/timeline/basic-doc';
+import { HorizontalDoc } from '@/doc/timeline/horizontal-doc';
+import { ImportDoc } from '@/doc/timeline/import-doc';
+import { OppositeDoc } from '@/doc/timeline/opposite-doc';
+import { TemplateDoc } from '@/doc/timeline/template-doc';
 import { PTComponent } from '@/doc/timeline/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';

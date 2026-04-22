@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Tag } from 'primeng/tag';
 
 /**
  * Custom pass-through(pt) options.
@@ -42,7 +41,7 @@ export type TagPassThrough<I = unknown> = PassThrough<I, TagPassThroughOptions<I
  */
 export interface TagTemplates {
     /**
-     * Custom icon template
+     * Custom icon template.
      */
-    icon(): TemplateRef<any>;
+    icon(): TemplateRef<void>;
 }

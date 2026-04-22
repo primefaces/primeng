@@ -1,79 +1,81 @@
-import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
-/* @todo: Change the import path */
 import APIDoc from '@/doc/apidoc/index.json';
-// import ThemeDoc from '@/doc/apidoc/themedoc.json';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import ThemeDoc from '@primeuix/themes/tokens';
-import { AppDocApiTable } from './app.docapitable';
 import { AppDocSectionNav } from './app.docsection-nav';
 import { AppDocStyledPreset } from './app.docstyledpreset';
+import { AppDocThemingTable } from './app.docthemingtable';
+
 @Component({
     selector: 'app-docthemingsection',
     standalone: true,
-    imports: [CommonModule, AppDocApiTable, AppDocStyledPreset, AppDocSectionNav],
+    imports: [CommonModule, AppDocThemingTable, AppDocStyledPreset, AppDocSectionNav],
     template: `
         <div class="doc-main">
             <div class="doc-intro">
-                <h1>{{ header }} Theming</h1>
+                <h1>{{ header() }} Theming</h1>
             </div>
+
+            <!-- CSS Classes Table -->
             @if (classDoc()) {
-                <app-docapitable [id]="header + 'Classes'" [label]="'CSS Classes'" description="List of class names used in the styled mode." [data]="classDoc().classes" />
+                <app-docthemingtable [id]="header() + 'Classes'" label="CSS Classes" description="List of class names used in the styled mode." tableType="classes" [data]="classDoc().classes" />
             }
+
+            <!-- Design Tokens Table -->
             @if (tokensDoc()) {
-                <app-docapitable [id]="header + 'DesignTokens'" [label]="header + ' Design Tokens'" description="List of design tokens used in a preset." [data]="tokensDoc().tokens" />
+                <app-docthemingtable [id]="header() + 'DesignTokens'" [label]="header() + ' Design Tokens'" description="List of design tokens used in a preset." tableType="tokens" [data]="tokensDoc().tokens" />
             }
-            <app-docstyledpreset [data]="componentName.toLowerCase()"></app-docstyledpreset>
+
+            <app-docstyledpreset [data]="componentName().toLowerCase()" />
         </div>
         <app-docsection-nav [docs]="navItems()" />
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppDocThemingSection {
-    @Input() header!: string;
+    header = input.required<string>();
+    docs = input<string>('');
+    componentName = input<string>('');
 
-    @Input() docs: string;
-
-    @Input() componentName: string;
-
-    tokensDoc = signal<any>([]);
-
-    classDoc = signal<any>([]);
-
-    navItems = signal<any>([]);
+    tokensDoc = signal<any>(null);
+    classDoc = signal<any>(null);
+    navItems = signal<any[]>([]);
 
     ngOnInit() {
         this.createDocs();
     }
 
     createDocs() {
-        const docName = this.header.toLowerCase().replace(/\s+/g, '');
+        const docName = this.header().toLowerCase().replace(/\s+/g, '');
         const themeDocKey = docName === 'table' ? 'datatable' : docName;
+        const navItems: any[] = [];
 
-        if (ThemeDoc[themeDocKey]) {
-            this.tokensDoc.set(ThemeDoc[themeDocKey]);
-            this.navItems.update((prev) => [
-                ...prev,
-                {
-                    id: this.header + 'DesignTokens',
-                    label: 'Design Tokens'
-                },
-                { id: 'built-in-presets', label: 'Built-in Presets' }
-            ]);
-        }
+        // Check for CSS classes
+        if (APIDoc[docName]?.style?.classes?.values) {
+            const classes = APIDoc[docName].style.classes.values;
 
-        if (APIDoc[docName]) {
-            const classes = APIDoc[docName]['style']?.['classes']?.['values'];
-
-            if (classes) {
+            if (classes && classes.length > 0) {
                 this.classDoc.set({ classes });
-                this.navItems.update((prev) => [
-                    {
-                        id: this.header + 'classes',
-                        label: 'CSS Classes'
-                    },
-                    ...prev
-                ]);
+                navItems.push({
+                    id: this.header() + 'Classes',
+                    label: 'CSS Classes'
+                });
             }
         }
+
+        // Check for design tokens
+        if (ThemeDoc[themeDocKey]) {
+            this.tokensDoc.set(ThemeDoc[themeDocKey]);
+            navItems.push({
+                id: this.header() + 'DesignTokens',
+                label: 'Design Tokens'
+            });
+            navItems.push({
+                id: 'built-in-presets',
+                label: 'Built-in Presets'
+            });
+        }
+
+        this.navItems.set(navItems);
     }
 }

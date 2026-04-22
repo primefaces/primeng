@@ -53,9 +53,11 @@ type OnGlobalEventHandlers = {
     [K in keyof GlobalEventHandlers as K extends `on${infer Rest}` ? `on${Rest}` : never]?: GlobalEventHandlers[K];
 };
 
-type PassThroughAttributes<E> = HTMLElementProps<E> &
+type PassThroughAttributes<E> = Omit<HTMLElementProps<E>, 'style'> &
     OnGlobalEventHandlers & {
         [key: string]: any;
+    } & {
+        style?: Partial<CSSStyleDeclaration> | undefined;
     };
 
 export declare type PassThroughOption<E = HTMLElement, I = unknown, PI = unknown> = PassThroughAttributes<E> | ((options: PassThroughContext<I, PI>) => PassThroughAttributes<E> | string) | string | null | undefined;

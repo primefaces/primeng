@@ -1,8 +1,7 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
-import { SelectPassThrough } from 'primeng/select';
-import { InputNumberPassThrough } from 'primeng/inputnumber';
-import type { Paginator } from 'primeng/paginator';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
+import { InputNumberPassThrough } from 'primeng/types/inputnumber';
+import { SelectPassThrough } from 'primeng/types/select';
 
 /**
  * Custom pass-through(pt) options.
@@ -99,10 +98,48 @@ export type PaginatorPassThrough<I = unknown> = PassThrough<I, PaginatorPassThro
  * @group Interface
  */
 export interface PaginatorState {
+    /**
+     * Current page number.
+     */
     page?: number;
+    /**
+     * Index of the first record.
+     */
     first?: number;
+    /**
+     * Number of rows per page.
+     */
     rows?: number;
+    /**
+     * Total number of pages.
+     */
     pageCount?: number;
+    /**
+     * Total number of records.
+     */
+    totalRecords?: number;
+}
+
+/**
+ * Custom template context for left/right templates.
+ * @group Interface
+ */
+export interface PaginatorTemplateContext {
+    /**
+     * Paginator state.
+     */
+    $implicit: PaginatorState;
+}
+
+/**
+ * Custom template context for dropdown item templates.
+ * @group Interface
+ */
+export interface PaginatorDropdownItemTemplateContext {
+    /**
+     * Dropdown item instance.
+     */
+    $implicit: any;
 }
 
 /**
@@ -113,21 +150,21 @@ export interface PaginatorTemplates {
     /**
      * Custom dropdown trigger icon template.
      */
-    dropdownicon(): TemplateRef<any>;
+    dropdownicon(): TemplateRef<void>;
     /**
      * Custom first page link icon template.
      */
-    firstpagelinkicon(): TemplateRef<any>;
+    firstpagelinkicon(): TemplateRef<void>;
     /**
      * Custom previous page link icon template.
      */
-    previouspagelinkicon(): TemplateRef<any>;
+    previouspagelinkicon(): TemplateRef<void>;
     /**
      * Custom last page link icon template.
      */
-    lastpagelinkicon(): TemplateRef<any>;
+    lastpagelinkicon(): TemplateRef<void>;
     /**
      * Custom next page link icon template.
      */
-    nextpagelinkicon(): TemplateRef<any>;
+    nextpagelinkicon(): TemplateRef<void>;
 }

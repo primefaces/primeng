@@ -1,6 +1,5 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { InputMask } from 'primeng/inputmask';
 import { TemplateRef } from '@angular/core';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 
 /**
@@ -11,6 +10,10 @@ import type { InputTextPassThrough } from 'primeng/types/inputtext';
  * @group Interface
  */
 export interface InputMaskPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the host's DOM element.
+     */
+    host?: PassThroughOption<HTMLInputElement, I>;
     /**
      * Used to pass attributes to the root's DOM element.
      */
@@ -46,5 +49,5 @@ export interface InputMaskTemplates {
     /**
      * Custom clear icon template.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(): TemplateRef<void>;
 }

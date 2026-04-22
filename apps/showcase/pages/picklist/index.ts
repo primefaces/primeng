@@ -1,9 +1,9 @@
-import { AccessibilityDoc } from '@/doc/picklist/accessibilitydoc';
-import { BasicDoc } from '@/doc/picklist/basicdoc';
-import { FilterDoc } from '@/doc/picklist/filterdoc';
-import { ImportDoc } from '@/doc/picklist/importdoc';
+import { AccessibilityDoc } from '@/doc/picklist/accessibility-doc';
+import { BasicDoc } from '@/doc/picklist/basic-doc';
+import { FilterDoc } from '@/doc/picklist/filter-doc';
+import { ImportDoc } from '@/doc/picklist/import-doc';
 import { PTComponent } from '@/doc/picklist/pt/PTComponent';
-import { TemplateDoc } from '@/doc/picklist/templatedoc';
+import { TemplateDoc } from '@/doc/picklist/template-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

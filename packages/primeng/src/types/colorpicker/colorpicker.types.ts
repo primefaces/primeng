@@ -1,5 +1,5 @@
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ColorPicker } from 'primeng/colorpicker';
 
 /**
  * Custom pass-through(pt) options.
@@ -49,6 +49,10 @@ export interface ColorPickerPassThroughOptions<I = unknown> {
      * Used to pass attributes to the hue handle's DOM element.
      */
     hueHandle?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**

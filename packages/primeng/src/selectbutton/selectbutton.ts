@@ -27,7 +27,7 @@ import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Bind, BindModule } from 'primeng/bind';
 import { ToggleButton } from 'primeng/togglebutton';
-import { SelectButtonChangeEvent, SelectButtonOptionClickEvent, SelectButtonPassThrough } from 'primeng/types/selectbutton';
+import { SelectButtonChangeEvent, SelectButtonItemTemplateContext, SelectButtonOptionClickEvent, SelectButtonPassThrough } from 'primeng/types/selectbutton';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
 
 const SELECTBUTTON_INSTANCE = new InjectionToken<SelectButton>('SELECTBUTTON_INSTANCE');
@@ -59,6 +59,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [size]="size()"
                 [fluid]="fluid()"
                 [pt]="ptm('pcToggleButton')"
+                [unstyled]="unstyled()"
             >
                 @if (itemTemplate || _itemTemplate) {
                     <ng-template #content>
@@ -74,7 +75,8 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     host: {
         '[class]': "cx('root')",
         '[attr.role]': '"group"',
-        '[attr.aria-labelledby]': 'ariaLabelledBy'
+        '[attr.aria-labelledby]': 'ariaLabelledBy',
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -174,12 +176,14 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
      */
     @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>();
     /**
-     * Template of an item in the list.
+     * Custom item template.
+     * @param {SelectButtonItemTemplateContext} context - item context.
+     * @see {@link SelectButtonItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any>;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<SelectButtonItemTemplateContext> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<SelectButtonItemTemplateContext> | undefined;
 
     get equalityKey() {
         return this.optionValue ? null : this.dataKey;
@@ -332,6 +336,12 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
         this.value = value;
         setModelValue(this.value);
         this.cd.markForCheck();
+    }
+
+    get dataP() {
+        return this.cn({
+            invalid: this.invalid()
+        });
     }
 }
 

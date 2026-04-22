@@ -27,7 +27,8 @@ const DIVIDER_INSTANCE = new InjectionToken<Divider>('DIVIDER_INSTANCE');
         '[attr.aria-orientation]': 'layout',
         role: 'separator',
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': "sx('root')"
+        '[style]': "sx('root')",
+        '[attr.data-p]': 'dataP'
     },
     providers: [DividerStyle, { provide: DIVIDER_INSTANCE, useExisting: Divider }, { provide: PARENT_INSTANCE, useExisting: Divider }],
     hostDirectives: [Bind]
@@ -63,6 +64,14 @@ export class Divider extends BaseComponent<DividerPassThrough> {
     @Input() align: 'left' | 'center' | 'right' | 'top' | 'bottom' | undefined;
 
     _componentStyle = inject(DividerStyle);
+
+    get dataP() {
+        return this.cn({
+            [this.align as string]: this.align,
+            [this.layout as string]: this.layout,
+            [this.type as string]: this.type
+        });
+    }
 }
 
 @NgModule({

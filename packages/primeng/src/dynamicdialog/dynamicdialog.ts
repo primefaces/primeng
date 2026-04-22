@@ -47,15 +47,18 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
             [maximizeIcon]="maximizeIcon"
             [closeButtonProps]="{ severity: 'secondary', variant: 'text', rounded: true }"
             [maximizeButtonProps]="{ severity: 'secondary', variant: 'text', rounded: true }"
-            [style]="ddconfig?.style"
+            [style]="dialogStyle"
             [position]="position"
             (onHide)="onDialogHide($event)"
             (onMaximize)="onDialogMaximize($event)"
             (onResizeInit)="onDialogResizeInit($event)"
             (onResizeEnd)="onDialogResizeEnd($event)"
             (onDragEnd)="onDialogDragEnd($event)"
-            [pt]="ptm('pcDialog')"
+            (visibleChange)="onVisibleChange($event)"
+            [pt]="ddconfig.pt"
+            appendTo="self"
             hostName="DynamicDialog"
+            [unstyled]="isUnstyled"
         >
             <ng-template #header *ngIf="headerTemplate">
                 <ng-container *ngComponentOutlet="headerTemplate"></ng-container>
@@ -94,8 +97,6 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
-
-        console.log(this.ptms(['host', 'root']));
     }
 
     visible: boolean = true;
@@ -176,6 +177,14 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         return this.ddconfig?.templates?.closeicon;
     }
 
+    get dialogStyle() {
+        return {
+            ...(this.ddconfig?.style || {}),
+            ...(this.ddconfig?.width && { width: this.ddconfig.width }),
+            ...(this.ddconfig?.height && { height: this.ddconfig.height })
+        };
+    }
+
     get header() {
         return this.ddconfig.header;
     }
@@ -186,6 +195,10 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
 
     get dialogId() {
         return this.$attrSelector;
+    }
+
+    get isUnstyled() {
+        return this.ddconfig.unstyled || this.$unstyled();
     }
 
     maximized: boolean | undefined;
@@ -229,6 +242,12 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         private dialogRef: DynamicDialogRef
     ) {
         super();
+    }
+
+    onVisibleChange(visible: boolean) {
+        if (!visible) {
+            this.dialogRef.close();
+        }
     }
 
     onAfterViewInit() {

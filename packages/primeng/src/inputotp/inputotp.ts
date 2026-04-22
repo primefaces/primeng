@@ -28,7 +28,7 @@ import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
-import { InputOtpPassThrough } from 'primeng/types/inputotp';
+import { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpPassThrough } from 'primeng/types/inputotp';
 import { InputOtpStyle } from './style/inputotpstyle';
 
 const INPUTOTP_INSTANCE = new InjectionToken<InputOtp>('INPUTOTP_INSTANCE');
@@ -39,46 +39,8 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-/**
- * Input change event.
- * @property {Event} originalEvent - browser event.
- * @property {any}  value - updated value.
- * @group Interface
- */
-export interface InputOtpChangeEvent {
-    originalEvent: Event;
-    value: any;
-}
-
-/**
- * Context interface for the input template events.
- * @property {(event: Event, index: number) => void} input - input event.
- * @property {(event: Event)} keydown - keydown event.
- * @property {(event: Event)} focus - focus event.
- * @property {(event: Event)} blur - blur event.
- * @property {(event: Event)} paste - paste event.
- * @group Interface
- */
-export interface InputOtpTemplateEvents {
-    input: (event: Event, index: number) => void;
-    keydown: (event: Event) => void;
-    focus: (event: Event) => void;
-    blur: (event: Event) => void;
-    paste: (event: Event) => void;
-}
-
-/**
- * Context of the input template.
- * @property {number | string} $implicit - token value.
- * @property {InputOtpTemplateEvents} events - Browser events of the template.
- * @property {number} index - index of the token.
- * @group Interface
- */
-export interface InputOtpInputTemplateContext {
-    $implicit: number | string;
-    events: InputOtpTemplateEvents;
-    index: number;
-}
+// Re-export interfaces from types for backwards compatibility
+export { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpTemplateEvents } from 'primeng/types/inputotp';
 
 /**
  * Input Otp is used to enter one time passwords.
@@ -101,6 +63,7 @@ export interface InputOtpInputTemplateContext {
                     [pSize]="size()"
                     [variant]="$variant()"
                     [invalid]="invalid()"
+                    [attr.inputmode]="inputMode"
                     [attr.name]="name()"
                     [attr.tabindex]="tabindex"
                     [attr.required]="required() ? '' : undefined"
@@ -113,6 +76,7 @@ export interface InputOtpInputTemplateContext {
                     (keydown)="onKeyDown($event)"
                     [pAutoFocus]="getAutofocus(i)"
                     [pt]="ptm('pcInputText')"
+                    [unstyled]="unstyled()"
                 />
             </ng-container>
             <ng-container *ngIf="inputTemplate || _inputTemplate">
@@ -204,16 +168,16 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter();
     /**
-     * Input template.
+     * Custom input template.
      * @param {InputOtpInputTemplateContext} context - Context of the template
      * @see {@link InputOtpInputTemplateContext}
      * @group Templates
      */
-    @ContentChild('input', { descendants: false }) inputTemplate: TemplateRef<any>;
+    @ContentChild('input', { descendants: false }) inputTemplate: TemplateRef<InputOtpInputTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    _inputTemplate: TemplateRef<any> | undefined;
+    _inputTemplate: TemplateRef<InputOtpInputTemplateContext> | undefined;
 
     tokens: any = [];
 
@@ -355,7 +319,7 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
             return;
         }
 
-        switch (event.code) {
+        switch (event.key) {
             case 'ArrowLeft':
                 this.moveToPrev(event);
                 event.preventDefault();
@@ -383,7 +347,12 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
                 break;
 
             default:
-                if ((this.integerOnly && !(Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
+                const target = event.target;
+                const hasSelection = target.selectionStart !== target.selectionEnd;
+                const isAtMaxLength = this.tokens.join('').length >= this.length;
+                const isValidKey = this.integerOnly ? /^[0-9]$/.test(event.key) : true;
+
+                if (!isValidKey || (isAtMaxLength && event.key !== 'Delete' && !hasSelection)) {
                     event.preventDefault();
                 }
 

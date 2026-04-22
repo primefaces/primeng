@@ -3,37 +3,37 @@ import { style as autocomplete_style } from '@primeuix/styles/autocomplete';
 import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
-    ${autocomplete_style}
+${autocomplete_style}
 
-    /* For PrimeNG */
-    p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input,
-    p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple,
-    p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input,
-    p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-multiple p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,
-    p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
-        border-color: dt('autocomplete.invalid.border.color');
-    }
+/* For PrimeNG */
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input,
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-multiple p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
+    border-color: dt('autocomplete.invalid.border.color');
+}
 
-    p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
-    p-autoComplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
-    p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
-    p-auto-complete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
-    p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
-    p-autocomplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple {
-        border-color: dt('autocomplete.focus.border.color');
-    }
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
+p-autoComplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
+p-auto-complete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
+p-autocomplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple {
+    border-color: dt('autocomplete.focus.border.color');
+}
 
-    p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
-    p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
-    p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder {
-        color: dt('autocomplete.invalid.placeholder.color');
-    }
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder {
+    color: dt('autocomplete.invalid.placeholder.color');
+}
 
-    p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
-    p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
-    p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder {
-        color: dt('autocomplete.invalid.placeholder.color');
-    }
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder {
+    color: dt('autocomplete.invalid.placeholder.color');
+}
 `;
 
 const inlineStyles = {

@@ -1,10 +1,10 @@
-import { AccessibilityDoc } from '@/doc/dataview/accessibilitydoc';
-import { BasicDoc } from '@/doc/dataview/basicdoc';
-import { ImportDoc } from '@/doc/dataview/importdoc';
-import { LayoutDoc } from '@/doc/dataview/layoutdoc';
-import { LoadingDoc } from '@/doc/dataview/loadingdoc';
-import { PaginationDoc } from '@/doc/dataview/paginationdoc';
-import { SortingDoc } from '@/doc/dataview/sortingdoc';
+import { AccessibilityDoc } from '@/doc/dataview/accessibility-doc';
+import { BasicDoc } from '@/doc/dataview/basic-doc';
+import { ImportDoc } from '@/doc/dataview/import-doc';
+import { LayoutDoc } from '@/doc/dataview/layout-doc';
+import { LoadingDoc } from '@/doc/dataview/loading-doc';
+import { PaginationDoc } from '@/doc/dataview/pagination-doc';
+import { SortingDoc } from '@/doc/dataview/sorting-doc';
 import { PTComponent } from '@/doc/dataview/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';

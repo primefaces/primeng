@@ -1,6 +1,5 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
-import type { Timeline } from 'primeng/timeline';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Custom pass-through(pt) options.
@@ -53,38 +52,35 @@ export interface TimelinePassThroughOptions<I = unknown> {
 export type TimelinePassThrough<I = unknown> = PassThrough<I, TimelinePassThroughOptions<I>>;
 
 /**
+ * Custom item template context.
+ * @template T Type of item.
+ * @group Interface
+ */
+export interface TimelineItemTemplateContext<T = any> {
+    /**
+     * Item instance.
+     */
+    $implicit: T;
+}
+
+/**
  * Defines valid templates in Timeline.
  * @group Templates
  */
-export interface TimelineTemplates {
+export interface TimelineTemplates<T = any> {
     /**
      * Custom content template.
-     * @param {Object} context - item data.
+     * @param {TimelineItemTemplateContext} context - item data.
      */
-    content(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    content(context: TimelineItemTemplateContext<T>): TemplateRef<TimelineItemTemplateContext<T>>;
     /**
      * Custom opposite item template.
-     * @param {Object} context - item data.
+     * @param {TimelineItemTemplateContext} context - item data.
      */
-    opposite(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    opposite(context: TimelineItemTemplateContext<T>): TemplateRef<TimelineItemTemplateContext<T>>;
     /**
      * Custom marker template.
-     * @param {Object} context - item data.
+     * @param {TimelineItemTemplateContext} context - item data.
      */
-    marker(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    marker(context: TimelineItemTemplateContext<T>): TemplateRef<TimelineItemTemplateContext<T>>;
 }

@@ -2,7 +2,6 @@ import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import { MenuPassThrough } from 'primeng/types/menu';
-import type { SplitButton } from 'primeng/splitbutton';
 
 /**
  * Custom pass-through(pt) options.
@@ -46,13 +45,13 @@ export type SplitButtonPassThrough<I = unknown> = PassThrough<I, SplitButtonPass
  */
 export interface SplitButtonTemplates {
     /**
-     * Custom template of content.
+     * Custom content template.
      */
-    content(): TemplateRef<any>;
+    content(): TemplateRef<void>;
     /**
-     * Custom template of dropdownicon.
+     * Custom dropdown icon template.
      */
-    dropdownicon(): TemplateRef<any>;
+    dropdownicon(): TemplateRef<void>;
 }
 /**
  * Defines ButtonProps interface.

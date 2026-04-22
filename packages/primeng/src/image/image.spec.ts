@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from 'primeng/api';
 import { Image, ImageModule } from './image';
 
@@ -156,8 +156,9 @@ describe('Image', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ImageModule, SharedModule, NoopAnimationsModule],
-            declarations: [TestBasicImageComponent, TestPreviewImageComponent, TestTemplateImageComponent, TestPTemplateImageComponent]
+            imports: [ImageModule, SharedModule],
+            declarations: [TestBasicImageComponent, TestPreviewImageComponent, TestTemplateImageComponent, TestPTemplateImageComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(Image);
@@ -192,12 +193,13 @@ describe('Image', () => {
             expect(imageElement.nativeElement.height).toBeGreaterThan(190);
         });
 
-        it('should render image element with proper attributes', () => {
+        it('should render image element with proper attributes', async () => {
             component.src = mockImageSrc;
             component.alt = 'Test Image';
             component.width = '300';
             component.height = '200';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
             expect(imageElement).toBeTruthy();
@@ -226,42 +228,42 @@ describe('Image', () => {
             expect(previewButton.nativeElement.getAttribute('aria-label')).toBeTruthy();
         });
 
-        it('should open preview on button click', fakeAsync(() => {
+        it('should open preview on button click', async () => {
             const previewButton = testFixture.debugElement.query(By.css('button'));
             previewButton.nativeElement.click();
-            tick();
+            await testFixture.whenStable();
 
             expect(imageInstance.maskVisible).toBe(true);
             expect(imageInstance.previewVisible).toBe(true);
-        }));
+        });
 
-        it('should show mask overlay when preview is opened', fakeAsync(() => {
+        it('should show mask overlay when preview is opened', async () => {
             imageInstance.onImageClick();
-            tick();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const maskElement = testFixture.debugElement.query(By.css('.p-image-mask, [class*="mask"]'));
             expect(maskElement).toBeTruthy();
-        }));
+        });
 
-        it('should close preview when clicking outside', fakeAsync(() => {
+        it('should close preview when clicking outside', async () => {
             imageInstance.onImageClick();
-            tick();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             imageInstance.onMaskClick();
             expect(imageInstance.previewVisible).toBe(false);
-        }));
+        });
 
-        it('should close preview on Escape key', fakeAsync(() => {
+        it('should close preview on Escape key', async () => {
             imageInstance.onImageClick();
-            tick();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const escapeEvent = new KeyboardEvent('keydown', { code: 'Escape' });
             imageInstance.onMaskKeydown(escapeEvent);
             expect(imageInstance.previewVisible).toBe(false);
-        }));
+        });
     });
 
     describe('Image Transformation', () => {
@@ -361,29 +363,27 @@ describe('Image', () => {
             imageInstance = testFixture.debugElement.query(By.directive(Image)).componentInstance;
         });
 
-        it('should emit onShow event when preview is opened', fakeAsync(() => {
+        it('should emit onShow event when preview is opened', () => {
             spyOn(imageInstance.onShow, 'emit');
 
-            // Simulate animation end event
-            const animationEvent = {
-                toState: 'visible'
-            } as any;
+            // onShow is now emitted in onAnimationStart, not onAnimationEnd
+            const mockElement = document.createElement('div');
+            const mockParent = document.createElement('div');
+            mockParent.appendChild(mockElement);
+            imageInstance.onAnimationStart({ element: mockElement } as any);
 
-            imageInstance.onAnimationEnd(animationEvent);
             expect(imageInstance.onShow.emit).toHaveBeenCalled();
-        }));
+        });
 
-        it('should emit onHide event when preview is closed', fakeAsync(() => {
+        it('should emit onHide event when preview is closed', () => {
             spyOn(imageInstance.onHide, 'emit');
 
-            // Simulate animation end event
-            const animationEvent = {
-                toState: 'void'
-            } as any;
-
-            imageInstance.onAnimationEnd(animationEvent);
+            imageInstance.previewVisible = false;
+            imageInstance.wrapper = document.createElement('div');
+            // onHide is now emitted in onMaskAfterLeave, not onAnimationEnd
+            imageInstance.onMaskAfterLeave();
             expect(imageInstance.onHide.emit).toHaveBeenCalled();
-        }));
+        });
 
         it('should emit onImageError event on image error', () => {
             const testFixture = TestBed.createComponent(TestBasicImageComponent);
@@ -431,30 +431,6 @@ describe('Image', () => {
             expect(imageInstance.zoomOutAriaLabel()).toBeDefined();
             expect(imageInstance.closeAriaLabel()).toBeDefined();
         });
-
-        it('should set focus on close button when preview opens', fakeAsync(() => {
-            const mockCloseButton = { nativeElement: document.createElement('button') };
-            const mockElement = document.createElement('div');
-            const mockWrapper = document.createElement('div');
-            mockWrapper.appendChild(mockElement);
-
-            imageInstance.closeButton = mockCloseButton as any;
-            imageInstance.$attrSelector = 'test-attr';
-
-            spyOn(mockCloseButton.nativeElement, 'focus');
-            spyOn(imageInstance, 'appendContainer');
-            spyOn(imageInstance, 'moveOnTop');
-
-            const animationEvent = {
-                toState: 'visible',
-                element: mockElement
-            } as any;
-
-            imageInstance.onAnimationStart(animationEvent);
-            tick(30);
-
-            expect(mockCloseButton.nativeElement.focus).toHaveBeenCalled();
-        }));
 
         it('should have zoom image aria label', () => {
             expect(imageInstance.zoomImageAriaLabel).toBeDefined();
@@ -534,75 +510,6 @@ describe('Image', () => {
         });
     });
 
-    describe('Animation Events', () => {
-        let testFixture: ComponentFixture<TestPreviewImageComponent>;
-        let imageInstance: Image;
-
-        beforeEach(() => {
-            testFixture = TestBed.createComponent(TestPreviewImageComponent);
-            testFixture.detectChanges();
-            imageInstance = testFixture.debugElement.query(By.directive(Image)).componentInstance;
-        });
-
-        it('should handle animation start for visible state', fakeAsync(() => {
-            const mockElement = document.createElement('div');
-            const mockWrapper = document.createElement('div');
-            const mockCloseButton = { nativeElement: document.createElement('button') };
-            mockWrapper.appendChild(mockElement);
-
-            imageInstance.closeButton = mockCloseButton as any;
-            imageInstance.$attrSelector = 'test-attr';
-
-            const animationEvent = {
-                toState: 'visible',
-                element: mockElement
-            } as any;
-
-            spyOn(imageInstance, 'appendContainer');
-            spyOn(imageInstance, 'moveOnTop');
-            spyOn(mockCloseButton.nativeElement, 'focus');
-
-            imageInstance.onAnimationStart(animationEvent);
-            tick(30);
-
-            expect(imageInstance.container).toBe(mockElement);
-            expect(imageInstance.wrapper).toBe(mockWrapper);
-            expect(imageInstance.appendContainer).toHaveBeenCalled();
-            expect(imageInstance.moveOnTop).toHaveBeenCalled();
-        }));
-
-        it('should handle animation start for void state', () => {
-            const mockWrapper = document.createElement('div');
-            imageInstance.wrapper = mockWrapper;
-
-            const animationEvent = {
-                toState: 'void'
-            } as any;
-
-            imageInstance.onAnimationStart(animationEvent);
-
-            expect(mockWrapper.classList.contains('p-overlay-mask-leave')).toBe(true);
-        });
-
-        it('should handle animation end for void state', () => {
-            const mockWrapper = document.createElement('div');
-            imageInstance.wrapper = mockWrapper;
-
-            const animationEvent = {
-                toState: 'void'
-            } as any;
-
-            spyOn(imageInstance.onHide, 'emit');
-
-            imageInstance.onAnimationEnd(animationEvent);
-
-            expect(imageInstance.maskVisible).toBe(false);
-            expect(imageInstance.container).toBeNull();
-            expect(imageInstance.wrapper).toBeNull();
-            expect(imageInstance.onHide.emit).toHaveBeenCalled();
-        });
-    });
-
     describe('Public Methods', () => {
         let testFixture: ComponentFixture<TestPreviewImageComponent>;
         let imageInstance: Image;
@@ -617,10 +524,14 @@ describe('Image', () => {
             imageInstance.rotate = 90;
             imageInstance.scale = 1.2;
             imageInstance.previewVisible = true;
+            imageInstance.wrapper = document.createElement('div');
 
+            // closePreview only sets previewVisible to false
             imageInstance.closePreview();
-
             expect(imageInstance.previewVisible).toBe(false);
+
+            // rotate and scale are reset in onMaskAfterLeave (after animation completes)
+            imageInstance.onMaskAfterLeave();
             expect(imageInstance.rotate).toBe(0);
             expect(imageInstance.scale).toBe(1);
         });
@@ -671,8 +582,7 @@ describe('Image', () => {
             imageInstance.previewVisible = true;
             spyOn(imageInstance, 'closePreview');
 
-            const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-            imageInstance.onKeydownHandler(escapeEvent);
+            imageInstance.onKeydownHandler();
 
             expect(imageInstance.closePreview).toHaveBeenCalled();
         });
@@ -681,8 +591,7 @@ describe('Image', () => {
             imageInstance.previewVisible = false;
             spyOn(imageInstance, 'closePreview');
 
-            const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-            imageInstance.onKeydownHandler(escapeEvent);
+            imageInstance.onKeydownHandler();
 
             expect(imageInstance.closePreview).not.toHaveBeenCalled();
         });
@@ -732,7 +641,8 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                    imports: [ImageModule, SharedModule],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
 
@@ -764,7 +674,8 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                    imports: [ImageModule, SharedModule],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
 
@@ -835,7 +746,8 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                    imports: [ImageModule, SharedModule],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
 
@@ -869,7 +781,8 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                    imports: [ImageModule, SharedModule],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
 
@@ -898,11 +811,12 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                    imports: [ImageModule, SharedModule],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
 
-            it('should handle onclick event in PT', fakeAsync(() => {
+            it('should handle onclick event in PT', async () => {
                 const testFixture = TestBed.createComponent(Image);
                 let clicked = false;
                 const pt = {
@@ -919,12 +833,12 @@ describe('Image', () => {
 
                 const imageElement = testFixture.debugElement.query(By.css('img'));
                 imageElement.nativeElement.click();
-                tick();
+                await testFixture.whenStable();
 
                 expect(clicked).toBe(true);
-            }));
+            });
 
-            it('should handle onclick with instance access', fakeAsync(() => {
+            it('should handle onclick with instance access', async () => {
                 const testFixture = TestBed.createComponent(Image);
                 const testComponent = testFixture.componentInstance;
                 const pt = {
@@ -944,21 +858,22 @@ describe('Image', () => {
 
                 const previewButton = testFixture.debugElement.query(By.css('button'));
                 previewButton.nativeElement.click();
-                tick();
+                await testFixture.whenStable();
 
                 expect(testComponent.scale).toBe(2.0);
-            }));
+            });
         });
 
         describe('Case 6: Test emitters', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                    imports: [ImageModule, SharedModule],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
 
-            it('should access emitters through instance in PT', fakeAsync(() => {
+            it('should access emitters through instance in PT', async () => {
                 const testFixture = TestBed.createComponent(Image);
                 const testComponent = testFixture.componentInstance;
                 let emitterCalled = false;
@@ -977,20 +892,21 @@ describe('Image', () => {
                 testFixture.componentRef.setInput('preview', true);
                 testFixture.componentRef.setInput('pt', pt);
                 testFixture.detectChanges();
-                tick();
+                await testFixture.whenStable();
 
                 testComponent.onImageClick();
-                tick();
+                await testFixture.whenStable();
                 testFixture.detectChanges();
 
-                const animationEvent = {
-                    toState: 'visible'
-                } as any;
-                testComponent.onAnimationEnd(animationEvent);
-                tick();
+                // onShow is now emitted in onAnimationStart, not onAnimationEnd
+                const mockElement = document.createElement('div');
+                const mockParent = document.createElement('div');
+                mockParent.appendChild(mockElement);
+                testComponent.onAnimationStart({ element: mockElement } as any);
+                await testFixture.whenStable();
 
                 expect(emitterCalled).toBe(true);
-            }));
+            });
         });
 
         describe('Case 7: Inline test', () => {
@@ -1008,8 +924,9 @@ describe('Image', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [ImageModule, NoopAnimationsModule],
-                    declarations: [TestInlineComponent]
+                    imports: [ImageModule],
+                    declarations: [TestInlineComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const testFixture = TestBed.createComponent(TestInlineComponent);
@@ -1029,8 +946,9 @@ describe('Image', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [ImageModule, NoopAnimationsModule],
-                    declarations: [TestInlineObjectComponent]
+                    imports: [ImageModule],
+                    declarations: [TestInlineObjectComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const testFixture = TestBed.createComponent(TestInlineObjectComponent);
@@ -1062,9 +980,10 @@ describe('Image', () => {
                 }
 
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, NoopAnimationsModule],
+                    imports: [ImageModule],
                     declarations: [TestGlobalPTComponent],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 image: {
@@ -1095,7 +1014,8 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                    imports: [ImageModule, SharedModule],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
 

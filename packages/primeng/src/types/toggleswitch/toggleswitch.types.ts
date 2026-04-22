@@ -1,5 +1,5 @@
+import { TemplateRef } from '@angular/core';
 import { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ToggleSwitch } from 'primeng/toggleswitch';
 
 /**
  * Custom passthrough(pt) options.
@@ -49,4 +49,27 @@ export interface ToggleSwitchChangeEvent {
      * Checked state as a boolean.
      */
     checked: boolean;
+}
+
+/**
+ * Custom handle template context.
+ * @group Interface
+ */
+export interface ToggleSwitchHandleTemplateContext {
+    /**
+     * Checked state of the toggle switch.
+     */
+    checked: boolean;
+}
+
+/**
+ * Defines valid templates in ToggleSwitch.
+ * @group Templates
+ */
+export interface ToggleSwitchTemplates {
+    /**
+     * Custom handle template.
+     * @param {ToggleSwitchHandleTemplateContext} context - handle context.
+     */
+    handle(context: ToggleSwitchHandleTemplateContext): TemplateRef<ToggleSwitchHandleTemplateContext>;
 }

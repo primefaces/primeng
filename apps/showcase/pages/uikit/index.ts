@@ -1,155 +1,396 @@
+import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'primeng/ripple';
-import { AddingPrimeIconsDoc } from '@/doc/uikit/addingprimeiconsdoc';
-import { ComponentsDoc } from '@/doc/uikit/faq/componentsdoc';
-import { DesignChangesDoc } from '@/doc/uikit/workflow/designchangesdoc';
-import { EnablingDoc } from '@/doc/uikit/installation/enablingdoc';
-import { GuideOverviewDoc } from '@/doc/uikit/guideoverviewdoc';
-import { ImportingDoc } from '@/doc/uikit/installation/importingdoc';
-import { LicenceDoc } from '@/doc/uikit/faq/licensedoc';
-import { PublishingDoc } from '@/doc/uikit/installation/publishingdoc';
-import { ResourcesDoc } from '@/doc/uikit/resourcesdoc';
-import { RoadmapDoc } from '@/doc/uikit/faq/roadmapdoc';
-import { SupportDoc } from '@/doc/uikit/supportdoc';
-import { TokensDoc } from '@/doc/uikit/faq/tokensdoc';
-import { TokenSetsDoc } from '@/doc/uikit/tokensetsdoc';
-import { TokensStudioSetupDoc } from '@/doc/uikit/workflow/tokensstudiosetupdoc';
-import { CIPipelineDoc } from '@/doc/uikit/workflow/cipipelinedoc';
-import { UpdatePrimeOneDoc } from '@/doc/uikit/updateprimeonedoc';
-import { UpdatesDoc } from '@/doc/uikit/faq/updatesdoc';
-import { UsageDoc } from '@/doc/uikit/faq/usagedoc';
-import { AppDocSectionNav } from '@/components/doc/app.docsection-nav';
-import { AppDocSection } from '@/components/doc/app.docsection';
+import { BadgeModule } from 'primeng/badge';
+import { Ripple } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
+    selector: 'overview-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionNav, AppDocSection, RippleModule, RouterModule],
-    template: `
-        <div class="doc">
-            <div class="doc-main">
-                <div class="doc-intro">
-                    <h1>PrimeOne Guide</h1>
-                    <p>PrimeOne is a strong UI component library gets even better with a great Figma UI Kit. That's what PrimeOne is PrimeTek's official Figma UI Kit, built to work seamlessly with the Prime UI Suites.</p>
-                </div>
-                <app-docsection [docs]="docs" />
-            </div>
-            <app-docsection-nav [docs]="docs" />
+    imports: [CommonModule, Ripple, BadgeModule, TooltipModule, RouterModule],
+    template: ` <div>
+        <div style="border-radius: 50px" class="overflow-hidden mb-8 flex items-center">
+            <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/primeone-cover-{{ isDarkMode() ? 'dark' : 'light' }}.jpg" class="w-full" />
         </div>
-    `
+
+        <div class="card mb-8" style="border-radius: 50px">
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
+                <div class="w-full md:w-6/12">
+                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-figma.png" class="w-full" />
+                </div>
+                <div class="w-full md:w-6/12">
+                    <div class="text-primary font-bold mb-2">UP-TO-DATE</div>
+                    <div class="text-surface-900 dark:text-surface-0 text-5xl font-bold mb-4">Best Features of Figma</div>
+                    <p class="mb-4 text-lg">PrimeOne for Figma uses the latest powerful features like components, variants, auto layout, styles, variables and interactive components. It'll always follow the best practices.</p>
+
+                    <ul class="flex flex-wrap m-0 p-0 text-lg">
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Auto Layout</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Variants</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Variables and Styles</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Interactive Components</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Boolean, Instance Swap and Text Properties</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Nested Instances</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
+                <div class="w-full md:w-6/12">
+                    <div class="text-primary font-bold mb-2">ENTERPRISE GRADE</div>
+                    <div class="text-surface-900 dark:text-surface-0 text-5xl font-bold mb-4">Powerful System</div>
+                    <p class="mb-4 text-lg">Save countless hours on every project with a carefully designed system that uses Prime UI Suite components. Start producing design results in no time.</p>
+
+                    <ul class="flex flex-wrap m-0 p-0 text-lg">
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Numerous Components</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Icon Library</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Easy Customization</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Atomic Approach</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-6/12">
+                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-system.png" class="w-full" />
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
+                <div class="w-full md:w-6/12">
+                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-themes.png" class="w-full" />
+                </div>
+                <div class="w-full md:w-6/12">
+                    <div class="text-primary font-bold mb-2">DARK MODE</div>
+                    <div class="text-surface-900 dark:text-surface-0 text-5xl font-bold mb-4">Two Themes</div>
+                    <p class="mb-4 text-lg">PrimeOne is designed based on Aura Light and Aura Dark themes. Easily change the themes of your designs using Figma's native variable modes.</p>
+
+                    <ul class="flex flex-wrap m-0 p-0 text-lg">
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Aura Light</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Aura Dark</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
+                <div class="w-full md:w-6/12">
+                    <div class="text-primary font-bold mb-2">VARIABLE MANAGEMENT</div>
+                    <div class="text-5xl font-bold mb-4">Variables Support</div>
+                    <p class="mb-4 text-lg">
+                        Empower yourself with unprecedented control over your designs. Native Figma Variables unlock a whole new level of flexibility, allowing you to create, manage, and apply design tokens seamlessly—without relying on external
+                        plugins.
+                    </p>
+
+                    <ul class="flex flex-wrap m-0 p-0 text-lg">
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Countless Variables</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Light and Dark Modes</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Well Documented</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Primitive, Semantic and Component Collections</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-6/12">
+                    <img alt="Tokens Support" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-tokens.png" class="w-full" />
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20">
+                <div class="w-full md:w-6/12">
+                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/designer/feature-2.png" class="w-full" />
+                </div>
+                <div class="w-full md:w-6/12">
+                    <div class="text-primary font-bold mb-2">AUTOMATED</div>
+                    <div class="text-5xl font-bold mb-4">Figma to Theme Code</div>
+                    <p class="mb-4 text-lg">
+                        <i>This feature requires a <a routerLink="/designer" class="doc-link">Theme Designer</a> subscription.</i>
+                    </p>
+                    <p class="mb-4 text-lg">
+                        Sync design tokens from Figma to theme code with ease. Export token.json to the Visual Editor or generate and sync themes directly to your repository via the Figma plugin, eliminating manual steps and speeding up your
+                        workflow.
+                    </p>
+
+                    <ul class="flex flex-wrap m-0 p-0 text-lg">
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Automatic Mapping</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Eliminate Handoff</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">CI Pipeline</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Live Preview</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Maintain Perfect Fidelity</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Verify Synchorization</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <a
+            href="https://www.figma.com/design/iKOqMjb5gBhqMQ0bZyzD0Y/Preview-%7C-PrimeOne-%7C-4.0.0?node-id=806-36648&t=PfCXfPrG4kKRW1jB-1"
+            class="flex flex-col md:flex-row items-center justify-center gap-8 p-12 mb-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border-2 border-transparent hover:border-primary transition-colors duration-300"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="border-radius: 50px"
+        >
+            <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                <span class="text-primary font-semibold text-sm uppercase tracking-wider mb-2">Figma UI Kit</span>
+                <span class="text-gray-900 dark:text-white text-5xl md:text-6xl font-bold mb-3">Preview</span>
+                <p class="text-gray-600 dark:text-gray-300 text-lg max-w-2xl">Explore our complete design system with all components, variants, and interactive elements in Figma</p>
+            </div>
+            <div class="flex items-center justify-center">
+                <svg width="80" height="80" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 300c27.6 0 50-22.4 50-50v-50H50c-27.6 0-50 22.4-50 50s22.4 50 50 50z" fill="#0acf83" />
+                    <path d="M0 150c0-27.6 22.4-50 50-50h50v100H50c-27.6 0-50-22.4-50-50z" fill="#a259ff" />
+                    <path d="M0 50C0 22.4 22.4 0 50 0h50v100H50C22.4 100 0 77.6 0 50z" fill="#f24e1e" />
+                    <path d="M100 0h50c27.6 0 50 22.4 50 50s-22.4 50-50 50h-50V0z" fill="#ff7262" />
+                    <path d="M200 150c0 27.6-22.4 50-50 50s-50-22.4-50-50 22.4-50 50-50 50 22.4 50 50z" fill="#1abcfe" />
+                </svg>
+            </div>
+        </a>
+
+        <div class="card mb-8" style="border-radius: 50px">
+            <div class="text-surface-900 dark:text-surface-0 font-bold text-5xl mb-6 text-center">Pricing</div>
+            <div class="mb-2 text-center leading-normal text-lg">Choose the right plan for your business. Whether you are an individual or a member of a team, UI Kit is available for affordable prices.</div>
+            <a href="https://www.primefaces.org/uikit/licenses" class="mb-12 text-primary font-medium hover:underline text-center block">View License Details</a>
+
+            <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-12 lg:col-span-4">
+                    <div class="p-4 h-full">
+                        <div class="shadow p-8 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Single Designer</div>
+                            <div class="text-surface-600 dark:text-surface-200 font-medium">For individual designers</div>
+                            <hr class="my-4 mx-0 border-t border-0 border-surface" />
+                            <div class="flex gap-4 flex-wrap">
+                                <span class="text-2xl font-bold text-surface-900 dark:text-surface-0">$249</span>
+                            </div>
+                            <hr class="my-4 mx-0 border-t border-0 border-surface" />
+                            <ul class="list-none p-0 m-0 grow text-lg">
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span class="font-bold">1 Designer</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Auto Layout & Variants</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Interactive Components</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Variables Support</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="$99 for + 1 Year" value="?" severity="secondary" /></span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Use on Unlimited Projects</span>
+                                </li>
+                            </ul>
+                            <hr class="mb-4 mx-0 border-t border-0 border-surface mt-auto" />
+                            <a href="https://primeui.store/uikit" pRipple class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-12 lg:col-span-4">
+                    <div class="p-4 h-full">
+                        <div class="shadow p-8 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Team</div>
+                            <div class="text-surface-600 dark:text-surface-200 font-medium">For small teams</div>
+                            <hr class="my-4 mx-0 border-t border-0 border-surface" />
+                            <div class="flex gap-4 flex-wrap">
+                                <div class="flex gap-4 flex-wrap">
+                                    <span class="text-2xl font-bold text-surface-900 dark:text-surface-0">$990</span>
+                                </div>
+                            </div>
+                            <hr class="my-4 mx-0 border-t border-0 border-surface" />
+                            <ul class="list-none p-0 m-0 grow text-lg">
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span class="font-bold">Up to 5 Designers</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Auto Layout & Variants</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Interactive Components</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Variables Support</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="$249 for + 1 Year" value="?" severity="secondary" /></span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Use on Unlimited Projects</span>
+                                </li>
+                            </ul>
+                            <hr class="mb-4 mx-0 border-t border-0 border-surface" />
+                            <a href="https://primeui.store/uikit" pRipple class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-12 lg:col-span-4">
+                    <div class="p-4 h-full">
+                        <div class="shadow p-8 flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Enterprise</div>
+                            <div class="text-surface-600 dark:text-surface-200 font-medium">For large teams</div>
+                            <hr class="my-4 mx-0 border-t border-0 border-surface" />
+                            <div class="flex gap-4 flex-wrap">
+                                <span class="text-2xl font-bold text-surface-900 dark:text-surface-0">EXCLUSIVE DEALS</span>
+                            </div>
+                            <hr class="my-4 mx-0 border-t border-0 border-surface" />
+                            <ul class="list-none p-0 m-0 grow text-lg">
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span class="font-bold">Unlimited Designers</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Auto Layout & Variants</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Interactive Components</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Variables Support</span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="Contact Us" value="?" severity="secondary" /></span>
+                                </li>
+                                <li class="flex items-center mb-4">
+                                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <span>Use on Unlimited Projects</span>
+                                </li>
+                            </ul>
+                            <hr class="mb-4 mx-0 border-t border-0 border-surface" />
+                            <a href="mailto:contact@primetek.com.tr" pRipple class="bg-slate-500 text-white hover:bg-slate-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border-radius: 50px">
+            <span class="block font-bold text-5xl mb-8 text-center text-surface-900 dark:text-surface-0">Frequently Asked Questions</span>
+            <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-12 lg:col-span-4 px-2 lg:px-8">
+                    <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">What do I get when I purchase a license?</div>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">You'll be able to download the Figma file of PrimeOne UI Kit.</p>
+
+                    <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">Is there a recurring fee or is the license perpetual?</div>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">UI Kit license is perpetual so requires one time payment, not subscription based.</p>
+
+                    <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">Can I use UI Kit license for commercial projects?</div>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">Yes, your license allows you to sell your projects that utilize the UI Kit implementations.</p>
+
+                    <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">Can I create multiple projects for multiple clients?</div>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">There is no limit, you are able to use UI Kit in multiple projects for multiple clients.</p>
+                </div>
+                <div class="col-span-12 lg:col-span-4 px-2 lg:px-8">
+                    <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2">We're a reseller, are we able to purchase a license on behalf of our client?</div>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">
+                        Yes, after the purchase, please
+                        <a href="mailto:contact@primetek.com.tr" class="text-primary font-medium hover:underline">contact us</a> so we can transfer the license to your client.
+                    </p>
+
+                    <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">Does the enterprise license include contractors within the organization?</div>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">Yes, contractors are also able to use the UI Kit within your company.</p>
+
+                    <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">Can subsidiary company of a larger organization share the enterprise license?</div>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">No, enterprise license is per company so each subsidiary company needs to purchase a separate license.</p>
+
+                    <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">What does "free updates" mean?</div>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">All updates will be totally free of charge for existing customers for an unlimited period.</p>
+                </div>
+                <div class="col-span-12 lg:col-span-4 px-2 lg:px-8">
+                    <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">How can I get support?</div>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">
+                        Support is provided by PrimeTek via
+                        <a href="https://github.com/orgs/primefaces/discussions/categories/figma-ui-kit" class="text-primary font-medium hover:underline">a dedicated forum channel monitored</a>
+                        by PrimeTek support staff.
+                    </p>
+
+                    <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">What does lifetime support mean?</div>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">Support service at the forum does not have a time limit.</p>
+
+                    <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">Can I include UI Kit in an open source project?</div>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">Due to the license, it is not possible to use the UI Kit in an open source project where the design files are publicly available.</p>
+                </div>
+            </div>
+        </div>
+    </div>`
 })
-export class UIKitDemo {
-    docs = [
-        {
-            id: 'overview-demo',
-            label: 'Overview',
-            component: GuideOverviewDoc
-        },
-        {
-            id: 'resources-demo',
-            label: 'Resources',
-            component: ResourcesDoc
-        },
-        {
-            id: 'installation-demo',
-            label: 'Installation',
-            children: [
-                {
-                    id: 'importing-demo',
-                    label: 'Importing',
-                    component: ImportingDoc
-                },
-                {
-                    id: 'publishing-demo',
-                    label: 'Publishing',
-                    component: PublishingDoc
-                },
-                {
-                    id: 'enabling-demo',
-                    label: 'Enabling',
-                    component: EnablingDoc
-                }
-            ]
-        },
-        {
-            id: 'workflow-demo',
-            label: 'Suggested Workflow',
-            description:
-                "PrimeOne uses Tokens Studio as its primary tool for design token management. To leverage the benefits of Figma Variables, these variables have also been exported from Tokens Studio and included in the file. This setup, while powerful, can make design changes somewhat complex and less fluid due to the way the tools interact. Although the provided guide outlines the recommended steps, we acknowledge that the workflow may feel unintuitive or slow at times. We’re actively exploring improvements, and in the meantime, suggest following the guide as a baseline while adapting it to your team's needs where necessary.",
-            children: [
-                {
-                    id: 'tokens-studio-setup-demo',
-                    label: 'Tokens Studio Setup',
-                    component: TokensStudioSetupDoc
-                },
-                {
-                    id: 'ci-pipeline',
-                    label: 'CI Pipeline',
-                    component: CIPipelineDoc
-                },
-                {
-                    id: 'design-changes-demo',
-                    label: 'Design Changes',
-                    component: DesignChangesDoc
-                }
-            ]
-        },
-        {
-            id: 'token-sets',
-            label: 'Token Sets',
-            component: TokenSetsDoc
-        },
-        {
-            id: 'update-prime-one',
-            label: 'Update PrimeOne',
-            component: UpdatePrimeOneDoc
-        },
-        {
-            id: 'adding-prime-icons',
-            label: 'Adding PrimeIcons',
-            component: AddingPrimeIconsDoc
-        },
-        {
-            id: 'faq-demo',
-            label: 'FAQ',
-            children: [
-                {
-                    id: 'usage-demo',
-                    label: 'Usage',
-                    component: UsageDoc
-                },
-                {
-                    id: 'components-demo',
-                    label: 'Components',
-                    component: ComponentsDoc
-                },
-                {
-                    id: 'tokens-demo',
-                    label: 'Tokens',
-                    component: TokensDoc
-                },
-                {
-                    id: 'updates-demo',
-                    label: 'Updates',
-                    component: UpdatesDoc
-                },
-                {
-                    id: 'roadmap-demo',
-                    label: 'Roadmap',
-                    component: RoadmapDoc
-                },
-                {
-                    id: 'license-demo',
-                    label: 'License',
-                    component: LicenceDoc
-                }
-            ]
-        },
-        {
-            id: 'support-demo',
-            label: 'Support',
-            component: SupportDoc
-        }
-    ];
+export class OverviewDemo {
+    configService = inject(AppConfigService);
+
+    isDarkMode = computed(() => this.configService.appState().darkTheme);
 }

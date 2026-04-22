@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Splitter } from 'primeng/splitter';
 
 /**
  * Custom pass-through(pt) options.
@@ -60,12 +59,12 @@ export interface SplitterResizeStartEvent {
 export interface SplitterResizeEndEvent extends SplitterResizeStartEvent {}
 
 /**
- * Defines valid templates in Panel.
+ * Defines valid templates in Splitter.
  * @group Templates
  */
 export interface SplitterTemplates {
     /**
      * Custom panel template.
      */
-    panel(): TemplateRef<any>;
+    panel(): TemplateRef<void>;
 }

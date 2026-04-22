@@ -1,10 +1,10 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/fieldset/accessibilitydoc';
-import { BasicDoc } from '@/doc/fieldset/basicdoc';
-import { ImportDoc } from '@/doc/fieldset/importdoc';
+import { AccessibilityDoc } from '@/doc/fieldset/accessibility-doc';
+import { BasicDoc } from '@/doc/fieldset/basic-doc';
+import { ImportDoc } from '@/doc/fieldset/import-doc';
 import { PTComponent } from '@/doc/fieldset/pt/PTComponent';
-import { TemplateDoc } from '@/doc/fieldset/templatedoc';
-import { ToggleableDoc } from '@/doc/fieldset/toggleabledoc';
+import { TemplateDoc } from '@/doc/fieldset/template-doc';
+import { ToggleableDoc } from '@/doc/fieldset/toggleable-doc';
 import { Component } from '@angular/core';
 
 @Component({

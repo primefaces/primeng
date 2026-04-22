@@ -1,10 +1,10 @@
-import { AccessibilityDoc } from '@/doc/confirmdialog/accessibilitydoc';
-import { BasicDoc } from '@/doc/confirmdialog/basicdoc';
-import { HeadlessDoc } from '@/doc/confirmdialog/headlessdoc';
-import { ImportDoc } from '@/doc/confirmdialog/importdoc';
-import { PositionDoc } from '@/doc/confirmdialog/positiondoc';
+import { AccessibilityDoc } from '@/doc/confirmdialog/accessibility-doc';
+import { BasicDoc } from '@/doc/confirmdialog/basic-doc';
+import { HeadlessDoc } from '@/doc/confirmdialog/headless-doc';
+import { ImportDoc } from '@/doc/confirmdialog/import-doc';
+import { PositionDoc } from '@/doc/confirmdialog/position-doc';
 import { PTComponent } from '@/doc/confirmdialog/pt/PTComponent';
-import { TemplateDoc } from '@/doc/confirmdialog/templatedoc';
+import { TemplateDoc } from '@/doc/confirmdialog/template-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 @Component({

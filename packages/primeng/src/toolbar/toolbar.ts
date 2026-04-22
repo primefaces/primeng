@@ -64,30 +64,30 @@ export class Toolbar extends BaseComponent<ToolbarPassThrough> implements Blocka
         return this.el.nativeElement.children[0];
     }
     /**
-     * Defines template option for start.
+     * Custom start template.
      * @group Templates
      */
-    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<any> | undefined;
+    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Defines template option for end.
+     * Custom end template.
      * @group Templates
      */
-    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<any> | undefined;
+    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Defines template option for center.
+     * Custom center template.
      * @group Templates
      */
-    @ContentChild('center', { descendants: false }) centerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('center', { descendants: false }) centerTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _startTemplate: TemplateRef<any> | undefined;
+    _startTemplate: TemplateRef<void> | undefined;
 
-    _endTemplate: TemplateRef<any> | undefined;
+    _endTemplate: TemplateRef<void> | undefined;
 
-    _centerTemplate: TemplateRef<any> | undefined;
+    _centerTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {

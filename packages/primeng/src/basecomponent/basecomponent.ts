@@ -45,22 +45,27 @@ export class BaseComponent<PT = any> implements Lifecycle {
     /******************** Inputs ********************/
 
     /**
-     * Generates scoped CSS variables using design tokens for the component.
+     * Defines scoped design tokens of the component.
+     * @defaultValue undefined
+     * @group Props
      */
     dt = input<Object | undefined>();
     /**
      * Indicates whether the component should be rendered without styles.
-     *
-     * @experimental
-     * This property is not yet implemented. It will be available in a future release.
+     * @defaultValue undefined
+     * @group Props
      */
     unstyled = input<boolean | undefined>();
     /**
      * Used to pass attributes to DOM elements inside the component.
+     * @defaultValue undefined
+     * @group Props
      */
     pt = input<PT | undefined>();
     /**
      * Used to configure passthrough(pt) options of the component.
+     * @group Props
+     * @defaultValue undefined
      */
     ptOptions = input<PassThroughOptions | undefined>();
 
@@ -69,22 +74,28 @@ export class BaseComponent<PT = any> implements Lifecycle {
     $attrSelector = uuid('pc');
 
     get $name() {
-        return this.constructor?.name?.replace(/^_/, '') || 'UnknownComponent';
+        return this['componentName'] || this.constructor?.name?.replace(/^_/, '') || 'UnknownComponent';
     }
 
     private get $hostName() {
         return this['hostName'];
     }
 
+    get $el() {
+        return this.el?.nativeElement;
+    }
+
+    directivePT = signal<any>(undefined);
+
+    directiveUnstyled = signal<boolean | undefined>(undefined);
+
     $unstyled = computed(() => {
-        return this.unstyled() !== undefined ? this.unstyled() : this.config?.unstyled() || false;
+        return this.unstyled() ?? this.directiveUnstyled() ?? this.config?.unstyled() ?? false;
     });
 
     $pt = computed(() => {
         return resolve(this.pt() || this.directivePT(), this.$params);
     });
-
-    directivePT = signal<any>(undefined);
 
     get $globalPT() {
         return this._getPT(this.config?.pt(), undefined, (value) => resolve(value, this.$params));
@@ -248,7 +259,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
      */
     ngAfterViewInit() {
         // @todo - remove this after implementing pt for root
-        this.el?.nativeElement?.setAttribute(this.$attrSelector, '');
+        this.$el?.setAttribute(this.$attrSelector, '');
 
         this.onAfterViewInit();
         this._hook('onAfterViewInit');

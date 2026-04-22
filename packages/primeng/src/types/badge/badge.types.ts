@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Badge } from 'primeng/badge';
 
 /**
  * Custom passthrough(pt) options.

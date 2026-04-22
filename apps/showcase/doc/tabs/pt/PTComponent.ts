@@ -1,4 +1,4 @@
-import { AppDocApiTable } from '@/components/doc/app.docapitable';
+import { AppDocPtTable } from '@/components/doc/app.docpttable';
 import { getPTOptions } from '@/components/doc/app.docptviewer';
 import { AppDocSection } from '@/components/doc/app.docsection';
 import { CommonModule } from '@angular/common';
@@ -26,31 +26,31 @@ export class PTComponent {
         {
             id: 'pt.doc.tabs',
             label: 'Tabs PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('Tabs')
         },
         {
             id: 'pt.doc.tablist',
             label: 'TabList PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('TabList')
         },
         {
             id: 'pt.doc.tab',
             label: 'Tab PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('Tab')
         },
         {
             id: 'pt.doc.tabpanels',
             label: 'TabPanels PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('TabPanels')
         },
         {
             id: 'pt.doc.tabpanel',
             label: 'TabPanel PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('TabPanel')
         }
     ];

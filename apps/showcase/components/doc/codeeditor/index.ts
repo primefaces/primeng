@@ -43,7 +43,7 @@ const useStackBlitz = (props: Props) => {
 
     const options = {
         newWindow: true,
-        openFile: 'components/layout/app.component.html'
+        openFile: `src/app/${props.selector}.ts`
     };
     // @ts-ignore
     sdk.openProject(project, options);

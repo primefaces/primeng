@@ -1,6 +1,6 @@
+import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ButtonPassThroughOptions } from 'primeng/button';
-import type { Carousel } from 'primeng/carousel';
+import type { ButtonPassThroughOptions } from 'primeng/types/button';
 
 /**
  * Custom pass-through(pt) options.
@@ -75,3 +75,70 @@ export interface CarouselPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type CarouselPassThrough<I = unknown> = PassThrough<I, CarouselPassThroughOptions<I>>;
+
+/**
+ * Responsive options of the component.
+ * @group Interface
+ */
+export interface CarouselResponsiveOptions {
+    /**
+     * Breakpoint for responsive mode. Exp; @media screen and (max-width: ${breakpoint}) {...}
+     */
+    breakpoint: string;
+    /**
+     * The number of visible items on breakpoint.
+     */
+    numVisible: number;
+    /**
+     * The number of scrolled items on breakpoint.
+     */
+    numScroll: number;
+}
+/**
+ * Custom page event.
+ * @group Events
+ */
+export interface CarouselPageEvent {
+    /**
+     * Current page.
+     */
+    page?: number;
+}
+/**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface CarouselItemTemplateContext<T = any> {
+    /**
+     * Data of the item.
+     */
+    $implicit: T;
+}
+
+/**
+ * Defines valid templates in Carousel.
+ * @group Templates
+ */
+export interface CarouselTemplates<T = any> {
+    /**
+     * Custom header template.
+     */
+    header(): TemplateRef<void>;
+    /**
+     * Custom item template.
+     * @param {Object} context - item data.
+     */
+    item(context: CarouselItemTemplateContext<T>): TemplateRef<CarouselItemTemplateContext<T>>;
+    /**
+     * Custom previous icon template.
+     */
+    previousicon(): TemplateRef<void>;
+    /**
+     * Custom next icon template.
+     */
+    nexticon(): TemplateRef<void>;
+    /**
+     * Custom footer template.
+     */
+    footer(): TemplateRef<void>;
+}

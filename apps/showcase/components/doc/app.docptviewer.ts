@@ -36,14 +36,21 @@ export const getPTOptions = (name) => {
         columnfilter: 'table'
     };
 
+    const passthroughNameMapping = {
+        scroller: 'virtualscroller'
+    };
+
+    const passthroughName = passthroughNameMapping[name.toLowerCase()] || name;
+
     const lookupName = componentMapping[name.toLowerCase()] || name.toLowerCase();
+
     const componentTypes = APIDoc[lookupName]?.types;
 
-    const passThrough = componentTypes.interfaces.values.find((t) => t.name.toLowerCase() === `${name}PassThroughOptions`.toLowerCase());
+    const passThrough = componentTypes.interfaces.values.find((t) => t.name.toLowerCase() === `${passthroughName}passthroughoptions`.toLowerCase());
 
     const { props } = passThrough;
 
-    const options = componentTypes.interfaces.values.find((t) => t.name.toLowerCase() === `${name}PassThroughMethodOptions`.toLowerCase());
+    const options = componentTypes.interfaces.values.find((t) => t.name.toLowerCase() === `${passthroughName}passthroughmethodoptions`.toLowerCase());
 
     let data = [];
 
@@ -77,7 +84,7 @@ export const getPTOptions = (name) => {
         <app-docsectiontext>
             <p>
                 Some sections may not be visible due to the availability of the particular feature. Section names that start with the <i>pc</i> prefix indicate that the element is a PrimeNG component not a DOM element. Visit the
-                <a routerLink="/guides/passthrough">pass-through</a> documentation for more information.
+                <a routerLink="/passthrough">pass-through</a> documentation for more information.
             </p>
         </app-docsectiontext>
         <div #container class="doc-ptviewerwrapper card">

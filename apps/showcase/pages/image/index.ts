@@ -1,8 +1,8 @@
-import { AccessibilityDoc } from '@/doc/Image/accessibilitydoc';
-import { BasicDoc } from '@/doc/Image/basicdoc';
-import { ImportDoc } from '@/doc/Image/importdoc';
-import { PreviewDoc } from '@/doc/Image/previewdoc';
-import { TemplateDoc } from '@/doc/Image/templatedoc';
+import { AccessibilityDoc } from '@/doc/Image/accessibility-doc';
+import { BasicDoc } from '@/doc/Image/basic-doc';
+import { ImportDoc } from '@/doc/Image/import-doc';
+import { PreviewDoc } from '@/doc/Image/preview-doc';
+import { TemplateDoc } from '@/doc/Image/template-doc';
 import { PTComponent } from '@/doc/Image/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';

@@ -25,7 +25,17 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { SpinnerIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ScrollerLazyLoadEvent, ScrollerPassThrough, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from 'primeng/types/scroller';
+import {
+    ScrollerContentTemplateContext,
+    ScrollerItemTemplateContext,
+    ScrollerLazyLoadEvent,
+    ScrollerLoaderIconTemplateContext,
+    ScrollerLoaderTemplateContext,
+    ScrollerScrollEvent,
+    ScrollerScrollIndexChangeEvent,
+    ScrollerToType,
+    VirtualScrollerPassThrough
+} from 'primeng/types/scroller';
 import { ScrollerStyle } from './style/scrollerstyle';
 
 const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
@@ -88,7 +98,9 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
     providers: [ScrollerStyle, { provide: SCROLLER_INSTANCE, useExisting: Scroller }, { provide: PARENT_INSTANCE, useExisting: Scroller }],
     hostDirectives: [Bind]
 })
-export class Scroller extends BaseComponent<ScrollerPassThrough> {
+export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
+    componentName = 'virtualScroller';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcScroller: Scroller | undefined = inject(SCROLLER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -431,37 +443,45 @@ export class Scroller extends BaseComponent<ScrollerPassThrough> {
     contentEl: any;
     /**
      * Content template of the component.
+     * @param {ScrollerContentTemplateContext} context - content context.
+     * @see {@link ScrollerContentTemplateContext}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<ScrollerContentTemplateContext>>;
 
     /**
      * Item template of the component.
+     * @param {ScrollerItemTemplateContext} context - item context.
+     * @see {@link ScrollerItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('item', { descendants: false }) itemTemplate: Nullable<TemplateRef<ScrollerItemTemplateContext>>;
 
     /**
      * Loader template of the component.
+     * @param {ScrollerLoaderTemplateContext} context - loader context.
+     * @see {@link ScrollerLoaderTemplateContext}
      * @group Templates
      */
-    @ContentChild('loader', { descendants: false }) loaderTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loader', { descendants: false }) loaderTemplate: Nullable<TemplateRef<ScrollerLoaderTemplateContext>>;
 
     /**
      * Loader icon template of the component.
+     * @param {ScrollerLoaderIconTemplateContext} context - loader icon context.
+     * @see {@link ScrollerLoaderIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('loadericon', { descendants: false }) loaderIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loadericon', { descendants: false }) loaderIconTemplate: Nullable<TemplateRef<ScrollerLoaderIconTemplateContext>>;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<ScrollerContentTemplateContext> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<ScrollerItemTemplateContext> | undefined;
 
-    _loaderTemplate: TemplateRef<any> | undefined;
+    _loaderTemplate: TemplateRef<ScrollerLoaderTemplateContext> | undefined;
 
-    _loaderIconTemplate: TemplateRef<any> | undefined;
+    _loaderIconTemplate: TemplateRef<ScrollerLoaderIconTemplateContext> | undefined;
 
     first: any = 0;
 
@@ -644,7 +664,7 @@ export class Scroller extends BaseComponent<ScrollerPassThrough> {
     }
 
     onAfterViewChecked() {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
         if (!this.initialized) {
             this.viewInit();
         }
@@ -676,9 +696,10 @@ export class Scroller extends BaseComponent<ScrollerPassThrough> {
     init() {
         if (!this._disabled) {
             this.bindResizeListener();
-            this.setSpacerSize();
+
             // wait for the next tick
             setTimeout(() => {
+                this.setSpacerSize();
                 this.setSize();
                 this.calculateOptions();
                 this.cd.detectChanges();
@@ -689,7 +710,6 @@ export class Scroller extends BaseComponent<ScrollerPassThrough> {
     setContentEl(el?: HTMLElement) {
         this.contentEl = el || this.contentViewChild?.nativeElement || findSingle(this.elementViewChild?.nativeElement, '.p-virtualscroller-content');
     }
-
     setInitialState() {
         this.first = this.both ? { rows: 0, cols: 0 } : 0;
         this.last = this.both ? { rows: 0, cols: 0 } : 0;
@@ -922,10 +942,18 @@ export class Scroller extends BaseComponent<ScrollerPassThrough> {
 
     setSize() {
         if (this.elementViewChild?.nativeElement) {
-            const parentElement = this.elementViewChild.nativeElement.parentElement.parentElement;
-            const width = this._scrollWidth || `${this.elementViewChild.nativeElement.offsetWidth || parentElement.offsetWidth}px`;
-            const height = this._scrollHeight || `${this.elementViewChild.nativeElement.offsetHeight || parentElement.offsetHeight}px`;
-            const setProp = (_name: string, _value: any) => ((<ElementRef>this.elementViewChild).nativeElement.style[_name] = _value);
+            const nativeElement = this.elementViewChild.nativeElement;
+            const parentElement = nativeElement.parentElement?.parentElement;
+
+            const elementWidth = nativeElement.offsetWidth;
+            const parentWidth = parentElement?.offsetWidth || 0;
+            const width = this._scrollWidth || `${elementWidth || parentWidth}px`;
+
+            const elementHeight = nativeElement.offsetHeight;
+            const parentHeight = parentElement?.offsetHeight || 0;
+            const height = this._scrollHeight || `${elementHeight || parentHeight}px`;
+
+            const setProp = (_name: string, _value: any) => (nativeElement.style[_name] = _value);
 
             if (this.both || this.horizontal) {
                 setProp('height', height);

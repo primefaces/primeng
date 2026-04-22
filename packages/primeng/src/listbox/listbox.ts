@@ -38,7 +38,23 @@ import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { Scroller, ScrollerLazyLoadEvent } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
-import { ListBoxPassThrough, ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from 'primeng/types/listbox';
+import {
+    ListBoxPassThrough,
+    ListboxChangeEvent,
+    ListboxCheckIconTemplateContext,
+    ListboxCheckmarkTemplateContext,
+    ListboxClickEvent,
+    ListboxDoubleClickEvent,
+    ListboxFilterEvent,
+    ListboxFilterOptions,
+    ListboxFilterTemplateContext,
+    ListboxFooterTemplateContext,
+    ListboxGroupTemplateContext,
+    ListboxHeaderTemplateContext,
+    ListboxItemTemplateContext,
+    ListboxLoaderTemplateContext,
+    ListboxSelectAllChangeEvent
+} from 'primeng/types/listbox';
 import { Subscription } from 'rxjs';
 import { ListBoxStyle } from './style/listboxstyle';
 
@@ -76,7 +92,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <p-checkbox
                 #headerchkbox
                 (onChange)="onToggleAll($event)"
-                *ngIf="checkbox && multiple"
+                *ngIf="checkbox && multiple && showToggleAll"
                 [class]="cx('optionCheckIcon')"
                 [ngModel]="allSelected()"
                 [disabled]="$disabled()"
@@ -85,6 +101,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 [binary]="true"
                 [attr.aria-label]="toggleAllAriaLabel"
                 [pt]="ptm('pcCheckbox')"
+                [unstyled]="unstyled()"
             >
                 <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
                     <ng-template #icon>
@@ -97,7 +114,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             </ng-container>
             <ng-template #builtInFilterElement>
                 @if (filter) {
-                    <p-iconfield [pt]="ptm('pcFilterContainer')" hostName="listbox">
+                    <p-iconfield [pt]="ptm('pcFilterContainer')" hostName="listbox" [unstyled]="unstyled()">
                         <input
                             #filterInput
                             pInputText
@@ -115,9 +132,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             (keydown)="onFilterKeyDown($event)"
                             (blur)="onFilterBlur($event)"
                             [pt]="ptm('pcFilter')"
+                            [unstyled]="unstyled()"
                             hostName="listbox"
                         />
-                        <p-inputicon [pt]="ptm('pcFilterIconContainer')">
+                        <p-inputicon [pt]="ptm('pcFilterIconContainer')" [unstyled]="unstyled()">
                             <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [attr.aria-hidden]="true" [pBind]="ptm('filterIcon')" />
                             <span *ngIf="filterIconTemplate || _filterIconTemplate" [attr.aria-hidden]="true">
                                 <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
@@ -260,6 +278,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         [binary]="true"
                                         [pt]="ptm('pcCheckbox')"
                                         hostName="listbox"
+                                        [unstyled]="unstyled()"
                                     >
                                         <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
                                             <ng-template #icon>
@@ -330,7 +349,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': 'id',
-        '[class]': "cn(cx('root'), styleClass, { 'p-listbox-dragging': isDragging() })"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p]': 'containerDataP'
     },
     hostDirectives: [Bind]
 })
@@ -695,93 +715,109 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     /**
      * Custom item template.
+     * @param {ListboxItemTemplateContext} context - item context.
+     * @see {@link ListboxItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<ListboxItemTemplateContext> | undefined;
 
     /**
      * Custom group template.
+     * @param {ListboxGroupTemplateContext} context - group context.
+     * @see {@link ListboxGroupTemplateContext}
      * @group Templates
      */
-    @ContentChild('group', { descendants: false }) groupTemplate: TemplateRef<any> | undefined;
+    @ContentChild('group', { descendants: false }) groupTemplate: TemplateRef<ListboxGroupTemplateContext> | undefined;
 
     /**
      * Custom header template.
+     * @param {ListboxHeaderTemplateContext} context - header context.
+     * @see {@link ListboxHeaderTemplateContext}
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<ListboxHeaderTemplateContext> | undefined;
 
     /**
      * Custom filter template.
+     * @param {ListboxFilterTemplateContext} context - filter context.
+     * @see {@link ListboxFilterTemplateContext}
      * @group Templates
      */
-    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<ListboxFilterTemplateContext> | undefined;
 
     /**
      * Custom footer template.
+     * @param {ListboxFooterTemplateContext} context - footer context.
+     * @see {@link ListboxFooterTemplateContext}
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<ListboxFooterTemplateContext> | undefined;
 
     /**
      * Custom empty filter message template.
      * @group Templates
      */
-    @ContentChild('emptyfilter', { descendants: false }) emptyFilterTemplate: TemplateRef<any> | undefined;
+    @ContentChild('emptyfilter', { descendants: false }) emptyFilterTemplate: TemplateRef<void> | undefined;
 
     /**
      * Custom empty message template.
      * @group Templates
      */
-    @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<any> | undefined;
+    @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<void> | undefined;
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<void> | undefined;
 
     /**
      * Custom check icon template.
+     * @param {ListboxCheckIconTemplateContext} context - check icon context.
+     * @see {@link ListboxCheckIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('checkicon', { descendants: false }) checkIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('checkicon', { descendants: false }) checkIconTemplate: TemplateRef<ListboxCheckIconTemplateContext> | undefined;
 
     /**
      * Custom checkmark icon template.
+     * @param {ListboxCheckmarkTemplateContext} context - checkmark context.
+     * @see {@link ListboxCheckmarkTemplateContext}
      * @group Templates
      */
-    @ContentChild('checkmark', { descendants: false }) checkmarkTemplate: TemplateRef<any> | undefined;
+    @ContentChild('checkmark', { descendants: false }) checkmarkTemplate: TemplateRef<ListboxCheckmarkTemplateContext> | undefined;
 
     /**
      * Custom loader template.
+     * @param {ListboxLoaderTemplateContext} context - loader context.
+     * @see {@link ListboxLoaderTemplateContext}
      * @group Templates
      */
-    @ContentChild('loader', { descendants: false }) loaderTemplate: TemplateRef<any> | undefined;
+    @ContentChild('loader', { descendants: false }) loaderTemplate: TemplateRef<ListboxLoaderTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<ListboxItemTemplateContext> | undefined;
 
-    _groupTemplate: TemplateRef<any> | undefined;
+    _groupTemplate: TemplateRef<ListboxGroupTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<ListboxHeaderTemplateContext> | undefined;
 
-    _filterTemplate: TemplateRef<any> | undefined;
+    _filterTemplate: TemplateRef<ListboxFilterTemplateContext> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<ListboxFooterTemplateContext> | undefined;
 
-    _emptyFilterTemplate: TemplateRef<any> | undefined;
+    _emptyFilterTemplate: TemplateRef<void> | undefined;
 
-    _emptyTemplate: TemplateRef<any> | undefined;
+    _emptyTemplate: TemplateRef<void> | undefined;
 
-    _filterIconTemplate: TemplateRef<any> | undefined;
+    _filterIconTemplate: TemplateRef<void> | undefined;
 
-    _checkIconTemplate: TemplateRef<any> | undefined;
+    _checkIconTemplate: TemplateRef<ListboxCheckIconTemplateContext> | undefined;
 
-    _checkmarkTemplate: TemplateRef<any> | undefined;
+    _checkmarkTemplate: TemplateRef<ListboxCheckmarkTemplateContext> | undefined;
 
-    _loaderTemplate: TemplateRef<any> | undefined;
+    _loaderTemplate: TemplateRef<ListboxLoaderTemplateContext> | undefined;
 
     public _filterValue = signal<string | null | undefined>(null);
 
@@ -1132,7 +1168,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
         const relatedTarget = event.relatedTarget;
 
         if (relatedTarget === this.listViewChild?.nativeElement) {
-            const firstFocusableEl = <any>getFirstFocusableElement(this.el?.nativeElement, ':not(.p-hidden-focusable)');
+            const firstFocusableEl = <any>getFirstFocusableElement(this.el?.nativeElement, ':not([data-p-hidden-focusable="true"])');
 
             focus(firstFocusableEl);
             this.firstHiddenFocusableElement?.nativeElement && (this.firstHiddenFocusableElement.nativeElement.tabIndex = undefined);
@@ -1665,10 +1701,12 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     onDragEntered() {
         this.isDragging.set(true);
+        this.el.nativeElement.setAttribute('p-listbox-dragging', 'true');
     }
 
     onDragExited() {
         this.isDragging.set(false);
+        this.el.nativeElement.setAttribute('p-listbox-dragging', 'false');
     }
 
     drop(event: CdkDragDrop<string[]>) {
@@ -1679,6 +1717,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
                 const currentOptions = [...this._options()];
                 moveItemInArray(currentOptions, event.previousIndex, event.currentIndex);
                 this._options.set(currentOptions);
+                this.changeFocusedOptionIndex(event, event.currentIndex);
 
                 // Update model value if needed for selection preservation
                 if (this.modelValue()) {
@@ -1693,6 +1732,13 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
             // Always emit the event for custom handling
             this.onDrop.emit(event);
         }
+    }
+
+    get containerDataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            disabled: this.$disabled()
+        });
     }
 
     /**

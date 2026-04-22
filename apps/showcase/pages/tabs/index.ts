@@ -1,15 +1,15 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/tabs/accessibilitydoc';
-import { BasicDoc } from '@/doc/tabs/basicdoc';
-import { ControlledDoc } from '@/doc/tabs/controlleddoc';
-import { TemplateDoc } from '@/doc/tabs/customtemplatedoc';
-import { DisabledDoc } from '@/doc/tabs/disableddoc';
-import { DynamicDoc } from '@/doc/tabs/dynamicdoc';
-import { ImportDoc } from '@/doc/tabs/importdoc';
-import { LazyDoc } from '@/doc/tabs/lazydoc';
+import { AccessibilityDoc } from '@/doc/tabs/accessibility-doc';
+import { BasicDoc } from '@/doc/tabs/basic-doc';
+import { ControlledDoc } from '@/doc/tabs/controlled-doc';
+import { TemplateDoc } from '@/doc/tabs/customtemplate-doc';
+import { DisabledDoc } from '@/doc/tabs/disabled-doc';
+import { DynamicDoc } from '@/doc/tabs/dynamic-doc';
+import { ImportDoc } from '@/doc/tabs/import-doc';
+import { LazyDoc } from '@/doc/tabs/lazy-doc';
 import { PTComponent } from '@/doc/tabs/pt/PTComponent';
-import { ScrollableDoc } from '@/doc/tabs/scrollabledoc';
-import { TabmenuDoc } from '@/doc/tabs/tabmenudoc';
+import { ScrollableDoc } from '@/doc/tabs/scrollable-doc';
+import { TabmenuDoc } from '@/doc/tabs/tabmenu-doc';
 import { Component } from '@angular/core';
 
 @Component({

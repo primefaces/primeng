@@ -1,6 +1,7 @@
-import type { ButtonPassThrough } from 'primeng/types/button';
+import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ScrollTop } from 'primeng/scrolltop';
+import type { ButtonPassThrough } from 'primeng/types/button';
 
 /**
  * Custom pass-through(pt) options.
@@ -23,6 +24,10 @@ export interface ScrollTopPassThroughOptions<I = unknown> {
      * @see {@link ButtonPassThrough}
      */
     pcButton?: ButtonPassThrough;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -32,3 +37,26 @@ export interface ScrollTopPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type ScrollTopPassThrough<I = unknown> = PassThrough<I, ScrollTopPassThroughOptions<I>>;
+
+/**
+ * Custom icon template context.
+ * @group Interface
+ */
+export interface ScrollTopIconTemplateContext {
+    /**
+     * Style class of the icon.
+     */
+    styleClass: string;
+}
+
+/**
+ * Defines valid templates in ScrollTop.
+ * @group Templates
+ */
+export interface ScrollTopTemplates {
+    /**
+     * Custom icon template.
+     * @param {ScrollTopIconTemplateContext} context - icon context.
+     */
+    icon(context: ScrollTopIconTemplateContext): TemplateRef<ScrollTopIconTemplateContext>;
+}

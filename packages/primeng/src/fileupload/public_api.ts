@@ -1,3 +1,3 @@
-export * from 'primeng/types/panel';
+export * from 'primeng/types/fileupload';
 export * from './fileupload';
 export * from './style/fileuploadstyle';

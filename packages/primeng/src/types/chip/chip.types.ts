@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Chip } from 'primeng/chip';
 
 /**
  * Custom pass-through(pt) options.
@@ -50,13 +49,13 @@ export type ChipPassThrough<I = unknown> = PassThrough<I, ChipPassThroughOptions
  */
 export interface ChipTemplates {
     /**
-     * Custom template of content.
+     * Custom content template.
      */
-    content(): TemplateRef<any>;
+    content(): TemplateRef<void>;
     /**
-     * Custom template of remove icon.
+     * Custom remove icon template.
      */
-    removeicon(): TemplateRef<any>;
+    removeicon(): TemplateRef<void>;
 }
 
 export interface ChipProps {

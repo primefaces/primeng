@@ -18,16 +18,17 @@ const AVATAR_INSTANCE = new InjectionToken<Avatar>('AVATAR_INSTANCE');
     imports: [CommonModule, SharedModule, Bind],
     template: `
         <ng-content></ng-content>
-        <span [pBind]="ptm('label')" [class]="cx('label')" *ngIf="label; else iconTemplate">{{ label }}</span>
-        <ng-template #iconTemplate><span [pBind]="ptm('icon')" [class]="icon" [ngClass]="cx('icon')" *ngIf="icon; else imageTemplate"></span></ng-template>
-        <ng-template #imageTemplate><img [pBind]="ptm('image')" [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" /></ng-template>
+        <span [pBind]="ptm('label')" [class]="cx('label')" *ngIf="label; else iconTemplate" [attr.data-p]="dataP">{{ label }}</span>
+        <ng-template #iconTemplate><span [pBind]="ptm('icon')" [class]="icon" [ngClass]="cx('icon')" *ngIf="icon; else imageTemplate" [attr.data-p]="dataP"></span></ng-template>
+        <ng-template #imageTemplate><img [pBind]="ptm('image')" [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" [attr.data-p]="dataP" /></ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.aria-label]': 'ariaLabel',
-        '[attr.aria-labelledby]': 'ariaLabelledBy'
+        '[attr.aria-labelledby]': 'ariaLabelledBy',
+        '[attr.data-p]': 'dataP'
     },
     providers: [AvatarStyle, { provide: AVATAR_INSTANCE, useExisting: Avatar }, { provide: PARENT_INSTANCE, useExisting: Avatar }],
     hostDirectives: [Bind]
@@ -92,6 +93,13 @@ export class Avatar extends BaseComponent<AvatarPassThrough> {
 
     imageError(event: Event) {
         this.onImageError.emit(event);
+    }
+
+    get dataP() {
+        return this.cn({
+            [this.shape as string]: this.shape,
+            [this.size as string]: this.size
+        });
     }
 }
 

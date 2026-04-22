@@ -1,13 +1,14 @@
-import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, numberAttribute, OnDestroy, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, inject, InjectionToken, input, Input, NgModule, numberAttribute, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { getWindowScrollTop } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
 import { ChevronUpIcon } from 'primeng/icons';
-import { ScrollTopPassThrough } from 'primeng/types/scrolltop';
+import { MotionDirective } from 'primeng/motion';
+import { ScrollTopIconTemplateContext, ScrollTopPassThrough } from 'primeng/types/scrolltop';
 import { ZIndexUtils } from 'primeng/utils';
 import { ScrollTopStyle } from './style/scrolltopstyle';
 
@@ -20,54 +21,38 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
 @Component({
     selector: 'p-scrollTop, p-scrolltop, p-scroll-top',
     standalone: true,
-    imports: [CommonModule, ChevronUpIcon, Button, SharedModule],
+    imports: [CommonModule, ChevronUpIcon, Button, SharedModule, MotionDirective],
     template: `
-        <p-button
-            *ngIf="visible"
-            [@animation]="{
-                value: 'open',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-            }"
-            (@animation.start)="onEnter($event)"
-            (@animation.done)="onLeave($event)"
-            [attr.aria-label]="buttonAriaLabel"
-            (click)="onClick()"
-            [pt]="ptm('pcButton')"
-            [styleClass]="cn(cx('root'), styleClass)"
-            [ngStyle]="style"
-            type="button"
-            [buttonProps]="buttonProps"
-        >
-            <ng-template #icon>
-                <ng-container *ngIf="!iconTemplate && !_iconTemplate">
-                    <span *ngIf="_icon" [class]="cn(cx('icon'), _icon)"></span>
-                    <svg data-p-icon="chevron-up" *ngIf="!_icon" [class]="cx('icon')" />
-                </ng-container>
-                <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { styleClass: cx('icon') }"></ng-template>
-            </ng-template>
-        </p-button>
+        @if (render()) {
+            <p-button
+                [pMotion]="visible()"
+                [pMotionAppear]="true"
+                [pMotionName]="'p-scrolltop'"
+                [pMotionOptions]="computedMotionOptions()"
+                (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                (pMotionOnBeforeLeave)="onBeforeLeave()"
+                (pMotionOnAfterLeave)="onAfterLeave()"
+                [attr.aria-label]="buttonAriaLabel"
+                (click)="onClick()"
+                [pt]="ptm('pcButton')"
+                [styleClass]="cn(cx('root'), styleClass)"
+                [ngStyle]="style"
+                type="button"
+                [buttonProps]="buttonProps"
+                [unstyled]="unstyled()"
+            >
+                <ng-template #icon>
+                    <ng-container *ngIf="!iconTemplate && !_iconTemplate">
+                        <span *ngIf="_icon" [class]="cn(cx('icon'), _icon)"></span>
+                        <svg data-p-icon="chevron-up" *ngIf="!_icon" [class]="cx('icon')" />
+                    </ng-container>
+                    <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { styleClass: cx('icon') }"></ng-template>
+                </ng-template>
+            </p-button>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    animations: [
-        trigger('animation', [
-            state(
-                'void',
-                style({
-                    opacity: 0
-                })
-            ),
-            state(
-                'open',
-                style({
-                    opacity: 1
-                })
-            ),
-            transition('void => open', animate('{{showTransitionParams}}')),
-            transition('open => void', animate('{{hideTransitionParams}}'))
-        ])
-    ],
-
     providers: [ScrollTopStyle, { provide: SCROLLTOP_INSTANCE, useExisting: ScrollTop }, { provide: PARENT_INSTANCE, useExisting: ScrollTop }],
     hostDirectives: [Bind]
 })
@@ -115,13 +100,27 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
     /**
      * A string value used to determine the display transition options.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.15s';
     /**
      * A string value used to determine the hiding transition options.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.15s';
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Establishes a string value that labels the scroll-top button.
      * @group Props
@@ -131,16 +130,18 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() buttonProps: ButtonProps = { rounded: true, severity: 'success' };
+    @Input() buttonProps: ButtonProps = { rounded: true };
     /**
-     * Template of the icon.
+     * Custom icon template.
+     * @param {ScrollTopIconTemplateContext} context - icon context.
+     * @see {@link ScrollTopIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<ScrollTopIconTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<ScrollTopIconTemplateContext> | undefined;
 
     _icon: string | undefined;
 
@@ -152,7 +153,9 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
 
     parentScrollListener: VoidFunction | null | undefined;
 
-    visible: boolean = false;
+    visible = signal<boolean>(false);
+
+    render = signal<boolean>(false);
 
     overlay: any;
 
@@ -181,31 +184,30 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
         });
     }
 
-    onEnter(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'open':
-                this.overlay = event.element;
-                ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
-                break;
-            case 'void':
-                this.overlay = null;
-                break;
-        }
+    onBeforeEnter(event: MotionEvent) {
+        this.overlay = event.element as HTMLElement;
+        this.overlay.style.position = this.target === 'parent' ? 'sticky' : 'fixed';
+        ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
     }
 
-    onLeave(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                ZIndexUtils.clear(event.element);
-                break;
-        }
+    onBeforeLeave() {
+        ZIndexUtils.clear(this.overlay);
+        this.overlay = null;
+    }
+
+    onAfterLeave() {
+        this.render.set(false);
     }
 
     checkVisibility(scrollY: number) {
-        if (scrollY > this.threshold) this.visible = true;
-        else this.visible = false;
-
-        this.cd.markForCheck();
+        if (scrollY > this.threshold) {
+            this.visible.set(true);
+            if (!this.render()) {
+                this.render.set(true);
+            }
+        } else {
+            this.visible.set(false);
+        }
     }
 
     bindParentScrollListener() {

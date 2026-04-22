@@ -30,7 +30,8 @@ const TAG_INSTANCE = new InjectionToken<Tag>('TAG_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [TagStyle, { provide: TAG_INSTANCE, useExisting: Tag }, { provide: PARENT_INSTANCE, useExisting: Tag }],
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -70,11 +71,15 @@ export class Tag extends BaseComponent<TagPassThrough> implements AfterContentIn
      */
     @Input({ transform: booleanAttribute }) rounded: boolean | undefined;
 
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any>;
+    /**
+     * Custom icon template.
+     * @group Templates
+     */
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<void> | undefined;
 
     _componentStyle = inject(TagStyle);
 
@@ -85,6 +90,13 @@ export class Tag extends BaseComponent<TagPassThrough> implements AfterContentIn
                     this._iconTemplate = item.template;
                     break;
             }
+        });
+    }
+
+    get dataP() {
+        return this.cn({
+            rounded: this.rounded,
+            [this.severity as string]: this.severity
         });
     }
 }

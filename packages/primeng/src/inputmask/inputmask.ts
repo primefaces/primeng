@@ -30,6 +30,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
@@ -46,7 +47,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { getUserAgent, isClient, mergeProps } from '@primeuix/utils';
+import { getUserAgent, isClient } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -78,7 +79,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            [pt]="rootPTOptions()"
+            [pt]="ptm('pcInputText', ptmParams())"
+            [unstyled]="unstyled()"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name()"
@@ -132,22 +134,10 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+        this.bindDirectiveInstance.setAttrs(this.ptms(['root', 'host']));
     }
 
-    rootPTOptions() {
-        return {
-            root: mergeProps(this.ptm('pcInputText', this.ptmParams())['root'], this.ptm('root', this.ptmParams()))
-        };
-    }
-
-    ptmParams() {
-        return {
-            context: {
-                filled: this.$variant() === 'filled'
-            }
-        };
-    }
+    ptmParams = computed(() => ({ context: { filled: this.$variant() === 'filled' } }));
 
     /**
      * HTML5 input type.
@@ -293,10 +283,10 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
      */
     @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
     /**
-     * Template of the clear icon.
+     * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<void>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -339,11 +329,10 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             let ua = navigator.userAgent;
             this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
         }
-
         this.initMask();
     }
 
-    _clearIconTemplate: TemplateRef<any> | undefined;
+    _clearIconTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
         this.templates.forEach((item) => {
@@ -835,6 +824,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             this.checkVal();
             this.focusText = this.inputViewChild.nativeElement.value;
         }
+        this.cd.markForCheck();
     }
 }
 

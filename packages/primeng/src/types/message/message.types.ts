@@ -1,5 +1,6 @@
+import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Message } from 'primeng/message';
 
 /**
  * Custom pass-through(pt) options.
@@ -22,6 +23,10 @@ export interface MessagePassThroughOptions<I = unknown> {
      */
     content?: PassThroughOption<HTMLDivElement, I>;
     /**
+     * Used to pass attributes to the content's DOM element.
+     */
+    contentWrapper?: PassThroughOption<HTMLDivElement, I>;
+    /**
      * Used to pass attributes to the icon's DOM element.
      */
     icon?: PassThroughOption<HTMLElement, I>;
@@ -37,6 +42,10 @@ export interface MessagePassThroughOptions<I = unknown> {
      * Used to pass attributes to the close icon's DOM element.
      */
     closeIcon?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -46,3 +55,34 @@ export interface MessagePassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type MessagePassThrough<I = unknown> = PassThrough<I, MessagePassThroughOptions<I>>;
+
+/**
+ * Custom container template context.
+ * @group Interface
+ */
+export interface MessageContainerTemplateContext {
+    /**
+     * Callback to close the message.
+     */
+    closeCallback: (event: Event) => void;
+}
+
+/**
+ * Defines valid templates in Message.
+ * @group Templates
+ */
+export interface MessageTemplates {
+    /**
+     * Custom container template.
+     * @param {Object} context - container context.
+     */
+    container(context: MessageContainerTemplateContext): TemplateRef<MessageContainerTemplateContext>;
+    /**
+     * Custom icon template.
+     */
+    icon(): TemplateRef<void>;
+    /**
+     * Custom close icon template.
+     */
+    closeicon(): TemplateRef<void>;
+}

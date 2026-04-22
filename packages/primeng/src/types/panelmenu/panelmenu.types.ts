@@ -1,5 +1,6 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { PanelMenu } from 'primeng/panelmenu';
+import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
+import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Custom pass-through(pt) options.
@@ -46,6 +47,10 @@ export interface PanelMenuPassThroughOptions<I = unknown> {
      */
     contentContainer?: PassThroughOption<HTMLDivElement, I>;
     /**
+     * Used to pass attributes to the toggleable content's DOM element.
+     */
+    contentWrapper?: PassThroughOption<HTMLDivElement, I>;
+    /**
      * Used to pass attributes to the menu content's DOM element.
      */
     content?: PassThroughOption<HTMLDivElement, I>;
@@ -81,6 +86,10 @@ export interface PanelMenuPassThroughOptions<I = unknown> {
      * Used to pass attributes to the separator's DOM element.
      */
     separator?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -90,3 +99,34 @@ export interface PanelMenuPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type PanelMenuPassThrough<I = unknown> = PassThrough<I, PanelMenuPassThroughOptions<I>>;
+
+/**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface PanelMenuItemTemplateContext {
+    /**
+     * Item instance.
+     */
+    $implicit: MenuItem;
+}
+
+/**
+ * Defines valid templates in PanelMenu.
+ * @group Templates
+ */
+export interface PanelMenuTemplates {
+    /**
+     * Custom item template.
+     * @param {PanelMenuItemTemplateContext} context - item context.
+     */
+    item(context: PanelMenuItemTemplateContext): TemplateRef<PanelMenuItemTemplateContext>;
+    /**
+     * Custom template of submenuicon.
+     */
+    submenuicon(): TemplateRef<void>;
+    /**
+     * Custom template of headericon.
+     */
+    headericon(): TemplateRef<void>;
+}

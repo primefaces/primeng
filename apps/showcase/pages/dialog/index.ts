@@ -1,14 +1,14 @@
-import { AccessibilityDoc } from '@/doc/dialog/accessibilitydoc';
-import { BasicDoc } from '@/doc/dialog/basicdoc';
-import { HeadlessDoc } from '@/doc/dialog/headlessdoc';
-import { ImportDoc } from '@/doc/dialog/importdoc';
-import { LongContentDoc } from '@/doc/dialog/longcontentdoc';
-import { MaximizableDoc } from '@/doc/dialog/maximizabledoc';
-import { PositionDoc } from '@/doc/dialog/positiondoc';
+import { AccessibilityDoc } from '@/doc/dialog/accessibility-doc';
+import { BasicDoc } from '@/doc/dialog/basic-doc';
+import { HeadlessDoc } from '@/doc/dialog/headless-doc';
+import { ImportDoc } from '@/doc/dialog/import-doc';
+import { LongContentDoc } from '@/doc/dialog/longcontent-doc';
+import { MaximizableDoc } from '@/doc/dialog/maximizable-doc';
+import { PositionDoc } from '@/doc/dialog/position-doc';
 import { PTComponent } from '@/doc/dialog/pt/PTComponent';
-import { ResponsiveDoc } from '@/doc/dialog/responsivedoc';
-import { TemplateDoc } from '@/doc/dialog/templatedoc';
-import { WithoutModalDoc } from '@/doc/dialog/withoutmodaldoc';
+import { ResponsiveDoc } from '@/doc/dialog/responsive-doc';
+import { TemplateDoc } from '@/doc/dialog/template-doc';
+import { WithoutModalDoc } from '@/doc/dialog/withoutmodal-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

@@ -55,20 +55,20 @@ export class ImageCompare extends BaseComponent<ImageComparePassThrough> {
     @Input() ariaLabel: string | undefined;
 
     /**
-     * Template for the left side.
+     * Custom left side template.
      * @group Templates
      */
-    @ContentChild('left', { descendants: false }) leftTemplate: TemplateRef<any>;
+    @ContentChild('left', { descendants: false }) leftTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for the right side.
+     * Custom right side template.
      * @group Templates
      */
-    @ContentChild('right', { descendants: false }) rightTemplate: TemplateRef<any>;
+    @ContentChild('right', { descendants: false }) rightTemplate: TemplateRef<void> | undefined;
 
-    _leftTemplate: TemplateRef<any> | undefined;
+    _leftTemplate: TemplateRef<void> | undefined;
 
-    _rightTemplate: TemplateRef<any> | undefined;
+    _rightTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

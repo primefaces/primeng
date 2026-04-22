@@ -181,13 +181,13 @@ export class Tab extends BaseComponent<TabPassThrough> {
     findNextTab(tabElement, selfCheck = false) {
         const element = selfCheck ? tabElement : tabElement.nextElementSibling;
 
-        return element ? (getAttribute(element, 'data-p-disabled') || getAttribute(element, 'data-pc-section') === 'inkbar' ? this.findNextTab(element) : element) : null;
+        return element ? (getAttribute(element, 'data-p-disabled') || getAttribute(element, 'data-pc-section') === 'activebar' ? this.findNextTab(element) : element) : null;
     }
 
     findPrevTab(tabElement, selfCheck = false) {
         const element = selfCheck ? tabElement : tabElement.previousElementSibling;
 
-        return element ? (getAttribute(element, 'data-p-disabled') || getAttribute(element, 'data-pc-section') === 'inkbar' ? this.findPrevTab(element) : element) : null;
+        return element ? (getAttribute(element, 'data-p-disabled') || getAttribute(element, 'data-pc-section') === 'activebar' ? this.findPrevTab(element) : element) : null;
     }
 
     findFirstTab() {

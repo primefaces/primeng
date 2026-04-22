@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Skeleton } from 'primeng/skeleton';
 
 /**
  * Custom pass-through(pt) options.

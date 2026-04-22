@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { InputIcon } from 'primeng/inputicon';
 
 /**
  * Custom pass-through(pt) options.

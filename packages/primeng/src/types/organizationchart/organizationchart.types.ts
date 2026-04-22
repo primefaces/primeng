@@ -1,7 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TreeNode } from 'primeng/api';
-import type { OrganizationChart } from 'primeng/organizationchart';
 
 /**
  * Custom pass-through(pt) options.

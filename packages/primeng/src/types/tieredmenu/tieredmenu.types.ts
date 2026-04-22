@@ -1,5 +1,6 @@
+import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { TieredMenu } from 'primeng/tieredmenu';
 
 /**
  * Custom pass-through(pt) options.
@@ -49,6 +50,10 @@ export interface TieredMenuPassThroughOptions<I = unknown> {
      * Used to pass attributes to the separator's DOM element.
      */
     separator?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -58,3 +63,34 @@ export interface TieredMenuPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type TieredMenuPassThrough<I = unknown> = PassThrough<I, TieredMenuPassThroughOptions<I>>;
+
+/**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface TieredMenuItemTemplateContext {
+    /**
+     * Item instance.
+     */
+    $implicit: any;
+    /**
+     * Whether the item has a submenu.
+     */
+    hasSubmenu: boolean;
+}
+
+/**
+ * Defines valid templates in TieredMenu.
+ * @group Templates
+ */
+export interface TieredMenuTemplates {
+    /**
+     * Custom item template.
+     * @param {TieredMenuItemTemplateContext} context - item context.
+     */
+    item(context: TieredMenuItemTemplateContext): TemplateRef<TieredMenuItemTemplateContext>;
+    /**
+     * Custom submenu icon template.
+     */
+    submenuicon(): TemplateRef<void>;
+}

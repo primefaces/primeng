@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { UIChart } from 'primeng/chart';
 
 /**
  * Custom pass-through(pt) options.

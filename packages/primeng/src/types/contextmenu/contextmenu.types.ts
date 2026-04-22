@@ -1,5 +1,6 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ContextMenu } from 'primeng/contextmenu';
+import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
+import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Custom pass-through(pt) options.
@@ -49,6 +50,10 @@ export interface ContextMenuPassThroughOptions<I = unknown> {
      * Used to pass attributes to the submenu icon's DOM element.
      */
     submenuIcon?: PassThroughOption<SVGElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -58,3 +63,42 @@ export interface ContextMenuPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type ContextMenuPassThrough<I = unknown> = PassThrough<I, ContextMenuPassThroughOptions<I>>;
+
+/**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface ContextMenuItemTemplateContext {
+    /**
+     * Menu item instance.
+     */
+    $implicit: MenuItem;
+}
+
+/**
+ * Custom submenu icon template context.
+ * @group Interface
+ */
+export interface ContextMenuSubmenuIconTemplateContext {
+    /**
+     * Style class of the submenu icon.
+     */
+    class: string;
+}
+
+/**
+ * Defines valid templates in ContextMenu.
+ * @group Templates
+ */
+export interface ContextMenuTemplates {
+    /**
+     * Custom item template.
+     * @param {Object} context - item context.
+     */
+    item(context: ContextMenuItemTemplateContext): TemplateRef<ContextMenuItemTemplateContext>;
+    /**
+     * Custom submenu icon template.
+     * @param {Object} context - icon context.
+     */
+    submenuicon(context: ContextMenuSubmenuIconTemplateContext): TemplateRef<ContextMenuSubmenuIconTemplateContext>;
+}
