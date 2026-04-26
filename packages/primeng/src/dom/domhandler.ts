@@ -209,7 +209,15 @@ export class DomHandler {
     }
 
     static getParents(element: any, parents: any = []): any {
-        return element['parentNode'] === null ? parents : this.getParents(element.parentNode, parents.concat([element.parentNode]));
+        if (!element) {
+            return parents;
+        }
+
+        if (element['parentNode']) {
+            return this.getParents(element.parentNode, parents.concat([element.parentNode]));
+        }
+
+        return element.host ? this.getParents(element.host, parents.concat([element.host])) : parents;
     }
 
     static getScrollableParents(element: any) {
@@ -219,6 +227,10 @@ export class DomHandler {
             let parents = this.getParents(element);
             const overflowRegex = /(auto|scroll)/;
             const overflowCheck = (node: any) => {
+                if (!this.isElement(node)) {
+                    return false;
+                }
+
                 let styleDeclaration = window['getComputedStyle'](node, null);
                 return overflowRegex.test(styleDeclaration.getPropertyValue('overflow')) || overflowRegex.test(styleDeclaration.getPropertyValue('overflowX')) || overflowRegex.test(styleDeclaration.getPropertyValue('overflowY'));
             };

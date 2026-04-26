@@ -1,4 +1,4 @@
-import { appendChild, removeChild } from './domhandler';
+import { appendChild, DomHandler, removeChild } from './domhandler';
 
 describe('DomHandler append targets', () => {
     let host: HTMLDivElement;
@@ -27,5 +27,15 @@ describe('DomHandler append targets', () => {
         removeChild(shadowRoot, element);
 
         expect(shadowRoot.contains(element)).toBe(false);
+    });
+
+    it('should resolve scrollable parents across a shadow root boundary', () => {
+        host.style.overflow = 'auto';
+        appendChild(shadowRoot, element);
+
+        const scrollableParents = DomHandler.getScrollableParents(element);
+
+        expect(scrollableParents).toContain(host);
+        expect(scrollableParents).not.toContain(shadowRoot);
     });
 });
