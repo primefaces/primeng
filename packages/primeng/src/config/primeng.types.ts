@@ -192,7 +192,7 @@ export interface GlobalPassThrough {
 
 export type PrimeNGConfigType = {
     ripple?: boolean;
-    overlayAppendTo?: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    overlayAppendTo?: HTMLElement | ShadowRoot | ElementRef | TemplateRef<any> | string | null | undefined | any;
     styleContainer?: StyleContainerType;
     /**
      * @deprecated Since v20. Use `inputVariant` instead.

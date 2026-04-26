@@ -21,12 +21,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
-import { addClass, appendChild, removeClass, setAttribute } from '@primeuix/utils';
+import { addClass, removeClass, setAttribute } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
+import { appendChild, blockBodyScroll, removeChild, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
@@ -398,9 +398,9 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     }
 
     enableModality() {
-        const activeDrawers = this.document.querySelectorAll('[data-p-open="true"]');
+        const activeDrawers = this.getModalRoot().querySelectorAll('[data-p-open="true"]');
         const activeDrawersLength = activeDrawers.length;
-        const zIndex = activeDrawersLength == 1 ? String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1) : String(parseInt((activeDrawers[activeDrawersLength - 1] as HTMLElement).style.zIndex) - 1);
+        const zIndex = activeDrawersLength <= 1 ? String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1) : String(parseInt((activeDrawers[activeDrawersLength - 1] as HTMLElement).style.zIndex) - 1);
 
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
@@ -420,7 +420,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
                 });
             }
 
-            this.renderer.appendChild(this.document.body, this.mask);
+            appendChild(this.getModalRoot(), this.mask);
             if (this.blockScroll) {
                 blockBodyScroll();
             }
@@ -447,7 +447,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
         this.unbindMaskClickListener();
 
         if (this.mask) {
-            this.renderer.removeChild(this.document.body, this.mask);
+            removeChild(this.getModalRoot(), this.mask);
         }
 
         if (this.blockScroll) {
@@ -551,6 +551,18 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
             open: this.visible,
             modal: this.modal
         });
+    }
+
+    private getModalRoot(): HTMLElement | ShadowRoot {
+        const appendTo = this.$appendTo();
+
+        if (appendTo && appendTo !== 'self' && appendTo !== 'body') {
+            return appendTo;
+        }
+
+        const rootNode = this.container?.getRootNode?.();
+
+        return rootNode instanceof ShadowRoot ? rootNode : this.document.body;
     }
 }
 

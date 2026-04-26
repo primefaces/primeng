@@ -500,13 +500,13 @@ export class DomHandler {
     }
 
     public static appendChild(element: any, target: any) {
-        if (this.isElement(target)) target.appendChild(element);
+        if (this.isAppendTarget(target)) target.appendChild(element);
         else if (target && target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
         else throw 'Cannot append ' + target + ' to ' + element;
     }
 
     public static removeChild(element: any, target: any) {
-        if (this.isElement(target)) target.removeChild(element);
+        if (this.isAppendTarget(target)) target.removeChild(element);
         else if (target.el && target.el.nativeElement) target.el.nativeElement.removeChild(element);
         else throw 'Cannot remove ' + element + ' from ' + target;
     }
@@ -518,6 +518,10 @@ export class DomHandler {
 
     public static isElement(obj: any) {
         return typeof HTMLElement === 'object' ? obj instanceof HTMLElement : obj && typeof obj === 'object' && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === 'string';
+    }
+
+    public static isAppendTarget(obj: any) {
+        return this.isElement(obj) || (typeof ShadowRoot === 'object' ? obj instanceof ShadowRoot : obj && typeof obj === 'object' && obj !== null && obj.nodeType === 11 && !!obj.host);
     }
 
     public static calculateScrollbarWidth(el?: HTMLElement): number {
@@ -852,6 +856,10 @@ export class DomHandler {
             : false;
     }
 }
+
+export const appendChild = (target: any, element: any) => DomHandler.appendChild(element, target);
+
+export const removeChild = (target: any, element: any) => DomHandler.removeChild(element, target);
 
 import { $dt } from '@primeuix/styled';
 import * as utils from '@primeuix/utils';
