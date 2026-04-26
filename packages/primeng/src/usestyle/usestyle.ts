@@ -1,38 +1,52 @@
 import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
-import { setAttribute, setAttributes } from '@primeuix/utils';
+import { setAttributes } from '@primeuix/utils';
 
 let _id = 0;
+
+export type StyleContainerType = HTMLElement | ShadowRoot | null | undefined;
+
+export interface UseStyleOptions {
+    immediate?: boolean;
+    manual?: boolean;
+    name?: string;
+    id?: string;
+    media?: string;
+    nonce?: string;
+    first?: boolean;
+    props?: Record<string, unknown>;
+    styleContainer?: StyleContainerType;
+}
 
 @Injectable({ providedIn: 'root' })
 export class UseStyle {
     document: Document = inject(DOCUMENT);
 
-    use(css, options: any = {}) {
+    use(css: string | undefined, options: UseStyleOptions = {}) {
         let isLoaded = false;
-        let cssRef = css;
+        let cssRef = css ?? '';
         let styleRef: HTMLStyleElement | null = null;
 
-        const { immediate = true, manual = false, name = `style_${++_id}`, id = undefined, media = undefined, nonce = undefined, first = false, props = {} } = options;
+        const { immediate = true, manual = false, name = `style_${++_id}`, id = undefined, media = undefined, nonce = undefined, first = false, props = {}, styleContainer = undefined } = options;
+        const styleContainerRef = styleContainer || this.document.head;
 
-        if (!this.document) return;
-        styleRef = (this.document.querySelector(`style[data-primeng-style-id="${name}"]`) || (id && this.document.getElementById(id)) || this.document.createElement('style')) as HTMLStyleElement;
+        if (!this.document || !styleContainerRef) return;
+        styleRef = (styleContainerRef.querySelector(`style[data-primeng-style-id="${name}"]`) || (id && styleContainerRef.querySelector(`style[id="${id}"]`)) || this.document.createElement('style')) as HTMLStyleElement;
 
         if (styleRef) {
             if (!styleRef.isConnected) {
-                cssRef = css;
+                cssRef = css ?? '';
 
-                const HEAD = this.document.head;
-
-                setAttribute(styleRef, 'nonce', nonce);
-
-                first && HEAD.firstChild ? HEAD.insertBefore(styleRef, HEAD.firstChild) : HEAD.appendChild(styleRef);
                 setAttributes(styleRef, {
                     type: 'text/css',
+                    id,
                     media,
                     nonce,
+                    ...props,
                     'data-primeng-style-id': name
                 });
+
+                first && styleContainerRef.firstChild ? styleContainerRef.insertBefore(styleRef, styleContainerRef.firstChild) : styleContainerRef.appendChild(styleRef);
             }
 
             if (styleRef.textContent !== cssRef) {
