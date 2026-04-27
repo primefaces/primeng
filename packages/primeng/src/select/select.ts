@@ -338,6 +338,7 @@ export class SelectItem extends BaseComponent {
                             #scroller
                             [items]="visibleOptions()"
                             [style]="{ height: scrollHeight }"
+                            [scrollHeight]="scrollHeight"
                             [itemSize]="virtualScrollItemSize"
                             [autoSize]="true"
                             [lazy]="lazy"

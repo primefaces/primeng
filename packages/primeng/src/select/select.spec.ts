@@ -2703,6 +2703,17 @@ describe('Select ViewChild Properties', () => {
         }
     });
 
+    it('should pass scrollHeight to the virtual scroller', async () => {
+        const virtualSelect = viewChildFixture.debugElement.query(By.css('p-select[placeholder="Virtual scroll select"]')).componentInstance;
+
+        virtualSelect.show();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await viewChildFixture.whenStable();
+        viewChildFixture.detectChanges();
+
+        expect(virtualSelect.scroller?.scrollHeight).toBe(virtualSelect.scrollHeight);
+    });
+
     it('should render hidden focusable elements ViewChild', async () => {
         const selectInstance = viewChildFixture.debugElement.query(By.css('p-select[placeholder="ViewChild test select"]')).componentInstance;
 
