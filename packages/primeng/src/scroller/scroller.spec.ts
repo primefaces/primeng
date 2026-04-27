@@ -1114,6 +1114,42 @@ describe('Scroller', () => {
             expect(scroller.onScrollChange).toHaveBeenCalled();
         });
 
+        it('should not show delayed loader when lazy page remains unchanged at the end', async () => {
+            component.items = Array.from({ length: 10000 }, (_, index) => index);
+            component.itemSize = 32;
+            component.scrollHeight = '200px';
+            component.lazy = true;
+            component.step = 200;
+            component.delay = 250;
+            component.showLoader = true;
+            component.appendOnly = false;
+
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            scroller._items = component.items;
+            scroller._itemSize = 32;
+            scroller._lazy = true;
+            scroller._step = 200;
+            scroller._delay = 250;
+            scroller._showLoader = true;
+            scroller._appendOnly = false;
+            scroller.numItemsInViewport = 7;
+            scroller.d_numToleratedItems = 4;
+            scroller.first = 9795;
+            scroller.last = 9820;
+            scroller.lastScrollPos = 9795 * 32;
+            scroller.lazyLoadState = { first: 9800, last: 10000 };
+
+            const mockEvent = { target: { scrollTop: 10000 * 32 - 200, scrollLeft: 0 } } as unknown as Event;
+
+            scroller.onContainerScroll(mockEvent);
+            expect(scroller.d_loading).toBeFalse();
+
+            clearTimeout(scroller.scrollTimeout);
+        });
+
         it('should handle events through options', async () => {
             const mockOnScroll = jasmine.createSpy('onScroll');
             component.options = { onScroll: mockOnScroll };
