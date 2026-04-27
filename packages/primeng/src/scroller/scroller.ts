@@ -542,7 +542,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
     }
 
     get loadedItems() {
-        if (this._items && !this.d_loading) {
+        if (this._items && (!this.d_loading || (this._lazy && !this._loaderDisabled))) {
             if (this.both) {
                 return this._items.slice(this._appendOnly ? 0 : this.first.rows, this.last.rows).map((item) => {
                     if (this._columns) {
@@ -732,6 +732,20 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     isPageChanged(first?: any) {
         return this._step ? this.page !== this.getPageByFirst(first ?? this.first) : true;
+    }
+
+    getLazyLoadState(first: any = this.first, last: any = this.last) {
+        const page = this.getPageByFirst(first);
+        const itemsLength = (this._items || []).length;
+
+        return {
+            first: this._step ? Math.min(page * this._step, Math.max(0, itemsLength - this._step)) : first,
+            last: Math.min(this._step ? (page + 1) * this._step : last, itemsLength)
+        };
+    }
+
+    isLazyLoadStateChanged(lazyLoadState: any) {
+        return this.lazyLoadState.first !== lazyLoadState.first || this.lazyLoadState.last !== lazyLoadState.last;
     }
 
     scrollTo(options: ScrollToOptions) {
@@ -1093,15 +1107,13 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
             this.handleEvents('onScrollIndexChange', newState);
 
-            if (this._lazy && this.isPageChanged(first)) {
-                const lazyLoadState = {
-                    first: this._step ? Math.min(this.getPageByFirst(first) * this._step, (<any[]>this._items).length - this._step) : first,
-                    last: Math.min(this._step ? (this.getPageByFirst(first) + 1) * this._step : last, (<any[]>this._items).length)
-                };
-                const isLazyStateChanged = this.lazyLoadState.first !== lazyLoadState.first || this.lazyLoadState.last !== lazyLoadState.last;
+            if (this._lazy) {
+                const lazyLoadState = this.getLazyLoadState(first, last);
 
-                isLazyStateChanged && this.handleEvents('onLazyLoad', lazyLoadState);
-                this.lazyLoadState = lazyLoadState;
+                if (this.isLazyLoadStateChanged(lazyLoadState)) {
+                    this.handleEvents('onLazyLoad', lazyLoadState);
+                    this.lazyLoadState = lazyLoadState;
+                }
             }
         }
     }
@@ -1110,13 +1122,15 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
         this.handleEvents('onScroll', { originalEvent: event });
 
         if (this._delay) {
+            const isLoadingControlled = this._loading !== undefined;
+
             if (this.scrollTimeout) {
                 clearTimeout(this.scrollTimeout);
             }
 
-            if (!this.d_loading && this._showLoader) {
-                const { isRangeChanged } = this.onScrollPositionChange(event);
-                const changed = isRangeChanged || (this._step ? this.isPageChanged() : false);
+            if (!this.d_loading && this._showLoader && !isLoadingControlled) {
+                const { first, last, isRangeChanged } = this.onScrollPositionChange(event);
+                const changed = this._lazy ? this.isLazyLoadStateChanged(this.getLazyLoadState(first, last)) : isRangeChanged || (this._step ? this.isPageChanged(first) : false);
 
                 if (changed) {
                     this.d_loading = true;
@@ -1128,7 +1142,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
             this.scrollTimeout = setTimeout(() => {
                 this.onScrollChange(event);
 
-                if (this.d_loading && this._showLoader && (!this._lazy || this._loading === undefined)) {
+                if (this.d_loading && this._showLoader && !isLoadingControlled) {
                     this.d_loading = false;
                     this.page = this.getPageByFirst();
                 }
