@@ -542,7 +542,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
     }
 
     get loadedItems() {
-        if (this._items && !this.d_loading) {
+        if (this._items && (!this.d_loading || (this._lazy && !this._loaderDisabled))) {
             if (this.both) {
                 return this._items.slice(this._appendOnly ? 0 : this.first.rows, this.last.rows).map((item) => {
                     if (this._columns) {
@@ -739,7 +739,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
         const itemsLength = (this._items || []).length;
 
         return {
-            first: this._step ? Math.min(page * this._step, itemsLength - this._step) : first,
+            first: this._step ? Math.min(page * this._step, Math.max(0, itemsLength - this._step)) : first,
             last: Math.min(this._step ? (page + 1) * this._step : last, itemsLength)
         };
     }
@@ -1122,11 +1122,13 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
         this.handleEvents('onScroll', { originalEvent: event });
 
         if (this._delay) {
+            const isLoadingControlled = this._loading !== undefined;
+
             if (this.scrollTimeout) {
                 clearTimeout(this.scrollTimeout);
             }
 
-            if (!this.d_loading && this._showLoader) {
+            if (!this.d_loading && this._showLoader && !isLoadingControlled) {
                 const { first, last, isRangeChanged } = this.onScrollPositionChange(event);
                 const changed = this._lazy ? this.isLazyLoadStateChanged(this.getLazyLoadState(first, last)) : isRangeChanged || (this._step ? this.isPageChanged(first) : false);
 
@@ -1140,7 +1142,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
             this.scrollTimeout = setTimeout(() => {
                 this.onScrollChange(event);
 
-                if (this.d_loading && this._showLoader && (!this._lazy || this._loading === undefined)) {
+                if (this.d_loading && this._showLoader && !isLoadingControlled) {
                     this.d_loading = false;
                     this.page = this.getPageByFirst();
                 }

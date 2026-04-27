@@ -662,7 +662,7 @@ describe('Scroller', () => {
             expect(scroller.loadedItems).toEqual(testItems.slice(0, 3));
         });
 
-        it('should return empty array when items are null or loading', async () => {
+        it('should return empty array when items are null or non-lazy loading', async () => {
             component.items = null as any;
 
             fixture.changeDetectorRef.markForCheck();
@@ -676,6 +676,26 @@ describe('Scroller', () => {
             await fixture.whenStable();
             fixture.detectChanges();
             expect(scroller.loadedItems).toEqual([]);
+        });
+
+        it('should keep loadedItems while lazy loading with built-in loader', async () => {
+            const testItems = [{ label: 'Item 1' }, { label: 'Item 2' }, { label: 'Item 3' }, { label: 'Item 4' }];
+            component.items = testItems;
+            component.lazy = true;
+            component.showLoader = true;
+
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            scroller.first = 1;
+            scroller.last = 3;
+            scroller.d_loading = true;
+            scroller._lazy = true;
+            scroller._showLoader = true;
+            scroller._loaderDisabled = false;
+
+            expect(scroller.loadedItems).toEqual(testItems.slice(1, 3));
         });
 
         it('should compute loadedRows correctly', async () => {
@@ -1141,6 +1161,43 @@ describe('Scroller', () => {
             scroller.last = 9820;
             scroller.lastScrollPos = 9795 * 32;
             scroller.lazyLoadState = { first: 9800, last: 10000 };
+
+            const mockEvent = { target: { scrollTop: 10000 * 32 - 200, scrollLeft: 0 } } as unknown as Event;
+
+            scroller.onContainerScroll(mockEvent);
+            expect(scroller.d_loading).toBeFalse();
+
+            clearTimeout(scroller.scrollTimeout);
+        });
+
+        it('should not set internal delayed loader when loading is controlled', async () => {
+            component.items = Array.from({ length: 10000 }, (_, index) => index);
+            component.itemSize = 32;
+            component.scrollHeight = '200px';
+            component.lazy = true;
+            component.step = 200;
+            component.delay = 250;
+            component.showLoader = true;
+            component.loading = false;
+
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            scroller._items = component.items;
+            scroller._itemSize = 32;
+            scroller._lazy = true;
+            scroller._step = 200;
+            scroller._delay = 250;
+            scroller._showLoader = true;
+            scroller._loading = false;
+            scroller.d_loading = false;
+            scroller.numItemsInViewport = 7;
+            scroller.d_numToleratedItems = 4;
+            scroller.first = 9600;
+            scroller.last = 9620;
+            scroller.lastScrollPos = 9600 * 32;
+            scroller.lazyLoadState = { first: 9600, last: 9800 };
 
             const mockEvent = { target: { scrollTop: 10000 * 32 - 200, scrollLeft: 0 } } as unknown as Event;
 

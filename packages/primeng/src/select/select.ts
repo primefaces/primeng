@@ -331,14 +331,14 @@ export class SelectItem extends BaseComponent {
                             </p-iconfield>
                         </ng-template>
                     </div>
-                    <div [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [pBind]="ptm('listContainer')">
+                    <div [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : normalizedScrollHeight || 'auto'" [pBind]="ptm('listContainer')">
                         <p-scroller
                             *ngIf="virtualScroll"
                             hostName="select"
                             #scroller
                             [items]="visibleOptions()"
-                            [style]="{ height: scrollHeight }"
-                            [scrollHeight]="scrollHeight"
+                            [style]="{ height: normalizedScrollHeight }"
+                            [scrollHeight]="normalizedScrollHeight"
                             [itemSize]="virtualScrollItemSize"
                             [autoSize]="true"
                             [lazy]="lazy"
@@ -445,6 +445,11 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * @group Props
      */
     @Input() scrollHeight: string = '200px';
+
+    get normalizedScrollHeight() {
+        return typeof this.scrollHeight === 'number' ? `${this.scrollHeight}px` : this.scrollHeight;
+    }
+
     /**
      * When specified, displays an input field to filter the items on keyup.
      * @group Props
