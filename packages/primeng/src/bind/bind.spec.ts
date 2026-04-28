@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Bind } from './bind';
@@ -152,14 +152,15 @@ describe('Bind', () => {
                 TestBindMixedComponent,
                 TestBindDynamicComponent,
                 TestSetAttrsComponent
-            ]
+            ],
+            providers: [provideZonelessChangeDetection()]
         });
     });
 
     describe('Directive Initialization', () => {
-        it('should create the directive', () => {
+        it('should create the directive', async () => {
             const fixture = TestBed.createComponent(TestBasicBindComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
 
@@ -168,9 +169,9 @@ describe('Bind', () => {
     });
 
     describe('Attribute Binding', () => {
-        it('should bind attributes to host element', () => {
+        it('should bind attributes to host element', async () => {
             const fixture = TestBed.createComponent(TestBindAttributesComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -179,7 +180,7 @@ describe('Bind', () => {
             expect(element.getAttribute('tabindex')).toBe('0');
         });
 
-        it('should handle null and undefined attribute values', () => {
+        it('should handle null and undefined attribute values', async () => {
             const fixture = TestBed.createComponent(TestBasicBindComponent);
             const component = fixture.componentInstance;
 
@@ -188,7 +189,8 @@ describe('Bind', () => {
                 'data-test': null,
                 'data-value': undefined
             };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -199,9 +201,9 @@ describe('Bind', () => {
     });
 
     describe('Class Binding', () => {
-        it('should handle string classes', () => {
+        it('should handle string classes', async () => {
             const fixture = TestBed.createComponent(TestBindClassesComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -209,9 +211,9 @@ describe('Bind', () => {
             expect(element.className).toContain('another-class');
         });
 
-        it('should handle array classes', () => {
+        it('should handle array classes', async () => {
             const fixture = TestBed.createComponent(TestBindClassesArrayComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -219,9 +221,9 @@ describe('Bind', () => {
             expect(element.className).toContain('another-class');
         });
 
-        it('should handle object classes', () => {
+        it('should handle object classes', async () => {
             const fixture = TestBed.createComponent(TestBindClassesObjectComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -230,9 +232,9 @@ describe('Bind', () => {
             expect(element.className).not.toContain('another-class');
         });
 
-        it('should merge with existing classes', () => {
+        it('should merge with existing classes', async () => {
             const fixture = TestBed.createComponent(TestBindMixedComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -242,9 +244,9 @@ describe('Bind', () => {
     });
 
     describe('Style Binding', () => {
-        it('should bind styles from attrs', () => {
+        it('should bind styles from attrs', async () => {
             const fixture = TestBed.createComponent(TestBindStylesComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -252,9 +254,9 @@ describe('Bind', () => {
             expect(element.style.fontSize).toBe('16px');
         });
 
-        it('should merge with existing styles', () => {
+        it('should merge with existing styles', async () => {
             const fixture = TestBed.createComponent(TestBindMixedComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -265,10 +267,10 @@ describe('Bind', () => {
     });
 
     describe('Event Listener Binding', () => {
-        it('should bind event listeners', () => {
+        it('should bind event listeners', async () => {
             const fixture = TestBed.createComponent(TestBindListenersComponent);
             const component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -307,10 +309,10 @@ describe('Bind', () => {
     });
 
     describe('Mixed Content', () => {
-        it('should handle mixed attributes, classes, styles, and listeners', () => {
+        it('should handle mixed attributes, classes, styles, and listeners', async () => {
             const fixture = TestBed.createComponent(TestBindMixedComponent);
             const component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -332,10 +334,10 @@ describe('Bind', () => {
     });
 
     describe('Dynamic Updates', () => {
-        it('should update attributes when attrs changes', () => {
+        it('should update attributes when attrs changes', async () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -345,7 +347,8 @@ describe('Bind', () => {
 
             // Update attrs
             component.updateAttrs();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Updated state
             expect(element.getAttribute('id')).toBe('updated-id');
@@ -353,7 +356,7 @@ describe('Bind', () => {
             expect(element.getAttribute('data-updated')).toBe('true');
         });
 
-        it('should remove attributes when set to null or undefined', () => {
+        it('should remove attributes when set to null or undefined', async () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
 
@@ -361,7 +364,8 @@ describe('Bind', () => {
                 id: 'test-id',
                 'data-test': 'test-value'
             };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -372,7 +376,8 @@ describe('Bind', () => {
                 id: 'test-id',
                 'data-test': null
             };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.hasAttribute('data-test')).toBe(false);
             expect(element.getAttribute('id')).toBe('test-id');
@@ -380,9 +385,9 @@ describe('Bind', () => {
     });
 
     describe('setAttrs Method', () => {
-        it('should update attrs via setAttrs method', () => {
+        it('should update attrs via setAttrs method', async () => {
             const fixture = TestBed.createComponent(TestSetAttrsComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -392,14 +397,15 @@ describe('Bind', () => {
                 class: 'set-class',
                 'data-test': 'test-value'
             });
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.getAttribute('id')).toBe('set-id');
             expect(element.className).toContain('set-class');
             expect(element.getAttribute('data-test')).toBe('test-value');
         });
 
-        it('should prioritize setAttrs over pBind input', () => {
+        it('should prioritize setAttrs over pBind input', async () => {
             const fixture = TestBed.createComponent(TestBasicBindComponent);
             const component = fixture.componentInstance;
 
@@ -407,7 +413,8 @@ describe('Bind', () => {
                 id: 'input-id',
                 class: 'input-class'
             };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -416,7 +423,8 @@ describe('Bind', () => {
                 id: 'set-id',
                 class: 'set-class'
             });
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.getAttribute('id')).toBe('set-id');
             expect(element.className).toContain('set-class');
@@ -424,40 +432,43 @@ describe('Bind', () => {
     });
 
     describe('Edge Cases', () => {
-        it('should handle empty or undefined attrs', () => {
+        it('should handle empty or undefined attrs', async () => {
             const fixture = TestBed.createComponent(TestBasicBindComponent);
             const component = fixture.componentInstance;
 
             component.attrs = undefined;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
             expect(element).toBeTruthy();
         });
 
-        it('should handle attrs without class property', () => {
+        it('should handle attrs without class property', async () => {
             const fixture = TestBed.createComponent(TestBasicBindComponent);
             const component = fixture.componentInstance;
 
             component.attrs = {
                 id: 'test-id'
             };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
             expect(element.getAttribute('id')).toBe('test-id');
         });
 
-        it('should handle attrs without style property', () => {
+        it('should handle attrs without style property', async () => {
             const fixture = TestBed.createComponent(TestBasicBindComponent);
             const component = fixture.componentInstance;
 
             component.attrs = {
                 id: 'test-id'
             };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -466,22 +477,25 @@ describe('Bind', () => {
     });
 
     describe('Duplicate Prevention', () => {
-        it('should not duplicate classes in DOM on multiple updates', () => {
+        it('should not duplicate classes in DOM on multiple updates', async () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
             // Update multiple times with same classes
             component.attrs = { class: 'test-class another-class' };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.attrs = { class: 'test-class another-class' };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.attrs = { class: 'test-class another-class' };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Check that each class appears only once
             const classes = element.className.split(' ').filter((c: string) => c);
@@ -492,10 +506,10 @@ describe('Bind', () => {
             expect(classes.filter((c: string) => c === 'another-class').length).toBe(1);
         });
 
-        it('should not accumulate event listeners on multiple updates', () => {
+        it('should not accumulate event listeners on multiple updates', async () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -504,13 +518,16 @@ describe('Bind', () => {
 
             // Update multiple times with same event listener
             component.attrs = { onclick: clickHandler };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.attrs = { onclick: clickHandler };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.attrs = { onclick: clickHandler };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Trigger click event
             element.dispatchEvent(new Event('click'));
@@ -519,11 +536,11 @@ describe('Bind', () => {
             expect(clickCount).toBe(1);
         });
 
-        it('should handle rapid toggling without duplication', () => {
+        it('should handle rapid toggling without duplication', async () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
             const isActive = signal(false);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
@@ -533,7 +550,8 @@ describe('Bind', () => {
                 component.attrs = {
                     class: isActive() ? 'active' : 'inactive'
                 };
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
             }
 
             const classes = element.className.split(' ').filter((c: string) => c);

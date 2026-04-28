@@ -1,5 +1,5 @@
-import { BasicDoc } from '@/doc/autofocus/basicdoc';
-import { ImportDoc } from '@/doc/autofocus/importdoc';
+import { BasicDoc } from '@/doc/autofocus/basic-doc';
+import { ImportDoc } from '@/doc/autofocus/import-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 

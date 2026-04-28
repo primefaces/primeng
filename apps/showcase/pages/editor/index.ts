@@ -1,12 +1,12 @@
-import { AccessibilityDoc } from '@/doc/editor/accessibilitydoc';
-import { BasicDoc } from '@/doc/editor/basicdoc';
-import { CustomToolbarDoc } from '@/doc/editor/customtoolbardoc';
-import { ImportDoc } from '@/doc/editor/importdoc';
+import { AccessibilityDoc } from '@/doc/editor/accessibility-doc';
+import { BasicDoc } from '@/doc/editor/basic-doc';
+import { CustomToolbarDoc } from '@/doc/editor/customtoolbar-doc';
+import { ImportDoc } from '@/doc/editor/import-doc';
 import { PTComponent } from '@/doc/editor/pt/PTComponent';
-import { QuillDoc } from '@/doc/editor/quilldoc';
-import { ReactiveFormsDoc } from '@/doc/editor/reactiveformsdoc';
-import { ReadOnlyDoc } from '@/doc/editor/readonlydoc';
-import { TemplateDrivenFormsDoc } from '@/doc/editor/templatedrivenformsdoc';
+import { QuillDoc } from '@/doc/editor/quill-doc';
+import { ReactiveFormsDoc } from '@/doc/editor/reactiveforms-doc';
+import { ReadOnlyDoc } from '@/doc/editor/readonly-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/editor/templatedrivenforms-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

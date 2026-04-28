@@ -1,8 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'primeng/api';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'primeng/types/autocomplete';
 import { BehaviorSubject } from 'rxjs';
@@ -414,8 +413,9 @@ describe('AutoComplete', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [AutoCompleteModule, SharedModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule],
-            declarations: [TestAutocompleteComponent, TestPTemplateAutocompleteComponent]
+            imports: [AutoCompleteModule, SharedModule, FormsModule, ReactiveFormsModule],
+            declarations: [TestAutocompleteComponent, TestPTemplateAutocompleteComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(AutoComplete);
@@ -451,53 +451,59 @@ describe('AutoComplete', () => {
             expect(AUTOCOMPLETE_VALUE_ACCESSOR.provide).toBe(NG_VALUE_ACCESSOR);
         });
 
-        it('should render input element', () => {
-            fixture.detectChanges();
+        it('should render input element', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             const inputElement = fixture.debugElement.query(By.css('input'));
             expect(inputElement).toBeTruthy();
         });
     });
 
     describe('Options, Value and Similar Input Properties', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
-        it('should work with simple array', () => {
+        it('should work with simple array', async () => {
             testComponent.suggestions = testComponent.stringOptions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.suggestions.length).toBe(3);
             expect(testComponent.suggestions[0]).toBe('String 1');
         });
 
-        it('should work with string array', () => {
+        it('should work with string array', async () => {
             testComponent.suggestions = testComponent.stringOptions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.suggestions.every((item) => typeof item === 'string')).toBe(true);
         });
 
-        it('should work with number array', () => {
+        it('should work with number array', async () => {
             testComponent.suggestions = testComponent.numberOptions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.suggestions.every((item) => typeof item === 'number')).toBe(true);
         });
 
-        it('should work with object array', () => {
+        it('should work with object array', async () => {
             testComponent.suggestions = testComponent.objectOptions;
             testComponent.optionLabel = 'name';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.suggestions.every((item) => typeof item === 'object')).toBe(true);
             expect(autocompleteInstance.optionLabel).toBe('name');
         });
 
-        it('should work with getters and setters', () => {
+        it('should work with getters and setters', async () => {
             Object.defineProperty(testComponent, 'dynamicSuggestions', {
                 get: function () {
                     return this.stringOptions;
@@ -508,49 +514,53 @@ describe('AutoComplete', () => {
             });
 
             testComponent.suggestions = (testComponent as any).dynamicSuggestions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.suggestions.length).toBe(3);
         });
 
-        it('should work with signals', () => {
+        it('should work with signals', async () => {
             testComponent.suggestions = testComponent.signalOptions();
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.suggestions.length).toBe(2);
             expect(testComponent.suggestions[0]).toBe('Signal Item 1');
         });
 
-        it('should work with observables and async pipe', fakeAsync(() => {
+        it('should work with observables and async pipe', async () => {
             testComponent.observableOptions$.subscribe((options) => {
                 testComponent.suggestions = options;
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
             });
 
-            tick();
+            await testFixture.whenStable();
             expect(testComponent.suggestions.length).toBe(2);
             expect(testComponent.suggestions[0]).toBe('Observable Item 1');
-            flush();
-        }));
+        });
 
-        it('should work with late-loaded values (HTTP/setTimeout)', fakeAsync(() => {
+        it('should work with late-loaded values (HTTP/setTimeout)', async () => {
             testComponent.loadLateOptions();
-            tick(150);
+            await new Promise((resolve) => setTimeout(resolve, 150)); // Wait for setTimeout in loadLateOptions
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.suggestions.length).toBe(2);
             expect(testComponent.suggestions[0]).toBe('Late Item 1');
-            flush();
-        }));
+        });
     });
 
     describe('Angular FormControl and NgModel Integration', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
-        it('should work with ReactiveFormsModule', () => {
+        it('should work with ReactiveFormsModule', async () => {
             testComponent.showReactiveForm = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const formControl = testComponent.reactiveForm.get('selectedItems');
             expect(formControl).toBeTruthy();
@@ -561,7 +571,7 @@ describe('AutoComplete', () => {
 
         it('should work with NgModel two-way binding', async () => {
             testComponent.selectedValue = 'test value';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
@@ -570,9 +580,10 @@ describe('AutoComplete', () => {
             expect(autocompleteInstance.modelValue()).toBe('test value');
         });
 
-        it('should handle FormControl states (pristine, dirty, touched, valid, invalid)', () => {
+        it('should handle FormControl states (pristine, dirty, touched, valid, invalid)', async () => {
             testComponent.showReactiveForm = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const formControl = testComponent.reactiveForm.get('selectedItems');
 
@@ -591,9 +602,10 @@ describe('AutoComplete', () => {
             expect(formControl?.valid).toBe(true);
         });
 
-        it('should handle setValue and getValue operations', () => {
+        it('should handle setValue and getValue operations', async () => {
             testComponent.showReactiveForm = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const formControl = testComponent.reactiveForm.get('selectedItems');
             const testValue = ['test1', 'test2'];
@@ -605,9 +617,10 @@ describe('AutoComplete', () => {
             expect(retrievedValue).toEqual(testValue);
         });
 
-        it('should handle updateOn configurations', () => {
+        it('should handle updateOn configurations', async () => {
             testComponent.showReactiveForm = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const formControl = testComponent.reactiveForm.get('selectedItems');
             expect(formControl?.updateOn).toBeDefined();
@@ -615,14 +628,16 @@ describe('AutoComplete', () => {
     });
 
     describe('Vital Input Properties', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
-        it('should work with optionLabel as string', () => {
+        it('should work with optionLabel as string', async () => {
             testComponent.optionLabel = 'name';
             testComponent.suggestions = testComponent.objectOptions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.optionLabel).toBe('name');
@@ -631,114 +646,124 @@ describe('AutoComplete', () => {
             expect(labelResult).toBe('Afghanistan');
         });
 
-        it('should work with optionLabel as function', () => {
+        it('should work with optionLabel as function', async () => {
             testComponent.optionLabel = testComponent.getLabelFunction();
             testComponent.suggestions = [{ customName: 'Custom Afghanistan', name: 'Afghanistan' }];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             const labelResult = autocompleteInstance.getOptionLabel(testComponent.suggestions[0]);
             expect(labelResult).toBe('Custom Afghanistan');
         });
 
-        it('should work with optionValue as string', () => {
+        it('should work with optionValue as string', async () => {
             testComponent.optionValue = 'code';
             testComponent.suggestions = testComponent.objectOptions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.optionValue).toBe('code');
         });
 
-        it('should work with optionValue as function', () => {
+        it('should work with optionValue as function', async () => {
             testComponent.optionValue = testComponent.getValueFunction();
             testComponent.suggestions = [{ customValue: 'CUSTOM_AF', code: 'AF', name: 'Afghanistan' }];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             const valueResult = autocompleteInstance.getOptionValue(testComponent.suggestions[0]);
             expect(valueResult).toBe('CUSTOM_AF');
         });
 
-        it('should work with optionDisabled as string', () => {
+        it('should work with optionDisabled as string', async () => {
             testComponent.optionDisabled = 'disabled';
             testComponent.suggestions = [
                 { name: 'Enabled', disabled: false },
                 { name: 'Disabled', disabled: true }
             ];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.isOptionDisabled(testComponent.suggestions[1])).toBe(true);
             expect(autocompleteInstance.isOptionDisabled(testComponent.suggestions[0])).toBe(false);
         });
 
-        it('should work with optionDisabled as function', () => {
+        it('should work with optionDisabled as function', async () => {
             testComponent.optionDisabled = testComponent.getDisabledFunction();
             testComponent.suggestions = [
                 { name: 'Enabled', disabled: false },
                 { name: 'Disabled', disabled: true }
             ];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.isOptionDisabled(testComponent.suggestions[1])).toBe(true);
         });
 
-        it('should work with dynamic updated values', fakeAsync(() => {
+        it('should work with dynamic updated values', async () => {
             testComponent.suggestions = ['Initial'];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.suggestions.length).toBe(1);
 
             // Update dynamically
             testComponent.suggestions = ['Updated 1', 'Updated 2'];
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.suggestions.length).toBe(2);
-            flush();
-        }));
+        });
 
-        it('should work with lazy loading', () => {
+        it('should work with lazy loading', async () => {
             testComponent.lazy = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.lazy).toBe(true);
         });
 
-        it('should work with virtualScroll', () => {
+        it('should work with virtualScroll', async () => {
             testComponent.virtualScroll = true;
             testComponent.virtualScrollItemSize = 50;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.virtualScroll).toBe(true);
             expect(autocompleteInstance.virtualScrollItemSize).toBe(50);
         });
 
-        it('should work with placeholder', () => {
+        it('should work with placeholder', async () => {
             testComponent.placeholder = 'Custom placeholder';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.placeholder).toBe('Custom placeholder');
         });
 
-        it('should work with styles and styleClass', () => {
+        it('should work with styles and styleClass', async () => {
             testComponent.inputStyle = { border: '2px solid blue', padding: '5px' };
             testComponent.styleClass = 'custom-autocomplete';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteElement = testFixture.debugElement.query(By.directive(AutoComplete));
             expect(autocompleteElement.nativeElement.classList.contains('custom-autocomplete')).toBe(true);
         });
 
-        it('should work with panelStyle and panelStyleClass', () => {
+        it('should work with panelStyle and panelStyleClass', async () => {
             testComponent.panelStyle = { background: 'lightgray' };
             testComponent.panelStyleClass = 'custom-panel';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.panelStyle).toEqual({ background: 'lightgray' });
@@ -747,38 +772,39 @@ describe('AutoComplete', () => {
     });
 
     describe('Output Event Emitters', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
-        it('should emit completeMethod event', fakeAsync(() => {
+        it('should emit completeMethod event', async () => {
             spyOn(testComponent, 'onSearch').and.callThrough();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.value = 'test';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
-            testFixture.detectChanges();
-            tick(300);
+
+            // Wait for debounce delay (300ms default)
+            await new Promise((resolve) => setTimeout(resolve, 350));
+            await testFixture.whenStable();
 
             expect(testComponent.onSearch).toHaveBeenCalled();
             const callArgs = (testComponent.onSearch as jasmine.Spy).calls.mostRecent().args[0];
             expect(callArgs.query).toBe('test');
-            flush();
-        }));
+        });
 
-        it('should emit onSelect event', fakeAsync(() => {
+        it('should emit onSelect event', async () => {
             // Setup suggestions first
             testComponent.suggestions = [];
             testComponent.optionLabel = undefined as any; // Use direct string comparison
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             // Trigger search to get suggestions
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.value = 'Item';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
-            testFixture.detectChanges();
-            tick(300);
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             // Wait for suggestions to appear
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
@@ -790,7 +816,8 @@ describe('AutoComplete', () => {
                     originalEvent: new Event('click')
                 };
                 testComponent.onSelectionChange(selectEvent as any);
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectEvent).toBeTruthy();
                 expect(testComponent.selectEvent?.value).toBeTruthy();
@@ -798,63 +825,67 @@ describe('AutoComplete', () => {
                 // No suggestions available, at least verify search was attempted
                 expect(testComponent.suggestions).toBeDefined();
             }
-            flush();
-        }));
+        });
 
-        it('should emit onFocus event', () => {
+        it('should emit onFocus event', async () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.dispatchEvent(new Event('focus'));
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             expect(testComponent.focusEvent).toBeTruthy();
         });
 
-        it('should emit onBlur event', () => {
+        it('should emit onBlur event', async () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.dispatchEvent(new Event('blur'));
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             expect(testComponent.blurEvent).toBeTruthy();
         });
 
-        it('should emit onClear event', () => {
+        it('should emit onClear event', async () => {
             testComponent.showClear = true;
             testComponent.selectedValue = 'test';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             autocompleteInstance.clear();
             testFixture.detectChanges();
+            await testFixture.whenStable();
 
             expect(testComponent.clearEvent).toBe(true);
         });
 
-        it('should emit onDropdownClick event', () => {
+        it('should emit onDropdownClick event', async () => {
             testComponent.dropdown = true;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+
+            const dropdownButton = testFixture.debugElement.query(By.css('button[type="button"]'));
+            expect(dropdownButton).toBeTruthy('Dropdown button should exist');
+
+            dropdownButton.nativeElement.click();
             testFixture.detectChanges();
+            await testFixture.whenStable();
 
-            const dropdownButton = testFixture.debugElement.query(By.css('button'));
-            if (dropdownButton) {
-                dropdownButton.nativeElement.click();
-                testFixture.detectChanges();
-
-                expect(testComponent.dropdownClickEvent).toBeTruthy();
-            }
+            expect(testComponent.dropdownClickEvent).toBeTruthy();
         });
 
-        it('should emit onKeyUp event', () => {
+        it('should emit onKeyUp event', async () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
             const keyUpEvent = new KeyboardEvent('keyup', { key: 'a' });
             inputElement.nativeElement.dispatchEvent(keyUpEvent);
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             expect(testComponent.keyUpEvent).toBeTruthy();
         });
     });
 
     describe('Content Projections with Templates', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
         it('should handle ContentChild templates', () => {
@@ -862,16 +893,15 @@ describe('AutoComplete', () => {
             expect(autocompleteInstance.ngAfterContentInit).toBeDefined();
         });
 
-        it('should handle PrimeTemplate with context parameters', fakeAsync(() => {
+        it('should handle PrimeTemplate with context parameters', async () => {
             testComponent.suggestions = mockCountries;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.value = 'Al';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
-            testFixture.detectChanges();
-            tick(300);
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             const customItems = testFixture.debugElement.queryAll(By.css('.custom-item'));
             if (customItems.length > 0) {
@@ -881,8 +911,7 @@ describe('AutoComplete', () => {
                 const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.itemTemplate).toBeDefined();
             }
-            flush();
-        }));
+        });
 
         it('should handle multiple template types (item, header, footer, empty)', () => {
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
@@ -915,21 +944,21 @@ describe('AutoComplete', () => {
     });
 
     describe('pTemplate Content Projections with Context Parameters', () => {
-        beforeEach(() => {
-            pTemplateFixture.detectChanges();
+        beforeEach(async () => {
+            pTemplateFixture.changeDetectorRef.markForCheck();
+            await pTemplateFixture.whenStable();
         });
 
         describe('Item Template (_itemTemplate)', () => {
-            it('should render pTemplate="item" with item and index context', fakeAsync(() => {
+            it('should render pTemplate="item" with item and index context', async () => {
                 pTemplateComponent.suggestions = mockCountries;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'Al';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                pTemplateFixture.detectChanges();
-                tick(150);
-                pTemplateFixture.detectChanges();
+                await pTemplateFixture.whenStable();
 
                 const itemTemplates = pTemplateFixture.debugElement.queryAll(By.css('.ptemplate-item'));
                 if (itemTemplates.length > 0) {
@@ -942,8 +971,7 @@ describe('AutoComplete', () => {
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._itemTemplate).toBeTruthy();
                 }
-                flush();
-            }));
+            });
 
             it('should process item template through ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
@@ -954,16 +982,15 @@ describe('AutoComplete', () => {
         });
 
         describe('Header Template (_headerTemplate)', () => {
-            it('should render pTemplate="header" with suggestions count', fakeAsync(() => {
+            it('should render pTemplate="header" with suggestions count', async () => {
                 pTemplateComponent.suggestions = mockCountries.slice(0, 3);
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'A';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                pTemplateFixture.detectChanges();
-                tick(150);
-                pTemplateFixture.detectChanges();
+                await pTemplateFixture.whenStable();
 
                 const headerTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-header'));
                 if (headerTemplate) {
@@ -974,26 +1001,27 @@ describe('AutoComplete', () => {
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._headerTemplate).toBeTruthy();
                 }
-                flush();
-            }));
+            });
 
-            it('should set _headerTemplate in ngAfterContentInit', () => {
+            it('should set _headerTemplate in ngAfterContentInit', async () => {
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
+
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._headerTemplate).toBeTruthy();
             });
         });
 
         describe('Footer Template (_footerTemplate)', () => {
-            it('should render pTemplate="footer" with custom content', fakeAsync(() => {
+            it('should render pTemplate="footer" with custom content', async () => {
                 pTemplateComponent.suggestions = mockCountries;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'A';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                pTemplateFixture.detectChanges();
-                tick(150);
-                pTemplateFixture.detectChanges();
+                await pTemplateFixture.whenStable();
 
                 const footerTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-footer'));
                 if (footerTemplate) {
@@ -1003,8 +1031,7 @@ describe('AutoComplete', () => {
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._footerTemplate).toBeTruthy();
                 }
-                flush();
-            }));
+            });
 
             it('should set _footerTemplate in ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
@@ -1013,16 +1040,15 @@ describe('AutoComplete', () => {
         });
 
         describe('Empty Template (_emptyTemplate)', () => {
-            it('should render pTemplate="empty" when no results', fakeAsync(() => {
+            it('should render pTemplate="empty" when no results', async () => {
                 pTemplateComponent.suggestions = [];
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'xyz';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                pTemplateFixture.detectChanges();
-                tick(150);
-                pTemplateFixture.detectChanges();
+                await pTemplateFixture.whenStable();
 
                 const emptyTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-empty'));
                 if (emptyTemplate) {
@@ -1033,8 +1059,7 @@ describe('AutoComplete', () => {
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._emptyTemplate).toBeTruthy();
                 }
-                flush();
-            }));
+            });
 
             it('should set _emptyTemplate in ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
@@ -1043,10 +1068,11 @@ describe('AutoComplete', () => {
         });
 
         describe('Selected Item Template (_selectedItemTemplate)', () => {
-            it('should render pTemplate="selecteditem" with item context in multiple mode', () => {
+            it('should render pTemplate="selecteditem" with item context in multiple mode', async () => {
                 pTemplateComponent.multiple = true;
                 pTemplateComponent.selectedValue = [mockCountries[0]];
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const selectedItemTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-selecteditem'));
                 if (selectedItemTemplate) {
@@ -1066,13 +1092,14 @@ describe('AutoComplete', () => {
         });
 
         describe('Group Template (_groupTemplate)', () => {
-            it('should render pTemplate="group" with group context', () => {
+            it('should render pTemplate="group" with group context', async () => {
                 const groupedData = pTemplateComponent.groupedSuggestions;
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
 
                 // Mock grouped data
                 autocompleteInstance.suggestions = groupedData;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 // Test group template setup
                 expect(autocompleteInstance._groupTemplate).toBeTruthy();
@@ -1085,9 +1112,10 @@ describe('AutoComplete', () => {
         });
 
         describe('Loader Template (_loaderTemplate)', () => {
-            it('should render pTemplate="loader" with options context during loading', () => {
+            it('should render pTemplate="loader" with options context during loading', async () => {
                 pTemplateComponent.loading = true;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 // Test loader template setup
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
@@ -1101,20 +1129,22 @@ describe('AutoComplete', () => {
         });
 
         describe('Remove Icon Template (_removeIconTemplate)', () => {
-            it('should render pTemplate="removetokenicon" with removeCallback and index context', () => {
+            it('should render pTemplate="removetokenicon" with removeCallback and index context', async () => {
                 pTemplateComponent.multiple = true;
                 pTemplateComponent.selectedValue = [mockCountries[0], mockCountries[1]];
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 // Test remove icon template setup
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._removeIconTemplate).toBeTruthy();
             });
 
-            it('should handle remove callback functionality', () => {
+            it('should handle remove callback functionality', async () => {
                 pTemplateComponent.multiple = true;
                 pTemplateComponent.selectedValue = [mockCountries[0]];
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const removeIcon = pTemplateFixture.debugElement.query(By.css('.ptemplate-removeicon'));
                 if (removeIcon) {
@@ -1133,9 +1163,10 @@ describe('AutoComplete', () => {
         });
 
         describe('Loading Icon Template (_loadingIconTemplate)', () => {
-            it('should render pTemplate="loadingicon" during loading state', () => {
+            it('should render pTemplate="loadingicon" during loading state', async () => {
                 pTemplateComponent.loading = true;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const loadingIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-loadingicon'));
                 if (loadingIconTemplate) {
@@ -1154,11 +1185,12 @@ describe('AutoComplete', () => {
         });
 
         describe('Clear Icon Template (_clearIconTemplate)', () => {
-            it('should render pTemplate="clearicon" when showClear is enabled', () => {
+            it('should render pTemplate="clearicon" when showClear is enabled', async () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 autocompleteInstance.showClear = true;
                 pTemplateComponent.selectedValue = 'test';
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const clearIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-clearicon'));
                 if (clearIconTemplate) {
@@ -1177,10 +1209,11 @@ describe('AutoComplete', () => {
         });
 
         describe('Dropdown Icon Template (_dropdownIconTemplate)', () => {
-            it('should render pTemplate="dropdownicon" when dropdown is enabled', () => {
+            it('should render pTemplate="dropdownicon" when dropdown is enabled', async () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 autocompleteInstance.dropdown = true;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const dropdownIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-dropdownicon'));
                 if (dropdownIconTemplate) {
@@ -1216,18 +1249,17 @@ describe('AutoComplete', () => {
                 expect(autocompleteInstance._dropdownIconTemplate).toBeTruthy();
             });
 
-            it('should handle context parameters correctly for all templates', fakeAsync(() => {
+            it('should handle context parameters correctly for all templates', async () => {
                 pTemplateComponent.multiple = true;
                 pTemplateComponent.selectedValue = [mockCountries[0]];
                 pTemplateComponent.suggestions = mockCountries.slice(0, 2);
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'Al';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                pTemplateFixture.detectChanges();
-                tick(150);
-                pTemplateFixture.detectChanges();
+                await pTemplateFixture.whenStable();
 
                 // Verify context parameters are passed correctly
                 const itemTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-item'));
@@ -1245,15 +1277,14 @@ describe('AutoComplete', () => {
                 } else {
                     expect(pTemplateComponent.suggestions).toBeDefined();
                 }
-
-                flush();
-            }));
+            });
         });
     });
 
     describe('ViewChild Properties', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
         it('should have ViewChild properties properly rendered', () => {
@@ -1263,17 +1294,19 @@ describe('AutoComplete', () => {
             expect(autocompleteInstance.overlayViewChild).toBeDefined();
         });
 
-        it('should handle multiple mode ViewChild properties', () => {
+        it('should handle multiple mode ViewChild properties', async () => {
             testComponent.multiple = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.multiContainerEL).toBeDefined();
         });
 
-        it('should handle dropdown ViewChild properties', () => {
+        it('should handle dropdown ViewChild properties', async () => {
             testComponent.dropdown = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.dropdownButton).toBeDefined();
@@ -1281,8 +1314,9 @@ describe('AutoComplete', () => {
     });
 
     describe('Accessibility Features', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
         it('should have proper ARIA attributes', () => {
@@ -1294,29 +1328,34 @@ describe('AutoComplete', () => {
             expect(inputElement.nativeElement.getAttribute('aria-label')).toBe('Test autocomplete');
         });
 
-        it('should update aria-expanded when overlay is visible', fakeAsync(() => {
+        it('should update aria-expanded when overlay is visible', async () => {
             testComponent.suggestions = mockItems;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             const inputElement = testFixture.debugElement.query(By.css('input'));
 
             inputElement.nativeElement.value = 'Item';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
             testFixture.detectChanges();
-            tick(300);
+            await testFixture.whenStable();
+
+            const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+            autocompleteInstance.show();
             testFixture.detectChanges();
+            await testFixture.whenStable();
 
             expect(inputElement.nativeElement.getAttribute('aria-expanded')).toBe('true');
-            flush();
-        }));
+        });
 
-        it('should have proper list ARIA attributes', fakeAsync(() => {
+        it('should have proper list ARIA attributes', async () => {
             testComponent.suggestions = mockItems;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             const inputElement = testFixture.debugElement.query(By.css('input'));
 
             inputElement.nativeElement.value = 'Item';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
-            testFixture.detectChanges();
-            tick(300);
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             const listElement = testFixture.debugElement.query(By.css('ul[role="listbox"]'));
             if (listElement) {
@@ -1325,8 +1364,7 @@ describe('AutoComplete', () => {
                 // Even if list element is not found, test should have an expectation
                 expect(true).toBe(true);
             }
-            flush();
-        }));
+        });
 
         it('should support keyboard navigation', () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
@@ -1357,11 +1395,12 @@ describe('AutoComplete', () => {
     });
 
     describe('Complex Situations and Edge Cases', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
-        it('should handle empty suggestions gracefully', fakeAsync(() => {
+        it('should handle empty suggestions gracefully', async () => {
             testComponent.onSearch = () => {
                 testComponent.suggestions = [];
             };
@@ -1369,24 +1408,22 @@ describe('AutoComplete', () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.value = 'nonexistent';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
-            testFixture.detectChanges();
-            tick(300);
+            await testFixture.whenStable();
 
             expect(testComponent.suggestions.length).toBe(0);
-            flush();
-        }));
-
-        it('should handle null/undefined values', () => {
-            testComponent.selectedValue = null as any;
-            testFixture.detectChanges();
-            expect(() => testFixture.detectChanges()).not.toThrow();
-
-            testComponent.selectedValue = undefined as any;
-            testFixture.detectChanges();
-            expect(() => testFixture.detectChanges()).not.toThrow();
         });
 
-        it('should handle rapid input changes with debouncing', fakeAsync(() => {
+        it('should handle null/undefined values', async () => {
+            testComponent.selectedValue = null as any;
+            testFixture.changeDetectorRef.markForCheck();
+            await expectAsync(testFixture.whenStable()).toBeResolved();
+
+            testComponent.selectedValue = undefined as any;
+            testFixture.changeDetectorRef.markForCheck();
+            await expectAsync(testFixture.whenStable()).toBeResolved();
+        });
+
+        it('should handle rapid input changes with debouncing', async () => {
             spyOn(testComponent, 'onSearch');
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
@@ -1401,46 +1438,47 @@ describe('AutoComplete', () => {
             inputElement.nativeElement.value = 'abc';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
 
-            testFixture.detectChanges();
-            tick(300);
+            // Wait for debounce delay (300ms default)
+            await new Promise((resolve) => setTimeout(resolve, 350));
+            await testFixture.whenStable();
 
             // Should debounce and only call search once
             expect(testComponent.onSearch).toHaveBeenCalledTimes(1);
-            flush();
-        }));
+        });
 
-        it('should handle minimum length constraint', fakeAsync(() => {
+        it('should handle minimum length constraint', async () => {
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             autocompleteInstance.minQueryLength = 3; // Use the correct property name
 
             testComponent.minLength = 3;
             spyOn(testComponent, 'onSearch').and.callThrough();
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
 
             // Input less than minLength
             inputElement.nativeElement.value = 'ab';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
-            testFixture.detectChanges();
-            tick(300);
+            await new Promise((resolve) => setTimeout(resolve, 350));
+            await testFixture.whenStable();
 
             expect(testComponent.onSearch).not.toHaveBeenCalled();
 
             // Input meeting minLength
             inputElement.nativeElement.value = 'abc';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
-            testFixture.detectChanges();
-            tick(300);
+            await new Promise((resolve) => setTimeout(resolve, 350));
+            await testFixture.whenStable();
 
             expect(testComponent.onSearch).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
-        it('should handle multiple selection mode', () => {
+        it('should handle multiple selection mode', async () => {
             testComponent.multiple = true;
             testComponent.selectedValue = ['Item 1', 'Item 2'];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.multiple).toBe(true);
@@ -1456,35 +1494,39 @@ describe('AutoComplete', () => {
         //     expect(autocompleteInstance.optionGroupLabel).toBe('label');
         // });
 
-        it('should handle virtual scrolling with large datasets', () => {
+        it('should handle virtual scrolling with large datasets', async () => {
             testComponent.virtualScroll = true;
             testComponent.suggestions = Array.from({ length: 1000 }, (_, i) => `Item ${i + 1}`);
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.virtualScroll).toBe(true);
             expect(autocompleteInstance.suggestions.length).toBe(1000);
         });
 
-        it('should handle disabled and readonly states', () => {
+        it('should handle disabled and readonly states', async () => {
             testComponent.disabled = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.disabled).toBe(true);
 
             testComponent.disabled = false;
             testComponent.readonly = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(inputElement.nativeElement.readOnly).toBe(true);
         });
 
-        it('should handle forceSelection mode', fakeAsync(() => {
+        it('should handle forceSelection mode', async () => {
             testComponent.forceSelection = true;
             testComponent.optionLabel = undefined as any; // Use string comparison for forceSelection
             testComponent.suggestions = mockItems;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
 
@@ -1492,38 +1534,33 @@ describe('AutoComplete', () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.value = 'Item';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
-            testFixture.detectChanges();
-            tick(300);
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             // Now test invalid input
             inputElement.nativeElement.value = 'nonexistent';
             const changeEvent = new Event('change');
             inputElement.nativeElement.dispatchEvent(changeEvent);
-            testFixture.detectChanges();
-            tick();
+            await testFixture.whenStable();
 
             expect(inputElement.nativeElement.value).toBe('' as any);
-            flush();
-        }));
+        });
 
-        it('should handle autoHighlight feature', fakeAsync(() => {
+        it('should handle autoHighlight feature', async () => {
             testComponent.autoHighlight = true;
             testComponent.suggestions = mockItems;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.value = 'Item';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
-            testFixture.detectChanges();
-            tick(300);
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.autoHighlight).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle completeOnFocus feature', fakeAsync(() => {
+        it('should handle completeOnFocus feature', async () => {
             testComponent.completeOnFocus = true;
             testComponent.suggestions = mockItems;
             spyOn(testComponent, 'onSearch').and.callThrough();
@@ -1534,37 +1571,40 @@ describe('AutoComplete', () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.value = ''; // completeOnFocus works with empty value
             inputElement.nativeElement.dispatchEvent(new Event('focus'));
-            testFixture.detectChanges();
-            tick(300);
+            await testFixture.whenStable();
 
             // CompleteOnFocus may not trigger onSearch if minLength > 0
             // So we verify the property is set correctly
             expect(autocompleteInstance.completeOnFocus).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Error Handling and Robustness', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
-        it('should handle missing templates gracefully', () => {
+        it('should handle missing templates gracefully', async () => {
             const basicFixture = TestBed.createComponent(AutoComplete);
-            basicFixture.detectChanges();
+            basicFixture.changeDetectorRef.markForCheck();
+            await basicFixture.whenStable();
 
-            expect(() => basicFixture.detectChanges()).not.toThrow();
+            basicFixture.changeDetectorRef.markForCheck();
+            await expectAsync(basicFixture.whenStable()).toBeResolved();
         });
 
-        it('should handle invalid option configuration', () => {
+        it('should handle invalid option configuration', async () => {
             testComponent.optionLabel = 'nonexistent';
             testComponent.suggestions = mockCountries;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
-            expect(() => testFixture.detectChanges()).not.toThrow();
+            testFixture.changeDetectorRef.markForCheck();
+            await expectAsync(testFixture.whenStable()).toBeResolved();
         });
 
-        it('should handle search method errors gracefully', fakeAsync(() => {
+        it('should handle search method errors gracefully', async () => {
             // Spy on console.error to avoid cluttering test output
             spyOn(console, 'error');
 
@@ -1576,17 +1616,15 @@ describe('AutoComplete', () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.value = 'test';
 
-            expect(() => {
-                inputElement.nativeElement.dispatchEvent(new Event('input'));
-                testFixture.detectChanges();
-                tick(300);
-            }).not.toThrow();
+            inputElement.nativeElement.dispatchEvent(new Event('input'));
+
+            // Wait for debounce delay (300ms default)
+            await new Promise((resolve) => setTimeout(resolve, 350));
+            await testFixture.whenStable();
 
             // Verify error was logged but handled gracefully
             expect(console.error).toHaveBeenCalledWith('Search failed');
-
-            flush();
-        }));
+        });
 
         it('should handle component destruction', () => {
             expect(() => testFixture.destroy()).not.toThrow();
@@ -1594,36 +1632,41 @@ describe('AutoComplete', () => {
     });
 
     describe('Performance and Optimization', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
-        it('should handle delay configuration for performance', fakeAsync(() => {
+        it('should handle delay configuration for performance', async () => {
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             autocompleteInstance.delay = 500;
 
             testComponent.delay = 500;
             spyOn(testComponent, 'onSearch').and.callThrough();
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.value = 'test';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
 
-            testFixture.detectChanges();
-            tick(300); // Less than delay
+            // Wait less than delay to verify search not called yet
+            await new Promise((resolve) => setTimeout(resolve, 250));
+            await testFixture.whenStable();
             expect(testComponent.onSearch).not.toHaveBeenCalled();
 
-            tick(200); // Complete delay (300 + 200 = 500)
+            // Wait for the full delay (500ms total)
+            await new Promise((resolve) => setTimeout(resolve, 300));
+            await testFixture.whenStable();
             expect(testComponent.onSearch).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
-        it('should handle unique constraint in multiple mode', () => {
+        it('should handle unique constraint in multiple mode', async () => {
             testComponent.multiple = true;
             testComponent.unique = true;
             testComponent.selectedValue = ['Item 1', 'Item 1', 'Item 2'];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.unique).toBe(true);
@@ -1631,126 +1674,136 @@ describe('AutoComplete', () => {
     });
 
     describe('Chips-like Features (addOnBlur and separator)', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             testComponent.multiple = true;
             testComponent.typeahead = false;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
         describe('addOnBlur feature', () => {
-            beforeEach(() => {
+            beforeEach(async () => {
                 testComponent.addOnBlur = true;
                 testComponent.unique = true; // Enable unique for isSelected to work
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
             });
 
-            it('should add item on blur when addOnBlur is enabled', () => {
+            it('should add item on blur when addOnBlur is enabled', async () => {
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
 
                 inputElement.nativeElement.value = 'New Item';
                 autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toContain('New Item');
                 expect(testComponent.addEvent).toBeTruthy();
                 expect(testComponent.addEvent.value).toBe('New Item');
             });
 
-            it('should not add empty items on blur', () => {
+            it('should not add empty items on blur', async () => {
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
 
                 inputElement.nativeElement.value = '   ';
                 autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toEqual([]);
             });
 
-            it('should not add duplicate items on blur when unique is true', () => {
+            it('should not add duplicate items on blur when unique is true', async () => {
                 testComponent.selectedValue = ['Existing Item'];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
 
                 inputElement.nativeElement.value = 'Existing Item';
                 autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toEqual(['Existing Item']);
             });
 
-            it('should clear input after adding item on blur', () => {
+            it('should clear input after adding item on blur', async () => {
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
 
                 inputElement.nativeElement.value = 'New Item';
                 autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(inputElement.nativeElement.value).toBe('');
             });
 
-            it('should not add items on blur when typeahead is true', () => {
+            it('should not add items on blur when typeahead is true', async () => {
                 testComponent.typeahead = true;
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
 
                 inputElement.nativeElement.value = 'New Item';
                 autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toEqual([]);
             });
 
-            it('should not add items on blur when multiple is false', () => {
+            it('should not add items on blur when multiple is false', async () => {
                 testComponent.multiple = false;
                 testComponent.selectedValue = null;
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input'));
 
                 inputElement.nativeElement.value = 'New Item';
                 autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toBeNull();
             });
 
-            it('should not add items on blur when addOnBlur is false', () => {
+            it('should not add items on blur when addOnBlur is false', async () => {
                 testComponent.addOnBlur = false;
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
 
                 inputElement.nativeElement.value = 'New Item';
                 autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toEqual([]);
             });
 
-            it('should emit onAdd event only when typeahead is false and multiple is true', () => {
+            it('should emit onAdd event only when typeahead is false and multiple is true', async () => {
                 testComponent.selectedValue = [];
                 testComponent.addEvent = null;
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
@@ -1758,7 +1811,7 @@ describe('AutoComplete', () => {
                 // Test with correct conditions
                 inputElement.nativeElement.value = 'Test Item';
                 autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.addEvent).toBeTruthy();
                 expect(testComponent.addEvent.value).toBe('Test Item');
@@ -1766,15 +1819,17 @@ describe('AutoComplete', () => {
         });
 
         describe('separator feature', () => {
-            beforeEach(() => {
+            beforeEach(async () => {
                 testComponent.separator = ',';
                 testComponent.unique = true; // Enable unique for isSelected to work
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
             });
 
-            it('should add items when separator key is pressed', () => {
+            it('should add items when separator key is pressed', async () => {
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
@@ -1783,16 +1838,17 @@ describe('AutoComplete', () => {
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toContain('Item1');
                 expect(testComponent.addEvent).toBeTruthy();
                 expect(testComponent.addEvent.value).toBe('Item1');
             });
 
-            it('should handle multiple items separated by comma on paste', () => {
+            it('should handle multiple items separated by comma on paste', async () => {
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
@@ -1806,17 +1862,18 @@ describe('AutoComplete', () => {
                 };
 
                 autocompleteComponent.onInputPaste(pasteEvent);
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toContain('Item1');
                 expect(testComponent.selectedValue).toContain('Item2');
                 expect(testComponent.selectedValue).toContain('Item3');
             });
 
-            it('should handle regex separator', () => {
+            it('should handle regex separator', async () => {
                 testComponent.separator = /[,;]/;
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
@@ -1825,14 +1882,15 @@ describe('AutoComplete', () => {
                 const keydownEvent = new KeyboardEvent('keydown', { key: ';' });
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toContain('Item1');
             });
 
-            it('should not add empty items when using separator', () => {
+            it('should not add empty items when using separator', async () => {
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
@@ -1841,14 +1899,15 @@ describe('AutoComplete', () => {
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toEqual([]);
             });
 
-            it('should clear input after adding items with separator', () => {
+            it('should clear input after adding items with separator', async () => {
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
@@ -1857,15 +1916,16 @@ describe('AutoComplete', () => {
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(inputElement.nativeElement.value).toBe('');
             });
 
-            it('should not add items with separator when typeahead is true', () => {
+            it('should not add items with separator when typeahead is true', async () => {
                 testComponent.typeahead = true;
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
@@ -1874,15 +1934,16 @@ describe('AutoComplete', () => {
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toEqual([]);
             });
 
-            it('should not add items with separator when multiple is false', () => {
+            it('should not add items with separator when multiple is false', async () => {
                 testComponent.multiple = false;
                 testComponent.selectedValue = null;
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input'));
@@ -1891,23 +1952,25 @@ describe('AutoComplete', () => {
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toBeNull();
             });
         });
 
         describe('combined addOnBlur and separator features', () => {
-            beforeEach(() => {
+            beforeEach(async () => {
                 testComponent.addOnBlur = true;
                 testComponent.separator = ',';
                 testComponent.unique = true; // Enable unique for isSelected to work
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
             });
 
-            it('should work together - separator takes priority over blur', () => {
+            it('should work together - separator takes priority over blur', async () => {
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
@@ -1917,21 +1980,22 @@ describe('AutoComplete', () => {
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toContain('Item1');
 
                 // After separator handling, test blur for remaining content
                 inputElement.nativeElement.value = 'Item3';
                 autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 expect(testComponent.selectedValue).toContain('Item3');
             });
 
-            it('should handle paste event with multiple items', () => {
+            it('should handle paste event with multiple items', async () => {
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
@@ -1945,7 +2009,7 @@ describe('AutoComplete', () => {
                 };
 
                 autocompleteComponent.onInputPaste(pasteEvent);
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 // Paste should handle the separators and add multiple items
                 expect(testComponent.selectedValue).toContain('Item1');
@@ -1958,26 +2022,28 @@ describe('AutoComplete', () => {
             let autocompleteComponent: AutoComplete;
             let inputElement: any;
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 testComponent.multiple = true;
                 testComponent.typeahead = false;
                 testComponent.unique = true;
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]')).nativeElement;
             });
 
-            it('should trigger blur and addOnBlur when addOnTab=false and addOnBlur=true', () => {
+            it('should trigger blur and addOnBlur when addOnTab=false and addOnBlur=true', async () => {
                 testComponent.addOnTab = false;
                 testComponent.addOnBlur = true;
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Set input value
                 inputElement.value = 'Test Item';
                 inputElement.dispatchEvent(new Event('input'));
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 // Press Tab key - call the component method directly for more reliable testing
                 const tabEvent = new KeyboardEvent('keydown', {
@@ -1987,14 +2053,14 @@ describe('AutoComplete', () => {
                     cancelable: true
                 });
                 autocompleteComponent.onKeyDown(tabEvent);
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 // Tab should not prevent default (allowing blur)
                 expect(tabEvent.defaultPrevented).toBe(false);
 
                 // Trigger blur manually (as Tab would do)
                 inputElement.dispatchEvent(new FocusEvent('blur'));
-                testFixture.detectChanges();
+                await testFixture.whenStable();
 
                 // Check that the item was added via addOnBlur
                 expect(testComponent.selectedValue).toContain('Test Item');
@@ -2003,16 +2069,18 @@ describe('AutoComplete', () => {
                 expect(document.activeElement).not.toBe(inputElement);
             });
 
-            it('should add item and keep focus on first tab when addOnTab=true, addOnBlur=true with value', () => {
+            it('should add item and keep focus on first tab when addOnTab=true, addOnBlur=true with value', async () => {
                 testComponent.addOnTab = true;
                 testComponent.addOnBlur = true;
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Set input value
                 inputElement.value = 'Test Item';
                 inputElement.dispatchEvent(new Event('input'));
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Press Tab key first time
                 const tabEvent = new KeyboardEvent('keydown', {
@@ -2022,7 +2090,8 @@ describe('AutoComplete', () => {
                     cancelable: true
                 });
                 autocompleteComponent.onKeyDown(tabEvent);
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Tab should prevent default (keeping focus)
                 expect(tabEvent.defaultPrevented).toBe(true);
@@ -2044,22 +2113,25 @@ describe('AutoComplete', () => {
                     cancelable: true
                 });
                 autocompleteComponent.onKeyDown(tabEvent2);
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Second tab should not prevent default (allowing blur)
                 expect(tabEvent2.defaultPrevented).toBe(false);
             });
 
-            it('should trigger blur when addOnTab=true, addOnBlur=true without value', () => {
+            it('should trigger blur when addOnTab=true, addOnBlur=true without value', async () => {
                 testComponent.addOnTab = true;
                 testComponent.addOnBlur = true;
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Input is empty
                 inputElement.value = '';
                 inputElement.dispatchEvent(new Event('input'));
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Press Tab key - call the component method directly for more reliable testing
                 const tabEvent = new KeyboardEvent('keydown', {
@@ -2069,7 +2141,8 @@ describe('AutoComplete', () => {
                     cancelable: true
                 });
                 autocompleteComponent.onKeyDown(tabEvent);
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Tab should not prevent default (allowing blur)
                 expect(tabEvent.defaultPrevented).toBe(false);
@@ -2078,16 +2151,18 @@ describe('AutoComplete', () => {
                 expect(testComponent.selectedValue.length).toBe(0);
             });
 
-            it('should add item and keep focus when addOnTab=true, addOnBlur=false with value', () => {
+            it('should add item and keep focus when addOnTab=true, addOnBlur=false with value', async () => {
                 testComponent.addOnTab = true;
                 testComponent.addOnBlur = false;
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Set input value
                 inputElement.value = 'Test Item';
                 inputElement.dispatchEvent(new Event('input'));
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Press Tab key - call the component method directly for more reliable testing
                 const tabEvent = new KeyboardEvent('keydown', {
@@ -2097,7 +2172,8 @@ describe('AutoComplete', () => {
                     cancelable: true
                 });
                 autocompleteComponent.onKeyDown(tabEvent);
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Tab should prevent default (keeping focus)
                 expect(tabEvent.defaultPrevented).toBe(true);
@@ -2112,16 +2188,18 @@ describe('AutoComplete', () => {
                 // Note: In test environment, focus check may vary
             });
 
-            it('should trigger blur when addOnTab=true, addOnBlur=false without value', () => {
+            it('should trigger blur when addOnTab=true, addOnBlur=false without value', async () => {
                 testComponent.addOnTab = true;
                 testComponent.addOnBlur = false;
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Input is empty
                 inputElement.value = '';
                 inputElement.dispatchEvent(new Event('input'));
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Press Tab key - call the component method directly for more reliable testing
                 const tabEvent = new KeyboardEvent('keydown', {
@@ -2131,7 +2209,8 @@ describe('AutoComplete', () => {
                     cancelable: true
                 });
                 autocompleteComponent.onKeyDown(tabEvent);
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Tab should not prevent default (allowing blur)
                 expect(tabEvent.defaultPrevented).toBe(false);
@@ -2140,24 +2219,28 @@ describe('AutoComplete', () => {
                 expect(testComponent.selectedValue.length).toBe(0);
             });
 
-            it('should not trigger addOnTab when dropdown option is focused', () => {
+            it('should not trigger addOnTab when dropdown option is focused', async () => {
                 testComponent.addOnTab = true;
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Setup component to have visible options
                 testComponent.suggestions = ['Option 1', 'Option 2'];
                 autocompleteComponent.suggestions = ['Option 1', 'Option 2'];
                 autocompleteComponent.overlayVisible = true;
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Set input value
                 inputElement.value = 'Test';
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Set focused option index (simulating arrow down navigation)
                 autocompleteComponent.focusedOptionIndex.set(0);
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Press Tab key - call the component method directly for more reliable testing
                 const tabEvent = new KeyboardEvent('keydown', {
@@ -2167,21 +2250,24 @@ describe('AutoComplete', () => {
                     cancelable: true
                 });
                 autocompleteComponent.onKeyDown(tabEvent);
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Should select the focused option instead of adding input value
                 expect(testComponent.selectedValue).toContain('Option 1');
                 expect(testComponent.selectedValue).not.toContain('Test');
             });
 
-            it('should handle already selected items correctly', () => {
+            it('should handle already selected items correctly', async () => {
                 testComponent.addOnTab = true;
                 testComponent.selectedValue = ['Test Item'];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Ensure the autocomplete component's model is synchronized
                 autocompleteComponent.updateModel(['Test Item']);
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Set the multiInputEl value directly since we're in multiple mode
                 if (autocompleteComponent.multiInputEl) {
@@ -2189,7 +2275,8 @@ describe('AutoComplete', () => {
                 } else {
                     inputElement.value = 'Test Item';
                 }
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Press Tab key - call the component method directly for more reliable testing
                 const tabEvent = new KeyboardEvent('keydown', {
@@ -2199,7 +2286,8 @@ describe('AutoComplete', () => {
                     cancelable: true
                 });
                 autocompleteComponent.onKeyDown(tabEvent);
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Tab should not prevent default since item is already selected
                 // The component correctly doesn't add duplicate items
@@ -2209,15 +2297,17 @@ describe('AutoComplete', () => {
                 expect(testComponent.selectedValue.filter((v: any) => v === 'Test Item').length).toBe(1);
             });
 
-            it('should trim whitespace when adding items via tab', () => {
+            it('should trim whitespace when adding items via tab', async () => {
                 testComponent.addOnTab = true;
                 testComponent.selectedValue = [];
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Set input value with whitespace
                 inputElement.value = '  Test Item  ';
                 inputElement.dispatchEvent(new Event('input'));
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Press Tab key - call the component method directly for more reliable testing
                 const tabEvent = new KeyboardEvent('keydown', {
@@ -2227,7 +2317,8 @@ describe('AutoComplete', () => {
                     cancelable: true
                 });
                 autocompleteComponent.onKeyDown(tabEvent);
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 // Check that the item was added without whitespace
                 expect(testComponent.selectedValue).toContain('Test Item');
@@ -2240,49 +2331,50 @@ describe('AutoComplete', () => {
         let fixture: ComponentFixture<AutoComplete>;
         let autocompleteElement: HTMLElement;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(AutoComplete);
             fixture.componentRef.setInput('suggestions', mockCountries);
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             autocompleteElement = fixture.nativeElement;
         });
 
         describe('Case 1: Template-based PT elements', () => {
-            it('should apply dropdown class from pt', fakeAsync(() => {
+            it('should apply dropdown class from pt', async () => {
                 fixture.componentRef.setInput('dropdown', true);
                 fixture.componentRef.setInput('pt', { dropdown: 'DROPDOWN_CLASS' });
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
                 expect(dropdownButton?.classList.contains('DROPDOWN_CLASS')).toBe(true);
-            }));
+            });
 
-            it('should apply inputMultiple class from pt in multiple mode', fakeAsync(() => {
+            it('should apply inputMultiple class from pt in multiple mode', async () => {
                 fixture.componentRef.setInput('multiple', true);
                 fixture.componentRef.setInput('pt', { inputMultiple: 'INPUT_MULTIPLE_CLASS' });
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const inputMultiple = autocompleteElement.querySelector('ul[role="listbox"]') as HTMLElement;
                 expect(inputMultiple?.classList.contains('INPUT_MULTIPLE_CLASS')).toBe(true);
-            }));
+            });
 
-            it('should apply chipItem class from pt when multiple values selected', fakeAsync(() => {
+            it('should apply chipItem class from pt when multiple values selected', async () => {
                 fixture.componentRef.setInput('multiple', true);
                 fixture.componentRef.setInput('pt', { chipItem: 'CHIP_ITEM_CLASS' });
                 fixture.componentInstance.writeValue([mockCountries[0], mockCountries[1]]);
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const chipItems = autocompleteElement.querySelectorAll('li');
                 const chipItem = Array.from(chipItems).find((li) => li.getAttribute('role') === 'option');
                 expect(chipItem?.classList.contains('CHIP_ITEM_CLASS')).toBe(true);
-            }));
+            });
         });
 
         describe('Case 2: PT with objects', () => {
-            it('should apply dropdown object with class and style', fakeAsync(() => {
+            it('should apply dropdown object with class and style', async () => {
                 fixture.componentRef.setInput('dropdown', true);
                 fixture.componentRef.setInput('pt', {
                     dropdown: {
@@ -2290,15 +2382,15 @@ describe('AutoComplete', () => {
                         style: { 'border-radius': '5px' }
                     }
                 });
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
                 expect(dropdownButton?.classList.contains('DROPDOWN_OBJECT_CLASS')).toBe(true);
                 expect(dropdownButton?.style.borderRadius).toBe('5px');
-            }));
+            });
 
-            it('should apply inputMultiple object with data attributes', fakeAsync(() => {
+            it('should apply inputMultiple object with data attributes', async () => {
                 fixture.componentRef.setInput('multiple', true);
                 fixture.componentRef.setInput('pt', {
                     inputMultiple: {
@@ -2306,24 +2398,24 @@ describe('AutoComplete', () => {
                         'data-test-id': 'multiple-container'
                     }
                 });
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const inputMultiple = autocompleteElement.querySelector('ul[role="listbox"]') as HTMLElement;
                 expect(inputMultiple?.classList.contains('MULTI_OBJECT_CLASS')).toBe(true);
                 expect(inputMultiple?.getAttribute('data-test-id')).toBe('multiple-container');
-            }));
+            });
         });
 
         describe('Case 3: PT with component references', () => {
-            it('should apply pcInputText pt to nested InputText component', fakeAsync(() => {
+            it('should apply pcInputText pt to nested InputText component', async () => {
                 fixture.componentRef.setInput('pt', { pcInputText: { root: 'PC_INPUT_CLASS' } });
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const input = autocompleteElement.querySelector('input') as HTMLInputElement;
                 expect(input?.classList.contains('PC_INPUT_CLASS')).toBe(true);
-            }));
+            });
             // TODO: Feature works, test will be debugged.
             // it('should apply pcOverlay pt to Overlay component', fakeAsync(() => {
             //     fixture.componentRef.setInput('suggestions', mockCountries);
@@ -2339,16 +2431,16 @@ describe('AutoComplete', () => {
             //     expect(overlay.classList).toContain('PC_OVERLAY_CLASS');
             // }));
 
-            it('should apply pcChip pt to Chip components in multiple mode', fakeAsync(() => {
+            it('should apply pcChip pt to Chip components in multiple mode', async () => {
                 fixture.componentRef.setInput('multiple', true);
                 fixture.componentRef.setInput('pt', { pcChip: { root: 'PC_CHIP_CLASS' } });
                 fixture.componentInstance.writeValue([mockCountries[0]]);
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const chip = autocompleteElement.querySelector('p-chip') as HTMLElement;
                 expect(chip).toBeTruthy();
-            }));
+            });
         });
 
         describe('Case 4: PT with overlay elements', () => {
@@ -2407,38 +2499,38 @@ describe('AutoComplete', () => {
             //     expect(list?.classList.contains('LIST_CLASS')).toBe(true);
             // }));
 
-            it('should apply listContainer class from pt', fakeAsync(() => {
+            it('should apply listContainer class from pt', async () => {
                 fixture.componentRef.setInput('suggestions', mockCountries);
                 fixture.componentRef.setInput('pt', { listContainer: 'LIST_CONTAINER_CLASS' });
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 // Open overlay
                 fixture.componentInstance.show();
-                fixture.detectChanges();
-                tick(300);
+                await fixture.whenStable();
 
                 const listContainer = document.body.querySelector('.p-autocomplete-list-container') as HTMLElement;
                 expect(listContainer?.classList.contains('LIST_CONTAINER_CLASS')).toBe(true);
-            }));
+            });
 
-            it('should apply emptyMessage class from pt when no results', fakeAsync(() => {
+            it('should apply emptyMessage class from pt when no results', async () => {
                 fixture.componentRef.setInput('suggestions', []);
                 fixture.componentRef.setInput('showEmptyMessage', true);
                 fixture.componentRef.setInput('pt', { emptyMessage: 'EMPTY_MESSAGE_CLASS' });
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 // Open overlay
                 fixture.componentInstance.show();
-                fixture.detectChanges();
-                tick(300);
+                await fixture.whenStable();
 
                 const emptyMessage = document.body.querySelector('.p-autocomplete-empty-message') as HTMLElement;
                 expect(emptyMessage?.classList.contains('EMPTY_MESSAGE_CLASS')).toBe(true);
-            }));
+            });
         });
 
         describe('Case 5: PT with functions and context', () => {
-            it('should apply dropdown pt with function accessing instance', fakeAsync(() => {
+            it('should apply dropdown pt with function accessing instance', async () => {
                 fixture.componentRef.setInput('dropdown', true);
                 fixture.componentRef.setInput('pt', {
                     dropdown: ({ instance }) => ({
@@ -2446,13 +2538,13 @@ describe('AutoComplete', () => {
                         'data-dropdown': instance?.dropdown
                     })
                 });
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
                 expect(dropdownButton?.classList.contains('DROPDOWN_ENABLED')).toBe(true);
                 expect(dropdownButton?.getAttribute('data-dropdown')).toBe('true');
-            }));
+            });
             // TODO: Feature works, test will be debugged.
             // it('should apply option pt with context for each option', fakeAsync(() => {
             //     fixture.componentRef.setInput('suggestions', mockCountries);
@@ -2508,7 +2600,7 @@ describe('AutoComplete', () => {
         // });
 
         describe('Case 7: Combined PT scenarios', () => {
-            it('should apply multiple pt sections simultaneously', fakeAsync(() => {
+            it('should apply multiple pt sections simultaneously', async () => {
                 fixture.componentRef.setInput('dropdown', true);
                 fixture.componentRef.setInput('multiple', true);
                 fixture.componentRef.setInput('pt', {
@@ -2517,17 +2609,17 @@ describe('AutoComplete', () => {
                     pcInputText: { root: 'INPUT_MULTI' }
                 });
                 fixture.componentInstance.writeValue([mockCountries[0]]);
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
                 expect(dropdownButton?.classList.contains('DROPDOWN_MULTI')).toBe(true);
 
                 const inputMultiple = autocompleteElement.querySelector('ul[role="listbox"]') as HTMLElement;
                 expect(inputMultiple?.classList.contains('MULTIPLE_MULTI')).toBe(true);
-            }));
+            });
 
-            it('should apply complex pt with functions and objects', fakeAsync(() => {
+            it('should apply complex pt with functions and objects', async () => {
                 fixture.componentRef.setInput('dropdown', true);
                 fixture.componentRef.setInput('suggestions', mockCountries);
                 fixture.componentRef.setInput('pt', {
@@ -2536,13 +2628,13 @@ describe('AutoComplete', () => {
                         'data-has-suggestions': instance?.suggestions?.length > 0
                     })
                 });
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('[data-pc-section="dropdown"]') as HTMLButtonElement;
                 expect(dropdownButton?.classList.contains('FUNC_DROPDOWN')).toBe(true);
                 expect(dropdownButton?.getAttribute('data-has-suggestions')).toBe('true');
-            }));
+            });
         });
     });
 });

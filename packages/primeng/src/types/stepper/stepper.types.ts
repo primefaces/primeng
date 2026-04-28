@@ -1,3 +1,4 @@
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -11,6 +12,10 @@ export interface StepperPassThroughOptions<I = unknown> {
      * Used to pass attributes to the root's DOM element.
      */
     root?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -128,6 +133,10 @@ export interface StepPanelPassThroughOptions<I = unknown> {
      * Used to pass attributes to the root's DOM element.
      */
     root?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass attributes to the content wrapper DOM element.
+     */
+    contentWrapper?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the content's DOM element.
      */

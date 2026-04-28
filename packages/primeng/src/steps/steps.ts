@@ -30,6 +30,7 @@ import { StepsStyle } from './style/stepsstyle';
                         [attr.id]="item.id"
                         pTooltip
                         [tooltipOptions]="item.tooltipOptions"
+                        [pTooltipUnstyled]="unstyled()"
                         [attr.data-pc-section]="'menuitem'"
                     >
                         <a
@@ -85,6 +86,7 @@ import { StepsStyle } from './style/stepsstyle';
     providers: [StepsStyle]
 })
 export class Steps extends BaseComponent {
+    componentName = 'Steps';
     /**
      * Index of the active item.
      * @group Props

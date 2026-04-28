@@ -49,5 +49,5 @@ export interface InputMaskTemplates {
     /**
      * Custom clear icon template.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(): TemplateRef<void>;
 }

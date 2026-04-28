@@ -1,12 +1,12 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/stepper/accessibilitydoc';
-import { BasicDoc } from '@/doc/stepper/basicdoc';
-import { ImportDoc } from '@/doc/stepper/importdoc';
-import { LinearDoc } from '@/doc/stepper/lineardoc';
+import { AccessibilityDoc } from '@/doc/stepper/accessibility-doc';
+import { BasicDoc } from '@/doc/stepper/basic-doc';
+import { ImportDoc } from '@/doc/stepper/import-doc';
+import { LinearDoc } from '@/doc/stepper/linear-doc';
 import { PTComponent } from '@/doc/stepper/pt/PTComponent';
 import { StepsOnlyDoc } from '@/doc/stepper/stepsonly';
-import { TemplateDoc } from '@/doc/stepper/templatedoc';
-import { VerticalDoc } from '@/doc/stepper/verticaldoc';
+import { TemplateDoc } from '@/doc/stepper/template-doc';
+import { VerticalDoc } from '@/doc/stepper/vertical-doc';
 import { Component } from '@angular/core';
 
 @Component({

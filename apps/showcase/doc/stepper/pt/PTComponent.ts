@@ -1,4 +1,4 @@
-import { AppDocApiTable } from '@/components/doc/app.docapitable';
+import { AppDocPtTable } from '@/components/doc/app.docpttable';
 import { getPTOptions } from '@/components/doc/app.docptviewer';
 import { AppDocSection } from '@/components/doc/app.docsection';
 import { CommonModule } from '@angular/common';
@@ -26,37 +26,37 @@ export class PTComponent {
         {
             id: 'pt.doc.stepper',
             label: 'Stepper PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('Stepper')
         },
         {
             id: 'pt.doc.stepperseparator',
             label: 'StepperSeparator PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('StepperSeparator')
         },
         {
             id: 'pt.doc.steplist',
             label: 'StepList PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('StepList')
         },
         {
             id: 'pt.doc.step',
             label: 'Step PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('Step')
         },
         {
             id: 'pt.doc.steppanels',
             label: 'StepPanels PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('StepPanels')
         },
         {
             id: 'pt.doc.steppanel',
             label: 'StepPanel PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('StepPanel')
         }
     ];

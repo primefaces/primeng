@@ -1,10 +1,10 @@
-import { AccessibilityDoc } from '@/doc/menubar/accessibilitydoc';
-import { BasicDoc } from '@/doc/menubar/basicdoc';
-import { CommandDoc } from '@/doc/menubar/commanddoc';
-import { ImportDoc } from '@/doc/menubar/importdoc';
+import { AccessibilityDoc } from '@/doc/menubar/accessibility-doc';
+import { BasicDoc } from '@/doc/menubar/basic-doc';
+import { CommandDoc } from '@/doc/menubar/command-doc';
+import { ImportDoc } from '@/doc/menubar/import-doc';
 import { PTComponent } from '@/doc/menubar/pt/PTComponent';
-import { RouterDoc } from '@/doc/menubar/routerdoc';
-import { TemplateDoc } from '@/doc/menubar/templatedoc';
+import { RouterDoc } from '@/doc/menubar/router-doc';
+import { TemplateDoc } from '@/doc/menubar/template-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

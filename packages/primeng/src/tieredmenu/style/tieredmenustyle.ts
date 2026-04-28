@@ -11,7 +11,7 @@ const classes = {
         'p-tieredmenu p-component',
         {
             'p-tieredmenu-overlay': instance.popup,
-            'p-tieredmenu-mobile': instance.queryMatches
+            'p-tieredmenu-mobile': instance.queryMatches()
         }
     ],
     start: 'p-tieredmenu-start',

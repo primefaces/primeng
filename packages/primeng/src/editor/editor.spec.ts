@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { providePrimeNG } from 'primeng/config';
+
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { Editor } from './editor';
+import { providePrimeNG } from 'primeng/config';
 import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'primeng/types/editor';
+import { Editor } from './editor';
 // Test Components for different scenarios
 @Component({
     standalone: false,
@@ -182,8 +182,9 @@ describe('Editor', () => {
         };
 
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule],
-            declarations: [TestBasicEditorComponent, TestCustomToolbarComponent, TestPTemplateComponent, TestReadonlyComponent, TestCustomConfigurationComponent]
+            imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule],
+            declarations: [TestBasicEditorComponent, TestCustomToolbarComponent, TestPTemplateComponent, TestReadonlyComponent, TestCustomConfigurationComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
 
@@ -192,10 +193,11 @@ describe('Editor', () => {
         let component: TestBasicEditorComponent;
         let editorInstance: Editor;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
             editorInstance = editorEl.componentInstance as Editor;
@@ -215,12 +217,13 @@ describe('Editor', () => {
             expect(editorInstance.modules).toBeUndefined();
         });
 
-        it('should accept input values', () => {
+        it('should accept input values', async () => {
             component.placeholder = 'Custom placeholder';
             component.readonly = true;
             component.styleClass = 'custom-editor';
             component.formats = ['bold', 'italic'];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(editorInstance.placeholder).toBe('Custom placeholder');
             expect(editorInstance.readonly).toBe(true);
@@ -239,10 +242,11 @@ describe('Editor', () => {
         let component: TestBasicEditorComponent;
         let editorInstance: Editor;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
             editorInstance = editorEl.componentInstance as Editor;
@@ -287,10 +291,11 @@ describe('Editor', () => {
         let component: TestBasicEditorComponent;
         let editorInstance: Editor;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
             editorInstance = editorEl.componentInstance as Editor;
@@ -377,10 +382,11 @@ describe('Editor', () => {
         let fixture: ComponentFixture<TestCustomToolbarComponent>;
         let component: TestCustomToolbarComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestCustomToolbarComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should render custom header template', () => {
@@ -403,18 +409,20 @@ describe('Editor', () => {
         let fixture: ComponentFixture<TestPTemplateComponent>;
         let component: TestPTemplateComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestPTemplateComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
-        it('should process pTemplate header correctly', () => {
+        it('should process pTemplate header correctly', async () => {
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
             const editorInstance = editorEl.componentInstance as Editor;
 
             editorInstance.ngAfterContentInit();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // pTemplate processing might not work in test environment, just verify method exists
             expect(editorInstance.ngAfterContentInit).toBeDefined();
@@ -437,15 +445,17 @@ describe('Editor', () => {
         let fixture: ComponentFixture<TestBasicEditorComponent>;
         let component: TestBasicEditorComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
-        it('should apply custom style classes', () => {
+        it('should apply custom style classes', async () => {
             component.styleClass = 'custom-editor-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
             const editorInstance = editorEl.componentInstance as Editor;
@@ -453,9 +463,10 @@ describe('Editor', () => {
             expect(editorInstance.styleClass).toBe('custom-editor-class');
         });
 
-        it('should apply custom styles', () => {
+        it('should apply custom styles', async () => {
             component.style = { border: '2px solid red', padding: '10px' };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
             const editorInstance = editorEl.componentInstance as Editor;
@@ -480,10 +491,11 @@ describe('Editor', () => {
         let fixture: ComponentFixture<TestReadonlyComponent>;
         let component: TestReadonlyComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestReadonlyComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should initialize in readonly mode', () => {
@@ -513,10 +525,11 @@ describe('Editor', () => {
         let fixture: ComponentFixture<TestCustomConfigurationComponent>;
         let component: TestCustomConfigurationComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestCustomConfigurationComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should accept custom modules configuration', () => {
@@ -541,10 +554,11 @@ describe('Editor', () => {
         let component: TestBasicEditorComponent;
         let editorInstance: Editor;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
             editorInstance = editorEl.componentInstance as Editor;
@@ -578,10 +592,11 @@ describe('Editor', () => {
         let fixture: ComponentFixture<TestBasicEditorComponent>;
         let component: TestBasicEditorComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should have proper ARIA attributes', () => {
@@ -622,10 +637,11 @@ describe('Editor', () => {
         let component: TestBasicEditorComponent;
         let editorInstance: Editor;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
             editorInstance = editorEl.componentInstance as Editor;
@@ -666,10 +682,11 @@ describe('Editor', () => {
         let component: TestBasicEditorComponent;
         let editorInstance: Editor;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
             editorInstance = editorEl.componentInstance as Editor;
@@ -686,31 +703,39 @@ describe('Editor', () => {
             expect(editorInstance.value).toBe(htmlContent);
         });
 
-        it('should handle rapid property changes', () => {
+        it('should handle rapid property changes', async () => {
             component.placeholder = 'First placeholder';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.placeholder = 'Second placeholder';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.placeholder = 'Third placeholder';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(editorInstance.placeholder).toBe('Third placeholder');
         });
 
-        it('should handle invalid configuration gracefully', () => {
+        it('should handle invalid configuration gracefully', async () => {
             component.formats = [];
             component.modules = {};
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(async () => {
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+            }).not.toThrow();
         });
 
-        it('should handle bounds and scrollingContainer settings', () => {
+        it('should handle bounds and scrollingContainer settings', async () => {
             component.bounds = 'body';
             component.scrollingContainer = '#container';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(editorInstance.bounds).toBe('body');
             expect(editorInstance.scrollingContainer).toBe('#container');
@@ -735,15 +760,18 @@ describe('Editor', () => {
                 };
             }
 
-            it('should apply simple string classes to PT sections', fakeAsync(() => {
+            it('should apply simple string classes to PT sections', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase1Component]
+                    imports: [TestPTCase1Component],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase1Component);
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
                 const toolbar = fixture.debugElement.query(By.css('.p-editor-toolbar'));
@@ -756,7 +784,7 @@ describe('Editor', () => {
                 if (formats) expect(formats.nativeElement.classList.contains('FORMATS_CLASS')).toBe(true);
                 if (boldButton) expect(boldButton.nativeElement.classList.contains('BOLD_CLASS')).toBe(true);
                 if (content) expect(content.nativeElement.classList.contains('CONTENT_CLASS')).toBe(true);
-            }));
+            });
         });
 
         describe('Case 2: Objects with class, style, and attributes', () => {
@@ -789,15 +817,18 @@ describe('Editor', () => {
                 };
             }
 
-            it('should apply object-based PT with class, style, and attributes', fakeAsync(() => {
+            it('should apply object-based PT with class, style, and attributes', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase2Component]
+                    imports: [TestPTCase2Component],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase2Component);
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
                 const toolbar = fixture.debugElement.query(By.css('.p-editor-toolbar'));
@@ -823,7 +854,7 @@ describe('Editor', () => {
                     expect(content.nativeElement.classList.contains('CONTENT_OBJECT_CLASS')).toBe(true);
                     expect(content.nativeElement.style.border).toBe('1px solid blue');
                 }
-            }));
+            });
         });
 
         describe('Case 3: Mixed object and string values', () => {
@@ -848,15 +879,18 @@ describe('Editor', () => {
                 };
             }
 
-            it('should apply mixed object and string PT values', fakeAsync(() => {
+            it('should apply mixed object and string PT values', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase3Component]
+                    imports: [TestPTCase3Component],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase3Component);
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
                 const toolbar = fixture.debugElement.query(By.css('.p-editor-toolbar'));
@@ -875,7 +909,7 @@ describe('Editor', () => {
 
                 if (italicButton) expect(italicButton.nativeElement.classList.contains('ITALIC_STRING_CLASS')).toBe(true);
                 if (content) expect(content.nativeElement.classList.contains('CONTENT_STRING_CLASS')).toBe(true);
-            }));
+            });
         });
 
         describe('Case 4: Use variables from instance', () => {
@@ -909,15 +943,18 @@ describe('Editor', () => {
                 };
             }
 
-            it('should use instance variables in PT functions', fakeAsync(() => {
+            it('should use instance variables in PT functions', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase4Component]
+                    imports: [TestPTCase4Component],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase4Component);
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
                 const toolbar = fixture.debugElement.query(By.css('.p-editor-toolbar'));
@@ -936,14 +973,16 @@ describe('Editor', () => {
 
                 // Change readonly state
                 fixture.componentInstance.isReadonly = false;
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 // Verify class changed
                 const editorRootAfter = fixture.debugElement.query(By.css('p-editor')).nativeElement;
                 expect(editorRootAfter.classList.contains('READONLY_CLASS') || editorRootAfter.classList.contains('NOT_READONLY_CLASS')).toBe(true);
-            }));
+            });
         });
 
         describe('Case 5: Event binding', () => {
@@ -973,36 +1012,41 @@ describe('Editor', () => {
                 };
             }
 
-            it('should bind click events via PT', fakeAsync(() => {
+            it('should bind click events via PT', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase5Component]
+                    imports: [TestPTCase5Component],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase5Component);
                 const component = fixture.componentInstance;
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const boldButton = fixture.debugElement.query(By.css('.ql-bold'));
                 const italicButton = fixture.debugElement.query(By.css('.ql-italic'));
 
                 if (boldButton) {
                     boldButton.nativeElement.click();
-                    fixture.detectChanges();
+                    fixture.changeDetectorRef.markForCheck();
+                    await fixture.whenStable();
                     expect(component.clickedElement).toBe('bold');
                 }
 
                 if (italicButton) {
                     italicButton.nativeElement.click();
-                    fixture.detectChanges();
+                    fixture.changeDetectorRef.markForCheck();
+                    await fixture.whenStable();
                     expect(component.clickedElement).toBe('italic');
                 }
-            }));
+            });
         });
 
         describe('Case 6: Inline PT test', () => {
-            it('should apply inline string PT', fakeAsync(() => {
+            it('should apply inline string PT', async () => {
                 @Component({
                     standalone: true,
                     imports: [Editor, FormsModule],
@@ -1013,19 +1057,22 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestInlineComponent]
+                    imports: [TestInlineComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestInlineComponent);
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
                 expect(editorRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
-            }));
+            });
 
-            it('should apply inline object PT', fakeAsync(() => {
+            it('should apply inline object PT', async () => {
                 @Component({
                     standalone: true,
                     imports: [Editor, FormsModule],
@@ -1036,22 +1083,25 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestInlineObjectComponent]
+                    imports: [TestInlineObjectComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestInlineObjectComponent);
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
                 expect(editorRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
                 expect(editorRoot.style.border).toBe('2px solid red');
-            }));
+            });
         });
 
         describe('Case 7: Global PT from PrimeNGConfig', () => {
-            it('should apply global PT configuration', fakeAsync(() => {
+            it('should apply global PT configuration', async () => {
                 @Component({
                     standalone: true,
                     imports: [Editor, FormsModule],
@@ -1063,8 +1113,9 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestGlobalPTComponent],
+                    imports: [TestGlobalPTComponent],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 editor: {
@@ -1081,9 +1132,11 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestGlobalPTComponent);
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const editors = fixture.debugElement.queryAll(By.css('p-editor'));
                 expect(editors.length).toBe(2);
@@ -1104,9 +1157,9 @@ describe('Editor', () => {
                         expect(content.nativeElement.style.minHeight).toBe('200px');
                     }
                 });
-            }));
+            });
 
-            it('should apply global CSS from PrimeNGConfig', fakeAsync(() => {
+            it('should apply global CSS from PrimeNGConfig', async () => {
                 @Component({
                     standalone: true,
                     imports: [Editor, FormsModule],
@@ -1117,8 +1170,9 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestGlobalCSSComponent],
+                    imports: [TestGlobalCSSComponent],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 editor: {
@@ -1137,9 +1191,11 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestGlobalCSSComponent);
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
                 expect(editorRoot.classList.contains('GLOBAL_CSS_CLASS')).toBe(true);
@@ -1150,11 +1206,11 @@ describe('Editor', () => {
                     expect(styleTag.textContent).toContain('.p-editor-toolbar');
                     expect(styleTag.textContent).toContain('border: 1px solid red !important');
                 }
-            }));
+            });
         });
 
         describe('Case 8: PT Hooks', () => {
-            it('should call PT hooks during lifecycle', fakeAsync(() => {
+            it('should call PT hooks during lifecycle', async () => {
                 const hookCalls: string[] = [];
 
                 @Component({
@@ -1178,13 +1234,16 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestHooksComponent]
+                    imports: [TestHooksComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestHooksComponent);
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 // AfterViewInit should be called
                 expect(hookCalls).toContain('onAfterViewInit');
@@ -1194,13 +1253,13 @@ describe('Editor', () => {
 
                 // Destroy the component
                 fixture.destroy();
-                flush();
+                await new Promise((resolve) => setTimeout(resolve, 100));
 
                 // OnDestroy hook should be called
                 expect(hookCalls).toContain('onDestroy');
-            }));
+            });
 
-            it('should handle multiple hooks on different PT sections', fakeAsync(() => {
+            it('should handle multiple hooks on different PT sections', async () => {
                 const hookEvents: { section: string; hook: string }[] = [];
 
                 @Component({
@@ -1229,17 +1288,20 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestMultipleHooksComponent]
+                    imports: [TestMultipleHooksComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestMultipleHooksComponent);
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 expect(hookEvents.length).toBeGreaterThan(0);
                 expect(hookEvents.some((e) => e.hook === 'onAfterViewInit')).toBe(true);
-            }));
+            });
         });
     });
 });

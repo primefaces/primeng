@@ -1,10 +1,10 @@
-import { AccessibilityDoc } from '@/doc/iconfield/accessibilitydoc';
-import { BasicDoc } from '@/doc/iconfield/basicdoc';
-import { FloatLabelDoc } from '@/doc/iconfield/floatlabeldoc';
-import { IftaLabelDoc } from '@/doc/iconfield/iftalabeldoc';
-import { ImportDoc } from '@/doc/iconfield/importdoc';
-import { SizesDoc } from '@/doc/iconfield/sizesdoc';
-import { TemplateDoc } from '@/doc/iconfield/templatedoc';
+import { AccessibilityDoc } from '@/doc/iconfield/accessibility-doc';
+import { BasicDoc } from '@/doc/iconfield/basic-doc';
+import { FloatLabelDoc } from '@/doc/iconfield/floatlabel-doc';
+import { IftaLabelDoc } from '@/doc/iconfield/iftalabel-doc';
+import { ImportDoc } from '@/doc/iconfield/import-doc';
+import { SizesDoc } from '@/doc/iconfield/sizes-doc';
+import { TemplateDoc } from '@/doc/iconfield/template-doc';
 import { PTComponent } from '@/doc/iconfield/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';

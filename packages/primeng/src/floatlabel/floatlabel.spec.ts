@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { FloatLabel } from './floatlabel';
@@ -41,12 +41,14 @@ describe('FloatLabel', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicFloatLabelComponent]
+                imports: [TestBasicFloatLabelComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicFloatLabelComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should create', () => {
@@ -76,49 +78,56 @@ describe('FloatLabel', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestVariantFloatLabelComponent]
+                imports: [TestVariantFloatLabelComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestVariantFloatLabelComponent);
             component = fixture.componentInstance;
             floatLabelInstance = fixture.debugElement.query(By.directive(FloatLabel)).componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should have default variant "over"', () => {
             expect(floatLabelInstance.variant).toBe('over');
         });
 
-        it('should apply variant "in"', () => {
+        it('should apply variant "in"', async () => {
             component.variant = 'in';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(floatLabelInstance.variant).toBe('in');
         });
 
-        it('should apply variant "on"', () => {
+        it('should apply variant "on"', async () => {
             component.variant = 'on';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(floatLabelInstance.variant).toBe('on');
         });
 
-        it('should have correct variant classes', () => {
+        it('should have correct variant classes', async () => {
             const floatLabelElement = fixture.debugElement.query(By.directive(FloatLabel));
 
             // Test 'in' variant
             component.variant = 'in';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(floatLabelElement.nativeElement.classList.contains('p-floatlabel-in')).toBe(true);
 
             // Test 'on' variant
             component.variant = 'on';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(floatLabelElement.nativeElement.classList.contains('p-floatlabel-on')).toBe(true);
 
             // Test 'over' variant (default)
             component.variant = 'over';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(floatLabelElement.nativeElement.classList.contains('p-floatlabel-over')).toBe(true);
         });
     });
@@ -129,12 +138,14 @@ describe('FloatLabel', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicFloatLabelComponent]
+                imports: [TestBasicFloatLabelComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicFloatLabelComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should work without input value', () => {
@@ -142,14 +153,14 @@ describe('FloatLabel', () => {
             expect(inputElement.nativeElement.value).toBe('' as any);
         });
 
-        it('should update input value when model changes', fakeAsync(() => {
+        it('should update input value when model changes', async () => {
             component.value = 'test value';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.value).toBe('test value');
-        }));
+        });
     });
 });
 
@@ -160,7 +171,8 @@ describe('FloatLabel PassThrough Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FloatLabel, FormsModule]
+            imports: [FloatLabel, FormsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(FloatLabel);
@@ -367,7 +379,8 @@ describe('FloatLabel PassThrough Tests', () => {
                                 root: 'GLOBAL_CLASS'
                             }
                         }
-                    })
+                    }),
+                    provideZonelessChangeDetection()
                 ]
             }).compileComponents();
 
@@ -393,7 +406,8 @@ describe('FloatLabel PassThrough Tests', () => {
                                 }
                             }
                         }
-                    })
+                    }),
+                    provideZonelessChangeDetection()
                 ]
             }).compileComponents();
 
@@ -427,7 +441,8 @@ describe('FloatLabel PassThrough Tests', () => {
                                 }
                             }
                         }
-                    })
+                    }),
+                    provideZonelessChangeDetection()
                 ]
             }).compileComponents();
 
@@ -453,7 +468,8 @@ describe('FloatLabel PassThrough Tests', () => {
                                 }
                             }
                         }
-                    })
+                    }),
+                    provideZonelessChangeDetection()
                 ]
             }).compileComponents();
 
@@ -481,7 +497,8 @@ describe('FloatLabel PassThrough Tests', () => {
                                 }
                             }
                         }
-                    })
+                    }),
+                    provideZonelessChangeDetection()
                 ]
             }).compileComponents();
 
@@ -507,7 +524,8 @@ describe('FloatLabel PassThrough Tests', () => {
                                 }
                             }
                         }
-                    })
+                    }),
+                    provideZonelessChangeDetection()
                 ]
             }).compileComponents();
 
@@ -546,7 +564,8 @@ describe('FloatLabel PassThrough Tests', () => {
                                 }
                             }
                         }
-                    })
+                    }),
+                    provideZonelessChangeDetection()
                 ]
             }).compileComponents();
 

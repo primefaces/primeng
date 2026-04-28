@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from 'primeng/api';
+import { Select } from 'primeng/select';
 import { Table, TableModule, TableService } from './table';
 
 describe('Table', () => {
@@ -264,8 +265,8 @@ describe('Table', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [Table, TestBasicTableComponent, TestSelectionTableComponent, TestSortingTableComponent, TestFilteringTableComponent, TestVirtualScrollTableComponent, TestLazyLoadTableComponent, TestTemplatesTableComponent],
-            imports: [CommonModule, FormsModule, NoopAnimationsModule, TableModule, SharedModule],
-            providers: [TableService]
+            imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
+            providers: [TableService, provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(Table);
@@ -281,9 +282,10 @@ describe('Table', () => {
         let testComponent: TestBasicTableComponent;
         let testFixture: ComponentFixture<TestBasicTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestBasicTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -313,9 +315,10 @@ describe('Table', () => {
         let testComponent: TestSelectionTableComponent;
         let testFixture: ComponentFixture<TestSelectionTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestSelectionTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -339,9 +342,10 @@ describe('Table', () => {
         let testComponent: TestSortingTableComponent;
         let testFixture: ComponentFixture<TestSortingTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestSortingTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -365,9 +369,10 @@ describe('Table', () => {
         let testComponent: TestFilteringTableComponent;
         let testFixture: ComponentFixture<TestFilteringTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestFilteringTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -386,9 +391,10 @@ describe('Table', () => {
         let testComponent: TestVirtualScrollTableComponent;
         let testFixture: ComponentFixture<TestVirtualScrollTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestVirtualScrollTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -411,9 +417,10 @@ describe('Table', () => {
         let testComponent: TestLazyLoadTableComponent;
         let testFixture: ComponentFixture<TestLazyLoadTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestLazyLoadTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -440,9 +447,10 @@ describe('Table', () => {
         let testComponent: TestTemplatesTableComponent;
         let testFixture: ComponentFixture<TestTemplatesTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestTemplatesTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -461,7 +469,7 @@ describe('Table', () => {
         let ecommerceComponent: TestBasicTableComponent;
         let ecommerceFixture: ComponentFixture<TestBasicTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             ecommerceFixture = TestBed.createComponent(TestBasicTableComponent);
             ecommerceComponent = ecommerceFixture.componentInstance;
             ecommerceComponent.products = [
@@ -471,43 +479,44 @@ describe('Table', () => {
                 { id: '1004', code: 'HD001', name: 'Wireless Headphones', description: 'Noise-cancelling headphones', price: 199.99, quantity: 25, inventoryStatus: 'INSTOCK', category: 'Audio', image: 'headphones.jpg', rating: 5 },
                 { id: '1005', code: 'MN001', name: '4K Monitor', description: '27-inch 4K monitor', price: 399.99, quantity: 12, inventoryStatus: 'INSTOCK', category: 'Displays', image: 'monitor.jpg', rating: 4 }
             ];
+            ecommerceFixture.changeDetectorRef.markForCheck();
+            await ecommerceFixture.whenStable();
             ecommerceFixture.detectChanges();
         });
 
-        it('should handle inventory status filtering for stock management', fakeAsync(() => {
+        it('should handle inventory status filtering for stock management', async () => {
             const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
 
             tableInstance.filter('INSTOCK', 'inventoryStatus', 'equals');
-            tick(350);
+            await new Promise((resolve) => setTimeout(resolve, 350));
+            await ecommerceFixture.whenStable();
 
             const inStockProducts = tableInstance.filteredValue || tableInstance.value;
             const inStock = inStockProducts.filter((product: any) => product.inventoryStatus === 'INSTOCK');
             expect(inStock.length).toBe(3);
-            flush();
-        }));
+        });
 
-        it('should sort by price for promotional planning', fakeAsync(() => {
+        it('should sort by price for promotional planning', async () => {
             const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
 
             tableInstance.sort({ field: 'price', order: 1 });
-            tick();
+            await ecommerceFixture.whenStable();
 
             expect(tableInstance.sortField).toBe('price');
             expect(tableInstance.sortOrder).toBe(1);
-            flush();
-        }));
+        });
 
-        it('should support price range filtering for budget constraints', fakeAsync(() => {
+        it('should support price range filtering for budget constraints', async () => {
             const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
 
             tableInstance.filter(100, 'price', 'lt');
-            tick(350);
+            await new Promise((resolve) => setTimeout(resolve, 350));
+            await ecommerceFixture.whenStable();
 
             const filteredData = tableInstance.filteredValue || tableInstance.value;
             const affordableProducts = filteredData.filter((product: any) => product.price < 100);
             expect(affordableProducts.length).toBe(1); // Only the mouse under $100
-            flush();
-        }));
+        });
 
         it('should calculate average price for market analysis', () => {
             const products = ecommerceComponent.products;
@@ -713,11 +722,12 @@ describe('Table', () => {
             tablePT = comprehensivePT;
         }
 
-        it('PT Section 1: host - should apply PT to host DOM element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 1: host - should apply PT to host DOM element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -727,11 +737,12 @@ describe('Table', () => {
             expect(tableElement).toBeTruthy();
         });
 
-        it('PT Section 2: root - should apply PT to root DOM element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 2: root - should apply PT to root DOM element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -741,15 +752,18 @@ describe('Table', () => {
             expect(rootEl?.classList.contains('pt-root')).toBe(true);
         });
 
-        it('PT Section 3: mask - should apply PT to loading mask element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 3: mask - should apply PT to loading mask element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             const component = fixture.componentInstance;
             component.isLoading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const maskEl = fixture.nativeElement.querySelector('[data-testid="mask"]');
@@ -757,15 +771,18 @@ describe('Table', () => {
             expect(maskEl?.classList.contains('pt-mask')).toBe(true);
         });
 
-        it('PT Section 4: loadingIcon - should apply PT to loading icon element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 4: loadingIcon - should apply PT to loading icon element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             const component = fixture.componentInstance;
             component.isLoading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const iconEl = fixture.nativeElement.querySelector('[data-testid="loading-icon"]');
@@ -773,11 +790,12 @@ describe('Table', () => {
             expect(iconEl?.classList.contains('pt-loading-icon')).toBe(true);
         });
 
-        it('PT Section 5: header - should apply PT to header (caption) element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 5: header - should apply PT to header (caption) element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -787,11 +805,12 @@ describe('Table', () => {
             expect(headerEl?.classList.contains('pt-header')).toBe(true);
         });
 
-        it('PT Section 6: pcPaginator - should apply PT to paginator component', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 6: pcPaginator - should apply PT to paginator component', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -801,11 +820,12 @@ describe('Table', () => {
             expect(paginatorEl?.classList.contains('pt-paginator')).toBe(true);
         });
 
-        it('PT Section 7: tableContainer - should apply PT to table container element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 7: tableContainer - should apply PT to table container element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -815,15 +835,18 @@ describe('Table', () => {
             expect(containerEl?.classList.contains('pt-table-container')).toBe(true);
         });
 
-        it('PT Section 8: virtualScroller - should apply PT to virtual scroller component', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 8: virtualScroller - should apply PT to virtual scroller component', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             const component = fixture.componentInstance;
             component.useVirtualScroll = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const scrollerEl = fixture.nativeElement.querySelector('[data-testid="virtual-scroller"]');
@@ -831,11 +854,12 @@ describe('Table', () => {
             expect(scrollerEl?.classList.contains('pt-virtual-scroller')).toBe(true);
         });
 
-        it('PT Section 9: table - should apply PT to table element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 9: table - should apply PT to table element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -845,11 +869,12 @@ describe('Table', () => {
             expect(tableEl?.classList.contains('pt-table')).toBe(true);
         });
 
-        it('PT Section 10: thead - should apply PT to thead element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 10: thead - should apply PT to thead element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -859,11 +884,12 @@ describe('Table', () => {
             expect(theadEl?.classList.contains('pt-thead')).toBe(true);
         });
 
-        it('PT Section 11: tbody - should apply PT to tbody element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 11: tbody - should apply PT to tbody element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -873,15 +899,18 @@ describe('Table', () => {
             expect(tbodyEl?.classList.contains('pt-tbody')).toBe(true);
         });
 
-        it('PT Section 12: virtualScrollerSpacer - should apply PT to virtual scroller spacer element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 12: virtualScrollerSpacer - should apply PT to virtual scroller spacer element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             const component = fixture.componentInstance;
             component.useVirtualScroll = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Virtual scroller spacer may not render in all scenarios
@@ -892,11 +921,12 @@ describe('Table', () => {
             }
         });
 
-        it('PT Section 13: tfoot - should apply PT to tfoot element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 13: tfoot - should apply PT to tfoot element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -906,11 +936,12 @@ describe('Table', () => {
             expect(tfootEl?.classList.contains('pt-tfoot')).toBe(true);
         });
 
-        it('PT Section 14: footer - should apply PT to footer element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 14: footer - should apply PT to footer element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -920,11 +951,12 @@ describe('Table', () => {
             expect(footerEl?.classList.contains('pt-footer')).toBe(true);
         });
 
-        it('PT Section 15: columnResizeIndicator - should apply PT to column resize indicator element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 15: columnResizeIndicator - should apply PT to column resize indicator element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -934,11 +966,12 @@ describe('Table', () => {
             expect(indicatorEl?.classList.contains('pt-resize-indicator')).toBe(true);
         });
 
-        it('PT Section 16: rowReorderIndicatorUp - should apply PT to row reorder indicator up element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 16: rowReorderIndicatorUp - should apply PT to row reorder indicator up element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -948,11 +981,12 @@ describe('Table', () => {
             expect(upIndicatorEl?.classList.contains('pt-reorder-up')).toBe(true);
         });
 
-        it('PT Section 17: rowReorderIndicatorDown - should apply PT to row reorder indicator down element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 17: rowReorderIndicatorDown - should apply PT to row reorder indicator down element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -962,11 +996,12 @@ describe('Table', () => {
             expect(downIndicatorEl?.classList.contains('pt-reorder-down')).toBe(true);
         });
 
-        it('PT Section 18: reorderableRow - should apply PT to reorderable row element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 18: reorderableRow - should apply PT to reorderable row element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -976,11 +1011,12 @@ describe('Table', () => {
             expect(rows.length).toBeGreaterThan(0);
         });
 
-        it('PT Section 19: reorderableRowHandle - should apply PT to reorderable row handle element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 19: reorderableRowHandle - should apply PT to reorderable row handle element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -990,11 +1026,12 @@ describe('Table', () => {
             expect(handles).toBeDefined();
         });
 
-        it('PT Section 20: headerCheckbox - should apply PT to header checkbox component', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 20: headerCheckbox - should apply PT to header checkbox component', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -1004,11 +1041,12 @@ describe('Table', () => {
             expect(headerCheckbox).toBeTruthy();
         });
 
-        it('PT Section 21: pcCheckbox - should apply PT to checkbox component', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 21: pcCheckbox - should apply PT to checkbox component', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -1018,11 +1056,12 @@ describe('Table', () => {
             expect(checkboxes.length).toBeGreaterThan(0);
         });
 
-        it('PT Section 22: columnFilter.filter - should apply PT to filter container element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 22: columnFilter.filter - should apply PT to filter container element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -1032,11 +1071,12 @@ describe('Table', () => {
             expect(filterEl).toBeTruthy();
         });
 
-        it('PT Section 23: columnFilterFormElement - should apply PT to column filter form element', () => {
-            TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+        it('PT Section 23: columnFilterFormElement - should apply PT to column filter form element', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -1044,6 +1084,377 @@ describe('Table', () => {
             // columnFilterFormElement is part of columnFilter, check that table exists
             const tableEl = fixture.nativeElement.querySelector('table');
             expect(tableEl).toBeTruthy();
+        });
+    });
+
+    describe('Cell Navigation', () => {
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+        });
+
+        @Component({
+            standalone: false,
+            template: `
+                <p-table [value]="products" [dataKey]="'id'" editMode="cell">
+                    <ng-template #header>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td [pEditableColumn]="product" [pEditableColumnField]="'name'" [pEditableColumnRowIndex]="rowIndex">
+                                <p-cellEditor>
+                                    <ng-template #input>
+                                        <input pInputText type="text" [(ngModel)]="product.name" class="name-input" />
+                                    </ng-template>
+                                    <ng-template #output>
+                                        {{ product.name }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td [pEditableColumn]="product" [pEditableColumnField]="'price'" [pEditableColumnRowIndex]="rowIndex">
+                                <p-cellEditor>
+                                    <ng-template #input>
+                                        <input pInputText type="text" [(ngModel)]="product.price" class="price-input" />
+                                    </ng-template>
+                                    <ng-template #output>
+                                        {{ product.price | currency }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            `
+        })
+        class TestCellNavigationComponent {
+            products = [
+                { id: '1001', name: 'Gaming Laptop', price: 1299.99 },
+                { id: '1002', name: 'Wireless Mouse', price: 29.99 },
+                { id: '1003', name: 'Mechanical Keyboard', price: 149.99 }
+            ];
+        }
+
+        it('should render editable columns with proper data attributes', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            expect(editableCells.length).toBe(6); // 2 editable columns x 3 rows
+        });
+
+        it('should open cell editor on click and show input for correct field', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const nameCell = editableCells[0]; // First name cell
+
+            nameCell.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Verify the name cell is now editing
+            const editingCell = fixture.nativeElement.querySelector('[data-p-cell-editing="true"]');
+            expect(editingCell).toBeTruthy();
+
+            // Verify the name input is shown
+            const nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeTruthy();
+
+            // Verify no price input is shown
+            const priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeFalsy();
+        });
+
+        it('should navigate from name cell to price cell on arrow right key', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const nameCell = editableCells[0]; // First name cell (row 1)
+
+            // Open the name cell for editing
+            nameCell.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Verify name input is shown initially
+            let nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeTruthy();
+
+            // Dispatch arrow right key event on the cell
+            const arrowRightEvent = new KeyboardEvent('keydown', {
+                key: 'ArrowRight',
+                code: 'ArrowRight',
+                bubbles: true
+            });
+            nameInput.dispatchEvent(arrowRightEvent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // After navigation, price input should be shown
+            const priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeTruthy();
+
+            // Name input should no longer be visible
+            nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeFalsy();
+        });
+
+        it('should navigate from price cell to name cell on arrow left key', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const priceCell = editableCells[1]; // First price cell (row 1)
+
+            // Open the price cell for editing
+            priceCell.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Verify price input is shown initially
+            let priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeTruthy();
+
+            // Dispatch arrow left key event
+            const arrowLeftEvent = new KeyboardEvent('keydown', {
+                key: 'ArrowLeft',
+                code: 'ArrowLeft',
+                bubbles: true
+            });
+            priceInput.dispatchEvent(arrowLeftEvent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // After navigation, name input should be shown
+            const nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeTruthy();
+
+            // Price input should no longer be visible
+            priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeFalsy();
+        });
+
+        it('should navigate to next row when pressing arrow right on last column', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const priceCellRow1 = editableCells[1]; // Price cell in row 1
+            const nameCellRow2 = editableCells[2]; // Name cell in row 2
+
+            // Verify they are in different rows
+            expect(priceCellRow1.parentElement).not.toBe(nameCellRow2.parentElement);
+
+            // Open price cell in row 1
+            priceCellRow1.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            let priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeTruthy();
+
+            // Dispatch arrow right to navigate to next row
+            const arrowRightEvent = new KeyboardEvent('keydown', {
+                key: 'ArrowRight',
+                code: 'ArrowRight',
+                bubbles: true
+            });
+            priceInput.dispatchEvent(arrowRightEvent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Should now be editing name cell in row 2
+            const nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeTruthy();
+
+            // The editing cell should be in row 2
+            const editingCell = fixture.nativeElement.querySelector('[data-p-cell-editing="true"]');
+            expect(editingCell.parentElement).toBe(nameCellRow2.parentElement);
+        });
+
+        it('should navigate to previous row when pressing arrow left on first column', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const priceCellRow1 = editableCells[1]; // Price cell in row 1
+            const nameCellRow2 = editableCells[2]; // Name cell in row 2
+
+            // Open name cell in row 2
+            nameCellRow2.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            let nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeTruthy();
+
+            // Dispatch arrow left to navigate to previous row
+            const arrowLeftEvent = new KeyboardEvent('keydown', {
+                key: 'ArrowLeft',
+                code: 'ArrowLeft',
+                bubbles: true
+            });
+            nameInput.dispatchEvent(arrowLeftEvent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Should now be editing price cell in row 1
+            const priceInput = fixture.nativeElement.querySelector('.price-input');
+            expect(priceInput).toBeTruthy();
+
+            // The editing cell should be in row 1
+            const editingCell = fixture.nativeElement.querySelector('[data-p-cell-editing="true"]');
+            expect(editingCell.parentElement).toBe(priceCellRow1.parentElement);
+        });
+
+        it('should not navigate when disabled', async () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-table [value]="products" [dataKey]="'id'" editMode="cell">
+                        <ng-template #header>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-product let-rowIndex="rowIndex">
+                            <tr>
+                                <td [pEditableColumn]="product" [pEditableColumnField]="'name'" [pEditableColumnRowIndex]="rowIndex" [pEditableColumnDisabled]="true">
+                                    <p-cellEditor>
+                                        <ng-template #input>
+                                            <input pInputText type="text" [(ngModel)]="product.name" class="name-input" />
+                                        </ng-template>
+                                        <ng-template #output>
+                                            {{ product.name }}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td [pEditableColumn]="product" [pEditableColumnField]="'price'" [pEditableColumnRowIndex]="rowIndex">
+                                    <p-cellEditor>
+                                        <ng-template #input>
+                                            <input pInputText type="text" [(ngModel)]="product.price" class="price-input" />
+                                        </ng-template>
+                                        <ng-template #output>
+                                            {{ product.price | currency }}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                `
+            })
+            class TestDisabledCellComponent {
+                products = [{ id: '1001', name: 'Gaming Laptop', price: 1299.99 }];
+            }
+
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestDisabledCellComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestDisabledCellComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const disabledNameCell = editableCells[0];
+
+            // Click on disabled cell
+            disabledNameCell.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Should not open editing on disabled cell - no input should be visible
+            const nameInput = fixture.nativeElement.querySelector('.name-input');
+            expect(nameInput).toBeFalsy();
+
+            // No cell should be in editing state
+            const editingCell = fixture.nativeElement.querySelector('[data-p-cell-editing="true"]');
+            expect(editingCell).toBeFalsy();
+        });
+
+        it('findCell should traverse up DOM tree to find cell with editing attribute', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestCellNavigationComponent],
+                providers: [TableService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TestCellNavigationComponent);
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const editableCells = fixture.nativeElement.querySelectorAll('[data-p-editable-column="true"]');
+            const nameCell = editableCells[0];
+
+            // Open the cell for editing
+            nameCell.click();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Get the input element which is nested inside the cell
+            const input = fixture.nativeElement.querySelector('.name-input');
+            expect(input).toBeTruthy();
+
+            // The input should be a descendant of the editing cell
+            const editingCell = fixture.nativeElement.querySelector('[data-p-cell-editing="true"]');
+            expect(editingCell).toBeTruthy();
+            expect(editingCell.contains(input)).toBe(true);
+
+            // Verify the editing cell has the correct data attribute
+            expect(editingCell.querySelector('[data-p-cell-editing="true"]') || editingCell.getAttribute('data-p-cell-editing')).toBeTruthy();
         });
     });
 });

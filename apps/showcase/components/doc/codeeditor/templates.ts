@@ -13,53 +13,43 @@ export interface Props {
 const version = require('package.json').version;
 
 const dependencies = {
-    '@angular/animations': '^20.0.4',
-    '@angular/cdk': '^20.0.3',
-    '@angular/cli': '^20.0.3',
-    '@angular/common': '^20.0.4',
-    '@angular/compiler': '^20.0.4',
-    '@angular/core': '^20.0.4',
-    '@angular/forms': '^20.0.4',
-    '@angular/platform-browser': '^20.0.4',
-    '@angular/platform-browser-dynamic': '^20.0.4',
-    '@angular/router': '^20.0.4',
-    '@primeuix/themes': 'latest',
-    '@types/jasmine': '4.3.1',
-    '@types/node': '22.9.0',
+    '@angular/cdk': '^21.0.0',
+    '@angular/common': '^21.0.0',
+    '@angular/compiler': '^21.0.0',
+    '@angular/core': '^21.0.0',
+    '@angular/forms': '^21.0.0',
+    '@angular/platform-browser': '^21.0.0',
+    '@angular/platform-browser-dynamic': '^21.0.0',
+    '@angular/router': '^21.0.0',
+    '@primeuix/themes': '^2.0.2',
     'chart.js': '4.4.2',
-    primeicons: 'latest',
+    primeicons: '^7.0.0',
     primeng: `${version}`,
     quill: '2.0.2',
-    rxjs: '~7.8.2',
-    tailwindcss: '^3',
-    'tailwindcss-primeui': 'latest',
-    tslib: '^2.5.0',
+    rxjs: '~7.8.0',
+    tailwindcss: '^3.4.10',
+    'tailwindcss-primeui': '^0.6.1',
+    tslib: '^2.3.0',
     'zone.js': '~0.15.0'
 };
 
 const devDependencies = {
-    '@angular-devkit/build-angular': '^20.0.3',
-    '@angular/cli': '^20.0.3',
-    '@angular/compiler-cli': '^20.0.3',
-    '@angular/language-service': '^20.0.0',
-    '@types/jasmine': '~4.3.1',
+    '@angular-devkit/build-angular': '^21.0.0',
+    '@angular/build': '^21.0.0',
+    '@angular/cli': '^21.0.0',
+    '@angular/compiler-cli': '^21.0.0',
+    '@types/jasmine': '~5.1.0',
     '@types/node': '^22.9.0',
-    codelyzer: '^0.0.28',
-    'jasmine-core': '~4.6.0',
-    karma: '~6.4.2',
+    'jasmine-core': '~5.8.0',
+    karma: '~6.4.0',
     'karma-chrome-launcher': '~3.2.0',
     'karma-coverage': '~2.2.0',
-    'karma-jasmine': '~5.1.0',
-    'karma-jasmine-html-reporter': '~2.0.0',
-    'ts-node': '~10.9.2',
-    typescript: '~5.8.3',
+    'karma-jasmine': '~5.0.0',
+    'karma-jasmine-html-reporter': '~2.1.0',
+    typescript: '~5.9.2',
     tailwindcss: '^3.4.10',
     autoprefixer: '^10.4.20',
     postcss: '^8.4.41'
-};
-
-const getServiceImports = (service: string[]) => {
-    return service.map((s) => `import { ${s} } from '@/service/${s.toLowerCase()}';`).join('');
 };
 
 const getComponentName = (selector: string) => {
@@ -79,15 +69,6 @@ const getExternalFiles = (files: ExtFile[]) => {
     }
 
     return extFiles;
-};
-
-const getRouteImports = (files: RouteFile[], selector?: string) => {
-    let routeFiles = '';
-    files.forEach((file) => {
-        routeFiles += `import { ${file.name} } from 'src/app/demo/${file.name.toLowerCase()}';\n`;
-    });
-
-    return selector ? routeFiles + `import { ${getComponentName(selector)} } from 'src/app/demo/${selector}';` : routeFiles;
 };
 
 const staticStyles = {
@@ -178,7 +159,6 @@ module.exports = function (config) {
 const test_ts = `
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
-import 'zone.js/dist/zone-testing';
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
@@ -236,12 +216,11 @@ const angular_json = `{
         "prefix": "app",
         "architect": {
           "build": {
-            "builder": "@angular-devkit/build-angular:browser",
+            "builder": "@angular/build:application",
             "options": {
               "outputPath": "dist/example-app",
               "index": "src/index.html",
-              "main": "src/main.ts",
-              "polyfills": ["zone.js"],
+              "browser": "src/main.ts",
               "tsConfig": "tsconfig.app.json",
               "inlineStyleLanguage": "scss",
               "assets": ["src/assets"],
@@ -270,18 +249,15 @@ const angular_json = `{
                 "outputHashing": "all"
               },
               "development": {
-                "buildOptimizer": false,
                 "optimization": false,
-                "vendorChunk": true,
                 "extractLicenses": false,
-                "sourceMap": true,
-                "namedChunks": true
+                "sourceMap": true
               }
             },
             "defaultConfiguration": "production"
           },
           "serve": {
-            "builder": "@angular-devkit/build-angular:dev-server",
+            "builder": "@angular/build:dev-server",
             "configurations": {
               "production": {
                 "buildTarget": "example-app:build:production"
@@ -293,16 +269,15 @@ const angular_json = `{
             "defaultConfiguration": "development"
           },
           "extract-i18n": {
-            "builder": "@angular-devkit/build-angular:extract-i18n",
+            "builder": "@angular/build:extract-i18n",
             "options": {
-              "browserTarget": "example-app:build"
+              "buildTarget": "example-app:build"
             }
           },
           "test": {
             "builder": "@angular-devkit/build-angular:karma",
             "options": {
               "main": "src/test.ts",
-              "polyfills": ["zone.js"],
               "tsConfig": "tsconfig.spec.json",
               "karmaConfig": "karma.conf.js",
               "inlineStyleLanguage": "scss",
@@ -1015,325 +990,6 @@ const getAngularApp = (props: Props = {}) => {
     const componentName = getComponentName(selector);
     const externalFiles = getExternalFiles(extFiles);
     const _routeFiles = getExternalFiles(routeFiles);
-    const routeImports = getRouteImports(routeFiles, selector);
-    const serviceImports = code.service ? getServiceImports(code.service) : '';
-    const routerModule = code.routerModule ? code.routerModule : `RouterModule.forRoot([{ path: '', component: ${componentName} }])`;
-    const declarations = routeFiles && routeFiles.length ? (componentName ? routeFiles.map((r) => r.name).join(', ') + ',' + componentName : routeFiles.map((r) => r.name).join(', ')) : `${componentName}`;
-    const providers = code.service && code.service.length ? code.service.map((s) => s).join(', ') : '';
-
-    const imports_ts = `// Import PrimeNG modules
-   import { AutoFocusModule } from 'primeng/autofocus';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { OverlayBadgeModule } from 'primeng/overlaybadge';
-import { TabsModule } from 'primeng/tabs';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
-import { AnimateOnScrollModule } from 'primeng/animateonscroll';
-import { AccordionModule } from 'primeng/accordion';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { BadgeModule } from 'primeng/badge';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { BlockUIModule } from 'primeng/blockui';
-import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
-import { CarouselModule } from 'primeng/carousel';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
-import { ChartModule } from 'primeng/chart';
-import { CheckboxModule } from 'primeng/checkbox';
-import { ChipModule } from 'primeng/chip';
-import { ColorPickerModule } from 'primeng/colorpicker';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ContextMenuModule } from 'primeng/contextmenu';
-import { DataViewModule } from 'primeng/dataview';
-import { DialogModule } from 'primeng/dialog';
-import { DividerModule } from 'primeng/divider';
-import { DockModule } from 'primeng/dock';
-import { DragDropModule } from 'primeng/dragdrop';
-import { SelectModule } from 'primeng/select';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { EditorModule } from 'primeng/editor';
-import { FieldsetModule } from 'primeng/fieldset';
-import { FileUploadModule } from 'primeng/fileupload';
-import { FocusTrapModule } from 'primeng/focustrap';
-import { GalleriaModule } from 'primeng/galleria';
-import { IftaLabelModule } from 'primeng/iftalabel';
-import { InplaceModule } from 'primeng/inplace';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputTextModule } from 'primeng/inputtext';
-import { TextareaModule } from 'primeng/textarea';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputOtpModule } from 'primeng/inputotp';
-import { ImageModule } from 'primeng/image';
-import { ImageCompareModule } from 'primeng/imagecompare';
-import { KnobModule } from 'primeng/knob';
-import { ListboxModule } from 'primeng/listbox';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { MenuModule } from 'primeng/menu';
-import { MenubarModule } from 'primeng/menubar';
-import { MessageModule } from 'primeng/message';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { MeterGroupModule } from 'primeng/metergroup';
-import { OrganizationChartModule } from 'primeng/organizationchart';
-import { OrderListModule } from 'primeng/orderlist';
-import { PaginatorModule } from 'primeng/paginator';
-import { PanelModule } from 'primeng/panel';
-import { PanelMenuModule } from 'primeng/panelmenu';
-import { PasswordModule } from 'primeng/password';
-import { PickListModule } from 'primeng/picklist';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { RatingModule } from 'primeng/rating';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { ScrollerModule } from 'primeng/scroller';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
-import { ScrollTopModule } from 'primeng/scrolltop';
-import { SkeletonModule } from 'primeng/skeleton';
-import { SliderModule } from 'primeng/slider';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { SplitterModule } from 'primeng/splitter';
-import { StepperModule } from 'primeng/stepper';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { StepsModule } from 'primeng/steps';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { TerminalModule } from 'primeng/terminal';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { TimelineModule } from 'primeng/timeline';
-import { ToastModule } from 'primeng/toast';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { ToolbarModule } from 'primeng/toolbar';
-import { TooltipModule } from 'primeng/tooltip';
-import { TreeModule } from 'primeng/tree';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { TreeTableModule } from 'primeng/treetable';
-import { CardModule } from 'primeng/card';
-import { RippleModule } from 'primeng/ripple';
-import { StyleClassModule } from 'primeng/styleclass';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { DrawerModule } from 'primeng/drawer';
-import { KeyFilterModule } from 'primeng/keyfilter';
-import { ThemeSwitcher } from './themeswitcher';
-
-    ${serviceImports}
-
-    @NgModule({
-        imports: [
-    ThemeSwitcher,
-    AvatarModule,
-    KeyFilterModule,
-    AvatarGroupModule,
-    AnimateOnScrollModule,
-    TabsModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    AccordionModule,
-    AutoCompleteModule,
-    BadgeModule,
-    BreadcrumbModule,
-    BlockUIModule,
-    ButtonModule,
-    DatePickerModule,
-    CarouselModule,
-    CascadeSelectModule,
-    ChartModule,
-    CheckboxModule,
-    ChipModule,
-    ColorPickerModule,
-    ConfirmDialogModule,
-    ConfirmPopupModule,
-    ContextMenuModule,
-    DataViewModule,
-    DialogModule,
-    DividerModule,
-    DrawerModule,
-    DockModule,
-    DragDropModule,
-    SelectModule,
-    DynamicDialogModule,
-    EditorModule,
-    FieldsetModule,
-    FileUploadModule,
-    FocusTrapModule,
-    GalleriaModule,
-    IftaLabelModule,
-    InplaceModule,
-    InputMaskModule,
-    InputTextModule,
-    TextareaModule,
-    InputNumberModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    InputOtpModule,
-    ImageModule,
-    ImageCompareModule,
-    KnobModule,
-    ListboxModule,
-    MegaMenuModule,
-    MenuModule,
-    MenubarModule,
-    MessageModule,
-    MultiSelectModule,
-    MeterGroupModule,
-    OrganizationChartModule,
-    OrderListModule,
-    PaginatorModule,
-    PanelModule,
-    PanelMenuModule,
-    PasswordModule,
-    PickListModule,
-    ProgressSpinnerModule,
-    ProgressBarModule,
-    RadioButtonModule,
-    RatingModule,
-    SelectButtonModule,
-    ScrollerModule,
-    ScrollPanelModule,
-    ScrollTopModule,
-    SkeletonModule,
-    SliderModule,
-    SpeedDialModule,
-    SplitterModule,
-    StepperModule,
-    SplitButtonModule,
-    StepsModule,
-    TableModule,
-    TagModule,
-    TerminalModule,
-    TieredMenuModule,
-    TimelineModule,
-    ToastModule,
-    ToggleButtonModule,
-    ToggleSwitchModule,
-    ToolbarModule,
-    TooltipModule,
-    TreeModule,
-    TreeSelectModule,
-    TreeTableModule,
-    CardModule,
-    RippleModule,
-    StyleClassModule,
-    FloatLabelModule,
-    IconFieldModule,
-    InputIconModule,
-    AutoFocusModule,
-    OverlayBadgeModule,
-        ],
-          exports: [
-             ThemeSwitcher,
-    TabsModule,
-    AvatarModule,
-    AvatarGroupModule,
-    AnimateOnScrollModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    AccordionModule,
-    AutoCompleteModule,
-    BadgeModule,
-    BreadcrumbModule,
-    BlockUIModule,
-    ButtonModule,
-    DatePickerModule,
-    CarouselModule,
-    KeyFilterModule,
-    CascadeSelectModule,
-    ChartModule,
-    CheckboxModule,
-    ChipModule,
-    ColorPickerModule,
-    ConfirmDialogModule,
-    ConfirmPopupModule,
-    ContextMenuModule,
-    DataViewModule,
-    DialogModule,
-    DividerModule,
-    DrawerModule,
-    DockModule,
-    DragDropModule,
-    SelectModule,
-    DynamicDialogModule,
-    EditorModule,
-    FieldsetModule,
-    FileUploadModule,
-    FocusTrapModule,
-    GalleriaModule,
-    IftaLabelModule,
-    InplaceModule,
-    InputMaskModule,
-    InputTextModule,
-    TextareaModule,
-    InputNumberModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    InputOtpModule,
-    ImageModule,
-    ImageCompareModule,
-    KnobModule,
-    ListboxModule,
-    MegaMenuModule,
-    MenuModule,
-    MenubarModule,
-    MessageModule,
-    MultiSelectModule,
-    MeterGroupModule,
-    OrganizationChartModule,
-    OrderListModule,
-    PaginatorModule,
-    PanelModule,
-    PanelMenuModule,
-    PasswordModule,
-    PickListModule,
-    ProgressSpinnerModule,
-    ProgressBarModule,
-    RadioButtonModule,
-    RatingModule,
-    SelectButtonModule,
-    ScrollerModule,
-    ScrollPanelModule,
-    ScrollTopModule,
-    SkeletonModule,
-    SliderModule,
-    SpeedDialModule,
-    SplitterModule,
-    StepperModule,
-    SplitButtonModule,
-    StepsModule,
-    TableModule,
-    TagModule,
-    TerminalModule,
-    TieredMenuModule,
-    TimelineModule,
-    ToastModule,
-    ToggleButtonModule,
-    ToggleSwitchModule,
-    ToolbarModule,
-    TooltipModule,
-    TreeModule,
-    TreeSelectModule,
-    TreeTableModule,
-    CardModule,
-    RippleModule,
-    StyleClassModule,
-    FloatLabelModule,
-    IconFieldModule,
-    InputIconModule,
-    AutoFocusModule,
-    OverlayBadgeModule,
-          ],
-      providers: [ ${providers} ]
-    })
-    export class ImportsModule {}
-    `;
 
     const index_html = `
 <!doctype html>
@@ -1355,7 +1011,6 @@ import { ThemeSwitcher } from './themeswitcher';
 
     const main_ts = `import { bootstrapApplication } from '@angular/platform-browser';
 import { ${componentName} } from './app/${selector}';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
 import { providePrimeNG } from 'primeng/config';
@@ -1364,7 +1019,6 @@ import Aura from '@primeuix/themes/aura';
   export const appConfig: ApplicationConfig = {
       providers: [
       provideHttpClient(withFetch()),
-      provideAnimationsAsync(),
       providePrimeNG({
           theme: { preset: Aura, options: { darkModeSelector: '.p-dark' } },
       }),
@@ -1383,7 +1037,6 @@ import Aura from '@primeuix/themes/aura';
         'tsconfig.spec.json': { content: tsconfig_spec_json },
         '.editorconfig': { content: editorconfig },
         'angular.json': { content: angular_json },
-        'src/app/imports.ts': { content: imports_ts },
         'src/index.html': { content: index_html },
         'src/karma.conf.js': { content: karma_conf_js },
         'src/styles.scss': { content: staticStyles.global },
@@ -1415,7 +1068,6 @@ import Aura from '@primeuix/themes/aura';
         },
 
         [`src/app/${selector}.ts`]: { content: code.typescript.trim() },
-        [`src/app/${selector}.html`]: { content: `<theme-switcher />\n` + code.html.trim() },
         ...defaultFiles,
         ...externalFiles,
         ..._routeFiles

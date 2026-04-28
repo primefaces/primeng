@@ -108,11 +108,16 @@ export class RadioControlRegistry {
     providers: [RADIO_VALUE_ACCESSOR, RadioButtonStyle, { provide: RADIOBUTTON_INSTANCE, useExisting: RadioButton }, { provide: PARENT_INSTANCE, useExisting: RadioButton }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cx('root')",
+        '[attr.data-p-disabled]': '$disabled()',
+        '[attr.data-p-checked]': 'checked',
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
 export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
+    componentName = 'RadioButton';
+
     $pcRadioButton: RadioButton | undefined = inject(RADIOBUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -263,6 +268,16 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
 
     onDestroy() {
         this.registry.remove(this);
+    }
+
+    get dataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            checked: this.checked,
+            disabled: this.$disabled(),
+            filled: this.$variant() === 'filled',
+            [this.size() as string]: this.size()
+        });
     }
 }
 

@@ -84,13 +84,13 @@ export interface InputNumberTemplates {
     /**
      * Custom clear icon template.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(): TemplateRef<void>;
     /**
      * Custom increment button icon template.
      */
-    incrementbuttonicon(): TemplateRef<any>;
+    incrementbuttonicon(): TemplateRef<void>;
     /**
      * Custom decrement button icon template.
      */
-    decrementbuttonicon(): TemplateRef<any>;
+    decrementbuttonicon(): TemplateRef<void>;
 }

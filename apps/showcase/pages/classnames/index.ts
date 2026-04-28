@@ -1,6 +1,6 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { ExamplesDoc } from '@/doc/classnames/examplesdoc';
-import { ImportDoc } from '@/doc/classnames/importdoc';
+import { ExamplesDoc } from '@/doc/classnames/examples-doc';
+import { ImportDoc } from '@/doc/classnames/import-doc';
 import { Component } from '@angular/core';
 
 @Component({

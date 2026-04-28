@@ -1,21 +1,21 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/tree/accessibilitydoc';
-import { BasicDoc } from '@/doc/tree/basicdoc';
-import { CheckboxDoc } from '@/doc/tree/checkboxdoc';
-import { ContextMenuDoc } from '@/doc/tree/contextmenudoc';
-import { ControlledDoc } from '@/doc/tree/controlleddoc';
+import { AccessibilityDoc } from '@/doc/tree/accessibility-doc';
+import { BasicDoc } from '@/doc/tree/basic-doc';
+import { CheckboxDoc } from '@/doc/tree/checkbox-doc';
+import { ContextMenuDoc } from '@/doc/tree/contextmenu-doc';
+import { ControlledDoc } from '@/doc/tree/controlled-doc';
 import { MultipleDragDropDoc } from '@/doc/tree/dragdrop/multipledragdropdoc';
 import { SingleDragDropDoc } from '@/doc/tree/dragdrop/singledragdropdoc';
-import { EventDoc } from '@/doc/tree/eventdoc';
-import { FilterDoc } from '@/doc/tree/filterdoc';
-import { ImportDoc } from '@/doc/tree/importdoc';
-import { LazyDoc } from '@/doc/tree/lazydoc';
-import { MultipleDoc } from '@/doc/tree/multipledoc';
+import { EventDoc } from '@/doc/tree/event-doc';
+import { FilterDoc } from '@/doc/tree/filter-doc';
+import { ImportDoc } from '@/doc/tree/import-doc';
+import { LazyDoc } from '@/doc/tree/lazy-doc';
+import { MultipleDoc } from '@/doc/tree/multiple-doc';
 import { PTComponent } from '@/doc/tree/pt/PTComponent';
-import { SingleDoc } from '@/doc/tree/singledoc';
-import { TemplateDoc } from '@/doc/tree/templatedoc';
-import { VirtualScrollDoc } from '@/doc/tree/virtualscrolldoc';
-import { LazyVirtualScrollDoc } from '@/doc/tree/virtualscrolllazydoc';
+import { SingleDoc } from '@/doc/tree/single-doc';
+import { TemplateDoc } from '@/doc/tree/template-doc';
+import { VirtualScrollDoc } from '@/doc/tree/virtualscroll-doc';
+import { LazyVirtualScrollDoc } from '@/doc/tree/virtualscrolllazy-doc';
 import { Component } from '@angular/core';
 
 @Component({

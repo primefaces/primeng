@@ -1,12 +1,12 @@
-import { AccessibilityDoc } from '@/doc/contextmenu/accessibilitydoc';
-import { BasicDoc } from '@/doc/contextmenu/basicdoc';
-import { CommandDoc } from '@/doc/contextmenu/commanddoc';
-import { DocumentDoc } from '@/doc/contextmenu/documentdoc';
-import { ImportDoc } from '@/doc/contextmenu/importdoc';
+import { AccessibilityDoc } from '@/doc/contextmenu/accessibility-doc';
+import { BasicDoc } from '@/doc/contextmenu/basic-doc';
+import { CommandDoc } from '@/doc/contextmenu/command-doc';
+import { DocumentDoc } from '@/doc/contextmenu/document-doc';
+import { ImportDoc } from '@/doc/contextmenu/import-doc';
 import { PTComponent } from '@/doc/contextmenu/pt/PTComponent';
-import { RouterDoc } from '@/doc/contextmenu/routerdoc';
-import { TableDoc } from '@/doc/contextmenu/tabledoc';
-import { TemplateDoc } from '@/doc/contextmenu/templatedoc';
+import { RouterDoc } from '@/doc/contextmenu/router-doc';
+import { TableDoc } from '@/doc/contextmenu/table-doc';
+import { TemplateDoc } from '@/doc/contextmenu/template-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

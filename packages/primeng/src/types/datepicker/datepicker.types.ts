@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
@@ -233,6 +234,10 @@ export interface DatePickerPassThroughOptions<I = unknown> {
      * Used to pass attributes to the hidden year's DOM element.
      */
     hiddenYear?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -243,90 +248,157 @@ export interface DatePickerPassThroughOptions<I = unknown> {
 export type DatePickerPassThrough<I = unknown> = PassThrough<I, DatePickerPassThroughOptions<I>>;
 
 /**
+ * Represents metadata for a single date cell in the DatePicker.
+ * @group Interface
+ */
+export interface DatePickerDateMeta {
+    /**
+     * Day of the month (1-31).
+     */
+    day: number;
+    /**
+     * Month (0-11).
+     */
+    month: number;
+    /**
+     * Year.
+     */
+    year: number;
+    /**
+     * Whether this date belongs to a different month than the displayed month.
+     */
+    otherMonth?: boolean;
+    /**
+     * Whether this date is today.
+     */
+    today?: boolean;
+    /**
+     * Whether this date is selectable.
+     */
+    selectable?: boolean;
+}
+
+/**
+ * Custom date template context.
+ * @group Interface
+ */
+export interface DatePickerDateTemplateContext {
+    /**
+     * Date metadata object.
+     */
+    $implicit: DatePickerDateMeta;
+}
+
+/**
+ * Custom disabled date template context.
+ * @group Interface
+ */
+export interface DatePickerDisabledDateTemplateContext {
+    /**
+     * Disabled date metadata object.
+     */
+    $implicit: DatePickerDateMeta;
+}
+
+/**
+ * Custom decade template context.
+ * @group Interface
+ */
+export interface DatePickerDecadeTemplateContext {
+    /**
+     * Function that returns an array of years for the decade.
+     */
+    $implicit: () => number[];
+}
+
+/**
+ * Custom input icon template context.
+ * @group Interface
+ */
+export interface DatePickerInputIconTemplateContext {
+    /**
+     * Click callback function to open the DatePicker.
+     */
+    clickCallBack: (event: Event) => void;
+}
+
+/**
+ * Custom button bar template context.
+ * @group Interface
+ */
+export interface DatePickerButtonBarTemplateContext {
+    /**
+     * Today button click callback.
+     */
+    todayCallback: (event: Event) => void;
+    /**
+     * Clear button click callback.
+     */
+    clearCallback: (event: Event) => void;
+}
+
+/**
  * Defines valid templates in DatePicker.
  * @group Templates
  */
 export interface DatePickerTemplates {
     /**
-     * Custom header template.
-     * @param {Object} context - date value instance.
+     * Custom date template.
+     * @param {Object} context - date metadata.
      */
-    date(context: {
-        /**
-         * Date value of the component.
-         */
-        $implicit: Date;
-    }): TemplateRef<{ $implicit: Date }>;
+    date(context: DatePickerDateTemplateContext): TemplateRef<DatePickerDateTemplateContext>;
     /**
-     * Custom decade template
-     * @param {Object} context - date value instance.
+     * Custom decade template.
+     * @param {Object} context - decade years function.
      */
-    decade(context: {
-        /**
-         * An array containing the start and and year of a decade to display at header of the year picker.
-         */
-        $implicit: Date;
-    }): TemplateRef<{ $implicit: Date }>;
+    decade(context: DatePickerDecadeTemplateContext): TemplateRef<DatePickerDecadeTemplateContext>;
     /**
      * Custom disabled date template.
+     * @param {Object} context - disabled date metadata.
      */
-    disabledDate(): TemplateRef<any>;
+    disabledDate(context: DatePickerDisabledDateTemplateContext): TemplateRef<DatePickerDisabledDateTemplateContext>;
     /**
      * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom input icon template.
      * @param {Object} context - input icon template params.
      */
-    inputIconTemplate(context: {
-        /**
-         * Click callback
-         */
-        clickCallBack: () => void;
-    }): TemplateRef<{ clickCallBack: Function }>;
+    inputicon(context: DatePickerInputIconTemplateContext): TemplateRef<DatePickerInputIconTemplateContext>;
     /**
      * Custom previous icon template.
      */
-    previousicon(): TemplateRef<any>;
+    previousicon(): TemplateRef<void>;
     /**
      * Custom next icon template.
      */
-    nexticon(): TemplateRef<any>;
+    nexticon(): TemplateRef<void>;
     /**
      * Custom dropdown trigger icon template.
      */
-    triggericon(): TemplateRef<any>;
+    triggericon(): TemplateRef<void>;
     /**
      * Custom clear icon template.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(): TemplateRef<void>;
     /**
      * Custom decrement icon template.
      */
-    decrementicon(): TemplateRef<any>;
+    decrementicon(): TemplateRef<void>;
     /**
      * Custom increment icon template.
      */
-    incrementicon(): TemplateRef<any>;
+    incrementicon(): TemplateRef<void>;
     /**
      * Custom footer template.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
     /**
      * Custom button bar template.
      * @param {Object} context - button bar template params.
      */
-    buttonbar(context: {
-        /**
-         * Today button click callback
-         */
-        todayCallback: () => void;
-        /**
-         * Clear button click callback
-         */
-        clearCallback: () => void;
-    }): TemplateRef<{ todayCallback: Function; clearCallback: Function }>;
+    buttonbar(context: DatePickerButtonBarTemplateContext): TemplateRef<DatePickerButtonBarTemplateContext>;
 }
 /**
  * Locale settings options.

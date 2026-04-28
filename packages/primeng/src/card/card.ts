@@ -51,6 +51,8 @@ const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Card extends BaseComponent<CardPassThrough> implements BlockableUI {
+    componentName = 'Card';
+
     $pcCard: Card | undefined = inject(CARD_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -102,30 +104,50 @@ export class Card extends BaseComponent<CardPassThrough> implements BlockableUI 
 
     @ContentChild(Footer) footerFacet: TemplateRef<any> | undefined;
 
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('title', { descendants: false }) titleTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom title template.
+     * @group Templates
+     */
+    @ContentChild('title', { descendants: false }) titleTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('subtitle', { descendants: false }) subtitleTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom subtitle template.
+     * @group Templates
+     */
+    @ContentChild('subtitle', { descendants: false }) subtitleTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom content template.
+     * @group Templates
+     */
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<void> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _titleTemplate: TemplateRef<any> | undefined;
+    _titleTemplate: TemplateRef<void> | undefined;
 
-    _subtitleTemplate: TemplateRef<any> | undefined;
+    _subtitleTemplate: TemplateRef<void> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
     _style = signal<{ [klass: string]: any } | null | undefined>(null);
 
     getBlockableElement(): HTMLElement {
-        return this.el.nativeElement.children[0];
+        return this.el.nativeElement;
     }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;

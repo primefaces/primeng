@@ -26,6 +26,8 @@ const AVATARGROUP_INSTANCE = new InjectionToken<AvatarGroup>('AVATARGROUP_INSTAN
     hostDirectives: [Bind]
 })
 export class AvatarGroup extends BaseComponent<AvatarGroupPassThrough> {
+    componentName = 'AvatarGroup';
+
     $pcAvatarGroup: AvatarGroup | undefined = inject(AVATARGROUP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

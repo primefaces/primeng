@@ -22,12 +22,6 @@ export class PrimeNG extends ThemeProvider {
 
     csp = signal<{ nonce: string | undefined }>({ nonce: undefined });
 
-    /**
-     * Indicates whether the component should be rendered without styles.
-     *
-     * @experimental
-     * This property is not yet implemented. It will be available in a future release.
-     */
     unstyled = signal<boolean | undefined>(undefined);
 
     pt = signal<PrimeNGConfigType['pt']>(undefined);

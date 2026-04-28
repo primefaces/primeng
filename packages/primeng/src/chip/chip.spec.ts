@@ -1,10 +1,10 @@
-import { Component, DebugElement, input, TemplateRef, ViewChild } from '@angular/core';
+import { Component, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from 'primeng/api';
-import { Chip, ChipModule } from './chip';
 import { ChipProps } from 'primeng/types/chip';
+import { Chip, ChipModule } from './chip';
 
 @Component({
     standalone: false,
@@ -179,9 +179,9 @@ class TestVisibilityChipComponent {
 }
 
 describe('Chip', () => {
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ChipModule, SharedModule, NoopAnimationsModule],
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [ChipModule, SharedModule],
             declarations: [
                 TestBasicChipComponent,
                 TestLabelChipComponent,
@@ -195,8 +195,9 @@ describe('Chip', () => {
                 TestChipPropsComponent,
                 TestDynamicChipComponent,
                 TestVisibilityChipComponent
-            ]
-        });
+            ],
+            providers: [provideZonelessChangeDetection()]
+        }).compileComponents();
     });
 
     describe('Component Initialization', () => {
@@ -204,20 +205,20 @@ describe('Chip', () => {
         let component: Chip;
         let element: HTMLElement;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicChipComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const chipDebugElement = fixture.debugElement.query(By.directive(Chip));
             component = chipDebugElement.componentInstance;
             element = chipDebugElement.nativeElement;
         });
 
-        it('should create the component', () => {
+        it('should create the component', async () => {
             expect(component).toBeTruthy();
         });
 
-        it('should have default values', () => {
+        it('should have default values', async () => {
             expect(component.label).toBeUndefined();
             expect(component.icon).toBeUndefined();
             expect(component.image).toBeUndefined();
@@ -228,21 +229,21 @@ describe('Chip', () => {
             expect(component.visible).toBe(true);
         });
 
-        it('should apply base CSS classes', () => {
+        it('should apply base CSS classes', async () => {
             expect(element.classList.contains('p-chip')).toBe(true);
             expect(element.classList.contains('p-component')).toBe(true);
         });
 
-        it('should have correct data attributes', () => {
+        it('should have correct data attributes', async () => {
             expect(element.getAttribute('data-pc-name')).toBe('chip');
             expect(element.getAttribute('data-pc-section')).toBe('root');
         });
 
-        it('should be visible by default', () => {
+        it('should be visible by default', async () => {
             expect(element.style.display).toBe('' as any);
         });
 
-        it('should not show remove icon when not removable', () => {
+        it('should not show remove icon when not removable', async () => {
             const removeIcon = fixture.debugElement.query(By.css('.p-chip-remove-icon'));
             expect(removeIcon).toBeFalsy();
         });
@@ -252,43 +253,46 @@ describe('Chip', () => {
         let fixture: ComponentFixture<TestLabelChipComponent>;
         let component: TestLabelChipComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestLabelChipComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
         });
 
-        it('should display label text', () => {
+        it('should display label text', async () => {
             const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe('Sample Chip');
         });
 
-        it('should update label dynamically', () => {
+        it('should update label dynamically', async () => {
             component.label = 'Updated Label';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
             expect(labelElement.nativeElement.textContent.trim()).toBe('Updated Label');
         });
 
-        it('should not display label when undefined', () => {
+        it('should not display label when undefined', async () => {
             component.label = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
             expect(labelElement).toBeFalsy();
         });
 
-        it('should handle empty label', () => {
+        it('should handle empty label', async () => {
             component.label = '';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
             expect(labelElement).toBeFalsy();
         });
 
-        it('should set aria-label attribute', () => {
+        it('should set aria-label attribute', async () => {
             const element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
             expect(element.getAttribute('aria-label')).toBe('Sample Chip');
         });
@@ -298,37 +302,39 @@ describe('Chip', () => {
         let fixture: ComponentFixture<TestIconChipComponent>;
         let component: TestIconChipComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestIconChipComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
         });
 
-        it('should display icon', () => {
+        it('should display icon', async () => {
             const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
             expect(iconElement).toBeTruthy();
             expect(iconElement.nativeElement.classList.contains('pi')).toBe(true);
             expect(iconElement.nativeElement.classList.contains('pi-user')).toBe(true);
         });
 
-        it('should update icon dynamically', () => {
+        it('should update icon dynamically', async () => {
             component.icon = 'pi pi-star';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
             expect(iconElement.nativeElement.classList.contains('pi-star')).toBe(true);
             expect(iconElement.nativeElement.classList.contains('pi-user')).toBe(false);
         });
 
-        it('should not display icon when undefined', () => {
+        it('should not display icon when undefined', async () => {
             component.icon = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
             expect(iconElement).toBeFalsy();
         });
 
-        it('should display both icon and label', () => {
+        it('should display both icon and label', async () => {
             const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
             const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
 
@@ -337,7 +343,7 @@ describe('Chip', () => {
             expect(labelElement.nativeElement.textContent.trim()).toBe('Icon Chip');
         });
 
-        it('should have correct data attributes on icon', () => {
+        it('should have correct data attributes on icon', async () => {
             const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
             expect(iconElement.nativeElement.getAttribute('data-pc-section')).toBe('icon');
         });
@@ -347,42 +353,43 @@ describe('Chip', () => {
         let fixture: ComponentFixture<TestImageChipComponent>;
         let component: TestImageChipComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestImageChipComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
         });
 
-        it('should display image', () => {
+        it('should display image', async () => {
             const imageElement = fixture.debugElement.query(By.css('.p-chip-image'));
             expect(imageElement).toBeTruthy();
             expect(imageElement.nativeElement.src).toContain('/path/to/image.jpg');
         });
 
-        it('should set alt attribute', () => {
+        it('should set alt attribute', async () => {
             const imageElement = fixture.debugElement.query(By.css('.p-chip-image'));
             expect(imageElement.nativeElement.alt).toBe('User Avatar');
         });
 
-        it('should update image src dynamically', () => {
+        it('should update image src dynamically', async () => {
             component.image = '/new/path/image.png';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('.p-chip-image'));
             expect(imageElement.nativeElement.src).toContain('/new/path/image.png');
         });
 
-        it('should handle image error event', () => {
+        it('should handle image error event', async () => {
             const imageElement = fixture.debugElement.query(By.css('.p-chip-image'));
             const errorEvent = new Event('error');
 
             imageElement.nativeElement.dispatchEvent(errorEvent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(component.imageError).toBe(errorEvent);
         });
 
-        it('should emit onImageError event', () => {
+        it('should emit onImageError event', async () => {
             spyOn(component, 'onImageError');
             const imageElement = fixture.debugElement.query(By.css('.p-chip-image'));
             const errorEvent = new Event('error');
@@ -392,25 +399,28 @@ describe('Chip', () => {
             expect(component.onImageError).toHaveBeenCalledWith(errorEvent);
         });
 
-        it('should not display image when undefined', () => {
+        it('should not display image when undefined', async () => {
             component.image = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('.p-chip-image'));
             expect(imageElement).toBeFalsy();
         });
 
-        it('should update alt attribute dynamically', () => {
+        it('should update alt attribute dynamically', async () => {
             component.alt = 'New Alt Text';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('.p-chip-image'));
             expect(imageElement.nativeElement.alt).toBe('New Alt Text');
         });
 
-        it('should display image instead of icon when both are present', () => {
+        it('should display image instead of icon when both are present', async () => {
             component.image = '/path/to/image.jpg';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('.p-chip-image'));
             const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
@@ -425,27 +435,27 @@ describe('Chip', () => {
         let component: TestRemovableChipComponent;
         let chipComponent: Chip;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestRemovableChipComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             chipComponent = fixture.debugElement.query(By.directive(Chip)).componentInstance;
         });
 
-        it('should show remove icon when removable', () => {
+        it('should show remove icon when removable', async () => {
             const removeIconElement = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
             expect(removeIconElement).toBeTruthy();
         });
 
-        it('should have correct remove icon attributes', () => {
+        it('should have correct remove icon attributes', async () => {
             const removeIconElement = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
             expect(removeIconElement.nativeElement.getAttribute('tabindex')).toBe('0');
             expect(removeIconElement.nativeElement.getAttribute('role')).toBe('button');
             expect(removeIconElement.nativeElement.getAttribute('aria-label')).toBeTruthy();
         });
 
-        it('should remove chip when remove icon is clicked', () => {
+        it('should remove chip when remove icon is clicked', async () => {
             expect(chipComponent.visible).toBe(true);
 
             const removeIconElement = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
@@ -456,7 +466,7 @@ describe('Chip', () => {
             expect(component.removeEvent).toBeTruthy();
         });
 
-        it('should emit onRemove event', () => {
+        it('should emit onRemove event', async () => {
             spyOn(component, 'onRemove');
             const removeIconElement = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
 
@@ -465,25 +475,26 @@ describe('Chip', () => {
             expect(component.onRemove).toHaveBeenCalled();
         });
 
-        it('should hide chip after removal', () => {
+        it('should hide chip after removal', async () => {
             const element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
 
             const removeIconElement = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
             removeIconElement.triggerEventHandler('click', new MouseEvent('click'));
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(element.style.display).toBe('none');
         });
 
-        it('should not show remove icon when not removable', () => {
+        it('should not show remove icon when not removable', async () => {
             component.removable = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const removeIconElement = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
             expect(removeIconElement).toBeFalsy();
         });
 
-        it('should handle keyboard events on remove icon', () => {
+        it('should handle keyboard events on remove icon', async () => {
             spyOn(component, 'onRemove');
             const removeIconElement = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
 
@@ -503,7 +514,7 @@ describe('Chip', () => {
             expect(component.onRemove).toHaveBeenCalled();
         });
 
-        it('should not handle other keyboard events', () => {
+        it('should not handle other keyboard events', async () => {
             spyOn(component, 'onRemove');
             const removeIconElement = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
 
@@ -518,28 +529,29 @@ describe('Chip', () => {
         let fixture: ComponentFixture<TestCustomRemoveIconChipComponent>;
         let component: TestCustomRemoveIconChipComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestCustomRemoveIconChipComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
         });
 
-        it('should display custom remove icon', () => {
+        it('should display custom remove icon', async () => {
             const removeIconElement = fixture.debugElement.query(By.css('.pi-times'));
             expect(removeIconElement).toBeTruthy();
             expect(removeIconElement.nativeElement.classList.contains('p-chip-remove-icon')).toBe(true);
         });
 
-        it('should handle custom remove icon click', () => {
+        it('should handle custom remove icon click', async () => {
             const removeIconElement = fixture.debugElement.query(By.css('.pi-times'));
             removeIconElement.nativeElement.click();
 
             expect(component.removed).toBe(true);
         });
 
-        it('should update custom remove icon dynamically', () => {
+        it('should update custom remove icon dynamically', async () => {
             component.removeIcon = 'pi pi-trash';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const oldIcon = fixture.debugElement.query(By.css('.pi-times'));
             const newIcon = fixture.debugElement.query(By.css('.pi-trash'));
@@ -553,26 +565,26 @@ describe('Chip', () => {
         let fixture: ComponentFixture<TestTemplateChipComponent>;
         let component: TestTemplateChipComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestTemplateChipComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
         });
 
-        it('should display template remove icon', () => {
+        it('should display template remove icon', async () => {
             const customRemoveIcon = fixture.debugElement.query(By.css('.custom-remove-icon'));
             expect(customRemoveIcon).toBeTruthy();
             expect(customRemoveIcon.nativeElement.classList.contains('pi-trash')).toBe(true);
         });
 
-        it('should handle template remove icon click', () => {
+        it('should handle template remove icon click', async () => {
             const removeContainer = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
             removeContainer.nativeElement.click();
 
             expect(component.removed).toBe(true);
         });
 
-        it('should have correct container attributes for template', () => {
+        it('should have correct container attributes for template', async () => {
             const removeContainer = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
             expect(removeContainer.nativeElement.getAttribute('tabindex')).toBe('0');
             expect(removeContainer.nativeElement.getAttribute('role')).toBe('button');
@@ -582,12 +594,12 @@ describe('Chip', () => {
     describe('Content Projection', () => {
         let fixture: ComponentFixture<TestContentChipComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestContentChipComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
         });
 
-        it('should project custom content', () => {
+        it('should project custom content', async () => {
             const customContent = fixture.debugElement.query(By.css('.custom-content'));
             expect(customContent).toBeTruthy();
             expect(customContent.nativeElement.textContent.trim()).toBe('Custom Chip Content');
@@ -599,26 +611,27 @@ describe('Chip', () => {
         let component: TestStyleClassChipComponent;
         let element: HTMLElement;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestStyleClassChipComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
         });
 
-        it('should apply custom style class', () => {
+        it('should apply custom style class', async () => {
             expect(element.classList.contains('custom-chip')).toBe(true);
         });
 
-        it('should update style class dynamically', () => {
+        it('should update style class dynamically', async () => {
             component.styleClass = 'new-custom-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.classList.contains('new-custom-class')).toBe(true);
         });
 
-        it('should maintain base classes with custom style class', () => {
+        it('should maintain base classes with custom style class', async () => {
             expect(element.classList.contains('p-chip')).toBe(true);
             expect(element.classList.contains('custom-chip')).toBe(true);
         });
@@ -629,29 +642,30 @@ describe('Chip', () => {
         let component: TestChipPropsComponent;
         let chipComponent: Chip;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestChipPropsComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             chipComponent = fixture.debugElement.query(By.directive(Chip)).componentInstance;
         });
 
-        it('should apply chipProps values', () => {
+        it('should apply chipProps values', async () => {
             expect(chipComponent.label).toBe('Props Chip');
             expect(chipComponent.icon).toBe('pi pi-star');
             expect(chipComponent.removable).toBe(true);
             expect(chipComponent.styleClass).toBe('props-chip');
         });
 
-        it('should update when chipProps changes', () => {
+        it('should update when chipProps changes', async () => {
             component.chipProps = {
                 label: 'Updated Props',
                 icon: 'pi pi-home',
                 removable: false,
                 styleClass: 'updated-props'
             };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(chipComponent.label).toBe('Updated Props');
             expect(chipComponent.icon).toBe('pi pi-home');
@@ -659,16 +673,17 @@ describe('Chip', () => {
             expect(chipComponent.styleClass).toBe('updated-props');
         });
 
-        it('should handle partial chipProps updates', () => {
+        it('should handle partial chipProps updates', async () => {
             component.chipProps = {
                 label: 'Partial Update'
             };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(chipComponent.label).toBe('Partial Update');
         });
 
-        it('should display elements from chipProps', () => {
+        it('should display elements from chipProps', async () => {
             const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
             const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
             const removeIcon = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
@@ -685,84 +700,92 @@ describe('Chip', () => {
         let chipComponent: Chip;
         let element: HTMLElement;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestDynamicChipComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const chipDebugElement = fixture.debugElement.query(By.directive(Chip));
             chipComponent = chipDebugElement.componentInstance;
             element = chipDebugElement.nativeElement;
         });
 
-        it('should handle combined property changes', () => {
+        it('should handle combined property changes', async () => {
             component.icon = 'pi pi-star';
             component.removable = true;
             component.styleClass = 'dynamic-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(chipComponent.icon).toBe('pi pi-star');
             expect(chipComponent.removable).toBe(true);
             expect(element.classList.contains('dynamic-class')).toBe(true);
         });
 
-        it('should switch between icon and image', () => {
+        it('should switch between icon and image', async () => {
             // Start with icon
             component.icon = 'pi pi-user';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(fixture.debugElement.query(By.css('.p-chip-icon'))).toBeTruthy();
             expect(fixture.debugElement.query(By.css('.p-chip-image'))).toBeFalsy();
 
             // Switch to image
             component.image = '/path/to/image.jpg';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(fixture.debugElement.query(By.css('.p-chip-image'))).toBeTruthy();
             expect(fixture.debugElement.query(By.css('.p-chip-icon'))).toBeFalsy();
         });
 
-        it('should handle removable state changes', () => {
+        it('should handle removable state changes', async () => {
             expect(fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'))).toBeFalsy();
 
             component.removable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'))).toBeTruthy();
         });
 
-        it('should handle custom remove icon changes', () => {
+        it('should handle custom remove icon changes', async () => {
             component.removable = true;
             component.removeIcon = 'pi pi-times';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(fixture.debugElement.query(By.css('.pi-times'))).toBeTruthy();
 
             component.removeIcon = 'pi pi-trash';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(fixture.debugElement.query(By.css('.pi-trash'))).toBeTruthy();
             expect(fixture.debugElement.query(By.css('.pi-times'))).toBeFalsy();
         });
 
-        it('should handle chipProps changes', () => {
+        it('should handle chipProps changes', async () => {
             component.chipProps = {
                 label: 'ChipProps Label',
                 icon: 'pi pi-star',
                 removable: true
             };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(chipComponent.label).toBe('ChipProps Label');
             expect(chipComponent.icon).toBe('pi pi-star');
             expect(chipComponent.removable).toBe(true);
         });
 
-        it('should show/hide projected content dynamically', () => {
+        it('should show/hide projected content dynamically', async () => {
             expect(fixture.debugElement.query(By.css('.dynamic-content'))).toBeFalsy();
 
             component.showContent = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const content = fixture.debugElement.query(By.css('.dynamic-content'));
             expect(content).toBeTruthy();
@@ -775,34 +798,37 @@ describe('Chip', () => {
         let chipComponent: Chip;
         let element: HTMLElement;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestVisibilityChipComponent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const chipDebugElement = fixture.debugElement.query(By.directive(Chip));
             chipComponent = chipDebugElement.componentInstance;
             element = chipDebugElement.nativeElement;
         });
 
-        it('should be visible by default', () => {
+        it('should be visible by default', async () => {
             expect(chipComponent.visible).toBe(true);
             expect(element.style.display).toBe('' as any);
         });
 
-        it('should hide when visible is false', () => {
+        it('should hide when visible is false', async () => {
             chipComponent.visible = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.style.display).toBe('none');
         });
 
-        it('should show when visible is true', () => {
+        it('should show when visible is true', async () => {
             chipComponent.visible = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(element.style.display).toBe('none');
 
             chipComponent.visible = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             // When visible is true, check if component visible property is set correctly
             expect(chipComponent.visible).toBe(true);
         });
@@ -813,15 +839,15 @@ describe('Chip', () => {
         let component: TestRemovableChipComponent;
         let chipComponent: Chip;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestRemovableChipComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             chipComponent = fixture.debugElement.query(By.directive(Chip)).componentInstance;
         });
 
-        it('should emit onRemove event on close', () => {
+        it('should emit onRemove event on close', async () => {
             spyOn(chipComponent.onRemove, 'emit');
             const mockEvent = new MouseEvent('click');
 
@@ -831,7 +857,7 @@ describe('Chip', () => {
             expect(chipComponent.visible).toBe(false);
         });
 
-        it('should handle keydown events correctly', () => {
+        it('should handle keydown events correctly', async () => {
             spyOn(chipComponent, 'close');
 
             // Test Enter key
@@ -857,74 +883,84 @@ describe('Chip', () => {
         let component: TestDynamicChipComponent;
         let chipComponent: Chip;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestDynamicChipComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             chipComponent = fixture.debugElement.query(By.directive(Chip)).componentInstance;
         });
 
-        it('should handle null/undefined values gracefully', () => {
+        it('should handle null/undefined values gracefully', async () => {
             component.label = null as any;
             component.icon = undefined as any;
             component.image = undefined as any;
             component.alt = undefined as any;
             component.styleClass = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(fixture.debugElement.query(By.css('.p-chip-label'))).toBeFalsy();
             expect(fixture.debugElement.query(By.css('.p-chip-icon'))).toBeFalsy();
             expect(fixture.debugElement.query(By.css('.p-chip-image'))).toBeFalsy();
         });
 
-        it('should handle empty string values', () => {
+        it('should handle empty string values', async () => {
             component.label = '';
             component.icon = '';
             component.image = '';
             component.alt = '';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(fixture.debugElement.query(By.css('.p-chip-label'))).toBeFalsy();
             expect(fixture.debugElement.query(By.css('.p-chip-icon'))).toBeFalsy();
             expect(fixture.debugElement.query(By.css('.p-chip-image'))).toBeFalsy();
         });
 
-        it('should handle whitespace-only label', () => {
+        it('should handle whitespace-only label', async () => {
             component.label = '   ';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe('' as any);
         });
 
-        it('should handle rapid removable state changes', () => {
+        it('should handle rapid removable state changes', async () => {
             component.removable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'))).toBeTruthy();
 
             component.removable = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'))).toBeFalsy();
 
             component.removable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'))).toBeTruthy();
         });
 
-        it('should handle undefined chipProps gracefully', () => {
+        it('should handle undefined chipProps gracefully', async () => {
             component.chipProps = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(chipComponent.chipProps).toBeUndefined();
         });
 
-        it('should handle invalid chipProps', () => {
+        it('should handle invalid chipProps', async () => {
             component.chipProps = null as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(() => {
+                fixture.changeDetectorRef.markForCheck();
+            }).not.toThrow();
         });
     });
 
@@ -933,27 +969,29 @@ describe('Chip', () => {
         let component: TestDynamicChipComponent;
         let element: HTMLElement;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestDynamicChipComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
         });
 
-        it('should maintain base classes with custom classes', () => {
+        it('should maintain base classes with custom classes', async () => {
             component.styleClass = 'custom-chip-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.classList.contains('p-chip')).toBe(true);
             expect(element.classList.contains('p-component')).toBe(true);
             expect(element.classList.contains('custom-chip-class')).toBe(true);
         });
 
-        it('should have correct data attributes on child elements', () => {
+        it('should have correct data attributes on child elements', async () => {
             component.icon = 'pi pi-star';
             component.removable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
             const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
@@ -964,22 +1002,25 @@ describe('Chip', () => {
             expect(removeIcon.nativeElement.getAttribute('data-pc-section')).toBe('removeicon');
         });
 
-        it('should handle multiple custom classes', () => {
+        it('should handle multiple custom classes', async () => {
             component.styleClass = 'class1 class2 class3';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.classList.contains('class1')).toBe(true);
             expect(element.classList.contains('class2')).toBe(true);
             expect(element.classList.contains('class3')).toBe(true);
         });
 
-        it('should handle class transitions correctly', () => {
+        it('should handle class transitions correctly', async () => {
             component.styleClass = 'initial-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(element.classList.contains('initial-class')).toBe(true);
 
             component.styleClass = 'updated-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(element.classList.contains('initial-class')).toBe(false);
             expect(element.classList.contains('updated-class')).toBe(true);
         });
@@ -1004,63 +1045,63 @@ describe('Chip', () => {
             let fixture: ComponentFixture<TestPTChipComponent>;
             let element: HTMLElement;
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 fixture = TestBed.createComponent(TestPTChipComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
                 element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
             });
 
-            it('should apply string class to host section', () => {
+            it('should apply string class to host section', async () => {
                 fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(element.classList.contains('HOST_CLASS')).toBe(true);
             });
 
-            it('should apply string class to root section', () => {
+            it('should apply string class to root section', async () => {
                 fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(element.classList.contains('ROOT_CLASS')).toBe(true);
             });
 
-            it('should apply string class to label section', () => {
+            it('should apply string class to label section', async () => {
                 fixture.componentRef.setInput('pt', { label: 'LABEL_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
                 expect(labelElement.nativeElement.classList.contains('LABEL_CLASS')).toBe(true);
             });
 
-            it('should apply string class to icon section', () => {
+            it('should apply string class to icon section', async () => {
                 fixture.componentRef.setInput('icon', 'pi pi-user');
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', { icon: 'ICON_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
                 expect(iconElement.nativeElement.classList.contains('ICON_CLASS')).toBe(true);
             });
 
-            it('should apply string class to image section', () => {
+            it('should apply string class to image section', async () => {
                 fixture.componentRef.setInput('label', undefined);
                 fixture.componentRef.setInput('image', '/path/to/image.jpg');
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', { image: 'IMAGE_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const imageElement = fixture.debugElement.query(By.css('img'));
                 expect(imageElement.nativeElement.classList.contains('IMAGE_CLASS')).toBe(true);
             });
 
-            it('should apply string class to removeIcon section', () => {
+            it('should apply string class to removeIcon section', async () => {
                 fixture.componentRef.setInput('removable', true);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', { removeIcon: 'REMOVE_ICON_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const removeIconElement = fixture.debugElement.query(By.css('.p-chip-remove-icon'));
                 expect(removeIconElement.nativeElement.classList.contains('REMOVE_ICON_CLASS')).toBe(true);
@@ -1071,13 +1112,13 @@ describe('Chip', () => {
             let fixture: ComponentFixture<TestPTChipComponent>;
             let element: HTMLElement;
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 fixture = TestBed.createComponent(TestPTChipComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
                 element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
             });
 
-            it('should apply object with class, style, data and aria attributes to root', () => {
+            it('should apply object with class, style, data and aria attributes to root', async () => {
                 fixture.componentRef.setInput('pt', {
                     root: {
                         class: 'ROOT_OBJECT_CLASS',
@@ -1086,7 +1127,7 @@ describe('Chip', () => {
                         'aria-label': 'TEST_ARIA_LABEL'
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(element.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
                 expect(element.style.backgroundColor).toBe('lightblue');
@@ -1094,7 +1135,7 @@ describe('Chip', () => {
                 expect(element.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
             });
 
-            it('should apply object with class, style, data and aria attributes to label', () => {
+            it('should apply object with class, style, data and aria attributes to label', async () => {
                 fixture.componentRef.setInput('pt', {
                     label: {
                         class: 'LABEL_OBJECT_CLASS',
@@ -1103,7 +1144,7 @@ describe('Chip', () => {
                         'aria-hidden': 'true'
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
                 expect(labelElement.nativeElement.classList.contains('LABEL_OBJECT_CLASS')).toBe(true);
@@ -1112,9 +1153,9 @@ describe('Chip', () => {
                 expect(labelElement.nativeElement.getAttribute('aria-hidden')).toBe('true');
             });
 
-            it('should apply object with class, style, data and aria attributes to icon', () => {
+            it('should apply object with class, style, data and aria attributes to icon', async () => {
                 fixture.componentRef.setInput('icon', 'pi pi-user');
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
                     icon: {
@@ -1123,7 +1164,7 @@ describe('Chip', () => {
                         'data-p-icon': 'user'
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
                 expect(iconElement.nativeElement.classList.contains('ICON_OBJECT_CLASS')).toBe(true);
@@ -1136,20 +1177,20 @@ describe('Chip', () => {
             let fixture: ComponentFixture<TestPTChipComponent>;
             let element: HTMLElement;
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 fixture = TestBed.createComponent(TestPTChipComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
                 element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
             });
 
-            it('should apply mixed pt with object and string values', () => {
+            it('should apply mixed pt with object and string values', async () => {
                 fixture.componentRef.setInput('pt', {
                     root: {
                         class: 'ROOT_MIXED_CLASS'
                     },
                     label: 'LABEL_MIXED_CLASS'
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(element.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
 
@@ -1162,15 +1203,15 @@ describe('Chip', () => {
             let fixture: ComponentFixture<TestPTChipComponent>;
             let element: HTMLElement;
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 fixture = TestBed.createComponent(TestPTChipComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
                 element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
             });
 
-            it('should use instance label in pt function for root', () => {
+            it('should use instance label in pt function for root', async () => {
                 fixture.componentRef.setInput('label', 'Dynamic Label');
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
@@ -1179,14 +1220,14 @@ describe('Chip', () => {
                         };
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(element.classList.contains('HAS_LABEL')).toBe(true);
             });
 
-            it('should use instance removable in pt function for label', () => {
+            it('should use instance removable in pt function for label', async () => {
                 fixture.componentRef.setInput('removable', true);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
                     label: ({ instance }: any) => {
@@ -1195,7 +1236,7 @@ describe('Chip', () => {
                         };
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
                 expect(labelElement.nativeElement.getAttribute('data-removable')).toBe('true');
@@ -1206,13 +1247,13 @@ describe('Chip', () => {
             let fixture: ComponentFixture<TestPTChipComponent>;
             let element: HTMLElement;
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 fixture = TestBed.createComponent(TestPTChipComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
                 element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
             });
 
-            it('should bind onclick event to root through pt', () => {
+            it('should bind onclick event to root through pt', async () => {
                 let clickCount = 0;
                 fixture.componentRef.setInput('pt', {
                     root: {
@@ -1221,7 +1262,7 @@ describe('Chip', () => {
                         }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 element.click();
                 element.click();
@@ -1229,7 +1270,7 @@ describe('Chip', () => {
                 expect(clickCount).toBe(2);
             });
 
-            it('should bind onclick event to label through pt', () => {
+            it('should bind onclick event to label through pt', async () => {
                 let clicked = false;
                 fixture.componentRef.setInput('pt', {
                     label: {
@@ -1238,7 +1279,7 @@ describe('Chip', () => {
                         }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
                 labelElement.nativeElement.click();
@@ -1251,16 +1292,16 @@ describe('Chip', () => {
             let fixture: ComponentFixture<TestPTChipComponent>;
             let chipComponent: Chip;
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 fixture = TestBed.createComponent(TestPTChipComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
                 chipComponent = fixture.debugElement.query(By.directive(Chip)).componentInstance;
             });
 
-            it('should access onRemove emitter through instance in pt', () => {
+            it('should access onRemove emitter through instance in pt', async () => {
                 let emitterAccessed = false;
                 fixture.componentRef.setInput('removable', true);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
@@ -1270,15 +1311,15 @@ describe('Chip', () => {
                         return {};
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(emitterAccessed).toBe(true);
             });
 
-            it('should access onImageError emitter through instance in pt', () => {
+            it('should access onImageError emitter through instance in pt', async () => {
                 let emitterAccessed = false;
                 fixture.componentRef.setInput('image', '/path/to/image.jpg');
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
@@ -1288,26 +1329,26 @@ describe('Chip', () => {
                         return {};
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(emitterAccessed).toBe(true);
             });
         });
 
         describe('Case 7: Inline test', () => {
-            it('should apply inline pt with string class', () => {
+            it('should apply inline pt with string class', async () => {
                 const inlineFixture = TestBed.createComponent(TestPTChipComponent);
                 inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
-                inlineFixture.detectChanges();
+                await inlineFixture.whenStable();
 
                 const element = inlineFixture.debugElement.query(By.directive(Chip)).nativeElement;
                 expect(element.classList.contains('INLINE_TEST_CLASS')).toBe(true);
             });
 
-            it('should apply inline pt with object class', () => {
+            it('should apply inline pt with object class', async () => {
                 const inlineFixture = TestBed.createComponent(TestPTChipComponent);
                 inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
-                inlineFixture.detectChanges();
+                await inlineFixture.whenStable();
 
                 const element = inlineFixture.debugElement.query(By.directive(Chip)).nativeElement;
                 expect(element.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
@@ -1317,11 +1358,11 @@ describe('Chip', () => {
         describe('Case 8: Test hooks', () => {
             let fixture: ComponentFixture<TestPTChipComponent>;
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 fixture = TestBed.createComponent(TestPTChipComponent);
             });
 
-            it('should call onAfterViewInit hook', () => {
+            it('should call onAfterViewInit hook', async () => {
                 let hookCalled = false;
                 fixture.componentRef.setInput('pt', {
                     hooks: {
@@ -1330,12 +1371,12 @@ describe('Chip', () => {
                         }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(hookCalled).toBe(true);
             });
 
-            it('should call onAfterContentInit hook', () => {
+            it('should call onAfterContentInit hook', async () => {
                 let hookCalled = false;
                 fixture.componentRef.setInput('pt', {
                     hooks: {
@@ -1344,12 +1385,12 @@ describe('Chip', () => {
                         }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(hookCalled).toBe(true);
             });
 
-            it('should call onAfterViewChecked hook', () => {
+            it('should call onAfterViewChecked hook', async () => {
                 let checkCount = 0;
                 fixture.componentRef.setInput('pt', {
                     hooks: {
@@ -1358,12 +1399,12 @@ describe('Chip', () => {
                         }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(checkCount).toBeGreaterThan(0);
             });
 
-            it('should call onDestroy hook', () => {
+            it('should call onDestroy hook', async () => {
                 let hookCalled = false;
                 fixture.componentRef.setInput('pt', {
                     hooks: {
@@ -1372,7 +1413,7 @@ describe('Chip', () => {
                         }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
                 fixture.destroy();
 
                 expect(hookCalled).toBe(true);

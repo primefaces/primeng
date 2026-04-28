@@ -21,7 +21,36 @@
         {
             "name": "Theming",
             "icon": "pi pi-palette",
-            "routerLink": "/theming"
+            "children": [
+                {
+                    "name": "Styled Mode",
+                    "routerLink": "/theming/styled"
+                },
+                {
+                    "name": "Unstyled Mode",
+                    "routerLink": "/theming/unstyled"
+                },
+                {
+                    "name": "Tailwind CSS",
+                    "icon": "pi pi-heart",
+                    "routerLink": "/tailwind"
+                }
+            ]
+        },
+        {
+            "name": "AI Tools",
+            "icon": "pi pi-sparkles",
+            "badge": "NEW",
+            "children": [
+                {
+                    "name": "LLMs.txt",
+                    "routerLink": "/llms"
+                },
+                {
+                    "name": "MCP Server",
+                    "routerLink": "/mcp"
+                }
+            ]
         },
         {
             "name": "Components",
@@ -472,72 +501,9 @@
             ]
         },
         {
-            "name": "Icons",
-            "icon": "pi pi-eye",
-            "children": [
-                {
-                    "name": "Prime Icons",
-                    "routerLink": "/icons"
-                },
-                {
-                    "name": "Custom Icons",
-                    "routerLink": "/customicons"
-                }
-            ]
-        },
-        {
             "name": "Pass Through",
             "icon": "pi pi-directions",
             "routerLink": "/passthrough",
-            "badge": "NEW"
-        },
-        {
-            "name": "Tailwind CSS",
-            "icon": "pi pi-heart",
-            "routerLink": "/tailwind"
-        },
-        {
-            "name": "Figma UI Kit",
-            "icon": "pi pi-pencil",
-            "children": [
-                {
-                    "name": "Overview",
-                    "routerLink": "/uikit"
-                },
-                {
-                    "name": "Guide",
-                    "routerLink": "/uikit/guide"
-                }
-            ]
-        },
-        {
-            "name": "Templates",
-            "icon": "pi pi-star",
-            "routerLink": "/templates"
-        },
-        {
-            "name": "Theme Designer",
-            "icon": "pi pi-sparkles",
-            "children": [
-                {
-                    "name": "Overview",
-                    "routerLink": "/designer"
-                },
-                {
-                    "name": "Guide",
-                    "routerLink": "/designer/guide"
-                },
-                {
-                    "name": "CI Pipeline",
-                    "routerLink": "/designer/ci"
-                }
-            ]
-
-        },
-        {
-            "name": "PrimeBlocks",
-            "icon": "pi pi-server",
-            "href": "https://primeblocks.org",
             "badge": "NEW"
         },
         {
@@ -547,6 +513,11 @@
                 {
                     "name": "Accessibility",
                     "routerLink": "/guides/accessibility"
+                },
+                       {
+                    "name": "Animations",
+                    "routerLink": "/guides/animations",
+                    "badge": "NEW"
                 },
                 {
                     "name": "PrimeFlex",
@@ -563,9 +534,79 @@
             ]
         },
         {
+            "name": "Icons",
+            "icon": "pi pi-eye",
+            "children": [
+                {
+                    "name": "Prime Icons",
+                    "routerLink": "/icons"
+                },
+                {
+                    "name": "Custom Icons",
+                    "routerLink": "/customicons"
+                }
+            ]
+        },
+        {
+            "name": "Figma UI Kit",
+            "icon": "pi pi-pencil",
+            "children": [
+                {
+                    "name": "Overview",
+                    "routerLink": "/uikit"
+                },
+               {
+                    "name": "Guide v4",
+                    "routerLink": "/uikit/guide/v4"
+                },
+                {
+                    "name": "Guide v3",
+                    "routerLink": "/uikit/guide/v3"
+                }
+            ]
+        },
+        {
+            "name": "Theme Designer",
+            "icon": "pi pi-sparkles",
+            "children": [
+                {
+                    "name": "Overview",
+                    "routerLink": "/designer"
+                },
+                {
+                    "name": "Guide",
+                    "routerLink": "/designer/guide"
+                },
+                           {
+                    "name": "Figma Plugin",
+                    "href": "https://www.figma.com/community/plugin/1592914021886732603/primeui-theme-generator"
+                },
+                {
+                    "name": "CI Pipeline",
+                    "routerLink": "/designer/ci"
+                }
+            ]
+
+        },
+        {
+            "name": "Templates",
+            "icon": "pi pi-star",
+            "routerLink": "/templates"
+        },
+        {
+            "name": "PrimeBlocks",
+            "icon": "pi pi-server",
+            "href": "https://primeblocks.org",
+            "badge": "NEW"
+        },
+        {
             "name": "Migration",
             "icon": "pi pi-arrow-up",
             "children": [
+                {
+                    "name": "Updating to v21",
+                    "routerLink": "/migration/v21"
+                },
                 {
                     "name": "Updating to v20",
                     "routerLink": "/migration/v20"

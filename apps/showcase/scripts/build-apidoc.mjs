@@ -347,7 +347,7 @@ async function main() {
                                     templates.values.push({
                                         parent: parent,
                                         name: signature ? signature.name : child.name,
-                                        parameters: signature.parameters.map((param) => {
+                                        parameters: (signature?.parameters || []).map((param) => {
                                             let type = param.type.toString();
 
                                             if (param.type.declaration) {
@@ -376,8 +376,8 @@ async function main() {
                                                 description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
                                             };
                                         }),
-                                        description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' '),
-                                        deprecated: getDeprecatedText(signature)
+                                        description: signature?.comment && signature.comment.summary.map((s) => s.text || '').join(' '),
+                                        deprecated: signature ? getDeprecatedText(signature) : undefined
                                     });
                                 });
                             });
@@ -611,7 +611,9 @@ async function main() {
             }
         }
 
-        const typedocJSON = JSON.stringify(mergedDocs, null, 4);
+        let typedocJSON = JSON.stringify(mergedDocs, null, 4);
+        // Replace generic type "T" with "unknown" for better documentation clarity
+        typedocJSON = typedocJSON.replace(/"type": "T"/g, '"type": "unknown"');
 
         !fs.existsSync(outputPath) && fs.mkdirSync(outputPath);
         fs.writeFileSync(path.resolve(outputPath, 'index.json'), typedocJSON);

@@ -1,3 +1,4 @@
+import { TemplateRef } from '@angular/core';
 import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -67,4 +68,31 @@ export interface BreadcrumbItemClickEvent {
      * Clicked item instance.
      */
     item: MenuItem;
+}
+
+/**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface BreadcrumbItemTemplateContext {
+    /**
+     * Menu item instance.
+     */
+    $implicit: MenuItem;
+}
+
+/**
+ * Defines valid templates in Breadcrumb.
+ * @group Templates
+ */
+export interface BreadcrumbTemplates {
+    /**
+     * Custom item template.
+     * @param {Object} context - item data.
+     */
+    item(context: BreadcrumbItemTemplateContext): TemplateRef<BreadcrumbItemTemplateContext>;
+    /**
+     * Custom separator template.
+     */
+    separator(): TemplateRef<void>;
 }

@@ -1,11 +1,11 @@
-import { AccessibilityDoc } from '@/doc/tag/accessibilitydoc';
-import { BasicDoc } from '@/doc/tag/basicdoc';
-import { IconDoc } from '@/doc/tag/icondoc';
-import { ImportDoc } from '@/doc/tag/importdoc';
-import { PillDoc } from '@/doc/tag/pilldoc';
+import { AccessibilityDoc } from '@/doc/tag/accessibility-doc';
+import { BasicDoc } from '@/doc/tag/basic-doc';
+import { IconDoc } from '@/doc/tag/icon-doc';
+import { ImportDoc } from '@/doc/tag/import-doc';
+import { PillDoc } from '@/doc/tag/pill-doc';
 import { PTComponent } from '@/doc/tag/pt/PTComponent';
-import { SeverityDoc } from '@/doc/tag/severitydoc';
-import { TemplateDoc } from '@/doc/tag/templatedoc';
+import { SeverityDoc } from '@/doc/tag/severity-doc';
+import { TemplateDoc } from '@/doc/tag/template-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

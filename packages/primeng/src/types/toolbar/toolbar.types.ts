@@ -41,15 +41,15 @@ export type ToolbarPassThrough<I = unknown> = PassThrough<I, ToolbarPassThroughO
  */
 export interface ToolbarTemplates {
     /**
-     * Custom start content.
+     * Custom start template.
      */
-    start(): TemplateRef<any>;
+    start(): TemplateRef<void>;
     /**
-     * Custom end content.
+     * Custom end template.
      */
-    end(): TemplateRef<any>;
+    end(): TemplateRef<void>;
     /**
-     * Custom center content.
+     * Custom center template.
      */
-    center(): TemplateRef<any>;
+    center(): TemplateRef<void>;
 }

@@ -46,7 +46,23 @@ export enum AvatarClasses {
     /**
      * Class name of the icon element
      */
-    icon = 'p-avatar-icon'
+    icon = 'p-avatar-icon',
+    /**
+     * Container element in image mode
+     */
+    image = 'p-avatar-image',
+    /**
+     * Container element with a circle shape
+     */
+    circle = 'p-avatar-circle',
+    /**
+     *  Container element with a large size
+     */
+    large = 'p-avatar-lg',
+    /**
+     *  Container element with an xlarge size
+     */
+    xlarge = 'p-avatar-xl'
 }
 
 export interface AvatarStyle extends BaseStyle {}

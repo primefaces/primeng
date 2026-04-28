@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Code } from '@/domain/code';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'v20-backward-compatible-doc',

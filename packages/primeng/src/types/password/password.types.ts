@@ -1,6 +1,8 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
+import type { OverlayPassThrough } from 'primeng/types/overlay';
 
 /**
  * Custom pass-through(pt) options.
@@ -36,6 +38,11 @@ export interface PasswordPassThroughOptions<I = unknown> {
      */
     unmaskIcon?: PassThroughOption<HTMLElement, I>;
     /**
+     * Used to pass attributes to the Overlay component.
+     * @see {@link OverlayPassThrough}
+     */
+    pcOverlay?: OverlayPassThrough;
+    /**
      * Used to pass attributes to the overlay's DOM element.
      */
     overlay?: PassThroughOption<HTMLDivElement, I>;
@@ -55,6 +62,10 @@ export interface PasswordPassThroughOptions<I = unknown> {
      * Used to pass attributes to the meter text's DOM element.
      */
     meterText?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -66,6 +77,17 @@ export interface PasswordPassThroughOptions<I = unknown> {
 export type PasswordPassThrough<I = unknown> = PassThrough<I, PasswordPassThroughOptions<I>>;
 
 /**
+ * Custom icon template context.
+ * @group Interface
+ */
+export interface PasswordIconTemplateContext {
+    /**
+     * Style class of the icon.
+     */
+    class: string;
+}
+
+/**
  * Defines valid templates in Password.
  * @group Templates
  */
@@ -73,25 +95,27 @@ export interface PasswordTemplates {
     /**
      * Custom template of header.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom template of content.
      */
-    content(): TemplateRef<any>;
+    content(): TemplateRef<void>;
     /**
      * Custom template of footer.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
     /**
      * Custom template of clear icon.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(): TemplateRef<void>;
     /**
      * Custom template of hide icon.
+     * @param {PasswordIconTemplateContext} context - icon context.
      */
-    hideicon(): TemplateRef<any>;
+    hideicon(context: PasswordIconTemplateContext): TemplateRef<PasswordIconTemplateContext>;
     /**
      * Custom template of show icon.
+     * @param {PasswordIconTemplateContext} context - icon context.
      */
-    showicon(): TemplateRef<any>;
+    showicon(context: PasswordIconTemplateContext): TemplateRef<PasswordIconTemplateContext>;
 }

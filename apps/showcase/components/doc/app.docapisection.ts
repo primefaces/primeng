@@ -139,7 +139,7 @@ export class AppDocApiSection {
                                 label: 'Templates',
                                 description: compTemplates.description ?? `Templates of ${component} component.`,
                                 component: AppDocApiTable,
-                                data: this.setEmitData(compTemplates.values)
+                                data: this.setTemplatesData(compTemplates.values)
                             });
                         }
                     });
@@ -185,7 +185,7 @@ export class AppDocApiSection {
                             label: 'Templates',
                             description: templates.description ?? `Templates of ${docName} component.`,
                             component: AppDocApiTable,
-                            data: this.setEmitData(filteredTemplates)
+                            data: this.setTemplatesData(filteredTemplates)
                         });
                     }
                 }
@@ -213,6 +213,21 @@ export class AppDocApiSection {
                         data: this.setTypesData(moduleName, types.values),
                         description: APIDoc[moduleName].types.description || null
                     });
+                }
+
+                // Handle interfaces from types.interfaces (excluding PassThroughOptions)
+                if (types && types.interfaces && types.interfaces.values && types.interfaces.values.length) {
+                    const filteredTypesInterfaces = types.interfaces.values.filter((item) => !item.name.includes('PassThrough'));
+
+                    if (filteredTypesInterfaces.length > 0) {
+                        newDoc.children.push({
+                            id: `api.${moduleName}.interfaces`,
+                            label: 'Interfaces',
+                            component: AppDocApiTable,
+                            description: types.interfaces.description,
+                            data: this.setEventsData(moduleName, filteredTypesInterfaces, 'interfaces')
+                        });
+                    }
                 }
 
                 if (events && events.values.length) {
@@ -335,6 +350,16 @@ export class AppDocApiSection {
             parameters: emitter.parameters && emitter.parameters.length > 0 ? emitter.parameters : null,
             description: emitter.description,
             deprecated: emitter.deprecated
+        }));
+    }
+
+    setTemplatesData(templates) {
+        return templates.map((template) => ({
+            name: template.name,
+            type: template.type ?? null,
+            parameters: template.parameters && template.parameters.length > 0 ? template.parameters : null,
+            description: template.description,
+            deprecated: template.deprecated
         }));
     }
 

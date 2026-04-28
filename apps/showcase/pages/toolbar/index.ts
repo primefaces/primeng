@@ -1,8 +1,8 @@
-import { BasicDoc } from '@/doc/toolbar/basicdoc';
-import { ImportDoc } from '@/doc/toolbar/importdoc';
+import { BasicDoc } from '@/doc/toolbar/basic-doc';
+import { ImportDoc } from '@/doc/toolbar/import-doc';
 import { Component } from '@angular/core';
-import { AccessibilityDoc } from '@/doc/toolbar/accessibilitydoc';
-import { CustomDoc } from '@/doc/toolbar/customdoc';
+import { AccessibilityDoc } from '@/doc/toolbar/accessibility-doc';
+import { CustomDoc } from '@/doc/toolbar/custom-doc';
 import { PTComponent } from '@/doc/toolbar/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 

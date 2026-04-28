@@ -240,238 +240,80 @@ export interface FileUploadErrorEvent {
 }
 
 /**
- * Defines valid templates in FileUpload.
- * @group Templates
+ * Custom header template context.
+ * @group Interface
  */
-export interface FileUploadTemplates {
+export interface FileUploadHeaderTemplateContext {
     /**
-     * Custom template of file.
+     * File list.
      */
-    file(): TemplateRef<any>;
+    $implicit: File[];
     /**
-     * Custom file label template.
+     * Uploaded files list.
      */
-    filelabel(context: {
-        /**
-         * File list.
-         */
-        $implicit: any;
-    }): TemplateRef<any>;
-
+    uploadedFiles: File[];
     /**
-     * Custom template of file.
+     * Callback to invoke on choose button click.
      */
-    header(context: {
-        /**
-         * File list.
-         */
-        $implicit: any;
-        /**
-         * Uploaded files list.
-         */
-        uploadedFiles: any;
-        /**
-         * Callback to invoke on choose button click.
-         */
-        chooseCallback: VoidFunction;
-        /**
-         * Callback to invoke on clear button click.
-         */
-        clearCallback: VoidFunction;
-        /**
-         * Callback to invoke on upload.
-         */
-        uploadCallback: VoidFunction;
-    }): TemplateRef<any>;
+    chooseCallback: () => void;
     /**
-     * Custom template of content.
+     * Callback to invoke on clear button click.
      */
-    content(context: {
-        /**
-         * File list.
-         */
-        $implicit: any;
-        /**
-         * Uploaded files list.
-         */
-        uploadedFiles: any;
-        /**
-         * Upload progress.
-         */
-        progress: any;
-        /**
-         * Status messages about upload process.
-         */
-        messages: any;
-        /**
-         * Callback to invoke on choose button click.
-         */
-        chooseCallback: VoidFunction;
-        /**
-         * Callback to invoke on clear button click.
-         */
-        removeFileCallback: VoidFunction;
-        /**
-         * Callback to invoke on clear button click.
-         */
-        clearCallback: VoidFunction;
-        /**
-         * Callback to invoke on upload.
-         */
-        uploadCallback: VoidFunction;
-        /**
-         * Callback to invoke on remove uploaded file, accepts index as a parameter.
-         * @param index Index of the file to remove.
-         */
-        removeUploadedFileCallback: VoidFunction;
-    }): TemplateRef<any>;
+    clearCallback: () => void;
     /**
-     * Custom template of toolbar.
+     * Callback to invoke on upload.
      */
-    toolbar(): TemplateRef<any>;
-    /**
-     * Custom template of chooseicon.
-     */
-    chooseicon(): TemplateRef<any>;
-    /**
-     * Custom template of uploadicon.
-     */
-    uploadicon(): TemplateRef<any>;
-    /**
-     * Custom template of cancelicon.
-     */
-    cancelicon(): TemplateRef<any>;
+    uploadCallback: () => void;
 }
 
 /**
- * Upload event.
- * @group Events
+ * Custom content template context.
+ * @group Interface
  */
-export interface UploadEvent {
+export interface FileUploadContentTemplateContext {
     /**
-     * HTTP event.
+     * File list.
      */
-    originalEvent: HttpEvent<any>;
-}
-/**
- * Remove uploaded file event.
- * @group Events
- */
-export interface RemoveUploadedFileEvent {
+    $implicit: File[];
     /**
-     * Removed file.
+     * Uploaded files list.
      */
-    file: any;
+    uploadedFiles: File[];
     /**
-     * Uploaded files.
-     */
-    files: any[];
-}
-/**
- * Form data event.
- * @group Events
- */
-export interface FormDataEvent {
-    /**
-     * FormData object.
-     */
-    formData: FormData;
-}
-
-/**
- * An event indicating that the request was sent to the server. Useful when a request may be retried multiple times, to distinguish between retries on the final event stream.
- * @see {@link FileUpload.onSend}
- * @group Events
- */
-export interface FileSendEvent extends UploadEvent, FormDataEvent {}
-/**
- * Callback to invoke before file upload is initialized.
- * @see {@link FileUpload.onBeforeUpload}
- * @group Events
- */
-export interface FileBeforeUploadEvent extends FormDataEvent {}
-/**
- * Callback to invoke when file upload is complete.
- * @see {@link FileUpload.onUpload}
- * @group Events
- */
-export interface FileUploadEvent extends UploadEvent {
-    /**
-     * Uploaded files.
-     */
-    files: File[];
-}
-/**
- * Callback to invoke when a file is removed without uploading using clear button of a file.
- * @see {@link FileUpload.onRemove}
- * @group Events
- */
-export interface FileRemoveEvent {
-    /**
-     * Browser event.
-     */
-    originalEvent: Event;
-    /**
-     * Selected file
-     */
-    file: File;
-}
-/**
- * Callback to invoke when files are selected.
- * @see {@link FileUpload.onSelect}
- * @group Events
- */
-export interface FileSelectEvent {
-    /**
-     * Browser event.
-     */
-    originalEvent: Event;
-    /**
-     * Uploaded files.
-     */
-    files: File[];
-    /**
-     * All files to be uploaded.
-     */
-    currentFiles: File[];
-}
-/**
- * Callback to invoke when files are being uploaded.
- * @see {@link FileUpload.onProgress}
- * @extends {UploadEvent}
- * @group Events
- */
-export interface FileProgressEvent extends UploadEvent {
-    /**
-     * Calculated progress value.
+     * Upload progress value (0-100).
      */
     progress: number;
+    /**
+     * Status messages about upload process.
+     */
+    messages: any[];
+    /**
+     * Callback to invoke on choose button click.
+     */
+    chooseCallback: () => void;
+    /**
+     * Callback to invoke to remove a file from the list.
+     */
+    removeFileCallback: (event: Event, index: number) => void;
+    /**
+     * Callback to invoke on clear button click.
+     */
+    clearCallback: () => void;
+    /**
+     * Callback to invoke on remove uploaded file.
+     */
+    removeUploadedFileCallback: (index: number) => void;
 }
+
 /**
- * Callback to invoke in custom upload mode to upload the files manually.
- * @see {@link FileUpload.uploadHandler}
- * @group Events
+ * Custom file label template context.
+ * @group Interface
  */
-export interface FileUploadHandlerEvent {
+export interface FileUploadFileLabelTemplateContext {
     /**
-     * List of selected files.
+     * File list.
      */
-    files: File[];
-}
-/**
- * Callback to invoke on upload error.
- * @see {@link FileUpload.onError}
- * @group Events
- */
-export interface FileUploadErrorEvent {
-    /**
-     * List of selected files.
-     */
-    error?: ErrorEvent;
-    /**
-     * List of selected files.
-     */
-    files: File[];
+    $implicit: File[];
 }
 
 /**
@@ -480,100 +322,42 @@ export interface FileUploadErrorEvent {
  */
 export interface FileUploadTemplates {
     /**
-     * Custom template of file.
+     * Custom file template.
      */
-    file(): TemplateRef<any>;
+    file(): TemplateRef<void>;
     /**
      * Custom file label template.
+     * @param {Object} context - file label template context.
      */
-    filelabel(context: {
-        /**
-         * File list.
-         */
-        $implicit: any;
-    }): TemplateRef<any>;
-
+    filelabel(context: FileUploadFileLabelTemplateContext): TemplateRef<FileUploadFileLabelTemplateContext>;
     /**
-     * Custom template of file.
+     * Custom header template.
+     * @param {Object} context - header template context.
      */
-    header(context: {
-        /**
-         * File list.
-         */
-        $implicit: any;
-        /**
-         * Uploaded files list.
-         */
-        uploadedFiles: any;
-        /**
-         * Callback to invoke on choose button click.
-         */
-        chooseCallback: VoidFunction;
-        /**
-         * Callback to invoke on clear button click.
-         */
-        clearCallback: VoidFunction;
-        /**
-         * Callback to invoke on upload.
-         */
-        uploadCallback: VoidFunction;
-    }): TemplateRef<any>;
+    header(context: FileUploadHeaderTemplateContext): TemplateRef<FileUploadHeaderTemplateContext>;
     /**
-     * Custom template of content.
+     * Custom content template.
+     * @param {Object} context - content template context.
      */
-    content(context: {
-        /**
-         * File list.
-         */
-        $implicit: any;
-        /**
-         * Uploaded files list.
-         */
-        uploadedFiles: any;
-        /**
-         * Upload progress.
-         */
-        progress: any;
-        /**
-         * Status messages about upload process.
-         */
-        messages: any;
-        /**
-         * Callback to invoke on choose button click.
-         */
-        chooseCallback: VoidFunction;
-        /**
-         * Callback to invoke on clear button click.
-         */
-        removeFileCallback: VoidFunction;
-        /**
-         * Callback to invoke on clear button click.
-         */
-        clearCallback: VoidFunction;
-        /**
-         * Callback to invoke on upload.
-         */
-        uploadCallback: VoidFunction;
-        /**
-         * Callback to invoke on remove uploaded file, accepts index as a parameter.
-         * @param index Index of the file to remove.
-         */
-        removeUploadedFileCallback: VoidFunction;
-    }): TemplateRef<any>;
+    content(context: FileUploadContentTemplateContext): TemplateRef<FileUploadContentTemplateContext>;
     /**
-     * Custom template of toolbar.
+     * Custom toolbar template.
      */
-    toolbar(): TemplateRef<any>;
+    toolbar(): TemplateRef<void>;
     /**
-     * Custom template of chooseicon.
+     * Custom choose icon template.
      */
-    chooseicon(): TemplateRef<any>;
+    chooseicon(): TemplateRef<void>;
     /**
-     * Custom template of uploadicon.
+     * Custom upload icon template.
      */
-    uploadicon(): TemplateRef<any>;
+    uploadicon(): TemplateRef<void>;
     /**
-     * Custom template of cancelicon.
+     * Custom cancel icon template.
      */
-    cancelicon(): TemplateRef<any>;
+    cancelicon(): TemplateRef<void>;
+    /**
+     * Custom empty state template.
+     */
+    empty(): TemplateRef<void>;
 }

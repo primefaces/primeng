@@ -9,6 +9,8 @@ export const routes: Routes = [
         component: AppMainComponent,
         children: [
             { path: 'accessibility', redirectTo: 'guides/accessibility', pathMatch: 'full' },
+            { path: 'theming', redirectTo: 'theming/styled', pathMatch: 'full' },
+            { path: 'uikit/guide', redirectTo: 'uikit/guide/v3', pathMatch: 'full' },
             { path: 'autocomplete', loadChildren: () => import('@/pages/autocomplete/routes') },
             {
                 path: 'installation',
@@ -21,7 +23,6 @@ export const routes: Routes = [
             { path: 'playground', loadChildren: () => import('@/pages/playground/routes') },
             { path: 'roadmap', loadChildren: () => import('@/pages/roadmap/routes') },
             { path: 'team', loadChildren: () => import('@/pages/team/routes') },
-            { path: 'partners', loadChildren: () => import('@/pages/partners/routes') },
             {
                 path: 'theming',
                 loadChildren: () => import('@/pages/theming/routes')
@@ -303,6 +304,8 @@ export const routes: Routes = [
             },
             { path: 'templates', loadChildren: () => import('@/pages/templates/templates.module').then((m) => m.TemplatesModule) },
             { path: 'guides', loadChildren: () => import('@/pages/guides/routes') },
+            { path: 'llms', loadChildren: () => import('@/pages/llms/routes') },
+            { path: 'mcp', loadChildren: () => import('@/pages/mcp/routes') },
             {
                 path: 'designer',
                 loadChildren: () => import('@/pages/designer/routes')

@@ -36,17 +36,24 @@ export interface ProgressBarPassThroughOptions<I = unknown> {
 export type ProgressBarPassThrough<I = unknown> = PassThrough<I, ProgressBarPassThroughOptions<I>>;
 
 /**
+ * Custom content template context.
+ * @group Interface
+ */
+export interface ProgressBarContentTemplateContext {
+    /**
+     * Value of the progressbar.
+     */
+    $implicit: number | undefined;
+}
+
+/**
  * Defines valid templates in ProgressBar.
  * @group Templates
  */
 export interface ProgressBarTemplates {
     /**
      * Custom template of content.
+     * @param {ProgressBarContentTemplateContext} context - content context.
      */
-    content(context: {
-        /**
-         * Value of the progressbar.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: number | undefined }>;
+    content(context: ProgressBarContentTemplateContext): TemplateRef<ProgressBarContentTemplateContext>;
 }
