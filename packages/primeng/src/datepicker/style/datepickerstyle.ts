@@ -99,6 +99,7 @@ const classes = {
         }
     ],
     timePicker: 'p-datepicker-time-picker',
+    timeInput: 'p-datepicker-time-input',
     hourPicker: 'p-datepicker-hour-picker',
     pcIncrementButton: 'p-datepicker-increment-button',
     pcDecrementButton: 'p-datepicker-decrement-button',
