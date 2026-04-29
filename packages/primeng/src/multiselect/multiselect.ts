@@ -1104,7 +1104,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
-    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+    $appendTo = computed(() => this.appendTo() || this.overlayOptions?.appendTo || this.config.overlayAppendTo());
 
     $pcMultiSelect: MultiSelect | undefined = inject(MULTISELECT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
