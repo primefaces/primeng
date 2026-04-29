@@ -59,7 +59,6 @@
 - [Angular Gallery Component](https://primeng.org/galleria): Galleria is an advanced content gallery component.
 - [Angular IconField Component](https://primeng.org/iconfield): IconField wraps an input and an icon.
 - [Angular Ifta Label Component](https://primeng.org/iftalabel): IftaLabel is used to create infield top aligned labels.
-- [Angular Image Component](https://primeng.org/image): Displays an image with preview and tranformation options.
 - [Angular ImageCompare Component](https://primeng.org/imagecompare): Compare two images side by side with a slider.
 - [Angular Inplace Component](https://primeng.org/inplace): Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
 - [Angular InputGroup Component](https://primeng.org/inputgroup): Text, icon, buttons and other content can be grouped next to an input.
