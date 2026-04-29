@@ -3378,7 +3378,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         <ng-container *ngIf="dataTable.loading">
             <ng-container *ngTemplateOutlet="dataTable.loadingBodyTemplate || dataTable._loadingBodyTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
         </ng-container>
-        <ng-container *ngIf="dataTable.isEmpty() && !dataTable.loading">
+        <ng-container *ngIf="dataTable.isEmpty() && !dataTable.loading && !frozen">
             <ng-container *ngTemplateOutlet="dataTable.emptyMessageTemplate || dataTable._emptyMessageTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
         </ng-container>
     `,
