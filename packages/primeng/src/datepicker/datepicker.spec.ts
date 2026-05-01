@@ -605,6 +605,28 @@ describe('DatePicker', () => {
             expect(datePickerComponent.stepMinute).toBe(15);
             expect(datePickerComponent.stepSecond).toBe(30);
         });
+
+        it('should not loop incorrectly when decrementing hour below minDate hour', async () => {
+            const minDate = new Date();
+            minDate.setHours(9, 0, 0, 0);
+
+            testComponent.showTime = true;
+            testComponent.inline = true;
+            testComponent.minDate = minDate;
+            testComponent.selectedDate = new Date(minDate);
+            testComponent.selectedDate.setHours(9, 0, 0, 0);
+
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+
+            const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
+            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            datePickerComponent.decrementHour(mockEvent);
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+
+            expect(datePickerComponent.currentHour).toBe(9);
+        });
     });
 
     describe('Inline Mode', () => {
