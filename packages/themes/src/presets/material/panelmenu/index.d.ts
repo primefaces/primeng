@@ -1,3 +1,2 @@
-import { PanelMenuDesignTokens } from '../../types/panelmenu';
-declare const _default: PanelMenuDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/panelmenu';
+export { default } from '@primeuix/themes/material/panelmenu';

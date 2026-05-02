@@ -1,3 +1,3 @@
 export * from './cascadeselect';
-export * from './cascadeselect.interface';
+export * from 'primeng/types/cascadeselect';
 export * from './style/cascadeselectstyle';

@@ -1,3 +1,4 @@
+import { AppDesigner } from '@/components/layout/designer/app.designer';
 import { AppConfigService } from '@/service/appconfigservice';
 import { CarService } from '@/service/carservice';
 import { CountryService } from '@/service/countryservice';
@@ -14,9 +15,9 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
-    template: `<router-outlet></router-outlet>`,
+    template: `<router-outlet></router-outlet> <app-designer />`,
     standalone: true,
-    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule],
+    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppDesigner],
     providers: [
         CarService,
         CountryService,
@@ -46,15 +47,9 @@ export class AppComponent {
             if (process.env.NODE_ENV === 'production') {
                 this.injectScripts();
             }
-            setTimeout(() => {
-                document.body.style.visibility = 'visible';
-                document.body.style.opacity = '1';
-            });
 
             this.bindRouteEvents();
         });
-
-        // this.primeng.theme.set(Noir);
     }
 
     injectScripts() {

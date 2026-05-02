@@ -1,3 +1,3 @@
+export * from 'primeng/types/card';
 export * from './card';
-export * from './card.interface';
 export * from './style/cardstyle';

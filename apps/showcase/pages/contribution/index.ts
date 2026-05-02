@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { BenefitsDoc } from '@/doc/contribution/benefitsdoc';
-import { ContributionDocModule } from '../../doc/contribution/contribution.module';
-import { IntroductionDoc } from '@/doc/contribution/introductiondoc';
-import { HelpNeededDoc } from '@/doc/contribution/helpneededdoc';
-import { KeyPointsDoc } from '@/doc/contribution/keypointsdoc';
-import { CommunicationDoc } from '@/doc/contribution/communicationdoc';
-import { PathwayDoc } from '@/doc/contribution/pathwaydoc';
-import { ClaDoc } from '@/doc/contribution/cladoc';
+import { BenefitsDoc } from '@/doc/contribution/benefits-doc';
+import { IntroductionDoc } from '@/doc/contribution/introduction-doc';
+import { HelpNeededDoc } from '@/doc/contribution/helpneeded-doc';
+import { KeyPointsDoc } from '@/doc/contribution/keypoints-doc';
+import { CommunicationDoc } from '@/doc/contribution/communication-doc';
+import { PathwayDoc } from '@/doc/contribution/pathway-doc';
+import { ClaDoc } from '@/doc/contribution/cla-doc';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [ContributionDocModule],
+    imports: [AppDoc],
     template: ` <app-doc docTitle="Contribution - PrimeNG" header="Contribution Guide" description="Welcome to the PrimeNG Contribution Guide and thank you for considering contributing." [docs]="docs"></app-doc> `
 })
 export class ContributionDemo {

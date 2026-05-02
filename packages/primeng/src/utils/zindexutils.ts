@@ -1,5 +1,5 @@
 function ZIndexUtils() {
-    let zIndexes = [];
+    let zIndexes: any = [];
 
     const generateZIndex = (key, baseZIndex) => {
         let lastZIndex = zIndexes.length > 0 ? zIndexes[zIndexes.length - 1] : { key, value: baseZIndex };

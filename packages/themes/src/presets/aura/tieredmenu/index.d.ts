@@ -1,3 +1,2 @@
-import { TieredMenuDesignTokens } from '../../types/tieredmenu';
-declare const _default: TieredMenuDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/tieredmenu';
+export { default } from '@primeuix/themes/aura/tieredmenu';

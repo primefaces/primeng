@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
-import { SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'template-configuration',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AnimateOnScrollModule],
     template: `
         <div class="px-6 py-6 sm:px-10 sm:py-5 lg:py-20 lg:px-8 rounded-3xl bg-surface-0 dark:bg-surface-900">
             <div pAnimateOnScroll enterClass="animate-fadein" class="p-6 md:p-8 rounded-2xl lg:rounded-3xl border border-surface max-w-3xl w-full mx-auto animate-duration-500">
@@ -36,10 +36,3 @@ export class TemplateConfiguration {
     @Input() description;
     @Input() appName;
 }
-
-@NgModule({
-    imports: [CommonModule, SharedModule, AnimateOnScrollModule],
-    exports: [TemplateConfiguration, SharedModule],
-    declarations: [TemplateConfiguration]
-})
-export class TemplateConfigurationModule {}

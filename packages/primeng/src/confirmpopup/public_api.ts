@@ -1,3 +1,3 @@
+export * from 'primeng/types/confirmpopup';
 export * from './confirmpopup';
-export * from './confirmpopup.interface';
 export * from './style/confirmpopupstyle';

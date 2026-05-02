@@ -1,3 +1,2 @@
-import { AccordionDesignTokens } from '../../types/accordion';
-declare const _default: AccordionDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/accordion';
+export { default } from '@primeuix/themes/lara/accordion';

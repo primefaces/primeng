@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { booleanAttribute, Component, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { StyleClass } from 'primeng/styleclass';
-import { MenuItem } from './app.menu.component';
 import { Tag } from 'primeng/tag';
+import { MenuItem } from './app.menu.component';
 
 @Component({
     selector: '[app-menuitem]',
@@ -13,7 +13,10 @@ import { Tag } from 'primeng/tag';
                 <i [ngClass]="item.icon"></i>
             </div>
             <span>{{ item.name }}</span>
-            <i class="menu-toggle-icon pi pi-angle-down"></i>
+            <span class="menu-toggle">
+                <p-tag *ngIf="item.badge" [value]="item.badge" />
+                <i class="menu-toggle-icon pi pi-angle-down"></i>
+            </span>
         </button>
         <a *ngIf="item.href" [href]="item.href" target="_blank" rel="noopener noreferrer">
             <div *ngIf="item.icon && root" class="menu-icon">

@@ -1,23 +1,34 @@
-import { AccessibilityDoc } from '@/doc/listbox/accessibilitydoc';
-import { BasicDoc } from '@/doc/listbox/basicdoc';
-import { CheckmarkDoc } from '@/doc/listbox/checkmarkdoc';
-import { DisabledDoc } from '@/doc/listbox/disableddoc';
-import { FilterDoc } from '@/doc/listbox/filterdoc';
-import { GroupDoc } from '@/doc/listbox/groupdoc';
-import { ImportDoc } from '@/doc/listbox/importdoc';
-import { InvalidDoc } from '@/doc/listbox/invaliddoc';
-import { ListboxDocModule } from '@/doc/listbox/listboxdoc.module';
-import { MultipleDoc } from '@/doc/listbox/multipledoc';
-import { ReactiveFormsDoc } from '@/doc/listbox/reactiveformsdoc';
-import { TemplateDoc } from '@/doc/listbox/templatedoc';
-import { VirtualScrollDoc } from '@/doc/listbox/virtualscrolldoc';
-import { CheckboxDoc } from '@/doc/listbox/checkboxdoc';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AccessibilityDoc } from '@/doc/listbox/accessibility-doc';
+import { BasicDoc } from '@/doc/listbox/basic-doc';
+import { CheckboxDoc } from '@/doc/listbox/checkbox-doc';
+import { CheckmarkDoc } from '@/doc/listbox/checkmark-doc';
+import { DisabledDoc } from '@/doc/listbox/disabled-doc';
+import { DragDropDoc } from '@/doc/listbox/dragdrop-doc';
+import { FilterDoc } from '@/doc/listbox/filter-doc';
+import { GroupDoc } from '@/doc/listbox/group-doc';
+import { ImportDoc } from '@/doc/listbox/import-doc';
+import { InvalidDoc } from '@/doc/listbox/invalid-doc';
+import { MultipleDoc } from '@/doc/listbox/multiple-doc';
+import { PTComponent } from '@/doc/listbox/pt/PTComponent';
+import { ReactiveFormsDoc } from '@/doc/listbox/reactiveforms-doc';
+import { TemplateDoc } from '@/doc/listbox/template-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/listbox/templatedrivenforms-doc';
+import { VirtualScrollDoc } from '@/doc/listbox/virtualscroll-doc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular Listbox Component" header="Listbox" description="Listbox is used to select one or more values from a list of items." [docs]="docs" [apiDocs]="['Listbox']" themeDocs="listbox"></app-doc> `,
+    template: `<app-doc
+        docTitle="Angular Listbox Component"
+        header="Listbox"
+        description="Listbox is used to select one or more values from a list of items."
+        [docs]="docs"
+        [apiDocs]="['Listbox']"
+        themeDocs="listbox"
+        [ptDocs]="ptComponent"
+    ></app-doc> `,
     standalone: true,
-    imports: [ListboxDocModule]
+    imports: [AppDoc]
 })
 export class ListboxDemo {
     docs = [
@@ -30,11 +41,6 @@ export class ListboxDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'checkmark',
@@ -72,6 +78,11 @@ export class ListboxDemo {
             component: VirtualScrollDoc
         },
         {
+            id: 'drag-drop',
+            label: 'Drag & Drop',
+            component: DragDropDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
@@ -81,11 +92,20 @@ export class ListboxDemo {
             label: 'Disabled',
             component: DisabledDoc
         },
-
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

@@ -1,10 +1,8 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'template-hero-rectangle',
-    standalone: false,
+    standalone: true,
     template: `
         <svg width="1152" height="457" viewBox="0 0 1152 457" fill="none" xmlns="http://www.w3.org/2000/svg" class="template-hero-rectangle">
             <g style="mix-blend-mode: overlay" filter="url(#filter0_f_956_37561)">
@@ -28,10 +26,3 @@ import { SharedModule } from 'primeng/api';
     styleUrl: '../../../pages/templates/learnmore/learnmore.scss'
 })
 export class TemplateHeroRectangle {}
-
-@NgModule({
-    imports: [CommonModule, SharedModule, NgOptimizedImage],
-    exports: [TemplateHeroRectangle, SharedModule],
-    declarations: [TemplateHeroRectangle]
-})
-export class TemplateHeroRectangleModule {}

@@ -1,3 +1,2 @@
-import { DockDesignTokens } from '../../types/dock';
-declare const _default: DockDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/dock';
+export { default } from '@primeuix/themes/material/dock';

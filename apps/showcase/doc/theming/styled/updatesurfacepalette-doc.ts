@@ -1,0 +1,60 @@
+import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+
+@Component({
+    selector: 'updatesurfacepalette-doc',
+    standalone: true,
+    imports: [AppCode, AppDocSectionText],
+    template: `
+        <app-docsectiontext>
+            <p>Updates the surface colors, this is a shorthand to do the same update using <i>updatePreset</i>.</p>
+        </app-docsectiontext>
+        <app-code [code]="code1" [hideToggleCode]="true" class="block mb-4"></app-code>
+        <app-code [code]="code2" [hideToggleCode]="true" class="block mb-4"></app-code>
+        <app-code [code]="code3" [hideToggleCode]="true" class="block mb-4"></app-code>
+        <app-code [code]="code4" [hideToggleCode]="true"></app-code>
+    `
+})
+export class UpdateSurfacePaletteDoc {
+    code1 = {
+        typescript: `import { updateSurfacePalette } from '@primeuix/themes';`
+    };
+
+    code2 = {
+        typescript: `changeSurfaces() {
+    //changes surfaces both in light and dark mode
+    updateSurfacePalette({
+        50: '{zinc.50}',
+        // ...
+        950: '{zinc.950}'
+    });
+}`
+    };
+
+    code3 = {
+        typescript: `const changeLightSurfaces() {
+    //changes surfaces only in light
+    updateSurfacePalette({
+        light: {
+            50: '{zinc.50}',
+            // ...
+            950: '{zinc.950}'
+        }
+    });
+}`
+    };
+
+    code4 = {
+        typescript: `function changeDarkSurfaces() {
+    //changes surfaces only in dark mode
+    updateSurfacePalette({
+        dark: {
+            50: '{zinc.50}',
+            // ...
+            950: '{zinc.950}'
+        }
+    });
+}`
+    };
+}

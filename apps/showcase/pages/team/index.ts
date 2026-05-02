@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
@@ -23,56 +23,56 @@ import { CommonModule } from '@angular/common';
             </div>
 
             <div class="card p-20">
-                <div class="flex flex-wrap gap-20">
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-20">
                     <div class="flex flex-col items-center flex-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/team/cagatay.jpg" class="rounded-full mb-6" alt="Cagatay Civici" />
-                        <span class="mb-2 text-xl font-bold">Çağatay Çivici</span>
-                        <span>Founder</span>
+                        <span class="mb-2 text-xl font-bold text-center">Çağatay Çivici</span>
+                        <span class="text-center">Founder</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/team/mert.jpg" class="rounded-full mb-6" alt="Mert Sincan" />
-                        <span class="mb-2 text-xl font-bold">Mert Sincan</span>
-                        <span>CTO</span>
+                        <span class="mb-2 text-xl font-bold text-center">Mert Sincan</span>
+                        <span class="text-center">CTO</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/team/onur.jpg" class="rounded-full mb-6" alt="Onur Şentüre" />
-                        <span class="mb-2 text-xl font-bold">Onur Şentüre</span>
-                        <span>Design Lead</span>
+                        <span class="mb-2 text-xl font-bold text-center">Onur Şentüre</span>
+                        <span class="text-center">Design Lead</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/team/dilara.jpg" class="rounded-full mb-6" alt="Dilara Can" />
-                        <span class="mb-2 text-xl font-bold">Dilara Güngenci</span>
-                        <span>Business Administration</span>
+                        <span class="mb-2 text-xl font-bold text-center">Dilara Güngenci</span>
+                        <span class="text-center">Business Administration</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/team/cetin.jpg" class="rounded-full mb-6" alt="Çetin Çakıroğlu" />
-                        <span class="mb-2 text-xl font-bold">Çetin Çakıroğlu</span>
-                        <span>Front-End Developer</span>
+                        <span class="mb-2 text-xl font-bold text-center">Çetin Çakıroğlu</span>
+                        <span class="text-center">Front-End Developer</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/team/tugce.jpg" class="rounded-full mb-6" alt="Tuğçe Küçükoğlu" />
-                        <span class="mb-2 text-xl font-bold">Tuğçe Küçükoğlu</span>
-                        <span>Front-End Developer</span>
+                        <span class="mb-2 text-xl font-bold text-center">Tuğçe Küçükoğlu</span>
+                        <span class="text-center">Front-End Developer</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/team/atakan.jpg" class="rounded-full mb-6" alt="Atakan Tepe" />
-                        <span class="mb-2 text-xl font-bold">Atakan Tepe</span>
-                        <span>Front-End Developer</span>
-                    </div>
-                    <div class="flex flex-col items-center flex-auto">
-                        <img src="https://primefaces.org/cdn/primeng/images/team/umit.jpg" class="rounded-full mb-6" alt="Ümit Çelik" />
-                        <span class="mb-2 text-xl font-bold">Ümit Çelik</span>
-                        <span>UI/UX Designer</span>
+                        <span class="mb-2 text-xl font-bold text-center">Atakan Tepe</span>
+                        <span class="text-center">Front-End Developer</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/team/mehmet.jpg" class="rounded-full mb-6" alt="Mehmet Çetin" />
-                        <span class="mb-2 text-xl font-bold">Mehmet Çetin</span>
-                        <span>Front-End Developer</span>
+                        <span class="mb-2 text-xl font-bold text-center">Mehmet Çetin</span>
+                        <span class="text-center">Front-End Developer</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/team/taner.jpg" class="rounded-full mb-6" alt="Taner Engin" />
-                        <span class="mb-2 text-xl font-bold">Taner Engin</span>
-                        <span>Front-End Developer</span>
+                        <span class="mb-2 text-xl font-bold text-center">Taner Engin</span>
+                        <span class="text-center">Front-End Developer</span>
+                    </div>
+                    <div class="flex flex-col items-center flex-auto">
+                        <img src="https://primefaces.org/cdn/primeng/images/team/giray.jpg" class="rounded-full mb-6" alt="Giray Maviş" />
+                        <span class="mb-2 text-xl font-bold text-center">Giray Maviş</span>
+                        <span class="text-center">Front-End Developer</span>
                     </div>
                 </div>
             </div>

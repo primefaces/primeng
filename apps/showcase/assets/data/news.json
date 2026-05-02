@@ -1,6 +1,6 @@
 {
-    "id": 92,
-    "content": "Introducing the all-new Theme Designer! 🚀",
+    "id": 98,
+    "content": "🎁 Spring Sale is here. 50% OFF everything at PrimeStore and PrimeBlocks.",
     "linkText": "Learn More",
-    "routerLink": "/designer"
+    "linkHref": "https://primeui.store/"
 }

@@ -1,3 +1,2 @@
-import { InputChipsDesignTokens } from '../../types/inputchips';
-declare const _default: InputChipsDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/inputchips';
+export { default } from '@primeuix/themes/aura/inputchips';

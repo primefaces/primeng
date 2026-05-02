@@ -1,17 +1,26 @@
-import { AccessibilityDoc } from '@/doc/tieredmenu/accessibilitydoc';
-import { BasicDoc } from '@/doc/tieredmenu/basicdoc';
-import { CommandDoc } from '@/doc/tieredmenu/commanddoc';
-import { ImportDoc } from '@/doc/tieredmenu/importdoc';
-import { PopupDoc } from '@/doc/tieredmenu/popupdoc';
-import { RouterDoc } from '@/doc/tieredmenu/routerdoc';
-import { TemplateDoc } from '@/doc/tieredmenu/templatedoc';
-import { TieredMenuDocModule } from '@/doc/tieredmenu/tieredmenudoc.module';
+import { AccessibilityDoc } from '@/doc/tieredmenu/accessibility-doc';
+import { BasicDoc } from '@/doc/tieredmenu/basic-doc';
+import { CommandDoc } from '@/doc/tieredmenu/command-doc';
+import { ImportDoc } from '@/doc/tieredmenu/import-doc';
+import { PopupDoc } from '@/doc/tieredmenu/popup-doc';
+import { PTComponent } from '@/doc/tieredmenu/pt/PTComponent';
+import { RouterDoc } from '@/doc/tieredmenu/router-doc';
+import { TemplateDoc } from '@/doc/tieredmenu/template-doc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular TieredMenu Component" header="TieredMenu" description="TieredMenu displays submenus in nested overlays." [docs]="docs" [apiDocs]="['TieredMenu', 'MenuItem']" themeDocs="tieredmenu"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular TieredMenu Component"
+        header="TieredMenu"
+        description="TieredMenu displays submenus in nested overlays."
+        [docs]="docs"
+        [apiDocs]="['TieredMenu', 'MenuItem']"
+        [ptDocs]="ptComponent"
+        themeDocs="tieredmenu"
+    ></app-doc>`,
     standalone: true,
-    imports: [TieredMenuDocModule]
+    imports: [AppDoc]
 })
 export class TieredMenuDemo {
     docs = [
@@ -45,11 +54,12 @@ export class TieredMenuDemo {
             label: 'Router',
             component: RouterDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

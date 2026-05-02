@@ -1,18 +1,19 @@
-import { AccessibilityDoc } from '@/doc/splitbutton/accessibilitydoc';
-import { BasicDoc } from '@/doc/splitbutton/basicdoc';
-import { DisabledDoc } from '@/doc/splitbutton/disableddoc';
-import { IconsDoc } from '@/doc/splitbutton/iconsdoc';
-import { ImportDoc } from '@/doc/splitbutton/importdoc';
-import { NestedDoc } from '@/doc/splitbutton/nesteddoc';
-import { OutlinedDoc } from '@/doc/splitbutton/outlineddoc';
-import { RaisedDoc } from '@/doc/splitbutton/raiseddoc';
-import { RaisedTextDoc } from '@/doc/splitbutton/raisedtextdoc';
-import { RoundedDoc } from '@/doc/splitbutton/roundeddoc';
-import { SeverityDoc } from '@/doc/splitbutton/severitydoc';
-import { SizesDoc } from '@/doc/splitbutton/sizesdoc';
-import { SplitButtonDocModule } from '@/doc/splitbutton/splitbuttondoc.module';
-import { TemplateDoc } from '@/doc/splitbutton/templatedoc';
-import { TextDoc } from '@/doc/splitbutton/textdoc';
+import { AccessibilityDoc } from '@/doc/splitbutton/accessibility-doc';
+import { BasicDoc } from '@/doc/splitbutton/basic-doc';
+import { DisabledDoc } from '@/doc/splitbutton/disabled-doc';
+import { IconsDoc } from '@/doc/splitbutton/icons-doc';
+import { ImportDoc } from '@/doc/splitbutton/import-doc';
+import { NestedDoc } from '@/doc/splitbutton/nested-doc';
+import { OutlinedDoc } from '@/doc/splitbutton/outlined-doc';
+import { RaisedDoc } from '@/doc/splitbutton/raised-doc';
+import { RaisedTextDoc } from '@/doc/splitbutton/raisedtext-doc';
+import { RoundedDoc } from '@/doc/splitbutton/rounded-doc';
+import { SeverityDoc } from '@/doc/splitbutton/severity-doc';
+import { SizesDoc } from '@/doc/splitbutton/sizes-doc';
+import { TemplateDoc } from '@/doc/splitbutton/template-doc';
+import { TextDoc } from '@/doc/splitbutton/text-doc';
+import { PTComponent } from '@/doc/splitbutton/pt/PTComponent';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -22,12 +23,15 @@ import { Component } from '@angular/core';
         description="SplitButton groups a set of commands in an overlay with a default action item."
         [docs]="docs"
         [apiDocs]="['SplitButton']"
+        [ptDocs]="ptComponent"
         themeDocs="splitbutton"
     ></app-doc>`,
     standalone: true,
-    imports: [SplitButtonDocModule]
+    imports: [AppDoc]
 })
 export class SplitButtonDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

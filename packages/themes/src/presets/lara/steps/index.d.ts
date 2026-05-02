@@ -1,3 +1,2 @@
-import { StepsDesignTokens } from '../../types/steps';
-declare const _default: StepsDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/steps';
+export { default } from '@primeuix/themes/lara/steps';

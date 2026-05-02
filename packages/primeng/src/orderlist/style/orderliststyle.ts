@@ -1,22 +1,18 @@
 import { Injectable } from '@angular/core';
+import { style } from '@primeuix/styles/orderlist';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-.p-orderlist {
-    display: flex;
-    gap: ${dt('orderlist.gap')};
-}
+const theme = /*css*/ `
+    ${style}
 
-.p-orderlist-controls {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: ${dt('orderlist.controls.gap')};
-}
+    /* For PrimeNG */
+    .p-orderlist-controls-right .p-orderlist-controls {
+        order: 2;
+    }
 `;
 
 const classes = {
-    root: 'p-orderlist p-component',
+    root: ({ instance }) => ['p-orderlist p-component', { 'p-orderlist-controls-left': instance.controlsPosition === 'left', 'p-orderlist-controls-right': instance.controlsPosition === 'right' }],
     controls: 'p-orderlist-controls'
 };
 
@@ -24,7 +20,7 @@ const classes = {
 export class OrderListStyle extends BaseStyle {
     name = 'orderlist';
 
-    theme = theme;
+    style = theme;
 
     classes = classes;
 }

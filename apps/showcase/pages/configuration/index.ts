@@ -1,24 +1,24 @@
-import { ConfigurationDocModule } from '@/doc/configuration/configurationdoc.module';
-import { CspDoc } from '@/doc/configuration/cspdoc';
-import { DynamicDoc } from '@/doc/configuration/dynamicdoc';
-import { FilterModeDoc } from '@/doc/configuration/filtermodedoc';
-import { InputVariantDoc } from '@/doc/configuration/inputvariantdoc';
+import { CspDoc } from '@/doc/configuration/csp-doc';
+import { DynamicDoc } from '@/doc/configuration/dynamic-doc';
+import { FilterModeDoc } from '@/doc/configuration/filtermode-doc';
+import { InputVariantDoc } from '@/doc/configuration/inputvariant-doc';
 import { ApiDoc } from '@/doc/configuration/locale/apidoc';
 import { RepositoryDoc } from '@/doc/configuration/locale/repositorydoc';
 import { RuntimeDoc } from '@/doc/configuration/locale/runtimedoc';
 import { TranslationDoc } from '@/doc/configuration/locale/translationdoc';
-import { ProviderDoc } from '@/doc/configuration/providerdoc';
-import { RippleDoc } from '@/doc/configuration/rippledoc';
-import { ThemeDoc } from '@/doc/configuration/themedoc';
-import { ZIndexDoc } from '@/doc/configuration/zindexdoc';
-import { CommonModule } from '@angular/common';
+import { ProviderDoc } from '@/doc/configuration/provider-doc';
+import { RippleDoc } from '@/doc/configuration/ripple-doc';
+import { OverlayAppendToDoc } from '@/doc/configuration/overlayappendto-doc';
+import { ThemeDoc } from '@/doc/configuration/theme-doc';
+import { ZIndexDoc } from '@/doc/configuration/zindex-doc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     selector: 'configuration',
     standalone: true,
-    imports: [CommonModule, ConfigurationDocModule],
-    template: `<app-doc docTitle="Configuration - PrimeNG" header="Configuration" description="Application wide configuration for PrimeNG." [docs]="docs"></app-doc>`
+    imports: [AppDoc],
+    template: `<app-doc docTitle="Configuration - PrimeNG" header="Configuration" description="Application wide configuration for PrimeNG." [docs]="docs" docType="page"></app-doc>`
 })
 export class ConfigurationDemo {
     docs = [
@@ -46,6 +46,11 @@ export class ConfigurationDemo {
             id: 'inputvariant',
             label: 'InputVariant',
             component: InputVariantDoc
+        },
+        {
+            id: 'overlayappendto',
+            label: 'OverlayAppendTo',
+            component: OverlayAppendToDoc
         },
         {
             id: 'zIndex',

@@ -1,33 +1,35 @@
-import { AccessibilityDoc } from '@/doc/galleria/accessibilitydoc';
-import { AdvancedDoc } from '@/doc/galleria/advanceddoc';
-import { AutoPlayDoc } from '@/doc/galleria/autoplaydoc';
-import { BasicDoc } from '@/doc/galleria/basicdoc';
-import { CaptionDoc } from '@/doc/galleria/captiondoc';
-import { ControlledDoc } from '@/doc/galleria/controlleddoc';
-import { CustomContentDoc } from '@/doc/galleria/fullscreen/customcontentdoc';
-import { WithoutThumbnailsDoc } from '@/doc/galleria/fullscreen/withoutthumbnailsdoc';
-import { WithThumbnailsDoc } from '@/doc/galleria/fullscreen/withthumbnailsdoc';
-import { GalleriaDocModule } from '@/doc/galleria/galleriadoc.module';
-import { ImportDoc } from '@/doc/galleria/importdoc';
-import { ClickEventDoc } from '@/doc/galleria/indicator/clickeventdoc';
-import { HoverEventDoc } from '@/doc/galleria/indicator/hovereventdoc';
-import { PositionedDoc } from '@/doc/galleria/indicator/positioneddoc';
-import { TemplateDoc } from '@/doc/galleria/indicator/templatedoc';
-import { HoverDoc } from '@/doc/galleria/navigator/hoverdoc';
-import { IndicatorsDoc } from '@/doc/galleria/navigator/indicatorsdoc';
-import { ItemThumbnailsDoc } from '@/doc/galleria/navigator/itemthumbnailsdoc';
-import { ItemWithoutThumbnailsDoc } from '@/doc/galleria/navigator/itemwithoutthumbnailsdoc';
-import { ResponsiveDoc } from '@/doc/galleria/responsivedoc';
-import { ThumbnailDoc } from '@/doc/galleria/thumbnaildoc';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AccessibilityDoc } from '@/doc/galleria/accessibility-doc';
+import { AdvancedDoc } from '@/doc/galleria/advanced-doc';
+import { AutoPlayDoc } from '@/doc/galleria/autoplay-doc';
+import { BasicDoc } from '@/doc/galleria/basic-doc';
+import { CaptionDoc } from '@/doc/galleria/caption-doc';
+import { ControlledDoc } from '@/doc/galleria/controlled-doc';
+import { CustomContentDoc } from '@/doc/galleria/fullscreen/customcontent-doc';
+import { WithoutThumbnailsDoc } from '@/doc/galleria/fullscreen/withoutthumbnails-doc';
+import { WithThumbnailsDoc } from '@/doc/galleria/fullscreen/withthumbnails-doc';
+import { ImportDoc } from '@/doc/galleria/import-doc';
+import { ClickEventDoc } from '@/doc/galleria/indicator/clickevent-doc';
+import { HoverEventDoc } from '@/doc/galleria/indicator/hoverevent-doc';
+import { PositionedDoc } from '@/doc/galleria/indicator/positioned-doc';
+import { TemplateDoc } from '@/doc/galleria/indicator/template-doc';
+import { HoverDoc } from '@/doc/galleria/navigator/hover-doc';
+import { IndicatorsDoc } from '@/doc/galleria/navigator/indicators-doc';
+import { ItemThumbnailsDoc } from '@/doc/galleria/navigator/itemthumbnails-doc';
+import { ItemWithoutThumbnailsDoc } from '@/doc/galleria/navigator/itemwithoutthumbnails-doc';
+import { PTComponent } from '@/doc/galleria/pt/PTComponent';
+import { ResponsiveDoc } from '@/doc/galleria/responsive-doc';
+import { ThumbnailDoc } from '@/doc/galleria/thumbnail-doc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: ` <app-doc docTitle="Angular Gallery Component" header="Galleria" description="Galleria is an advanced content gallery component." [docs]="docs" [apiDocs]="['Galleria']"></app-doc>`,
+    template: ` <app-doc docTitle="Angular Gallery Component" header="Galleria" description="Galleria is an advanced content gallery component." [docs]="docs" [apiDocs]="['Galleria']" [ptDocs]="ptComponent" componentName="Galleria"></app-doc>`,
     standalone: true,
-    imports: [GalleriaDocModule],
+    imports: [AppDoc],
     styleUrl: './galleriademo.scss'
 })
 export class GalleriaDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

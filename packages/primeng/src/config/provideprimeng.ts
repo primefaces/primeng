@@ -1,5 +1,6 @@
 import { EnvironmentProviders, inject, InjectionToken, makeEnvironmentProviders, provideAppInitializer } from '@angular/core';
-import { PrimeNG, PrimeNGConfigType } from './primeng';
+import { PrimeNG } from './primeng';
+import type { PrimeNGConfigType } from './primeng.types';
 
 export const PRIME_NG_CONFIG = new InjectionToken<PrimeNGConfigType>('PRIME_NG_CONFIG');
 

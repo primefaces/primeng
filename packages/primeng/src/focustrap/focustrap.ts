@@ -26,15 +26,13 @@ export class FocusTrap extends BaseComponent {
 
     lastHiddenFocusableElement!: HTMLElement;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (isPlatformBrowser(this.platformId) && !this.pFocusTrapDisabled) {
             !this.firstHiddenFocusableElement && !this.lastHiddenFocusableElement && this.createHiddenFocusableElements();
         }
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        super.ngOnChanges(changes);
+    onChanges(changes: SimpleChanges) {
         if (changes.pFocusTrapDisabled && isPlatformBrowser(this.platformId)) {
             if (changes.pFocusTrapDisabled.currentValue) {
                 this.removeHiddenFocusableElements();
@@ -69,7 +67,7 @@ export class FocusTrap extends BaseComponent {
                 'data-p-hidden-accessible': true,
                 'data-p-hidden-focusable': true,
                 onFocus: onFocus?.bind(this)
-            });
+            }) as HTMLElement;
         };
 
         this.firstHiddenFocusableElement = createFocusableElement(this.onFirstHiddenElementFocus);

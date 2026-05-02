@@ -9,7 +9,6 @@
         max-width: 1728px;
         margin: 0 auto;
     }
-
 }
 
 @media screen and (max-width: 1199px) {
@@ -56,7 +55,6 @@
         background-color: var(--mobile-menu-background);
         backdrop-filter: blur(20px);
         width: 300px;
-        opacity: 0;
 
         &:dir(rtl) {
             transform: translateX(100%);
@@ -67,7 +65,6 @@
         }
 
         &.active {
-            opacity: 1;
             transform: translateX(0);
         }
     }
@@ -79,18 +76,17 @@
     }
 
     .layout-mask {
-        background-color: rgba(0, 0, 0, 0.1);
+        z-index: 1101;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: var(--p-mask-background);
+    }
 
-        &.layout-mask-active {
-            z-index: 1101;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.4);
-            transition: background-color .5s;
-        }
+    .doc-section-nav-container {
+        display: none;
     }
 
     .doc-section-nav {
@@ -131,6 +127,19 @@
 @media (max-width: 768px) {
     .DocSearch-Container {
         position: fixed !important;
+    }
+      .doc-ptviewerwrapper {
+        flex-direction: column;
+
+        .doc-ptviewer {
+            width: 100%;
+            border-width: 0 0 1px 0;
+        }
+
+        .doc-ptoptions {
+            width: 100%;
+            padding: 1rem;
+        }
     }
 }
 

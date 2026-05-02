@@ -1,23 +1,24 @@
-import { AccessibilityDoc } from '@/doc/toast/accessibilitydoc';
-import { AnimationDoc } from '@/doc/toast/animationdoc';
-import { BasicDoc } from '@/doc/toast/basicdoc';
-import { HeadlessDoc } from '@/doc/toast/headlessdoc';
-import { ImportDoc } from '@/doc/toast/importdoc';
-import { MultipleDoc } from '@/doc/toast/multipledoc';
-import { PositionDoc } from '@/doc/toast/positiondoc';
-import { ResponsiveDoc } from '@/doc/toast/responsivedoc';
-import { SeverityDoc } from '@/doc/toast/severitydoc';
-import { StickyDoc } from '@/doc/toast/stickydoc';
-import { TemplateDoc } from '@/doc/toast/templatedoc';
-import { ToastDocModule } from '@/doc/toast/toastdoc.module';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AccessibilityDoc } from '@/doc/toast/accessibility-doc';
+import { BasicDoc } from '@/doc/toast/basic-doc';
+import { HeadlessDoc } from '@/doc/toast/headless-doc';
+import { ImportDoc } from '@/doc/toast/import-doc';
+import { MultipleDoc } from '@/doc/toast/multiple-doc';
+import { PositionDoc } from '@/doc/toast/position-doc';
+import { PTComponent } from '@/doc/toast/pt/PTComponent';
+import { ResponsiveDoc } from '@/doc/toast/responsive-doc';
+import { SeverityDoc } from '@/doc/toast/severity-doc';
+import { StickyDoc } from '@/doc/toast/sticky-doc';
+import { TemplateDoc } from '@/doc/toast/template-doc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular Toast Component" header="Toast" description="Toast is used to display messages in an overlay." [docs]="docs" [apiDocs]="['Toast', 'ToastMessage']" themeDocs="toast"></app-doc> `,
+    template: `<app-doc docTitle="Angular Toast Component" header="Toast" description="Toast is used to display messages in an overlay." [docs]="docs" [apiDocs]="['Toast', 'ToastMessage']" [ptDocs]="ptComponent" themeDocs="toast"></app-doc> `,
     standalone: true,
-    imports: [ToastDocModule]
+    imports: [AppDoc]
 })
 export class ToastDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',
@@ -64,12 +65,6 @@ export class ToastDemo {
             label: 'Responsive',
             component: ResponsiveDoc
         },
-        {
-            id: 'animation',
-            label: 'Animation',
-            component: AnimationDoc
-        },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
