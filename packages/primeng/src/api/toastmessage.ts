@@ -4,7 +4,7 @@
  */
 export interface ToastMessageOptions {
     text?: any;
-    severity?: 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast';
+    severity?: ToastSeverity;
     summary?: string;
     detail?: string;
     id?: any;
@@ -18,3 +18,5 @@ export interface ToastMessageOptions {
     styleClass?: string;
     closeIcon?: string;
 }
+
+export type ToastSeverity = 'success' | 'info' | 'warn' | 'error' | 'danger' | 'secondary' | 'contrast' | 'custom';
