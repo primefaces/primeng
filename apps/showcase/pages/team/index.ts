@@ -35,11 +35,6 @@ import { Component } from '@angular/core';
                         <span class="text-center">CTO</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
-                        <img src="https://primefaces.org/cdn/primeng/images/team/onur.jpg" class="rounded-full mb-6" alt="Onur Şentüre" />
-                        <span class="mb-2 text-xl font-bold text-center">Onur Şentüre</span>
-                        <span class="text-center">Design Lead</span>
-                    </div>
-                    <div class="flex flex-col items-center flex-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/team/dilara.jpg" class="rounded-full mb-6" alt="Dilara Can" />
                         <span class="mb-2 text-xl font-bold text-center">Dilara Güngenci</span>
                         <span class="text-center">Business Administration</span>
@@ -73,6 +68,12 @@ import { Component } from '@angular/core';
                         <img src="https://primefaces.org/cdn/primeng/images/team/giray.jpg" class="rounded-full mb-6" alt="Giray Maviş" />
                         <span class="mb-2 text-xl font-bold text-center">Giray Maviş</span>
                         <span class="text-center">Front-End Developer</span>
+                    </div>
+
+                    <div class="flex flex-col items-center flex-auto">
+                        <img src="https://primefaces.org/cdn/primeng/images/team/kerem.jpg" class="rounded-full mb-6" alt="Kerem Yıldan" />
+                        <span class="mb-2 text-xl font-bold text-center">Kerem Yıldan</span>
+                        <span class="text-center">Lead Designer</span>
                     </div>
                 </div>
             </div>
