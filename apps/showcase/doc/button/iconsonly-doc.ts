@@ -20,6 +20,7 @@ import { ButtonModule } from 'primeng/button';
                 <p-button icon="pi pi-bell" severity="warn" />
                 <p-button icon="pi pi-heart" severity="help" />
                 <p-button icon="pi pi-times" severity="danger" />
+                <p-button icon="pi pi-times" severity="contrast" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
                 <p-button icon="pi pi-check" [rounded]="true" />
@@ -29,6 +30,7 @@ import { ButtonModule } from 'primeng/button';
                 <p-button icon="pi pi-bell" [rounded]="true" severity="warn" />
                 <p-button icon="pi pi-heart" [rounded]="true" severity="help" />
                 <p-button icon="pi pi-times" [rounded]="true" severity="danger" />
+                <p-button icon="pi pi-times" [rounded]="true" severity="contrast" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
                 <p-button icon="pi pi-check" [rounded]="true" [outlined]="true" />
@@ -38,6 +40,7 @@ import { ButtonModule } from 'primeng/button';
                 <p-button icon="pi pi-bell" [rounded]="true" severity="warn" [outlined]="true" />
                 <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
                 <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
+                <p-button icon="pi pi-times" [rounded]="true" severity="contrast" [outlined]="true" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
                 <p-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true" />
@@ -47,6 +50,7 @@ import { ButtonModule } from 'primeng/button';
                 <p-button icon="pi pi-bell" [rounded]="true" [text]="true" [raised]="true" severity="warn" />
                 <p-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help" />
                 <p-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger" />
+                <p-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="contrast" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
                 <p-button icon="pi pi-check" [rounded]="true" [text]="true" />
@@ -56,6 +60,7 @@ import { ButtonModule } from 'primeng/button';
                 <p-button icon="pi pi-bell" [rounded]="true" [text]="true" severity="warn" />
                 <p-button icon="pi pi-heart" [rounded]="true" [text]="true" severity="help" />
                 <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
+                <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="contrast" />
             </div>
         </div>
         <app-code></app-code>

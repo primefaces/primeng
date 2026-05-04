@@ -1,8 +1,76 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-13T09:16:43.989Z",
+  "generatedAt": "2026-04-29T07:31:00.998Z",
   "totalDemos": 804,
   "demos": {
+    "Image-template-demo": {
+      "key": "Image-template-demo",
+      "selector": "Image-template-demo",
+      "component": "Image",
+      "section": "template",
+      "code": {
+        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" [preview]=\"true\" alt=\"Image\" width=\"250\">\n                <ng-template #indicator>\n                    <i class=\"pi pi-search\"></i>\n                </ng-template>\n                <ng-template #image>\n                    <img src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"image\" width=\"250\" />\n                </ng-template>\n                <ng-template #preview let-style=\"style\" let-previewCallback=\"previewCallback\">\n                    <img src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"image\" [style]=\"style\" (click)=\"previewCallback()\" />\n                </ng-template>\n            </p-image>\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImageTemplateDemo {}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": [
+          "ImageModule"
+        ]
+      }
+    },
+    "Image-previewimagesource-demo": {
+      "key": "Image-previewimagesource-demo",
+      "selector": "Image-previewimagesource-demo",
+      "component": "Image",
+      "section": "previewimagesource",
+      "code": {
+        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" previewImageSrc=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"Image\" width=\"250\" [preview]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImagePreviewimagesourceDemo {}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": [
+          "ImageModule"
+        ]
+      }
+    },
+    "Image-preview-demo": {
+      "key": "Image-preview-demo",
+      "selector": "Image-preview-demo",
+      "component": "Image",
+      "section": "preview",
+      "code": {
+        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg\" alt=\"Image\" width=\"250\" [preview]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImagePreviewDemo {}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": [
+          "ImageModule"
+        ]
+      }
+    },
+    "Image-basic-demo": {
+      "key": "Image-basic-demo",
+      "selector": "Image-basic-demo",
+      "component": "Image",
+      "section": "basic",
+      "code": {
+        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg\" alt=\"Image\" width=\"250\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImageBasicDemo {}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": [
+          "ImageModule"
+        ]
+      }
+    },
     "accordion-template-demo": {
       "key": "accordion-template-demo",
       "selector": "accordion-template-demo",
@@ -966,7 +1034,7 @@
       "component": "button",
       "section": "text",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-wrap gap-4 justify-center\">\n            <p-button label=\"Primary\" variant=\"text\" />\n            <p-button label=\"Secondary\" variant=\"text\" severity=\"secondary\" />\n            <p-button label=\"Success\" variant=\"text\" severity=\"success\" />\n            <p-button label=\"Info\" variant=\"text\" severity=\"info\" />\n            <p-button label=\"Warn\" variant=\"text\" severity=\"warn\" />\n            <p-button label=\"Help\" variant=\"text\" severity=\"help\" />\n            <p-button label=\"Danger\" variant=\"text\" severity=\"danger\" />\n            <p-button label=\"Plain\" variant=\"text\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule]\n})\nexport class ButtonTextDemo {}"
+        "typescript": "import { Component } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-wrap gap-4 justify-center\">\n            <p-button label=\"Primary\" variant=\"text\" />\n            <p-button label=\"Secondary\" variant=\"text\" severity=\"secondary\" />\n            <p-button label=\"Success\" variant=\"text\" severity=\"success\" />\n            <p-button label=\"Info\" variant=\"text\" severity=\"info\" />\n            <p-button label=\"Warn\" variant=\"text\" severity=\"warn\" />\n            <p-button label=\"Help\" variant=\"text\" severity=\"help\" />\n            <p-button label=\"Danger\" variant=\"text\" severity=\"danger\" />\n            <p-button label=\"Contrast\" variant=\"text\" severity=\"contrast\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule]\n})\nexport class ButtonTextDemo {}"
       },
       "metadata": {
         "services": [],
@@ -1051,7 +1119,7 @@
       "component": "button",
       "section": "raisedtext",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-wrap gap-4 justify-center\">\n            <p-button label=\"Primary\" variant=\"text\" [raised]=\"true\" />\n            <p-button label=\"Secondary\" variant=\"text\" [raised]=\"true\" severity=\"secondary\" />\n            <p-button label=\"Success\" variant=\"text\" [raised]=\"true\" severity=\"success\" />\n            <p-button label=\"Info\" variant=\"text\" [raised]=\"true\" severity=\"info\" />\n            <p-button label=\"Warn\" variant=\"text\" [raised]=\"true\" severity=\"warn\" />\n            <p-button label=\"Help\" variant=\"text\" [raised]=\"true\" severity=\"help\" />\n            <p-button label=\"Danger\" variant=\"text\" [raised]=\"true\" severity=\"danger\" />\n            <p-button label=\"Plain\" variant=\"text\" [raised]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule]\n})\nexport class ButtonRaisedtextDemo {}"
+        "typescript": "import { Component } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-wrap gap-4 justify-center\">\n            <p-button label=\"Primary\" variant=\"text\" [raised]=\"true\" />\n            <p-button label=\"Secondary\" variant=\"text\" [raised]=\"true\" severity=\"secondary\" />\n            <p-button label=\"Success\" variant=\"text\" [raised]=\"true\" severity=\"success\" />\n            <p-button label=\"Info\" variant=\"text\" [raised]=\"true\" severity=\"info\" />\n            <p-button label=\"Warn\" variant=\"text\" [raised]=\"true\" severity=\"warn\" />\n            <p-button label=\"Help\" variant=\"text\" [raised]=\"true\" severity=\"help\" />\n            <p-button label=\"Danger\" variant=\"text\" [raised]=\"true\" severity=\"danger\" />\n            <p-button label=\"Contrast\" variant=\"text\" [raised]=\"true\" severity=\"contrast\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule]\n})\nexport class ButtonRaisedtextDemo {}"
       },
       "metadata": {
         "services": [],
@@ -1136,7 +1204,7 @@
       "component": "button",
       "section": "iconsonly",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <div class=\"flex justify-center flex-wrap gap-4 mb-6\">\n                <p-button icon=\"pi pi-check\" />\n                <p-button icon=\"pi pi-bookmark\" severity=\"secondary\" />\n                <p-button icon=\"pi pi-search\" severity=\"success\" />\n                <p-button icon=\"pi pi-user\" severity=\"info\" />\n                <p-button icon=\"pi pi-bell\" severity=\"warn\" />\n                <p-button icon=\"pi pi-heart\" severity=\"help\" />\n                <p-button icon=\"pi pi-times\" severity=\"danger\" />\n            </div>\n            <div class=\"flex justify-center flex-wrap gap-4 mb-6\">\n                <p-button icon=\"pi pi-check\" [rounded]=\"true\" />\n                <p-button icon=\"pi pi-bookmark\" [rounded]=\"true\" severity=\"secondary\" />\n                <p-button icon=\"pi pi-search\" [rounded]=\"true\" severity=\"success\" />\n                <p-button icon=\"pi pi-user\" [rounded]=\"true\" severity=\"info\" />\n                <p-button icon=\"pi pi-bell\" [rounded]=\"true\" severity=\"warn\" />\n                <p-button icon=\"pi pi-heart\" [rounded]=\"true\" severity=\"help\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" severity=\"danger\" />\n            </div>\n            <div class=\"flex justify-center flex-wrap gap-4 mb-6\">\n                <p-button icon=\"pi pi-check\" [rounded]=\"true\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-bookmark\" [rounded]=\"true\" severity=\"secondary\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-search\" [rounded]=\"true\" severity=\"success\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-user\" [rounded]=\"true\" severity=\"info\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-bell\" [rounded]=\"true\" severity=\"warn\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-heart\" [rounded]=\"true\" severity=\"help\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" severity=\"danger\" [outlined]=\"true\" />\n            </div>\n            <div class=\"flex justify-center flex-wrap gap-4 mb-6\">\n                <p-button icon=\"pi pi-check\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" />\n                <p-button icon=\"pi pi-bookmark\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"secondary\" />\n                <p-button icon=\"pi pi-search\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"success\" />\n                <p-button icon=\"pi pi-user\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"info\" />\n                <p-button icon=\"pi pi-bell\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"warn\" />\n                <p-button icon=\"pi pi-heart\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"help\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"danger\" />\n            </div>\n            <div class=\"flex justify-center flex-wrap gap-4 mb-6\">\n                <p-button icon=\"pi pi-check\" [rounded]=\"true\" [text]=\"true\" />\n                <p-button icon=\"pi pi-bookmark\" [rounded]=\"true\" [text]=\"true\" severity=\"secondary\" />\n                <p-button icon=\"pi pi-search\" [rounded]=\"true\" [text]=\"true\" severity=\"success\" />\n                <p-button icon=\"pi pi-user\" [rounded]=\"true\" [text]=\"true\" severity=\"info\" />\n                <p-button icon=\"pi pi-bell\" [rounded]=\"true\" [text]=\"true\" severity=\"warn\" />\n                <p-button icon=\"pi pi-heart\" [rounded]=\"true\" [text]=\"true\" severity=\"help\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" [text]=\"true\" severity=\"danger\" />\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule]\n})\nexport class ButtonIconsonlyDemo {}"
+        "typescript": "import { Component } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <div class=\"flex justify-center flex-wrap gap-4 mb-6\">\n                <p-button icon=\"pi pi-check\" />\n                <p-button icon=\"pi pi-bookmark\" severity=\"secondary\" />\n                <p-button icon=\"pi pi-search\" severity=\"success\" />\n                <p-button icon=\"pi pi-user\" severity=\"info\" />\n                <p-button icon=\"pi pi-bell\" severity=\"warn\" />\n                <p-button icon=\"pi pi-heart\" severity=\"help\" />\n                <p-button icon=\"pi pi-times\" severity=\"danger\" />\n                <p-button icon=\"pi pi-times\" severity=\"contrast\" />\n            </div>\n            <div class=\"flex justify-center flex-wrap gap-4 mb-6\">\n                <p-button icon=\"pi pi-check\" [rounded]=\"true\" />\n                <p-button icon=\"pi pi-bookmark\" [rounded]=\"true\" severity=\"secondary\" />\n                <p-button icon=\"pi pi-search\" [rounded]=\"true\" severity=\"success\" />\n                <p-button icon=\"pi pi-user\" [rounded]=\"true\" severity=\"info\" />\n                <p-button icon=\"pi pi-bell\" [rounded]=\"true\" severity=\"warn\" />\n                <p-button icon=\"pi pi-heart\" [rounded]=\"true\" severity=\"help\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" severity=\"danger\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" severity=\"contrast\" />\n            </div>\n            <div class=\"flex justify-center flex-wrap gap-4 mb-6\">\n                <p-button icon=\"pi pi-check\" [rounded]=\"true\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-bookmark\" [rounded]=\"true\" severity=\"secondary\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-search\" [rounded]=\"true\" severity=\"success\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-user\" [rounded]=\"true\" severity=\"info\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-bell\" [rounded]=\"true\" severity=\"warn\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-heart\" [rounded]=\"true\" severity=\"help\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" severity=\"danger\" [outlined]=\"true\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" severity=\"contrast\" [outlined]=\"true\" />\n            </div>\n            <div class=\"flex justify-center flex-wrap gap-4 mb-6\">\n                <p-button icon=\"pi pi-check\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" />\n                <p-button icon=\"pi pi-bookmark\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"secondary\" />\n                <p-button icon=\"pi pi-search\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"success\" />\n                <p-button icon=\"pi pi-user\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"info\" />\n                <p-button icon=\"pi pi-bell\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"warn\" />\n                <p-button icon=\"pi pi-heart\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"help\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"danger\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" [text]=\"true\" [raised]=\"true\" severity=\"contrast\" />\n            </div>\n            <div class=\"flex justify-center flex-wrap gap-4 mb-6\">\n                <p-button icon=\"pi pi-check\" [rounded]=\"true\" [text]=\"true\" />\n                <p-button icon=\"pi pi-bookmark\" [rounded]=\"true\" [text]=\"true\" severity=\"secondary\" />\n                <p-button icon=\"pi pi-search\" [rounded]=\"true\" [text]=\"true\" severity=\"success\" />\n                <p-button icon=\"pi pi-user\" [rounded]=\"true\" [text]=\"true\" severity=\"info\" />\n                <p-button icon=\"pi pi-bell\" [rounded]=\"true\" [text]=\"true\" severity=\"warn\" />\n                <p-button icon=\"pi pi-heart\" [rounded]=\"true\" [text]=\"true\" severity=\"help\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" [text]=\"true\" severity=\"danger\" />\n                <p-button icon=\"pi pi-times\" [rounded]=\"true\" [text]=\"true\" severity=\"contrast\" />\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule]\n})\nexport class ButtonIconsonlyDemo {}"
       },
       "metadata": {
         "services": [],
@@ -5121,74 +5189,6 @@
           "IftaLabelModule",
           "InputTextModule",
           "FormsModule"
-        ]
-      }
-    },
-    "image-template-demo": {
-      "key": "image-template-demo",
-      "selector": "image-template-demo",
-      "component": "image",
-      "section": "template",
-      "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" [preview]=\"true\" alt=\"Image\" width=\"250\">\n                <ng-template #indicator>\n                    <i class=\"pi pi-search\"></i>\n                </ng-template>\n                <ng-template #image>\n                    <img src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"image\" width=\"250\" />\n                </ng-template>\n                <ng-template #preview let-style=\"style\" let-previewCallback=\"previewCallback\">\n                    <img src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"image\" [style]=\"style\" (click)=\"previewCallback()\" />\n                </ng-template>\n            </p-image>\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImageTemplateDemo {}"
-      },
-      "metadata": {
-        "services": [],
-        "primeNGServices": [],
-        "extFiles": [],
-        "imports": [
-          "ImageModule"
-        ]
-      }
-    },
-    "image-previewimagesource-demo": {
-      "key": "image-previewimagesource-demo",
-      "selector": "image-previewimagesource-demo",
-      "component": "image",
-      "section": "previewimagesource",
-      "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" previewImageSrc=\"https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg\" alt=\"Image\" width=\"250\" [preview]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImagePreviewimagesourceDemo {}"
-      },
-      "metadata": {
-        "services": [],
-        "primeNGServices": [],
-        "extFiles": [],
-        "imports": [
-          "ImageModule"
-        ]
-      }
-    },
-    "image-preview-demo": {
-      "key": "image-preview-demo",
-      "selector": "image-preview-demo",
-      "component": "image",
-      "section": "preview",
-      "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg\" alt=\"Image\" width=\"250\" [preview]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImagePreviewDemo {}"
-      },
-      "metadata": {
-        "services": [],
-        "primeNGServices": [],
-        "extFiles": [],
-        "imports": [
-          "ImageModule"
-        ]
-      }
-    },
-    "image-basic-demo": {
-      "key": "image-basic-demo",
-      "selector": "image-basic-demo",
-      "component": "image",
-      "section": "basic",
-      "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { ImageModule } from 'primeng/image';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-image src=\"https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg\" alt=\"Image\" width=\"250\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ImageModule]\n})\nexport class ImageBasicDemo {}"
-      },
-      "metadata": {
-        "services": [],
-        "primeNGServices": [],
-        "extFiles": [],
-        "imports": [
-          "ImageModule"
         ]
       }
     },
