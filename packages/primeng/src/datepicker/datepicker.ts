@@ -810,9 +810,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         return this._minDate;
     }
     set minDate(date: Date | undefined | null) {
+        const dateChanged = !this.isSameDate(this._minDate, date);
         this._minDate = date;
 
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+        if (dateChanged && this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
@@ -824,9 +825,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         return this._maxDate;
     }
     set maxDate(date: Date | undefined | null) {
+        const dateChanged = !this.isSameDate(this._maxDate, date);
         this._maxDate = date;
 
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+        if (dateChanged && this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
@@ -3119,6 +3121,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     isValidDate(date: any) {
         return isDate(date) && isNotEmpty(date);
+    }
+
+    isSameDate(date: Date | undefined | null, comparedDate: Date | undefined | null): boolean {
+        return date === comparedDate || (!!date && !!comparedDate && Object.is(date.getTime(), comparedDate.getTime()));
     }
 
     updateUI() {
