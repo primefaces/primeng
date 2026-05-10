@@ -872,6 +872,37 @@ describe('Breadcrumb', () => {
             expect(breadcrumbInstance.home?.tooltipOptions?.tooltipLabel).toBe('Home tooltip');
             expect(breadcrumbInstance.model?.[0]?.tooltipOptions?.tooltipLabel).toBe('Item tooltip');
         });
+
+        it('should set aria-current on the last non-router item', async () => {
+            component.model = [
+                { label: 'Products', url: '/products' },
+                { label: 'Category', url: '/products/category' }
+            ];
+            fixture.changeDetectorRef.markForCheck();
+
+            await fixture.whenStable();
+
+            fixture.detectChanges();
+
+            const itemLinks = fixture.debugElement.queryAll(By.css('[data-pc-section="item"] a'));
+
+            expect(itemLinks[0].nativeElement.getAttribute('aria-current')).toBeNull();
+            expect(itemLinks[1].nativeElement.getAttribute('aria-current')).toBe('page');
+        });
+
+        it('should set aria-current on the active last router item', async () => {
+            const routerFixture = TestBed.createComponent(TestRouterBreadcrumbComponent);
+
+            await router.navigateByUrl('/products/category');
+            routerFixture.detectChanges();
+            await routerFixture.whenStable();
+            routerFixture.detectChanges();
+
+            const itemLinks = routerFixture.debugElement.queryAll(By.css('[data-pc-section="item"] a'));
+
+            expect(itemLinks[0].nativeElement.getAttribute('aria-current')).toBeNull();
+            expect(itemLinks[1].nativeElement.getAttribute('aria-current')).toBe('page');
+        });
     });
 
     describe('Edge Cases', () => {

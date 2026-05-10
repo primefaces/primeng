@@ -108,6 +108,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                                 [attr.title]="menuitem?.title"
                                 [attr.tabindex]="menuitem?.disabled ? null : menuitem?.tabindex || '0'"
                                 [attr.data-automationid]="menuitem?.automationId"
+                                [attr.aria-current]="end ? 'page' : undefined"
                                 [pBind]="getPTOptions(menuitem, i, 'itemLink')"
                             >
                                 <ng-container *ngIf="!itemTemplate && !_itemTemplate">
@@ -129,6 +130,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                                 routerLinkActive="p-menuitem-link-active"
                                 [queryParams]="menuitem?.queryParams"
                                 [routerLinkActiveOptions]="menuitem?.routerLinkActiveOptions || { exact: false }"
+                                [ariaCurrentWhenActive]="end ? 'page' : undefined"
                                 [class]="cn(cx('itemLink'), menuitem?.linkClass)"
                                 [ngStyle]="menuitem?.linkStyle"
                                 (click)="onClick($event, menuitem)"
