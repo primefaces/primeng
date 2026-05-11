@@ -14,7 +14,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     selector: 'app-main',
     template: `
         <div class="layout-wrapper" [ngClass]="containerClass()">
-            <app-news />
+            <!-- <app-news /> -->
             <app-topbar />
             @if (isMenuActive()) {
                 <div class="layout-mask" (click)="hideMenu()" animate.enter="px-modal-enter" animate.leave="px-modal-leave"></div>
@@ -36,7 +36,7 @@ export class AppMainComponent {
 
     primeng: PrimeNG = inject(PrimeNG);
 
-    isNewsActive = computed(() => this.configService.newsActive());
+    isNewsActive = computed(() => false);
 
     isMenuActive = computed(() => this.configService.appState().menuActive);
 
