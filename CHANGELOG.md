@@ -2,6 +2,12 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.1.7](https://github.com/primefaces/primeng/tree/21.1.7) (2026-05-12)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.6...21.1.7)
+
+**Fixed bugs:**
+- p-autocomplete multi-select chips become desynchronized when model is mutated externally [#19248](https://github.com/primefaces/primeng/issues/19248)
+
 ## [21.1.6](https://github.com/primefaces/primeng/tree/21.1.6) (2026-04-13)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.1.5...21.1.6)
 
