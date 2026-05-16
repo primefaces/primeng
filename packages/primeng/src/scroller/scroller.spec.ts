@@ -1092,6 +1092,50 @@ describe('Scroller', () => {
             expect(component.onScroll).toHaveBeenCalledWith({ originalEvent: mockEvent });
         });
 
+        it('should prevent wheel scroll chaining at the vertical boundaries', () => {
+            const preventDefault = jasmine.createSpy('preventDefault');
+            const event = {
+                deltaY: 100,
+                deltaX: 0,
+                currentTarget: {
+                    scrollTop: 800,
+                    clientHeight: 200,
+                    scrollHeight: 1000,
+                    scrollLeft: 0,
+                    clientWidth: 200,
+                    scrollWidth: 200
+                },
+                preventDefault
+            } as unknown as WheelEvent;
+
+            scroller._orientation = 'vertical';
+            scroller.onContainerWheel(event);
+
+            expect(preventDefault).toHaveBeenCalled();
+        });
+
+        it('should allow wheel scrolling inside the current virtual scroller range', () => {
+            const preventDefault = jasmine.createSpy('preventDefault');
+            const event = {
+                deltaY: 100,
+                deltaX: 0,
+                currentTarget: {
+                    scrollTop: 400,
+                    clientHeight: 200,
+                    scrollHeight: 1000,
+                    scrollLeft: 0,
+                    clientWidth: 200,
+                    scrollWidth: 200
+                },
+                preventDefault
+            } as unknown as WheelEvent;
+
+            scroller._orientation = 'vertical';
+            scroller.onContainerWheel(event);
+
+            expect(preventDefault).not.toHaveBeenCalled();
+        });
+
         it('should emit onScrollIndexChange event', async () => {
             spyOn(component, 'onScrollIndexChange');
             spyOn(scroller, 'onScrollPositionChange').and.returnValue({
@@ -1891,6 +1935,13 @@ describe('Scroller', () => {
                 expect(element.style.padding).toBe('10px');
                 expect(element.style.backgroundColor).toBe('lightblue');
             }
+        });
+
+        it('should contain scroll chaining at the root boundary', async () => {
+            const scrollerElement = fixture.debugElement.query(By.css('[data-pc-section="root"]'));
+            const computedStyle = window.getComputedStyle(scrollerElement.nativeElement);
+
+            expect(computedStyle.getPropertyValue('overscroll-behavior-y')).toBe('contain');
         });
 
         it('should apply loading state classes', async () => {

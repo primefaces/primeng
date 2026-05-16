@@ -50,7 +50,7 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
     standalone: true,
     template: `
         <ng-container *ngIf="!_disabled; else disabledContainer">
-            <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="cn(cx('root'), styleClass)" (scroll)="onContainerScroll($event)" [pBind]="ptm('root')">
+            <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="cn(cx('root'), styleClass)" (scroll)="onContainerScroll($event)" (wheel)="onContainerWheel($event)" [pBind]="ptm('root')">
                 <ng-container *ngIf="contentTemplate || _contentTemplate; else buildInContent">
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
                 </ng-container>
@@ -1151,6 +1151,29 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
         } else {
             !this.d_loading && this.onScrollChange(event);
         }
+    }
+
+    onContainerWheel(event: WheelEvent) {
+        const element = event.currentTarget as HTMLElement;
+
+        if (!element) {
+            return;
+        }
+
+        const isVerticalBoundary = (this.vertical || this.both) && this.isScrollBoundary(event.deltaY, element.scrollTop, element.clientHeight, element.scrollHeight);
+        const isHorizontalBoundary = (this.horizontal || this.both) && this.isScrollBoundary(event.deltaX, element.scrollLeft, element.clientWidth, element.scrollWidth);
+
+        if (isVerticalBoundary || isHorizontalBoundary) {
+            event.preventDefault();
+        }
+    }
+
+    isScrollBoundary(delta: number, scrollPos: number, clientSize: number, scrollSize: number) {
+        if (!delta || scrollSize <= clientSize) {
+            return false;
+        }
+
+        return delta < 0 ? scrollPos <= 0 : scrollSize - clientSize - scrollPos <= 1;
     }
 
     bindResizeListener() {
