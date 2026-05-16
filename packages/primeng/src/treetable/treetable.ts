@@ -3167,8 +3167,13 @@ export class TTSelectableRow extends BaseComponent {
     onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Enter':
-            case 'Space':
                 this.onEnterKey(event);
+                break;
+
+            case 'Space':
+                if (!this.isKeydownFromInteractiveElement(event)) {
+                    this.onEnterKey(event);
+                }
                 break;
 
             default:
@@ -3193,6 +3198,18 @@ export class TTSelectableRow extends BaseComponent {
             this.onClick(event);
         }
         event.preventDefault();
+    }
+
+    private isKeydownFromInteractiveElement(event: KeyboardEvent): boolean {
+        const target = event.target;
+        const currentTarget = event.currentTarget;
+
+        return (
+            target instanceof HTMLElement &&
+            currentTarget instanceof HTMLElement &&
+            !target.isSameNode(currentTarget) &&
+            (target.isContentEditable || !!target.closest('input, textarea, select, button, a, area, summary, [contenteditable="true"]') || isClickable(target))
+        );
     }
 
     isEnabled() {
