@@ -2,6 +2,12 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.1.8](https://github.com/primefaces/primeng/tree/21.1.8) (2026-05-18)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.7...21.1.8)
+
+**Fixed bugs:**
+- CSP errors caused by Drawer [#18910](https://github.com/primefaces/primeng/issues/18910)
+
 ## [21.1.7](https://github.com/primefaces/primeng/tree/21.1.7) (2026-05-12)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.1.6...21.1.7)
 
