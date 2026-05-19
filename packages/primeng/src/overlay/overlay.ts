@@ -602,7 +602,13 @@ export class Overlay extends BaseComponent {
     alignOverlay() {
         if (!this.modal) {
             if (this.overlayEl && this.targetEl) {
-                this.overlayEl.style.minWidth = getOuterWidth(this.targetEl) + 'px';
+                const targetWidth = getOuterWidth(this.targetEl);
+                this.overlayEl.style.minWidth = targetWidth + 'px';
+
+                if (this.overlayOptions.autoMaxWidth) {
+                    this.overlayEl.style.maxWidth = targetWidth + 'px';
+                }
+
                 if (this.$appendTo() === 'self') {
                     relativePosition(this.overlayEl, this.targetEl);
                 } else {

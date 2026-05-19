@@ -272,7 +272,7 @@ export class SelectItem extends BaseComponent {
             #overlay
             [hostAttrSelector]="$attrSelector"
             [(visible)]="overlayVisible"
-            [options]="overlayOptions"
+            [options]="{ ...overlayOptions, autoMaxWidth: !autoWidth }"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
             [unstyled]="unstyled()"
@@ -680,6 +680,11 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocusFilter: boolean = true;
+    /**
+     * Whether the width of the overlay mirrors the width of the component.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autoWidth: boolean = true;
     /**
      * When specified, filter displays with this value.
      * @group Props

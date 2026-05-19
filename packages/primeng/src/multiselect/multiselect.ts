@@ -293,7 +293,7 @@ export class MultiSelectItem extends BaseComponent {
             #overlay
             [hostAttrSelector]="$attrSelector"
             [(visible)]="overlayVisible"
-            [options]="overlayOptions"
+            [options]="{ ...overlayOptions, autoMaxWidth: !autoWidth }"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
             [unstyled]="unstyled()"
@@ -740,6 +740,11 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocusFilter: boolean = false;
+    /**
+     * Whether the width of the overlay mirrors the width of the component.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autoWidth: boolean = true;
     /**
      * Defines how the selected items are displayed.
      * @group Props

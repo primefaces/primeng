@@ -9,10 +9,20 @@ const style = /*css*/ `
    .p-multiselect.ng-invalid.ng-dirty {
         border-color: dt('multiselect.invalid.border.color');
     }
-    p-multiSelect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder,
-    p-multi-select.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder,
     p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
         color: dt('multiselect.invalid.placeholder.color');
+    }
+
+    .p-multiselect-option {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .p-multiselect-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 `;
 
