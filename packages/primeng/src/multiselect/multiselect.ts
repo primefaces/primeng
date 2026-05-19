@@ -89,7 +89,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 </ng-template>
             </ng-container>
         </p-checkbox>
-        <span *ngIf="!template">{{ label ?? 'empty' }}</span>
+        <span *ngIf="!template" [class]="cx('optionLabel')" [pBind]="getPTOptions('optionLabel')">{{ label ?? 'empty' }}</span>
         <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
     `,
     encapsulation: ViewEncapsulation.None,
@@ -293,7 +293,7 @@ export class MultiSelectItem extends BaseComponent {
             #overlay
             [hostAttrSelector]="$attrSelector"
             [(visible)]="overlayVisible"
-            [options]="{ ...overlayOptions, autoMaxWidth: !autoWidth }"
+            [options]="{ ...overlayOptions, autoMaxWidth: autoWidth }"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
             [unstyled]="unstyled()"

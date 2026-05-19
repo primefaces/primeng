@@ -607,6 +607,8 @@ export class Overlay extends BaseComponent {
 
                 if (this.overlayOptions.autoMaxWidth) {
                     this.overlayEl.style.maxWidth = targetWidth + 'px';
+                } else {
+                    this.overlayEl.style.maxWidth = '';
                 }
 
                 if (this.$appendTo() === 'self') {
