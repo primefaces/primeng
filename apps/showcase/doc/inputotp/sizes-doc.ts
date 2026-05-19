@@ -1,8 +1,8 @@
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputOtpModule } from 'primeng/inputotp';
-import { AppCodeModule } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'sizes-doc',
@@ -13,9 +13,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>InputOtp provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
-            <p-inputotp [(ngModel)]="value1" size="small" />
-            <p-inputotp [(ngModel)]="value2" />
-            <p-inputotp [(ngModel)]="value3" size="large" />
+            <p-inputotp [(ngModel)]="value1" size="small" class="h-8" />
+            <p-inputotp [(ngModel)]="value2" class="h-10" />
+            <p-inputotp [(ngModel)]="value3" size="large" class="h-11" />
         </div>
         <app-code></app-code>
     `
