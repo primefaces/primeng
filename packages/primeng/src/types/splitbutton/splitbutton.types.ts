@@ -1,7 +1,8 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ButtonPassThrough } from 'primeng/types/button';
+import type { ButtonIconTemplateContext, ButtonPassThrough } from 'primeng/types/button';
 import { MenuPassThrough } from 'primeng/types/menu';
+import type { TieredMenuItemTemplateContext } from 'primeng/types/tieredmenu';
 
 /**
  * Custom pass-through(pt) options.
@@ -49,9 +50,19 @@ export interface SplitButtonTemplates {
      */
     content(): TemplateRef<void>;
     /**
+     * Custom icon template for the default action button.
+     * @param {ButtonIconTemplateContext} context - icon context.
+     */
+    icon(context: ButtonIconTemplateContext): TemplateRef<ButtonIconTemplateContext>;
+    /**
      * Custom dropdown icon template.
      */
     dropdownicon(): TemplateRef<void>;
+    /**
+     * Custom item template for the overlay menu.
+     * @param {TieredMenuItemTemplateContext} context - item context.
+     */
+    item(context: TieredMenuItemTemplateContext): TemplateRef<TieredMenuItemTemplateContext>;
 }
 /**
  * Defines ButtonProps interface.
