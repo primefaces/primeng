@@ -2868,6 +2868,9 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     toggleAMPMIfNotMinDate(newPM: boolean) {
         let value = this.value;
+        if (this.isRangeSelection()) {
+            value = this.value ? this.value[1] || this.value[0] : null;
+        }
         const valueDateString = value ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
         if (isMinDate && this.minDate!.getHours() >= 12) {
