@@ -4,11 +4,12 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'icons-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule],
+    imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>The buttons and menuitems have support to display icons with CSS classes such as PrimeIcons.</p>
@@ -21,13 +22,13 @@ import { ToastModule } from 'primeng/toast';
 
         <app-docsectiontext>
             <p>
-                Custom icons such as inline SVGs are supported through the <i>icon</i>, <i>dropdownicon</i>, and <i>item</i> templates. When using a template, omit the corresponding
-                <i>icon</i> or <i>dropdownIcon</i> property.
+                Custom icons from any library are supported through the <i>icon</i>, <i>dropdownicon</i>, and <i>item</i> templates, for example inline SVG, Font Awesome, Material Icons, or images.
+                When using a template, omit the corresponding <i>icon</i> or <i>dropdownIcon</i> property. Visit the <a routerLink="/customicons">custom icons</a> documentation for more examples.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-splitbutton label="Save" [model]="svgItems" (onClick)="save()">
+            <p-splitbutton label="Save" [model]="templateItems" (onClick)="save()">
                 <ng-template #icon>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1rem" height="1rem" aria-hidden="true">
                         <path
@@ -60,7 +61,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class IconsDoc {
     items: MenuItem[];
-    svgItems: MenuItem[];
+    templateItems: MenuItem[];
     itemIcons: Record<string, string> = {
         Update: 'M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12H1L4.96,16.03L9,12H6A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L17.65,6.35M12,20A8,8 0 0,0 20,12H23L19.04,7.97L15,12H18A6,6 0 0,1 12,18C10.34,18 8.86,17.31 7.78,16.22L6.35,17.65C7.8,19.1 9.79,20 12,20Z',
         Delete: 'M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z',
@@ -95,7 +96,7 @@ export class IconsDoc {
             }
         ];
 
-        this.svgItems = [
+        this.templateItems = [
             {
                 label: 'Update',
                 command: () => {
