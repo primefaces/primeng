@@ -22,8 +22,8 @@ import { RouterModule } from '@angular/router';
 
         <app-docsectiontext>
             <p>
-                Custom icons from any library are supported through the <i>icon</i>, <i>dropdownicon</i>, and <i>item</i> templates, for example inline SVG, Font Awesome, Material Icons, or images.
-                When using a template, omit the corresponding <i>icon</i> or <i>dropdownIcon</i> property. Visit the <a routerLink="/customicons">custom icons</a> documentation for more examples.
+                Custom icons from any library are supported through the <i>icon</i>, <i>dropdownicon</i>, and <i>item</i> templates, for example inline SVG, Font Awesome, Material Icons, or images. When using a template, omit the corresponding
+                <i>icon</i> or <i>dropdownIcon</i> property. Visit the <a routerLink="/customicons">custom icons</a> documentation for more examples.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -31,18 +31,12 @@ import { RouterModule } from '@angular/router';
             <p-splitbutton label="Save" [model]="templateItems" (onClick)="save()">
                 <ng-template #icon>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1rem" height="1rem" aria-hidden="true">
-                        <path
-                            fill="currentColor"
-                            d="M9,16.17,4.83,12,3.41,13.41,9,19,21,7,19.59,5.59Z"
-                        />
+                        <path fill="currentColor" d="M9,16.17,4.83,12,3.41,13.41,9,19,21,7,19.59,5.59Z" />
                     </svg>
                 </ng-template>
                 <ng-template #dropdownicon>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1rem" height="1rem" aria-hidden="true">
-                        <path
-                            fill="currentColor"
-                            d="M12,15.25a.74.74,0,0,1-.53-.22l-5-5A.75.75,0,0,1,7.53,9L12,13.44,16.47,9A.75.75,0,0,1,17.53,10l-5,5A.74.74,0,0,1,12,15.25Z"
-                        />
+                        <path fill="currentColor" d="M12,15.25a.74.74,0,0,1-.53-.22l-5-5A.75.75,0,0,1,7.53,9L12,13.44,16.47,9A.75.75,0,0,1,17.53,10l-5,5A.74.74,0,0,1,12,15.25Z" />
                     </svg>
                 </ng-template>
                 <ng-template #item let-item>

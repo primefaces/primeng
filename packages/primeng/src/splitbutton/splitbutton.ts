@@ -137,7 +137,6 @@ type SplitButtonIconPosition = 'left' | 'right';
             #menu
             [popup]="true"
             [model]="model"
-            [itemTemplate]="itemTemplate || _itemTemplate"
             [style]="menuStyle"
             [styleClass]="menuStyleClass"
             [appendTo]="$appendTo()"
@@ -146,7 +145,11 @@ type SplitButtonIconPosition = 'left' | 'right';
             (onShow)="onShow()"
             [pt]="ptm('pcMenu')"
             [unstyled]="unstyled()"
-        ></p-tieredmenu>
+        >
+            <ng-template #item let-item let-hasSubmenu="hasSubmenu" *ngIf="itemTemplate || _itemTemplate">
+                <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, hasSubmenu: hasSubmenu }"></ng-container>
+            </ng-template>
+        </p-tieredmenu>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [SplitButtonStyle, { provide: SPLITBUTTON_INSTANCE, useExisting: SplitButton }, { provide: PARENT_INSTANCE, useExisting: SplitButton }],

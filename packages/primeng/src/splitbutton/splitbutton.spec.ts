@@ -342,6 +342,8 @@ describe('SplitButton', () => {
                 TestBasicSplitButtonComponent,
                 TestTemplateSplitButtonComponent,
                 TestContentTemplateSplitButtonComponent,
+                TestIconTemplateSplitButtonComponent,
+                TestItemTemplateSplitButtonComponent,
                 TestSeveritySplitButtonComponent,
                 TestSplitButtonVariantsComponent,
                 TestDisabledSplitButtonComponent,
@@ -1112,7 +1114,15 @@ describe('SplitButton', () => {
 
                 const splitButtonInstance = itemTemplateFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
                 expect(splitButtonInstance.itemTemplate).toBeDefined();
-                expect(splitButtonInstance.menu?.itemTemplate).toBe(splitButtonInstance.itemTemplate);
+                expect(splitButtonInstance.menu?.itemTemplate).toBeDefined();
+
+                const buttons = itemTemplateFixture.debugElement.queryAll(By.css('button'));
+                buttons[1].nativeElement.click();
+                itemTemplateFixture.detectChanges();
+                await itemTemplateFixture.whenStable();
+
+                const customMenuItems = itemTemplateFixture.debugElement.queryAll(By.css('.custom-menu-item'));
+                expect(customMenuItems.length).toBeGreaterThan(0);
             });
         });
     });
