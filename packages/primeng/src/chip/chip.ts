@@ -18,7 +18,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE, PERFORMANCE_CONTEXT } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { TimesCircleIcon } from 'primeng/icons';
 import { ChipProps, ChipPassThrough } from 'primeng/types/chip';
@@ -80,7 +80,7 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ChipStyle, { provide: CHIP_INSTANCE, useExisting: Chip }, { provide: PARENT_INSTANCE, useExisting: Chip }],
+    providers: [ChipStyle, { provide: CHIP_INSTANCE, useExisting: Chip }, { provide: PARENT_INSTANCE, useExisting: Chip }, { provide: PERFORMANCE_CONTEXT, useExisting: Chip }],
     host: {
         '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')",
