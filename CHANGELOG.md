@@ -2,6 +2,53 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.1.8](https://github.com/primefaces/primeng/tree/21.1.8) (2026-05-18)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.7...21.1.8)
+
+**Fixed bugs:**
+- CSP errors caused by Drawer [#18910](https://github.com/primefaces/primeng/issues/18910)
+
+## [21.1.7](https://github.com/primefaces/primeng/tree/21.1.7) (2026-05-12)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.6...21.1.7)
+
+**Fixed bugs:**
+- p-autocomplete multi-select chips become desynchronized when model is mutated externally [#19248](https://github.com/primefaces/primeng/issues/19248)
+
+## [21.1.6](https://github.com/primefaces/primeng/tree/21.1.6) (2026-04-13)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.5...21.1.6)
+
+**Fixed bugs:**
+- v21 accordion creates scrolling out of the DOM [#19229](https://github.com/primefaces/primeng/issues/19229)
+
+## [21.1.5](https://github.com/primefaces/primeng/tree/21.1.5) (2026-04-01)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.4...21.1.5)
+
+**Fixed bugs:**
+- Drawer does not close on outside click in zone mode [#19514](https://github.com/primefaces/primeng/issues/19514)
+
+## [21.1.4](https://github.com/primefaces/primeng/tree/21.1.4) (2026-03-27)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.3...21.1.4)
+
+**Fixed bugs:**
+- p-orderList: controlsPosition="right" not working anymore in PrimeNG 21 [#19505](https://github.com/primefaces/primeng/issues/19505)
+
+## [21.1.3](https://github.com/primefaces/primeng/tree/21.1.3) (2026-03-04)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.2...21.1.3)
+
+**Fixed bugs:**
+- Menu | Component is not destroyed on navigation [#19455](https://github.com/primefaces/primeng/issues/19455)
+
+## [21.1.2](https://github.com/primefaces/primeng/tree/21.1.2) (2026-03-03)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.1...21.1.2)
+
+**Fixed bugs:**
+- Overlay | Consider mousedown to hide overlays [#17674](https://github.com/primefaces/primeng/issues/17674)
+- Menu | Problems with overlay positioning [#19362](https://github.com/primefaces/primeng/issues/19362)
+- SplitButton | MenuItems Tooltip not showing [#19443](https://github.com/primefaces/primeng/issues/19443)
+- AutoComplete | Selected option is not cleared when forceSelection is set to true [#19438](https://github.com/primefaces/primeng/issues/19438)
+- Drawer | Regression; Flicker when clicking the close button inside the drawer [#19367](https://github.com/primefaces/primeng/issues/19367)
+- Select | With virtual scroll and filter, option list gets hidden after clearing filter one by one [#19442](https://github.com/primefaces/primeng/issues/19442)
+
 ## [21.1.1](https://github.com/primefaces/primeng/tree/21.1.1) (2026-01-28)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.1.0...21.1.1)
 

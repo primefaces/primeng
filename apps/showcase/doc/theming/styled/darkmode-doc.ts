@@ -50,7 +50,7 @@ export class DarkModeDoc {
     };
 
     code2 = {
-        typescript: `<p-button label="Toggle Dark Mode" (onClick)="toggleDarkMode()"/>`
+        html: `<p-button label="Toggle Dark Mode" (onClick)="toggleDarkMode()"/>`
     };
 
     code3 = {
@@ -61,7 +61,7 @@ export class DarkModeDoc {
     };
 
     code4 = {
-        typescript: `<html class="my-app-dark">`
+        html: `<html class="my-app-dark">`
     };
 
     code5: Code = {

@@ -101,7 +101,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        typescript: `<span id="lb">Options</span>
+        html: `<span id="lb">Options</span>
 <p-listbox ariaLabelledBy="lb"/>
 
 <p-listbox ariaLabel="City"/>`

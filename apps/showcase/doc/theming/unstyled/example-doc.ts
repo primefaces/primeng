@@ -45,7 +45,7 @@ interface City {
 })
 export class ExampleDoc {
     code: Code = {
-        typescript: `<p-button
+        html: `<p-button
     label="Search"
     icon="pi pi-search"
     [unstyled]="true"

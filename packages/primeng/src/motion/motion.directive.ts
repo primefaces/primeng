@@ -1,5 +1,5 @@
-import { afterRenderEffect, computed, Directive, effect, inject, InjectionToken, input, output } from '@angular/core';
-import { createMotion, type ClassNameOptions, type MotionEvent, type MotionInstance, type MotionOptions } from '@primeuix/motion';
+import { afterRenderEffect, computed, Directive, effect, inject, InjectionToken, input, output, untracked } from '@angular/core';
+import { createMotion, resolveDuration, type ClassNameOptions, type MotionEvent, type MotionInstance, type MotionOptions, type MotionPhase } from '@primeuix/motion';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { applyHiddenStyles, resetStyles } from './motion.utils';
 import { MotionStyle } from './style/motion.style';
@@ -246,9 +246,11 @@ export class MotionDirective extends BaseComponent {
                 resetStyles(this.$el, hideStrategy);
 
                 if (shouldAppear || !this.isInitialMount) {
+                    this.applyMotionDuration('enter');
                     this.motion?.enter();
                 }
             } else if (!this.isInitialMount) {
+                this.applyMotionDuration('leave');
                 this.motion?.leave()?.then(() => {
                     if (this.$el && !this.cancelled && !this.visible()) {
                         applyHiddenStyles(this.$el, hideStrategy);
@@ -262,6 +264,22 @@ export class MotionDirective extends BaseComponent {
         });
     }
 
+    private applyMotionDuration(phase: MotionPhase): void {
+        const options = untracked(this.motionOptions);
+        const ms = resolveDuration(options.duration, phase);
+
+        if (ms == null || !this.$el) return;
+
+        const el = this.$el as HTMLElement;
+        const durationValue = `${ms}ms`;
+
+        if (options.type === 'transition') {
+            el.style.transitionDuration = durationValue;
+        } else {
+            el.style.animationDuration = durationValue;
+        }
+    }
+
     onDestroy(): void {
         this.destroyed = true;
         this.cancelled = true;
@@ -270,6 +288,8 @@ export class MotionDirective extends BaseComponent {
         this.motion = undefined;
 
         resetStyles(this.$el, this.hideStrategy());
+
+        this.$el?.remove();
 
         this.isInitialMount = true;
     }

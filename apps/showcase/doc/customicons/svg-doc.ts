@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 })
 export class SVGDoc {
     code: Code = {
-        typescript: `<p-dropdown>
+        html: `<p-select>
     <ng-template #dropdownicon>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g id="chevron-down">
@@ -24,6 +24,6 @@ export class SVGDoc {
             </g>
         </svg>
     </ng-template>
-</p-dropdown>`
+</p-select>`
     };
 }

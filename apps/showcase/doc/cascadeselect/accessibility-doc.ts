@@ -126,7 +126,7 @@ export class AccessibilityDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `<span id="dd1">Options</span>
+        html: `<span id="dd1">Options</span>
 <p-cascadeselect ariaLabelledBy="dd1"/>
 
 <p-cascadeselect ariaLabel="Options"/>`

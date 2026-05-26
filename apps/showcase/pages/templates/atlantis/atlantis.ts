@@ -107,7 +107,7 @@ export class AtlantisPage {
             id: 4,
             title: 'Figma File',
             description: `Atlantis uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
-                <a href="https://www.figma.com/file/two0OGwOwHfq0sdjeK34l0/Preview-%7C-Atlantis-2022?node-id=15%3A1427&t=2lNJ5EzW0xuvQWdm-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the
+                <a href="https://www.figma.com/design/2aOISJWanQAd4Kzu8BLYe7/Preview-%7C%C2%A0Atlantis-%7C-2.0.0?node-id=1303-749&t=PVvmnN9FxL8FMgZf-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the
                 Atlantis Figma file as they are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-figma.png'
         }

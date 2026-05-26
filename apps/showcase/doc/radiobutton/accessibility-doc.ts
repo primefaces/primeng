@@ -65,7 +65,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        typescript: `<label for="rb1">One</label>
+        html: `<label for="rb1">One</label>
 <p-radiobutton inputId="rb1" />
 
 <span id="rb2">Two</span>

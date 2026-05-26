@@ -41,7 +41,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        typescript: `<label for="firstname">Firstname</label>
+        html: `<label for="firstname">Firstname</label>
 <input pInputText id="firstname" />
 
 <span id="lastname">Lastname</span>

@@ -48,7 +48,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        typescript: `<span id="rememberme">Remember Me</span>
+        html: `<span id="rememberme">Remember Me</span>
 <p-togglebutton ariaLabelledBy="rememberme" />
 
 <p-togglebutton ariaLabel="Remember Me" />`

@@ -47,7 +47,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
             <div [pBind]="ptm('headerActions')" [class]="cx('headerActions')">
-                <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
+                <ng-template *ngTemplateOutlet="iconsTemplate || _iconsTemplate"></ng-template>
                 <p-button
                     *ngIf="toggleable"
                     [attr.id]="id + '_header'"
@@ -243,14 +243,14 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      */
     @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
     /**
-     * Defines template option for icon.
+     * Defines template option for icons.
      * @example
      * ```html
-     * <ng-template #icon> </ng-template>
+     * <ng-template #icons> </ng-template>
      * ```
      * @group Templates
      */
-    @ContentChild('icons', { descendants: false }) iconTemplate: TemplateRef<void> | undefined;
+    @ContentChild('icons', { descendants: false }) iconsTemplate: TemplateRef<void> | undefined;
 
     /**
      * Defines template option for content.
@@ -286,7 +286,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
 
     _headerTemplate: TemplateRef<void> | undefined;
 
-    _iconTemplate: TemplateRef<void> | undefined;
+    _iconsTemplate: TemplateRef<void> | undefined;
 
     _contentTemplate: TemplateRef<void> | undefined;
 
@@ -379,7 +379,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
                     break;
 
                 case 'icons':
-                    this._iconTemplate = item.template;
+                    this._iconsTemplate = item.template;
                     break;
 
                 case 'headericons':

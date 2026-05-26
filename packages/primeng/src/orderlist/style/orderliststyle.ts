@@ -2,8 +2,17 @@ import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/orderlist';
 import { BaseStyle } from 'primeng/base';
 
+const theme = /*css*/ `
+    ${style}
+
+    /* For PrimeNG */
+    .p-orderlist-controls-right .p-orderlist-controls {
+        order: 2;
+    }
+`;
+
 const classes = {
-    root: () => ['p-orderlist p-component'],
+    root: ({ instance }) => ['p-orderlist p-component', { 'p-orderlist-controls-left': instance.controlsPosition === 'left', 'p-orderlist-controls-right': instance.controlsPosition === 'right' }],
     controls: 'p-orderlist-controls'
 };
 
@@ -11,7 +20,7 @@ const classes = {
 export class OrderListStyle extends BaseStyle {
     name = 'orderlist';
 
-    style = style;
+    style = theme;
 
     classes = classes;
 }

@@ -6,13 +6,6 @@ ProgressBar is a process status indicator.
 
 Screen Reader ProgressBar components uses progressbar role along with aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using aria-labelledby and aria-label props.
 
-```typescript
-<span id="label_status">Status</span>
-<p-progressbar aria-labelledby="label_status" />
-
-<p-progressbar aria-label="Status" />
-```
-
 ## Basic
 
 ProgressBar is used with the value property.

@@ -112,7 +112,7 @@ export class ApolloPage {
             height: 1788,
             description: `
                     Apollo uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
-                    <a href="https://www.figma.com/file/zQOW0XBXdCTqODzEOqwBtt/Preview-%7C-Apollo-2022?node-id=335%3A21768&t=urYI89V3PLNAZEJG-1/" target="_blank" rel="noopener noreferrer">preview the Figma file</a>
+                    <a href="https://www.figma.com/design/p2G3F7XAaZZrlbfLY30P8s/Preview-%7C-Apollo-%7C 2.0.0?node-id=138-5712&t=w3JQkFR0CDX6Kvef-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a>
                     before the purchase. Note that PrimeNG UI components are excluded from the Apollo Figma file as they are available in
                     <a href="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-figma.png'

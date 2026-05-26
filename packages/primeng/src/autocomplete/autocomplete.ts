@@ -1679,14 +1679,15 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     updateInputWithForceSelection(event: any) {
         const input = this.inputEL?.nativeElement;
+        const inputCleared = !input?.value && isNotEmpty(this.modelValue());
 
-        if (!this.forceSelection || this.overlayVisible || !input?.value) {
+        if (!this.forceSelection || this.overlayVisible || (!input?.value && !inputCleared)) {
             return;
         }
 
         const _minLength = this.minQueryLength ?? this.minLength;
 
-        if (input.value.length < _minLength) {
+        if (!inputCleared && input.value.length < _minLength) {
             return;
         }
 
@@ -1875,10 +1876,18 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
      * Writes the value to the control.
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
-        const options = this.multiple ? this.visibleOptions().filter((option) => value?.some((val) => equals(val, option, this.equalityKey()))) : this.visibleOptions().find((option) => equals(value, option, this.equalityKey()));
+        if (this.multiple) {
+            const resolved = (value || []).map((val: any) => {
+                const match = this.visibleOptions().find((option: any) => equals(val, option, this.equalityKey()));
+                return match ?? val;
+            });
+            setModelValue(isEmpty(value) ? value : resolved);
+        } else {
+            const option = this.visibleOptions().find((option: any) => equals(value, option, this.equalityKey()));
+            setModelValue(isEmpty(option) ? value : option);
+        }
 
         this.value = value;
-        setModelValue(isEmpty(options) ? value : options);
         this.updateInputValue();
         this.cd.markForCheck();
     }

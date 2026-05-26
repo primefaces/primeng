@@ -29,19 +29,19 @@ import { Component } from '@angular/core';
 })
 export class FormControlsDoc {
     code1: Code = {
-        typescript: `<button (click)="onButtonClick($event)">Click></button>`
+        html: `<button (click)="onButtonClick($event)">Click></button>`
     };
 
     code2: Code = {
-        typescript: `<div class="fancy-button" (click)="onButtonClick($event)">Click</div>`
+        html: `<div class="fancy-button" (click)="onButtonClick($event)">Click</div>`
     };
 
     code3: Code = {
-        typescript: `<div class="fancy-button" (click)="onButtonClick($event)" (keydown)="onKeyDown($event)" tabIndex="0">Click</div>`
+        html: `<div class="fancy-button" (click)="onButtonClick($event)" (keydown)="onKeyDown($event)" tabIndex="0">Click</div>`
     };
 
     code4: Code = {
-        typescript: `<label for="myinput">Username:</label>
+        html: `<label for="myinput">Username:</label>
 <input id="myinput" type="text" name="username" />`
     };
 }

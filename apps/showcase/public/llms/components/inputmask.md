@@ -4,17 +4,7 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 ## Accessibility
 
-Screen Reader InputMask component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props.
-
-```typescript
-<label for="date">Date</label>
-<input pInputText id="date" pInputMask="99/99/9999" />
-
-<span id="phone">Phone</span>
-<input pInputText pInputMask="(999) 999-9999" aria-labelledby="phone" />
-
-<input pInputText pInputMask="99" aria-label="Age" />
-```
+Screen Reader InputMask directive is used with a native input element that implicitly includes any passed attribute. Value to describe the component can either be provided via label tag combined with id attribute or using aria-labelledby , aria-label attributes.
 
 ## Basic
 

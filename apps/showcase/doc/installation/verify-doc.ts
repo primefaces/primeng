@@ -36,6 +36,6 @@ export class ButtonDemo {}`
     };
 
     code2: Code = {
-        typescript: `<p-button label="Check" />`
+        html: `<p-button label="Check" />`
     };
 }

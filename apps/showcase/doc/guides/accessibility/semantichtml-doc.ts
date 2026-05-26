@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
 })
 export class SemanticHTMLDoc {
     code1: Code = {
-        typescript: `<div class="header"/>
+        html: `<div class="header"/>
     <div class="header-text">Header></div>
 </div>
 
@@ -36,7 +36,7 @@ export class SemanticHTMLDoc {
     };
 
     code2: Code = {
-        typescript: `<header>
+        html: `<header>
     <h1>Header</h1>
 </header>
 

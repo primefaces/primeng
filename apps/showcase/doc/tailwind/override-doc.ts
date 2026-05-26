@@ -37,11 +37,11 @@ import { Component } from '@angular/core';
 })
 export class OverrideDoc {
     code1 = {
-        typescript: `<input pInputText placeholder="Overriden" class="p-8!" />`
+        html: `<input pInputText placeholder="Overriden" class="p-8!" />`
     };
 
     code2 = {
-        typescript: `<input pInputText placeholder="Overriden" class="!p-8" />`
+        html: `<input pInputText placeholder="Overriden" class="!p-8" />`
     };
 
     code3 = {

@@ -139,7 +139,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        typescript: `<label for="ac1">Username</label>
+        html: `<label for="ac1">Username</label>
 <p-autocomplete inputId="ac1"/>
 
 <span id="ac2">Email</span>

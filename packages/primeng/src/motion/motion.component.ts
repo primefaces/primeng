@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { afterRenderEffect, Component, computed, effect, inject, InjectionToken, input, output, signal } from '@angular/core';
-import { type ClassNameOptions, createMotion, type MotionEvent, type MotionInstance, type MotionOptions } from '@primeuix/motion';
+import { afterRenderEffect, Component, computed, effect, inject, InjectionToken, input, output, signal, untracked } from '@angular/core';
+import { type ClassNameOptions, createMotion, resolveDuration, type MotionEvent, type MotionInstance, type MotionOptions, type MotionPhase } from '@primeuix/motion';
 import { nextFrame } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -295,10 +295,12 @@ export class Motion extends BaseComponent<MotionPassThrough> {
                 resetStyles(this.$el, hideStrategy);
 
                 if (shouldAppear || !this.isInitialMount) {
+                    this.applyMotionDuration('enter');
                     this.motion?.enter();
                 }
             } else if (!this.isInitialMount) {
                 await nextFrame();
+                this.applyMotionDuration('leave');
                 this.motion?.leave()?.then(async () => {
                     if (this.$el && !this.cancelled && !this.visible()) {
                         applyHiddenStyles(this.$el, hideStrategy);
@@ -315,6 +317,22 @@ export class Motion extends BaseComponent<MotionPassThrough> {
 
             this.isInitialMount = false;
         });
+    }
+
+    private applyMotionDuration(phase: MotionPhase): void {
+        const options = untracked(this.motionOptions);
+        const ms = resolveDuration(options.duration, phase);
+
+        if (ms == null || !this.$el) return;
+
+        const el = this.$el as HTMLElement;
+        const durationValue = `${ms}ms`;
+
+        if (options.type === 'transition') {
+            el.style.transitionDuration = durationValue;
+        } else {
+            el.style.animationDuration = durationValue;
+        }
     }
 
     onDestroy(): void {

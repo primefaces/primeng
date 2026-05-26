@@ -6,23 +6,6 @@ Drawer is a container component displayed as an overlay.
 
 Screen Reader Drawer component uses complementary role by default, since any attribute is passed to the root element aria role can be changed depending on your use case and additional attributes like aria-labelledby can be added. In addition aria-modal is added since focus is kept within the drawer when opened. It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding tabIndex would be necessary. Trigger element also requires aria-expanded and aria-controls to be handled explicitly. Overlay Keyboard Support Key Function tab Moves focus to the next the focusable element within the drawer. shift + tab Moves focus to the previous the focusable element within the drawer. escape Closes the dialog if closeOnEscape is true. Close Button Keyboard Support Key Function enter Closes the drawer. space Closes the drawer.
 
-```typescript
-<p-button
-    icon="pi pi-arrow-right"
-    (click)="visible = true"
-    aria-controls="{{visible ? 'drawer' : null}}"
-    aria-expanded="{{visible ? true : false}}"
-></p-button>
-<p-drawer
-    [(visible)]="visible"
-    id="drawer"
-    (onHide)="visible = false"
-    role="region"
->
-    content
-</p-drawer>
-```
-
 ## Basic
 
 Drawer is used as a container and visibility is controlled with a binding to visible .

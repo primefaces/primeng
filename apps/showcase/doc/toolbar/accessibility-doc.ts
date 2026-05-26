@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        typescript: `<p-toolbar aria-label="Actions">
+        html: `<p-toolbar aria-label="Actions">
     Content
 </p-toolbar>`
     };

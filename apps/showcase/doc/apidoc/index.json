@@ -30644,8 +30644,8 @@
                             "parameters": []
                         },
                         {
-                            "name": "icon",
-                            "description": "Defines template option for icon.",
+                            "name": "icons",
+                            "description": "Defines template option for icons.",
                             "type": "TemplateRef<void>",
                             "parameters": []
                         },

@@ -6,10 +6,6 @@ ProgressSpinner is a process status indicator.
 
 Screen Reader ProgressSpinner components uses progressbar role. Value to describe the component can be defined using aria-labelledby and aria-label props.
 
-```typescript
-<p-progress-spinner aria-label="Loading"></p-progress-spinner>
-```
-
 ## Basic
 
 An infinite spin animation is displayed by default.
