@@ -2876,6 +2876,149 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         this.onRowDragEnd(event);
     }
 
+    /**
+     * Moves a column via keyboard navigation.
+     * @param {number} fromIndex - Current column index.
+     * @param {number} direction - Direction to move: -1 for left, 1 for right.
+     * @returns {number} - The new index of the moved column, or -1 if move failed.
+     */
+    moveColumnByKeyboard(fromIndex: number, direction: number): number {
+        if (!this.reorderableColumns || !this.columns) {
+            return -1;
+        }
+
+        const toIndex = fromIndex + direction;
+        if (toIndex < 0 || toIndex >= this.columns.length) {
+            return -1;
+        }
+
+        ObjectUtils.reorderArray(<any[]>this.columns, fromIndex, toIndex);
+
+        this.onColReorder.emit({
+            dragIndex: fromIndex,
+            dropIndex: toIndex,
+            columns: this.columns
+        });
+
+        if (this.isStateful()) {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.saveState();
+                });
+            });
+        }
+
+        if (this.resizableColumns && this.resizeColumnElement) {
+            let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
+            ObjectUtils.reorderArray(width, fromIndex + 1, toIndex + 1);
+            this.updateStyleElement(width, fromIndex, 0, 0);
+        }
+
+        this.focusColumnByIndex(toIndex);
+
+        return toIndex;
+    }
+
+    /**
+     * Focuses a reorderable column by its index.
+     * @param {number} index - The column index to focus.
+     */
+    focusColumnByIndex(index: number): void {
+        if (isPlatformBrowser(this.platformId)) {
+            setTimeout(() => {
+                const tableEl = this.el?.nativeElement;
+                if (tableEl) {
+                    const thead = tableEl.querySelector('.p-datatable-thead');
+                    if (thead) {
+                        const headers = Array.from(thead.querySelectorAll('th[preorderablecolumn]'));
+                        const targetHeader = headers[index] as HTMLElement;
+                        if (targetHeader) {
+                            targetHeader.setAttribute('tabindex', '0');
+                            targetHeader.focus();
+                        }
+                    }
+                }
+            }, 100);
+        }
+    }
+
+    /**
+     * Moves a row via keyboard navigation.
+     * @param {number} fromIndex - Current row index.
+     * @param {number} direction - Direction to move: -1 for up, 1 for down.
+     * @returns {number} - The new index of the moved row, or -1 if move failed.
+     */
+    moveRowByKeyboard(fromIndex: number, direction: number): number {
+        if (!this.value) {
+            return -1;
+        }
+
+        const toIndex = fromIndex + direction;
+        if (toIndex < 0 || toIndex >= this.value.length) {
+            return -1;
+        }
+
+        ObjectUtils.reorderArray(this.value, fromIndex, toIndex);
+
+        this._value = [...this._value];
+
+        this.onRowReorder.emit({
+            dragIndex: fromIndex,
+            dropIndex: toIndex
+        });
+
+        this.focusRowByIndex(toIndex);
+
+        return toIndex;
+    }
+
+    /**
+     * Focuses a reorderable row by its index.
+     * @param {number} index - The row index to focus.
+     */
+    focusRowByIndex(index: number): void {
+        if (isPlatformBrowser(this.platformId)) {
+            this._pendingRowFocusIndex = index;
+
+            const tableEl = this.el?.nativeElement;
+            if (!tableEl) return;
+
+            const doFocus = () => {
+                if (this._pendingRowFocusIndex !== index) return false; // Cancelled
+
+                const tbody = tableEl.querySelector('.p-datatable-tbody:not(.p-datatable-frozen-tbody)');
+                if (tbody) {
+                    const rows = tbody.querySelectorAll('tr[preorderablerow]');
+                    const targetRow = rows[index] as HTMLElement;
+                    if (targetRow) {
+                        targetRow.setAttribute('tabindex', '0');
+                        targetRow.focus();
+                        this._pendingRowFocusIndex = undefined;
+                        return document.activeElement === targetRow;
+                    }
+                }
+                return false;
+            };
+
+            this.cd.detectChanges();
+
+            if (doFocus()) return;
+
+            queueMicrotask(() => {
+                if (doFocus()) return;
+
+                requestAnimationFrame(() => {
+                    if (doFocus()) return;
+
+                    setTimeout(() => doFocus(), 100);
+                });
+            });
+        }
+    }
+
+    /** @internal */
+    _pendingRowFocusIndex: number | undefined;
+
     isEmpty() {
         let data = this.filteredValue || this.value;
         return data == null || data.length == 0;
@@ -4378,12 +4521,22 @@ export class ResizableColumn extends BaseComponent {
     selector: '[pReorderableColumn]',
     standalone: false,
     host: {
-        '[class]': "cx('reorderableColumn')"
+        '[class]': "cx('reorderableColumn')",
+        '[attr.tabindex]': 'isEnabled() ? 0 : null',
+        '[attr.role]': '"columnheader"',
+        '[attr.aria-grabbed]': 'dragging',
+        '[attr.aria-label]': 'ariaLabel'
     },
     providers: [TableStyle]
 })
 export class ReorderableColumn extends BaseComponent {
     @Input({ transform: booleanAttribute }) pReorderableColumnDisabled: boolean | undefined;
+
+    /**
+     * Custom aria-label for the reorderable column.
+     * @group Props
+     */
+    @Input() pReorderableColumnAriaLabel: string | undefined;
 
     dragStartListener: VoidListener;
 
@@ -4395,7 +4548,17 @@ export class ReorderableColumn extends BaseComponent {
 
     mouseDownListener: VoidListener;
 
+    dragging: boolean = false;
+
     _componentStyle = inject(TableStyle);
+
+    get ariaLabel(): string {
+        if (this.pReorderableColumnAriaLabel) {
+            return this.pReorderableColumnAriaLabel;
+        }
+        const headerText = this.el.nativeElement.textContent?.trim() || '';
+        return headerText ? `${headerText}, reorderable column. Use Ctrl+Left or Ctrl+Right arrow keys to reorder.` : 'Reorderable column. Use Ctrl+Left or Ctrl+Right arrow keys to reorder.';
+    }
 
     constructor(
         public dataTable: Table,
@@ -4460,6 +4623,7 @@ export class ReorderableColumn extends BaseComponent {
     }
 
     onDragStart(event: any) {
+        this.dragging = true;
         this.dataTable.onColumnDragStart(event, this.el.nativeElement);
     }
 
@@ -4480,6 +4644,61 @@ export class ReorderableColumn extends BaseComponent {
         if (this.isEnabled()) {
             this.dataTable.onColumnDrop(event, this.el.nativeElement);
         }
+        this.dragging = false;
+    }
+
+    @HostListener('dragend', ['$event'])
+    onDragEnd(event: any) {
+        this.dragging = false;
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
+        if (!this.isEnabled()) {
+            return;
+        }
+
+        const isCtrlKey = event.ctrlKey || event.metaKey;
+
+        if (isCtrlKey && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const direction = event.key === 'ArrowLeft' ? -1 : 1;
+            const currentIndex = DomHandler.indexWithinGroup(this.el.nativeElement, 'preorderablecolumn');
+
+            if (currentIndex === -1) {
+                return;
+            }
+
+            const newIndex = this.dataTable.moveColumnByKeyboard(currentIndex, direction);
+
+            if (newIndex >= 0) {
+                this.announceReorder(direction);
+            }
+        }
+    }
+
+    private announceReorder(direction: number) {
+        const headerText = this.el.nativeElement.textContent?.trim() || 'Column';
+        const directionText = direction === -1 ? 'left' : 'right';
+        const message = `${headerText} moved ${directionText}`;
+
+        let liveRegion = document.getElementById('p-table-reorder-live-region');
+        if (!liveRegion) {
+            liveRegion = document.createElement('div');
+            liveRegion.id = 'p-table-reorder-live-region';
+            liveRegion.setAttribute('aria-live', 'assertive');
+            liveRegion.setAttribute('aria-atomic', 'true');
+            liveRegion.setAttribute('role', 'status');
+            liveRegion.style.cssText = 'position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;';
+            document.body.appendChild(liveRegion);
+        }
+
+        liveRegion.textContent = '';
+        setTimeout(() => {
+            liveRegion!.textContent = message;
+        }, 50);
     }
 
     isEnabled() {
@@ -5233,6 +5452,11 @@ export class ReorderableRowHandle extends BaseComponent {
 @Directive({
     selector: '[pReorderableRow]',
     standalone: false,
+    host: {
+        '[attr.tabindex]': 'isEnabled() ? 0 : null',
+        '[attr.aria-grabbed]': 'dragging',
+        '[attr.aria-label]': 'ariaLabel'
+    },
     hostDirectives: [Bind]
 })
 export class ReorderableRow extends BaseComponent {
@@ -5242,11 +5466,27 @@ export class ReorderableRow extends BaseComponent {
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('reorderableRow'));
+
+        // Check if this row should receive focus
+        if (this.dataTable._pendingRowFocusIndex === this.index) {
+            this.dataTable._pendingRowFocusIndex = undefined;
+
+            setTimeout(() => {
+                this.el.nativeElement.setAttribute('tabindex', '0');
+                this.el.nativeElement.focus();
+            }, 0);
+        }
     }
 
     @Input('pReorderableRow') index: number | undefined;
 
     @Input({ transform: booleanAttribute }) pReorderableRowDisabled: boolean | undefined;
+
+    /**
+     * Custom aria-label for the reorderable row.
+     * @group Props
+     */
+    @Input() pReorderableRowAriaLabel: string | undefined;
 
     mouseDownListener: VoidListener;
 
@@ -5259,6 +5499,16 @@ export class ReorderableRow extends BaseComponent {
     dragLeaveListener: VoidListener;
 
     dropListener: VoidListener;
+
+    dragging: boolean = false;
+
+    get ariaLabel(): string {
+        if (this.pReorderableRowAriaLabel) {
+            return this.pReorderableRowAriaLabel;
+        }
+        const rowNumber = this.index !== undefined ? this.index + 1 : '';
+        return rowNumber ? `Row ${rowNumber}, reorderable. Use Ctrl+Up or Ctrl+Down arrow keys to reorder.` : 'Reorderable row. Use Ctrl+Up or Ctrl+Down arrow keys to reorder.';
+    }
 
     constructor(
         public dataTable: Table,
@@ -5334,10 +5584,12 @@ export class ReorderableRow extends BaseComponent {
     }
 
     onDragStart(event: DragEvent) {
+        this.dragging = true;
         this.dataTable.onRowDragStart(event, <number>this.index);
     }
 
     onDragEnd(event: DragEvent) {
+        this.dragging = false;
         this.dataTable.onRowDragEnd(event);
         this.el.nativeElement.draggable = false;
     }
@@ -5362,6 +5614,57 @@ export class ReorderableRow extends BaseComponent {
         }
 
         event.preventDefault();
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
+        if (!this.isEnabled() || this.index === undefined) {
+            return;
+        }
+
+        const isCtrlKey = event.ctrlKey || event.metaKey;
+
+        if (isCtrlKey && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const direction = event.key === 'ArrowUp' ? -1 : 1;
+            const currentIndex = this.index;
+            const newIndex = this.dataTable.moveRowByKeyboard(currentIndex, direction);
+
+            if (newIndex >= 0) {
+                this.announceRowReorder(currentIndex, direction, newIndex);
+            }
+        }
+    }
+
+    @HostListener('keyup', ['$event'])
+    onKeyUp(event: KeyboardEvent) {
+        const isCtrlKey = event.ctrlKey || event.metaKey;
+        if (isCtrlKey && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    }
+
+    private announceRowReorder(fromIndex: number, direction: number, toIndex: number) {
+        const directionText = direction === -1 ? 'up' : 'down';
+        const message = `Row moved ${directionText} from position ${fromIndex + 1} to position ${toIndex + 1}`;
+
+        let liveRegion = document.getElementById('p-table-reorder-live-region');
+        if (!liveRegion) {
+            liveRegion = document.createElement('div');
+            liveRegion.id = 'p-table-reorder-live-region';
+            liveRegion.setAttribute('aria-live', 'polite');
+            liveRegion.setAttribute('aria-atomic', 'true');
+            liveRegion.setAttribute('role', 'status');
+            liveRegion.style.cssText = 'position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;';
+            document.body.appendChild(liveRegion);
+        }
+
+        setTimeout(() => {
+            liveRegion!.textContent = message;
+        }, 200);
     }
 
     onDestroy() {
