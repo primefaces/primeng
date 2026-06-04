@@ -1,6 +1,6 @@
 # Changelog
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [19.2.0-lts](https://www.npmjs.com/package/primeng/v/19.2.0-lts) (2025-01-29)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [19.2.0-lts](https://www.npmjs.com/package/primeng/v/19.2.0-lts) (2026-01-29)
 
 **Enhancements:**
 - Tooltip: Touch events support [\#8454](https://github.com/primefaces/primeng/issues/8454)

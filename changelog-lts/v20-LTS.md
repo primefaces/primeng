@@ -1,5 +1,11 @@
 # Changelog
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [20.5.1-lts](https://www.npmjs.com/package/primeng/v/20.5.0-lts) (2026-06-04)
+
+**Fixed bugs:**
+- BlockUI doesn't work with Card with ngtemplate #header [\#19276](https://github.com/primefaces/primeng/issues/19276)
+
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [20.5.0-lts](https://www.npmjs.com/package/primeng/v/20.5.0-lts) (2025-01-29)
 
 **Enhancements:**
