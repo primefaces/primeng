@@ -2,6 +2,12 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.1.9](https://github.com/primefaces/primeng/tree/21.1.9) (2026-06-04)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.8...21.1.9)
+
+**Fixed bugs:**
+- Component: p-calendar type error when showTime and keepInvalid [#12329](https://github.com/primefaces/primeng/issues/12329)
+
 ## [21.1.8](https://github.com/primefaces/primeng/tree/21.1.8) (2026-05-18)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.1.7...21.1.8)
 
