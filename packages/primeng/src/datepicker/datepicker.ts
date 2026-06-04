@@ -2795,7 +2795,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 value = this.value[this.value.length - 1];
             }
         }
-        const valueDateString = value ? value.toDateString() : null;
+        const valueDateString = value && isDate(value) ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
         let isMaxDate = this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString;
 
@@ -2868,7 +2868,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     toggleAMPMIfNotMinDate(newPM: boolean) {
         let value = this.value;
-        const valueDateString = value ? value.toDateString() : null;
+        const valueDateString = value && isDate(value) ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
         if (isMinDate && this.minDate!.getHours() >= 12) {
             this.pm = true;
@@ -2986,7 +2986,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (this.isMultipleSelection()) {
             value = this.value[this.value.length - 1];
         }
-        value = value ? new Date(value.getTime()) : new Date();
+        value = value && isDate(value) ? new Date(value.getTime()) : new Date();
 
         if (this.hourFormat == '12') {
             if (this.currentHour === 12) value.setHours(this.pm ? 12 : 0);
