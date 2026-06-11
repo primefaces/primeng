@@ -1610,6 +1610,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             setTimeout(() => {
                 this.updateFocus();
             }, 1);
+            this.onYearChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         } else if (this.currentView === 'year') {
             this.incrementDecade();
             setTimeout(() => {
