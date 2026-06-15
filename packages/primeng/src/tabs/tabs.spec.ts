@@ -500,6 +500,28 @@ describe('Tabs', () => {
             expect(component.value).toBe(2);
         });
 
+        it('should stop propagation for handled keys', () => {
+            const rightArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
+            spyOn(rightArrowEvent, 'stopPropagation');
+
+            tabs[0].nativeElement.dispatchEvent(rightArrowEvent);
+            fixture.detectChanges();
+
+            expect(rightArrowEvent.stopPropagation).toHaveBeenCalled();
+        });
+
+        it('should not stop propagation for unhandled keys like Escape', () => {
+            const escapeEvent = new KeyboardEvent('keydown', { code: 'Escape' });
+            spyOn(escapeEvent, 'stopPropagation');
+            spyOn(escapeEvent, 'preventDefault');
+
+            tabs[0].nativeElement.dispatchEvent(escapeEvent);
+            fixture.detectChanges();
+
+            expect(escapeEvent.stopPropagation).not.toHaveBeenCalled();
+            expect(escapeEvent.preventDefault).not.toHaveBeenCalled();
+        });
+
         it('should skip disabled tabs in navigation', async () => {
             component.tab3Disabled = true;
             fixture.changeDetectorRef.markForCheck();
