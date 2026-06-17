@@ -5,6 +5,7 @@ const css = /*css*/ `
 .p-virtualscroller {
     position: relative;
     overflow: auto;
+    overscroll-behavior: contain;
     contain: strict;
     transform: translateZ(0);
     will-change: scroll-position;
