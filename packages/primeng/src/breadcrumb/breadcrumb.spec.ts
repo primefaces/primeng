@@ -10,7 +10,7 @@ import { Breadcrumb } from './breadcrumb';
 
 @Component({
     standalone: false,
-    template: ` <p-breadcrumb [model]="model" [home]="home" [style]="style" [styleClass]="styleClass" [homeAriaLabel]="homeAriaLabel" (onItemClick)="onItemClick($event)"> </p-breadcrumb> `
+    template: ` <p-breadcrumb [model]="model" [home]="home" [style]="style" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [homeAriaLabel]="homeAriaLabel" (onItemClick)="onItemClick($event)"> </p-breadcrumb> `
 })
 class TestBasicBreadcrumbComponent {
     model: MenuItem[] | undefined = [
@@ -21,6 +21,7 @@ class TestBasicBreadcrumbComponent {
     home: MenuItem | undefined = { icon: 'pi pi-home', routerLink: '/' };
     style: { [key: string]: any } | undefined;
     styleClass: string | undefined;
+    ariaLabel: string | undefined;
     homeAriaLabel: string | undefined = 'Home';
     clickedItem: BreadcrumbItemClickEvent | undefined;
 
@@ -230,6 +231,7 @@ describe('Breadcrumb', () => {
             expect(freshBreadcrumb.home).toBeUndefined();
             expect(freshBreadcrumb.style).toBeUndefined();
             expect(freshBreadcrumb.styleClass).toBeUndefined();
+            expect(freshBreadcrumb.ariaLabel).toBeUndefined();
             expect(freshBreadcrumb.homeAriaLabel).toBeUndefined();
         });
 
@@ -301,6 +303,14 @@ describe('Breadcrumb', () => {
             expect(breadcrumbInstance.styleClass).toBe('test-class');
         });
 
+        it('should update ariaLabel input', async () => {
+            component.ariaLabel = 'Page navigation';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+            expect(breadcrumbInstance.ariaLabel).toBe('Page navigation');
+        });
+
         it('should update homeAriaLabel input', async () => {
             component.homeAriaLabel = 'Go to home page';
             fixture.changeDetectorRef.markForCheck();
@@ -314,6 +324,7 @@ describe('Breadcrumb', () => {
             component.home = undefined as any;
             component.style = undefined as any;
             component.styleClass = undefined as any;
+            component.ariaLabel = undefined as any;
             component.homeAriaLabel = undefined as any;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -323,6 +334,7 @@ describe('Breadcrumb', () => {
             expect(breadcrumbInstance.home).toBeUndefined();
             expect(breadcrumbInstance.style).toBeUndefined();
             expect(breadcrumbInstance.styleClass).toBeUndefined();
+            expect(breadcrumbInstance.ariaLabel).toBeUndefined();
             expect(breadcrumbInstance.homeAriaLabel).toBeUndefined();
         });
     });
@@ -808,6 +820,26 @@ describe('Breadcrumb', () => {
     });
 
     describe('Accessibility Tests', () => {
+        it('should apply ariaLabel to the nav element', async () => {
+            component.ariaLabel = 'Breadcrumb';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const navElement = fixture.debugElement.query(By.css('nav'));
+            expect(navElement.nativeElement.getAttribute('aria-label')).toBe('Breadcrumb');
+        });
+
+        it('should not render aria-label on nav when ariaLabel is undefined', async () => {
+            component.ariaLabel = undefined;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const navElement = fixture.debugElement.query(By.css('nav'));
+            expect(navElement.nativeElement.getAttribute('aria-label')).toBeNull();
+        });
+
         it('should have proper ARIA attributes on home link', async () => {
             component.home = { label: 'Home' };
             component.homeAriaLabel = 'Go to homepage';
