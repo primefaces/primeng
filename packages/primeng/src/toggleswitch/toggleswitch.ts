@@ -230,6 +230,7 @@ export class ToggleSwitch extends BaseEditableHolder<ToggleSwitchPassThrough> {
 
     get dataP() {
         return this.cn({
+            [this.size() as string]: this.size(),
             checked: this.checked(),
             disabled: this.$disabled(),
             invalid: this.invalid()

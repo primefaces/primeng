@@ -56,9 +56,10 @@ describe('ToggleSwitch', () => {
             expect(component.tabindex).toBe(5);
         });
 
-        it('should handle size input', () => {
+        it('should have size input defined as a signal', () => {
             expect(component.size).toBeDefined();
             expect(typeof component.size).toBe('function');
+            expect(component.size()).toBeUndefined();
         });
     });
 
@@ -619,6 +620,43 @@ describe('ToggleSwitch', () => {
             } else {
                 expect(testComponent.componentInstance.name).toBe('toggle-field');
             }
+        });
+
+        it('should apply p-toggleswitch-sm class when size is small', () => {
+            fixture.componentRef.setInput('size', 'small');
+            fixture.detectChanges();
+
+            expect(fixture.nativeElement.classList.contains('p-toggleswitch-sm')).toBe(true);
+            expect(fixture.nativeElement.classList.contains('p-toggleswitch-lg')).toBe(false);
+        });
+
+        it('should apply p-toggleswitch-lg class when size is large', () => {
+            fixture.componentRef.setInput('size', 'large');
+            fixture.detectChanges();
+
+            expect(fixture.nativeElement.classList.contains('p-toggleswitch-lg')).toBe(true);
+            expect(fixture.nativeElement.classList.contains('p-toggleswitch-sm')).toBe(false);
+        });
+
+        it('should not apply size classes when size is undefined', () => {
+            fixture.detectChanges();
+
+            expect(fixture.nativeElement.classList.contains('p-toggleswitch-sm')).toBe(false);
+            expect(fixture.nativeElement.classList.contains('p-toggleswitch-lg')).toBe(false);
+        });
+
+        it('should include size in dataP when size is small', () => {
+            fixture.componentRef.setInput('size', 'small');
+            fixture.detectChanges();
+
+            expect(component.dataP).toContain('small');
+        });
+
+        it('should include size in dataP when size is large', () => {
+            fixture.componentRef.setInput('size', 'large');
+            fixture.detectChanges();
+
+            expect(component.dataP).toContain('large');
         });
     });
 });
