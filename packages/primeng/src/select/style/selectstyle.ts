@@ -18,6 +18,18 @@ const style = /*css*/ `
     .p-select.ng-invalid.ng-dirty .p-select-label.p-placeholder {
         color: dt('select.invalid.placeholder.color');
     }
+
+    .p-select-option-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .p-select-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 `;
 
 const classes = {
