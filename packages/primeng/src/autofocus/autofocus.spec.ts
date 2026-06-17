@@ -35,6 +35,15 @@ class TestAutofocusDynamicComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-autofocus-undefined',
+    template: `<input type="text" [pAutoFocus]="autofocus" />`
+})
+class TestAutofocusUndefinedComponent {
+    autofocus: any = undefined;
+}
+
+@Component({
+    standalone: false,
     selector: 'test-autofocus-button',
     template: `<button [pAutoFocus]="true">Focus Button</button>`
 })
@@ -198,6 +207,7 @@ describe('AutoFocus', () => {
                 TestAutofocusDisabledComponent,
                 TestAutofocusEnabledComponent,
                 TestAutofocusDynamicComponent,
+                TestAutofocusUndefinedComponent,
                 TestAutofocusButtonComponent,
                 TestAutofocusDivComponent,
                 TestAutofocusMultipleElementsComponent,
@@ -297,6 +307,38 @@ describe('AutoFocus', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             expect(element.hasAttribute('autofocus')).toBe(false);
+        });
+    });
+
+    describe('Undefined Binding', () => {
+        it('should not set autofocus attribute when bound value is undefined', async () => {
+            const fixture = TestBed.createComponent(TestAutofocusUndefinedComponent);
+            const component = fixture.componentInstance;
+            await fixture.whenStable();
+
+            const element = fixture.debugElement.query(By.css('input')).nativeElement;
+
+            spyOn(element, 'focus');
+
+            expect(element.hasAttribute('autofocus')).toBe(false);
+
+            await new Promise((resolve) => setTimeout(resolve, 10));
+            expect(element.focus).not.toHaveBeenCalled();
+        });
+
+        it('should set autofocus attribute and focus when property changes to true', async () => {
+            const fixture = TestBed.createComponent(TestAutofocusUndefinedComponent);
+            const component = fixture.componentInstance;
+            await fixture.whenStable();
+
+            const element = fixture.debugElement.query(By.css('input')).nativeElement;
+
+            component.autofocus = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
+            expect(element.hasAttribute('autofocus')).toBe(true);
+            expect(element.getAttribute('autofocus')).toBe('true');
         });
     });
 
