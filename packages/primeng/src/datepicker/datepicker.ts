@@ -2005,13 +2005,14 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     isYearSelected(year: number) {
-        if (this.isComparable()) {
-            let value = this.isRangeSelection() ? this.value[0] : this.value;
-
-            return !this.isMultipleSelection() ? value.getFullYear() === year : false;
+        if (!this.isComparable()) {
+            return false;
         }
-
-        return false;
+        if (this.isMultipleSelection()) {
+            return false;
+        }
+        let value = this.isRangeSelection() ? this.value[0] : this.value;
+        return value ? value.getFullYear() === year : false;
     }
 
     isDateEquals(value: any, dateMeta: any) {
