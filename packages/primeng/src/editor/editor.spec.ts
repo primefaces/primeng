@@ -123,12 +123,17 @@ class TestReadonlyComponent {
 
 @Component({
     standalone: false,
-    template: ` <p-editor [(ngModel)]="text" [modules]="customModules" [formats]="customFormats"> </p-editor> `
+    template: ` <p-editor [(ngModel)]="text" [modules]="customModules" [customModules]="customQuillModules" [formats]="customFormats"> </p-editor> `
 })
 class TestCustomConfigurationComponent {
     text: string = '<div>Custom config</div>';
     customModules = {
         toolbar: [['bold', 'italic'], ['clean']]
+    };
+    customQuillModules = {
+        'modules/counter': class CounterModule {
+            constructor(public quill: any) {}
+        }
     };
     customFormats = ['bold', 'italic', 'underline'];
 }
@@ -215,6 +220,7 @@ describe('Editor', () => {
             expect(editorInstance.placeholder).toBe('Enter text here...');
             expect(editorInstance.formats).toBeUndefined();
             expect(editorInstance.modules).toBeUndefined();
+            expect(editorInstance.customModules).toBeUndefined();
         });
 
         it('should accept input values', async () => {
@@ -546,6 +552,27 @@ describe('Editor', () => {
             const editorInstance = editorEl.componentInstance as Editor;
 
             expect(editorInstance.formats).toEqual(['bold', 'italic', 'underline']);
+        });
+
+        it('should accept custom quill modules configuration', () => {
+            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorInstance = editorEl.componentInstance as Editor;
+
+            expect(editorInstance.customModules).toEqual(component.customQuillModules);
+        });
+
+        it('should register custom quill modules', () => {
+            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorInstance = editorEl.componentInstance as Editor;
+            const registerSpy = jasmine.createSpy('register');
+
+            (editorInstance as any).dynamicQuill = {
+                register: registerSpy
+            };
+
+            (editorInstance as any).registerQuillModules();
+
+            expect(registerSpy).toHaveBeenCalledWith('modules/counter', component.customQuillModules['modules/counter']);
         });
     });
 
