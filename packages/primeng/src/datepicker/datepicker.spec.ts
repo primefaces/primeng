@@ -1159,6 +1159,19 @@ describe('DatePicker', () => {
             const today = new Date();
             expect(testComponent.selectedDate.toDateString()).toBe(today.toDateString());
         });
+
+        it('should format data-date attribute with 1-indexed month', async () => {
+            const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
+
+            const january = new Date(2023, 0, 15);
+            expect(datePickerComponent.formatDateKey(january)).toBe('2023-1-15');
+
+            const june = new Date(2023, 5, 20);
+            expect(datePickerComponent.formatDateKey(june)).toBe('2023-6-20');
+
+            const december = new Date(2023, 11, 25);
+            expect(datePickerComponent.formatDateKey(december)).toBe('2023-12-25');
+        });
     });
 
     describe('pTemplate Content Projection', () => {
