@@ -791,7 +791,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     itemsWrapper: Nullable<HTMLDivElement>;
 
-    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+    $appendTo = computed(() => this.appendTo() || this.overlayOptions?.appendTo || this.config.overlayAppendTo());
 
     /**
      * Custom item template.
