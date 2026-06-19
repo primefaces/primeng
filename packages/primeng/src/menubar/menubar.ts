@@ -785,7 +785,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
 
     onItemMouseEnter(event: any) {
         if (!isTouchDevice()) {
-            if (this.dirty) {
+            if (this.dirty || this.autoDisplay) {
                 this.onItemChange(event, 'hover');
             }
         } else {
