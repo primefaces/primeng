@@ -390,7 +390,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             tabindex="0"
             role="button"
             [attr.aria-haspopup]="model.length && model.length > 0 ? true : false"
-            [attr.aria-expanded]="mobileActive"
+            [attr.aria-expanded]="mobileActive()"
             [attr.aria-controls]="id"
             [attr.aria-label]="config.translation.aria.navigation"
             *ngIf="model && model.length > 0"
@@ -412,7 +412,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             [root]="true"
             [baseZIndex]="baseZIndex"
             [autoZIndex]="autoZIndex"
-            [mobileActive]="mobileActive"
+            [mobileActive]="mobileActive()"
             [autoDisplay]="autoDisplay"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
@@ -538,7 +538,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
 
     @ViewChild('rootmenu') rootmenu: MenubarSub | undefined;
 
-    mobileActive: boolean | undefined;
+    mobileActive = signal<boolean | undefined>(undefined);
 
     private matchMediaListener: () => void;
 
@@ -726,7 +726,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
 
                 this.matchMediaListener = () => {
                     this.queryMatches.set(query.matches);
-                    this.mobileActive = false;
+                    this.mobileActive.set(false);
                     this.cd.markForCheck();
                 };
 
@@ -777,7 +777,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
                 this.hide(originalEvent);
                 this.changeFocusedItemIndex(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
 
-                this.mobileActive = false;
+                this.mobileActive.set(false);
                 focus(this.rootmenu?.el.nativeElement);
             }
         }
@@ -845,12 +845,12 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
     }
 
     toggle(event: MouseEvent) {
-        if (this.mobileActive) {
-            this.mobileActive = false;
+        if (this.mobileActive()) {
+            this.mobileActive.set(false);
             ZIndexUtils.clear(this.rootmenu?.el.nativeElement);
             this.hide();
         } else {
-            this.mobileActive = true;
+            this.mobileActive.set(true);
             ZIndexUtils.set('menu', this.rootmenu?.el.nativeElement, this.config.zIndex.menu);
             setTimeout(() => {
                 this.show();
@@ -859,10 +859,11 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
 
         this.bindOutsideClickListener();
         event.preventDefault();
+        event.stopPropagation();
     }
 
     hide(event?, isFocus?: boolean) {
-        if (this.mobileActive) {
+        if (this.mobileActive()) {
             setTimeout(() => {
                 focus(this.menubutton?.nativeElement);
             }, 0);
@@ -1235,7 +1236,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
                         this.hide(event, true);
                     }
 
-                    this.mobileActive = false;
+                    this.mobileActive.set(false);
                 });
             }
         }
@@ -1246,10 +1247,10 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
             if (!this.outsideClickListener) {
                 this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     const isOutsideContainer = this.rootmenu?.el.nativeElement !== event.target && !this.rootmenu?.el.nativeElement?.contains(event.target);
-                    const isOutsideMenuButton = this.mobileActive && this.menubutton?.nativeElement !== event.target && !this.menubutton?.nativeElement?.contains(event.target);
+                    const isOutsideMenuButton = this.mobileActive() && this.menubutton?.nativeElement !== event.target && !this.menubutton?.nativeElement?.contains(event.target);
 
                     if (isOutsideContainer) {
-                        isOutsideMenuButton ? (this.mobileActive = false) : this.hide();
+                        isOutsideMenuButton ? this.mobileActive.set(false) : this.hide();
                     }
                 });
             }
