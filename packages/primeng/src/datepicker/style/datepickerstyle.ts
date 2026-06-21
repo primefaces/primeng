@@ -65,7 +65,7 @@ const classes = {
     day: ({ instance, date }) => {
         let selectedDayClass = '';
 
-        if (instance.isRangeSelection() && instance.isSelected(date) && date.selectable) {
+        if (instance.isRangeSelection() && instance.isSelected(date)) {
             const startDate = instance.value[0];
             const endDate = instance.value[1];
 
