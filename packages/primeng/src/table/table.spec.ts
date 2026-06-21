@@ -1457,4 +1457,144 @@ describe('Table', () => {
             expect(editingCell.querySelector('[data-p-cell-editing="true"]') || editingCell.getAttribute('data-p-cell-editing')).toBeTruthy();
         });
     });
+
+    describe('EmptyMessage with FrozenBody', () => {
+
+        beforeEach(() => TestBed.resetTestingModule());
+
+        @Component({
+            standalone: false,
+            template: `
+                <p-table [value]="products">
+                    <ng-template #frozenBody let-rowData>
+                        <tr class="frozen-row">
+                            <td>Frozen: {{ rowData?.id }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product>
+                        <tr>
+                            <td>{{ product.id }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #emptymessage>
+                        <tr class="empty-row"><td>No products available</td></tr>
+                    </ng-template>
+                </p-table>
+            `
+        })
+        class TestEmptyMessageFrozenAndBodyComponent {
+            products: any[] = [];
+        }
+
+        @Component({
+            standalone: false,
+            template: `
+                <p-table [value]="products">
+                    <ng-template #frozenBody let-rowData>
+                        <tr class="frozen-row">
+                            <td>Frozen: {{ rowData?.id }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #emptymessage>
+                        <tr class="empty-row"><td>No products available</td></tr>
+                    </ng-template>
+                </p-table>
+            `
+        })
+        class TestEmptyMessageFrozenComponent {
+            products: any[] = [];
+        }
+
+        @Component({
+            standalone: false,
+            template: `
+                <p-table [value]="products">
+                    <ng-template #body let-product>
+                        <tr>
+                            <td>{{ product.id }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #emptymessage>
+                        <tr class="empty-row"><td>No products available</td></tr>
+                    </ng-template>
+                </p-table>
+            `
+        })
+        class TestEmptyMessageBodyComponent {
+            products: any[] = [];
+        }
+
+        @Component({
+            standalone: false,
+            template: `
+                <p-table [value]="products">
+                    <ng-template #body let-product>
+                        <tr>
+                            <td>{{ product.id }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #emptymessage>
+                        <tr class="empty-row"><td>No products available</td></tr>
+                    </ng-template>
+                </p-table>
+            `
+        })
+        class TestEmptyMessageNoneComponent {
+            products: any[] = []; // empty to trigger empty message
+        }
+
+        it('should render empty message only once if frozenBody and body are defined', async () => {
+
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestEmptyMessageFrozenAndBodyComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const testFixture = TestBed.createComponent(TestEmptyMessageFrozenAndBodyComponent);
+            await testFixture.whenStable();
+            testFixture.detectChanges();
+
+            const emptyRow = testFixture.debugElement.queryAll(By.css('.empty-row'));
+            expect(emptyRow).toBeTruthy();
+            expect(emptyRow.length).toEqual(1);
+            expect(emptyRow[0].nativeElement.textContent).toContain('No products available');
+        });
+
+        it('should render empty message only once if only frozenBody is defined', async () => {
+
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestEmptyMessageFrozenComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const testFixture = TestBed.createComponent(TestEmptyMessageFrozenComponent);
+            await testFixture.whenStable();
+            testFixture.detectChanges();
+
+            const emptyRow = testFixture.debugElement.queryAll(By.css('.empty-row'));
+            expect(emptyRow).toBeTruthy();
+            expect(emptyRow.length).toEqual(1);
+            expect(emptyRow[0].nativeElement.textContent).toContain('No products available');
+        });
+
+        it('should render empty message only once if only body is defined', async () => {
+
+            await TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule],
+                declarations: [TestEmptyMessageBodyComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const testFixture = TestBed.createComponent(TestEmptyMessageBodyComponent);
+            await testFixture.whenStable();
+            testFixture.detectChanges();
+
+            const emptyRow = testFixture.debugElement.queryAll(By.css('.empty-row'));
+            expect(emptyRow).toBeTruthy();
+            expect(emptyRow.length).toEqual(1);
+            expect(emptyRow[0].nativeElement.textContent).toContain('No products available');
+        });
+    });
 });
