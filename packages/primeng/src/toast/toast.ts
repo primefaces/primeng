@@ -182,6 +182,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
         effect(() => {
             if (this.clearAll()) {
+                this.isClosing = true;
                 this.visible.set(false);
             }
         });
@@ -199,6 +200,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
                 this.visible.set(true);
                 this.timeout = setTimeout(
                     () => {
+                        this.isClosing = true;
                         this.visible.set(false);
                     },
                     this.message?.life || this.life || 3000
@@ -215,7 +217,9 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
     }
 
     onMouseEnter() {
-        this.clearTimeout();
+        if (!this.isClosing) {
+            this.clearTimeout();
+        }
     }
 
     onMouseLeave() {
@@ -488,6 +492,8 @@ export class Toast extends BaseComponent<ToastPassThrough> {
     }
 
     add(messages: ToastMessageOptions[]): void {
+        this.clearAllTrigger.set(null);
+
         this.messages = this.messages ? [...this.messages, ...messages] : [...messages];
 
         if (this.preventDuplicates) {
