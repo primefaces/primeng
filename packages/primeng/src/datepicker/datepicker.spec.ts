@@ -928,10 +928,20 @@ describe('DatePicker', () => {
             const currentMonth = datePickerComponent.currentMonth;
             const currentYear = datePickerComponent.currentYear;
 
+            const updateFocusSpy = jasmine.createSpy('updateFocus');
+            const originalUpdateFocus = datePickerComponent.updateFocus;
+            datePickerComponent.updateFocus = updateFocusSpy;
+
             const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
             datePickerComponent.navForward(mockEvent);
+
+            // Wait for setTimeout in updateFocus
+            await new Promise((resolve) => setTimeout(resolve, 10));
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
+
+            expect(updateFocusSpy).toHaveBeenCalled();
+            datePickerComponent.updateFocus = originalUpdateFocus;
 
             if (currentMonth === 11) {
                 expect(datePickerComponent.currentMonth).toBe(0);
@@ -951,10 +961,20 @@ describe('DatePicker', () => {
             const currentMonth = datePickerComponent.currentMonth;
             const currentYear = datePickerComponent.currentYear;
 
+            const updateFocusSpy = jasmine.createSpy('updateFocus');
+            const originalUpdateFocus = datePickerComponent.updateFocus;
+            datePickerComponent.updateFocus = updateFocusSpy;
+
             const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
             datePickerComponent.navBackward(mockEvent);
+
+            // Wait for setTimeout in updateFocus
+            await new Promise((resolve) => setTimeout(resolve, 10));
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
+
+            expect(updateFocusSpy).toHaveBeenCalled();
+            datePickerComponent.updateFocus = originalUpdateFocus;
 
             if (currentMonth === 0) {
                 expect(datePickerComponent.currentMonth).toBe(11);
