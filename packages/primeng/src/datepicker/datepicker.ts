@@ -40,6 +40,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
     DatePickerButtonBarTemplateContext,
     DatePickerDateTemplateContext,
+    DatePickerDay,
     DatePickerDecadeTemplateContext,
     DatePickerDisabledDateTemplateContext,
     DatePickerInputIconTemplateContext,
@@ -47,6 +48,7 @@ import {
     DatePickerPassThrough,
     DatePickerResponsiveOptions,
     DatePickerTypeView,
+    DatePickerWeek,
     DatePickerYearChangeEvent,
     LocaleSettings,
     Month,
@@ -1474,7 +1476,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     createMonth(month: number, year: number): Month {
-        let dates = [];
+        let dates: DatePickerWeek[] = [];
         let firstDay = this.getFirstDayOfMonthIndex(month, year);
         let daysLength = this.getDaysCountInMonth(month, year);
         let prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
@@ -1484,7 +1486,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         let monthRows = Math.ceil((daysLength + firstDay) / 7);
 
         for (let i = 0; i < monthRows; i++) {
-            let week: any[] = [];
+            let week: DatePickerWeek = [];
 
             if (i == 0) {
                 for (let j = prevMonthDaysLength - firstDay + 1; j <= prevMonthDaysLength; j++) {
@@ -1543,12 +1545,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             (dates as any[]).push(week);
         }
 
-        return {
-            month: month,
-            year: year,
-            dates: <any>dates,
-            weekNumbers: weekNumbers
-        };
+        return { month, year, dates, weekNumbers };
     }
 
     initTime(date: Date) {
@@ -1665,7 +1662,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         event.preventDefault();
     }
 
-    onDateSelect(event: Event, dateMeta: any) {
+    onDateSelect(event: Event, dateMeta: DatePickerDay) {
         if (this.$disabled() || !dateMeta.selectable) {
             event.preventDefault();
             return;
@@ -1680,7 +1677,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             }
             this.updateModel(this.value);
         } else {
-            if (this.shouldSelectDate(dateMeta)) {
+            if (this.shouldSelectDate()) {
                 this.selectDate(dateMeta);
             }
         }
@@ -1702,7 +1699,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         event.preventDefault();
     }
 
-    shouldSelectDate(dateMeta: any) {
+    shouldSelectDate() {
         if (this.isMultipleSelection()) return this.maxDateCount != null ? this.maxDateCount > (this.value ? this.value.length : 0) : true;
         else return true;
     }
@@ -1786,7 +1783,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         return formattedValue;
     }
 
-    formatDateMetaToDate(dateMeta: any): Date {
+    formatDateMetaToDate(dateMeta: DatePickerDay): Date {
         return new Date(dateMeta.year, dateMeta.month, dateMeta.day);
     }
 
@@ -1813,7 +1810,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         this.alignOverlay();
     }
 
-    selectDate(dateMeta: any) {
+    selectDate(dateMeta: DatePickerDay) {
         let date = this.formatDateMetaToDate(dateMeta);
 
         if (this.showTime) {
@@ -1940,7 +1937,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         return firstDayOfWeek > 0 ? 7 - firstDayOfWeek : 0;
     }
 
-    isSelected(dateMeta: any): boolean | undefined {
+    isSelected(dateMeta: DatePickerDay): boolean | undefined {
         if (this.value) {
             if (this.isSingleSelection()) {
                 return this.isDateEquals(this.value, dateMeta);
@@ -2014,12 +2011,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         return false;
     }
 
-    isDateEquals(value: any, dateMeta: any) {
+    isDateEquals(value: any, dateMeta: DatePickerDay) {
         if (value && isDate(value)) return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
         else return false;
     }
 
-    isDateBetween(start: Date, end: Date, dateMeta: any) {
+    isDateBetween(start: Date, end: Date, dateMeta: DatePickerDay) {
         let between: boolean = false;
         if (isDate(start) && isDate(end)) {
             let date: Date = this.formatDateMetaToDate(dateMeta);
@@ -2245,7 +2242,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
     }
 
-    onDateCellKeydown(event: any, dateMeta: any, groupIndex: number) {
+    onDateCellKeydown(event: any, dateMeta: DatePickerDay, groupIndex: number) {
         const cellContent = event.currentTarget;
         const cell = cellContent.parentElement;
         const currentDate = this.formatDateMetaToDate(dateMeta);
@@ -3638,7 +3635,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     onTodayButtonClick(event: any) {
         const date: Date = new Date();
-        const dateMeta = {
+        const dateMeta: DatePickerDay = {
             day: date.getDate(),
             month: date.getMonth(),
             year: date.getFullYear(),
