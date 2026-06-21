@@ -1448,7 +1448,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         let containerLeft = <any>getOffset(this.el?.nativeElement).left;
         this.el?.nativeElement.setAttribute('data-p-unselectable-text', 'true');
         !this.$unstyled() && addStyle(this.el.nativeElement, { 'user-select': 'none' });
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.el?.nativeElement.offsetHeight + 'px';
+        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.el?.nativeElement.offsetHeight - 1 + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.el?.nativeElement.scrollLeft + 'px';
 

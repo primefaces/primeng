@@ -2632,7 +2632,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     onColumnResize(event: any) {
         let containerLeft = DomHandler.getOffset(this.el?.nativeElement).left;
         !this.$unstyled() && DomHandler.addClass(this.el?.nativeElement, 'p-unselectable-text');
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.el?.nativeElement.offsetHeight + 'px';
+        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.el?.nativeElement.offsetHeight - 1 + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
         if (event.type == 'touchmove') {
             (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.changedTouches[0].clientX - containerLeft + this.el?.nativeElement.scrollLeft + 'px';
