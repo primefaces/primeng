@@ -1033,6 +1033,20 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         });
     }
 
+    onAfterViewInit() {
+        if (isPlatformBrowser(this.platformId)) {
+            this.updateThScope();
+        }
+    }
+
+    /**
+     * Adds scope="col" to th elements for accessibility (td-has-header rule).
+     * @group Method
+     */
+    updateThScope() {
+        setTimeout(() => this.el.nativeElement.querySelectorAll('th:not([scope])').forEach((th: HTMLElement) => th.setAttribute('scope', 'col')));
+    }
+
     filterService = inject(FilterService);
 
     tableService = inject(TreeTableService);
@@ -1055,6 +1069,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
             this.updateSerializedValue();
             this.tableService.onUIUpdate(this.value);
+            this.updateThScope();
         }
 
         if (simpleChange.sortField) {
@@ -1094,6 +1109,10 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
                 this.tableService.onSelectionChange();
             }
             this.preventSelectionSetterPropagation = false;
+        }
+
+        if (simpleChange.columns) {
+            this.updateThScope();
         }
     }
 

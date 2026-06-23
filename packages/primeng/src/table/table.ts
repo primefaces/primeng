@@ -1353,7 +1353,16 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             if (this.isStateful() && this.resizableColumns) {
                 this.restoreColumnWidths();
             }
+            this.updateThScope();
         }
+    }
+
+    /**
+     * Adds scope="col" to th elements for accessibility (td-has-header rule).
+     * @group Method
+     */
+    updateThScope() {
+        setTimeout(() => this.el.nativeElement.querySelectorAll('th:not([scope])').forEach((th: HTMLElement) => th.setAttribute('scope', 'col')));
     }
 
     onChanges(simpleChange: SimpleChanges) {
@@ -1379,6 +1388,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             }
 
             this.tableService.onValueChange(simpleChange.value.currentValue);
+            this.updateThScope();
         }
 
         if (simpleChange.columns) {
@@ -1392,6 +1402,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
                 this.tableService.onColumnsChange(this._columns);
             }
+            this.updateThScope();
         }
 
         if (simpleChange.sortField) {
