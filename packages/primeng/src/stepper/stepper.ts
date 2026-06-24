@@ -80,8 +80,7 @@ export interface StepPanelContentTemplateContext {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")',
-        '[attr.role]': '"presentation"'
+        '[class]': 'cx("root")'
     },
     providers: [StepListStyle, { provide: STEPLIST_INSTANCE, useExisting: StepList }, { provide: PARENT_INSTANCE, useExisting: StepList }],
     hostDirectives: [Bind]
@@ -145,7 +144,6 @@ export class StepperSeparator extends BaseComponent<StepperSeparatorPassThrough>
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': 'cx("root")',
-        '[attr.role]': '"presentation"',
         '[attr.data-p-active]': 'isActive()'
     },
     providers: [StepItemStyle, { provide: STEPITEM_INSTANCE, useExisting: StepItem }, { provide: PARENT_INSTANCE, useExisting: StepItem }],
@@ -431,8 +429,7 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")',
-        '[attr.role]': '"presentation"'
+        '[class]': 'cx("root")'
     },
     providers: [StepPanelsStyle, { provide: STEPPANELS_INSTANCE, useExisting: StepPanels }, { provide: PARENT_INSTANCE, useExisting: StepPanels }],
     hostDirectives: [Bind]
