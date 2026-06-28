@@ -1,11 +1,27 @@
-[![npm version](https://badge.fury.io/js/primeng.svg)](https://badge.fury.io/js/primeng)
-[![npm downloads](https://img.shields.io/npm/dm/primeng.svg)](https://www.npmjs.com/package/primeng)
-[![Actions CI](https://github.com/primefaces/primeng/workflows/NodeJS%20CI/badge.svg)](https://github.com/primefaces/primeng/actions/workflows/node.js.yml)
-[![Discord Chat](https://img.shields.io/discord/557940238991753223.svg?color=7289da&label=chat&logo=discord)](https://discord.gg/gzKFYnpmCY)
-[![Discussions](https://img.shields.io/github/discussions-search?query=org%3Aprimefaces&logo=github&label=Prime%20Discussions&link=https%3A%2F%2Fgithub.com%2Forgs%2Fprimefaces%2Fdiscussions)](https://github.com/orgs/primefaces/discussions)
+# PrimeNG
 
-[![PrimeNG Hero](https://www.primefaces.org/static/social/primeng-preview.jpg)](https://primeng.org)
+### The next chapter has begun.
 
-### PrimeNG Website
+After years as an open source library, PrimeNG enters its next chapter as part of **PrimeUI**,  a sustainable foundation for the libraries you rely on.
 
-PrimeNG is a rich set of open source UI Components for Angular. Visit the [PrimeNG website](https://primeng.org/) for interactive demos, comprehensive documentation and additional resources.
+This repository is now **archived**. It remains available, as a record of everything built here together.
+
+## What this means
+
+**Existing MIT versions remain MIT, forever.**
+Every release published under the MIT license stays exactly as it is. Your existing projects are unaffected. Nothing is taken away.
+
+**Development continues at a new home.**
+Active development, new releases, and everything ahead now live under PrimeUI.
+
+➡️ **Read the announcement:** [primeui.dev/nextchapter](https://primeui.dev/nextchapter)
+
+➡️ **The journey continues at:** [primeng.dev](https://primeng.dev)
+
+## Thank you
+
+To everyone who used PrimeNG, filed an issue, opened a pull request, answered a question, or simply built something with it,  thank you. This library reached hundreds of millions of downloads because of you.
+
+This archive stays here as a thank you and a milestone. The next chapter is just beginning, and we hope you'll be part of it.
+
+— The PrimeTek Team
