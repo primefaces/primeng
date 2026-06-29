@@ -180,9 +180,9 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 >
                                     <ng-template #icon>
                                         <svg data-p-icon="chevron-left" *ngIf="!previousIconTemplate && !_previousIconTemplate" />
-                                        <span *ngIf="previousIconTemplate || _previousIconTemplate">
+                                        <ng-container *ngIf="previousIconTemplate || _previousIconTemplate">
                                             <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
-                                        </span>
+                                        </ng-container>
                                     </ng-template>
                                 </p-button>
                                 <div [class]="cx('title')" [pBind]="ptm('title')">
