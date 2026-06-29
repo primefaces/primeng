@@ -311,6 +311,137 @@ describe('Table', () => {
         });
     });
 
+    describe('dataToRender memoization (performance)', () => {
+        let perfFixture: ComponentFixture<TestBasicTableComponent>;
+        let table: Table;
+
+        beforeEach(async () => {
+            perfFixture = TestBed.createComponent(TestBasicTableComponent);
+            await perfFixture.whenStable();
+            perfFixture.detectChanges();
+            table = perfFixture.debugElement.query(By.css('p-table')).componentInstance as Table;
+        });
+
+        // Regression guard for #19537: the body's [value]="dataToRender(...)" binding is
+        // re-evaluated on every change detection cycle. Without memoization it produced a fresh
+        // array each cycle, churning *ngFor and re-firing the TableBody value setter (which forces
+        // a layout reflow for frozen rows). These tests pin the referential-stability invariant.
+
+        it('returns a stable reference across change detection cycles when inputs are unchanged (no paginator)', () => {
+            const firstResult = table.dataToRender(undefined);
+
+            perfFixture.detectChanges();
+            perfFixture.detectChanges();
+
+            const secondResult = table.dataToRender(undefined);
+
+            expect(secondResult).toBe(firstResult);
+            // With no paginator the rendered data is exactly processedData (same reference).
+            expect(secondResult).toBe(table.processedData);
+        });
+
+        it('does not allocate a new sliced array on cache hits (paginator on)', () => {
+            table.paginator = true;
+            table.rows = 2;
+            table.first = 0;
+
+            const page = table.dataToRender(undefined); // cache miss -> one slice computed
+            const pageAgain = table.dataToRender(undefined); // cache hit -> reuses the same array
+            const pageThird = table.dataToRender(undefined); // cache hit -> reuses the same array
+
+            expect(page.length).toBe(2);
+            // Referential equality is the allocation invariant: a stable reference is only
+            // possible if no fresh slice was produced on the repeat calls.
+            expect(pageAgain).toBe(page);
+            expect(pageThird).toBe(page);
+        });
+
+        it('recomputes the page slice when first/rows change (paginator on)', () => {
+            table.paginator = true;
+            table.rows = 2;
+            table.first = 0;
+
+            const pageOne = table.dataToRender(undefined);
+            expect(table.dataToRender(undefined)).toBe(pageOne); // stable within the same key
+            expect(pageOne[0]).toBe(table.processedData[0]);
+
+            table.first = 2; // key changes -> must recompute
+
+            const pageTwo = table.dataToRender(undefined);
+            expect(pageTwo).not.toBe(pageOne);
+            expect(pageTwo[0]).toBe(table.processedData[2]);
+
+            table.rows = 1; // key changes again
+            expect(table.dataToRender(undefined).length).toBe(1);
+        });
+
+        it('invalidates the cache when the data reference changes (immutable update contract)', () => {
+            const before = table.dataToRender(undefined);
+
+            // Sort/filter/value updates all replace the array reference; emulate that contract.
+            table.value = [...table.value];
+
+            const after = table.dataToRender(undefined);
+            expect(after).not.toBe(before);
+            expect(after).toBe(table.processedData);
+        });
+
+        it('reflects sorting through a fresh, correctly ordered reference (no stale cache)', async () => {
+            const before = table.dataToRender(undefined);
+
+            table.sort({ field: 'price', order: 1 });
+            await perfFixture.whenStable();
+
+            const after = table.dataToRender(undefined);
+            expect(after).not.toBe(before); // sort reassigns _value -> cache busted
+            for (let i = 1; i < after.length; i++) {
+                expect(after[i].price >= after[i - 1].price).toBeTrue(); // ascending order preserved
+            }
+        });
+
+        it('preserves exact behavior for non-array arguments (bypasses cache)', () => {
+            // Imperative callers may pass non-array values (e.g. a row count). With paginator off
+            // the original implementation returns the resolved value as-is; the bypass must keep
+            // this identical and never cache it.
+            expect(table.paginator).toBeFalsy();
+            expect(table.dataToRender(42 as any)).toBe(42 as any);
+            // null/undefined fall through to processedData exactly as before.
+            expect(table.dataToRender(null)).toBe(table.processedData);
+        });
+    });
+
+    describe('$params memoization (performance)', () => {
+        let paramsFixture: ComponentFixture<TestBasicTableComponent>;
+        let table: Table;
+
+        beforeEach(async () => {
+            paramsFixture = TestBed.createComponent(TestBasicTableComponent);
+            await paramsFixture.whenStable();
+            paramsFixture.detectChanges();
+            table = paramsFixture.debugElement.query(By.css('p-table')).componentInstance as Table;
+        });
+
+        // BaseComponent.$params is read by cx()/sx()/ptm() on every change detection cycle for every
+        // element and row. It is now memoized; these guard that the cached object is stable and correct.
+        it('returns a stable object reference across repeated reads', () => {
+            const a: any = table.$params;
+            const b: any = table.$params;
+
+            expect(b).toBe(a); // memoized, not re-allocated
+            expect(a.instance).toBe(table); // instance stays the live component
+            expect(a.parent).toBeDefined();
+        });
+
+        it('stays referentially stable across change detection cycles', () => {
+            const a: any = table.$params;
+
+            paramsFixture.detectChanges();
+            paramsFixture.detectChanges();
+
+            expect(table.$params).toBe(a);
+        });
+    });
+
     describe('Selection Functionality', () => {
         let testComponent: TestSelectionTableComponent;
         let testFixture: ComponentFixture<TestSelectionTableComponent>;
