@@ -448,6 +448,12 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      */
     @Output() onResizeEnd: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
     /**
+     * Callback to invoke when dialog dragging is initiated.
+     * @param {MouseEvent} event - Mouse event.
+     * @group Emits
+     */
+    @Output() onDragStart: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    /**
      * Callback to invoke when dialog dragging is completed.
      * @param {DragEvent} event - Drag event.
      * @group Emits
@@ -851,6 +857,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             (this.container() as HTMLDivElement).style.margin = '0';
             this.document.body.setAttribute('data-p-unselectable-text', 'true');
             !this.$unstyled() && addStyle(this.document.body, { 'user-select': 'none' });
+            this.onDragStart.emit(event);
         }
     }
 
