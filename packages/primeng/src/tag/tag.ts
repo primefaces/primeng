@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE, PERFORMANCE_CONTEXT } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { TagPassThrough } from 'primeng/types/tag';
 import { TagStyle } from './style/tagstyle';
@@ -28,7 +28,7 @@ const TAG_INSTANCE = new InjectionToken<Tag>('TAG_INSTANCE');
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [TagStyle, { provide: TAG_INSTANCE, useExisting: Tag }, { provide: PARENT_INSTANCE, useExisting: Tag }],
+    providers: [TagStyle, { provide: TAG_INSTANCE, useExisting: Tag }, { provide: PARENT_INSTANCE, useExisting: Tag }, { provide: PERFORMANCE_CONTEXT, useExisting: Tag }],
     host: {
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-p]': 'dataP'

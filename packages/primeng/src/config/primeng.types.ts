@@ -205,5 +205,17 @@ export type PrimeNGConfigType = {
     zIndex?: ZIndex | null | undefined;
     pt?: GlobalPassThrough | null | undefined;
     ptOptions?: PassThroughOptions | null | undefined;
+    /**
+     * Enables automatic metadata attributes for PassThrough sections.
+     * Disable this in performance-sensitive views when `data-pc-*` attributes are not needed for tests, styling, or tooling.
+     * @defaultValue true
+     */
+    ptMetadata?: boolean;
+    /**
+     * Enables PassThrough binding.
+     * Disable this in performance-sensitive views when `pt`, `data-pc-*`, and `pBind` driven attributes/classes/styles/events are not needed.
+     * @defaultValue true
+     */
+    ptBinding?: boolean;
     filterMatchModeOptions?: any;
 } & ThemeConfigType;
