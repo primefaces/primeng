@@ -1294,6 +1294,62 @@ describe('TreeSelect', () => {
             expect(treeSelectInstance.filterMode).toBe('lenient');
         });
 
+        it('should persist filter value when closing and reopening overlay', async () => {
+            testComponent.filter = true;
+            testComponent.resetFilterOnHide = false;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+            testFixture.detectChanges();
+
+            const dropdown = testFixture.debugElement.query(By.css('.p-treeselect-dropdown'));
+            dropdown.nativeElement.click();
+            testFixture.detectChanges();
+            await testFixture.whenStable();
+
+            const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
+
+            // Simulate filter input
+            treeSelectInstance.onFilterInput({ filter: 'Work', filteredValue: [] } as any);
+            testFixture.detectChanges();
+
+            expect(treeSelectInstance.filterValue).toBe('Work');
+
+            // Close overlay
+            dropdown.nativeElement.click();
+            testFixture.detectChanges();
+            await testFixture.whenStable();
+
+            // Reopen overlay
+            dropdown.nativeElement.click();
+            testFixture.detectChanges();
+            await testFixture.whenStable();
+
+            // Filter value should still be 'Work'
+            expect(treeSelectInstance.filterValue).toBe('Work');
+        });
+
+        it('should emit onFilter event when filter input changes', async () => {
+            testComponent.filter = true;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+            testFixture.detectChanges();
+
+            const dropdown = testFixture.debugElement.query(By.css('.p-treeselect-dropdown'));
+            dropdown.nativeElement.click();
+            testFixture.detectChanges();
+            await testFixture.whenStable();
+
+            const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
+
+            // Simulate filter event from Tree component
+            const filterEvent = { filter: 'Test', filteredValue: [] };
+            treeSelectInstance.onFilterInput(filterEvent as any);
+            testFixture.detectChanges();
+
+            expect(treeSelectInstance.filterValue).toBe('Test');
+            expect(testComponent.filterEvent).toEqual(filterEvent);
+        });
+
         it('should handle empty state properly', async () => {
             testComponent.options = [];
             testComponent.emptyMessage = 'No nodes available';
