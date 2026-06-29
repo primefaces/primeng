@@ -895,7 +895,16 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
-        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((option: any) => equals(option, modelValue, this.equalityKey())) : modelValue;
+        const selectedOption = this.optionValueSelected
+            ? (this.suggestions || []).find((option: any) => {
+                  if (typeof option === 'object') {
+                      const optVal = resolveFieldData(option, this.optionValue);
+                      return optVal == modelValue;
+                  }
+
+                  return equals(option, modelValue, this.equalityKey());
+              })
+            : modelValue;
 
         if (isNotEmpty(modelValue)) {
             if (typeof modelValue === 'object' || this.optionValueSelected) {
