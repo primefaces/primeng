@@ -331,7 +331,7 @@ export class MultiSelectItem extends BaseComponent {
                                 (onChange)="onToggleAll($event)"
                                 *ngIf="showToggleAll && !selectionLimit"
                                 [variant]="$variant()"
-                                [disabled]="$disabled()"
+                                [disabled]="disabledToggleAll()"
                                 [unstyled]="unstyled()"
                                 #headerCheckbox
                             >
@@ -1216,6 +1216,8 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     startRangeIndex = signal<number>(-1);
 
     focusedOptionIndex = signal<number>(-1);
+
+    disabledToggleAll = computed(() => this.$disabled() || !this.visibleOptions()?.length);
 
     selectedOptions: any;
 
