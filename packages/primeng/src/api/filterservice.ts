@@ -24,7 +24,7 @@ export class FilterService {
 
     public filters: { [rule: string]: Function } = {
         startsWith: (value: any, filter: any, filterLocale?: any): boolean => {
-            if (filter === undefined || filter === null || filter.trim() === '') {
+            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
                 return true;
             }
 
@@ -69,7 +69,7 @@ export class FilterService {
         },
 
         endsWith: (value: any, filter: any, filterLocale?: any): boolean => {
-            if (filter === undefined || filter === null || filter.trim() === '') {
+            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
                 return true;
             }
 
