@@ -17,7 +17,16 @@ const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTAN
     standalone: true,
     imports: [CommonModule, SharedModule, Bind],
     template: `
-        <div *ngIf="mode === 'determinate'" [class]="cn(cx('value'), valueStyleClass)" [pBind]="ptm('value')" [style.width]="value + '%'" [style.display]="'flex'" [style.background]="color" [attr.data-p]="dataP">
+        <div
+            *ngIf="mode === 'determinate'"
+            [class]="cn(cx('value'), valueStyleClass)"
+            [pBind]="ptm('value')"
+            [style.width]="value + '%'"
+            [style.display]="'flex'"
+            [style.background]="color"
+            [style.transition]="_isRapidUpdate ? 'width 100ms ease-in-out' : null"
+            [attr.data-p]="dataP"
+        >
             <div [class]="cx('label')" [pBind]="ptm('label')" [attr.data-p]="dataP">
                 <div *ngIf="showValue && !contentTemplate && !_contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'">{{ value }}{{ unit }}</div>
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: value }"></ng-container>
@@ -46,11 +55,37 @@ export class ProgressBar extends BaseComponent<ProgressBarPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
+    private _value: number | undefined;
+    // A pending timer means a previous update arrived within the CSS transition duration (1s).
+    private _rapidUpdateTimer: ReturnType<typeof setTimeout> | null = null;
+    _isRapidUpdate = false;
+
     /**
      * Current value of the progress.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) value: number | undefined;
+    @Input({ transform: numberAttribute })
+    set value(val: number | undefined) {
+        this._value = val;
+
+        if (this._rapidUpdateTimer !== null) {
+            // A timer is already running, meaning the last update was less than 1s ago.
+            // Switch to a short ease-in-out transition so the bar tracks the real value smoothly
+            // without the 1s ease-in-out causing visual lag.
+            this._isRapidUpdate = true;
+            clearTimeout(this._rapidUpdateTimer);
+        }
+
+        // Re-enable the transition once updates have stopped for a full transition duration (1s).
+        this._rapidUpdateTimer = setTimeout(() => {
+            this._isRapidUpdate = false;
+            this._rapidUpdateTimer = null;
+        }, 1000);
+    }
+
+    get value(): number | undefined {
+        return this._value;
+    }
     /**
      * Whether to display the progress bar value.
      * @group Props
