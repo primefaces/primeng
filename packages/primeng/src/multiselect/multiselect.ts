@@ -1916,7 +1916,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     onOptionMouseEnter(event, index) {
         if (this.focusOnHover) {
-            this.changeFocusedOptionIndex(event, index);
+            this.focusedOptionIndex.set(index);
         }
     }
 
@@ -2007,7 +2007,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     partialSelected() {
-        return this.selectedOptions && this.selectedOptions.length > 0 && this.selectedOptions.length < (this.options?.length || 0);
+        return this.hasSelectedOption() && !this.allSelected();
     }
 
     /**
@@ -2052,12 +2052,14 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
         if (this.options && this.options.length) {
             if (this.virtualScroll) {
-                const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+                const selectedIndex = this.modelValue() ? this.findSelectedOptionIndex() : -1;
                 if (selectedIndex !== -1) {
-                    this.scroller?.scrollToIndex(selectedIndex);
+                    setTimeout(() => {
+                        this.scroller?.scrollToIndex(selectedIndex);
+                    }, 20);
                 }
             } else {
-                let selectedListItem = findSingle(this.itemsWrapper, '[data-pc-section="option"][data-p-selected="true"]');
+                let selectedListItem = findSingle(this.itemsWrapper, '[data-p-selected="true"]');
 
                 if (selectedListItem) {
                     selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
