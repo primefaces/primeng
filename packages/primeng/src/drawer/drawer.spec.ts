@@ -810,6 +810,27 @@ describe('Drawer', () => {
                 expect(testComponent.visible).toBe(true);
             }
         });
+
+        it('should support modal overlays in a shadow root append target', async () => {
+            const shadowFixture = TestBed.createComponent(TestDrawerBasicComponent);
+            const shadowComponent = shadowFixture.componentInstance;
+            const host = document.createElement('div');
+            document.body.appendChild(host);
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+
+            shadowComponent.appendTo = shadowRoot;
+            shadowComponent.visible = true;
+
+            shadowFixture.changeDetectorRef.markForCheck();
+            await shadowFixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+
+            expect(shadowRoot.querySelector('.p-drawer')).toBeTruthy();
+            expect(shadowRoot.querySelector('.p-drawer-mask')).toBeTruthy();
+
+            shadowFixture.destroy();
+            host.remove();
+        });
     });
 
     describe('Accessibility', () => {
