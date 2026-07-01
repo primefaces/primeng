@@ -10,7 +10,7 @@ import { Breadcrumb } from './breadcrumb';
 
 @Component({
     standalone: false,
-    template: ` <p-breadcrumb [model]="model" [home]="home" [style]="style" [styleClass]="styleClass" [homeAriaLabel]="homeAriaLabel" (onItemClick)="onItemClick($event)"> </p-breadcrumb> `
+    template: ` <p-breadcrumb [model]="model" [home]="home" [style]="style" [styleClass]="styleClass" [homeAriaLabel]="homeAriaLabel" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" (onItemClick)="onItemClick($event)"> </p-breadcrumb> `
 })
 class TestBasicBreadcrumbComponent {
     model: MenuItem[] | undefined = [
@@ -22,6 +22,8 @@ class TestBasicBreadcrumbComponent {
     style: { [key: string]: any } | undefined;
     styleClass: string | undefined;
     homeAriaLabel: string | undefined = 'Home';
+    ariaLabel: string | undefined;
+    ariaLabelledBy: string | undefined;
     clickedItem: BreadcrumbItemClickEvent | undefined;
 
     onItemClick(event: BreadcrumbItemClickEvent) {
@@ -231,6 +233,8 @@ describe('Breadcrumb', () => {
             expect(freshBreadcrumb.style).toBeUndefined();
             expect(freshBreadcrumb.styleClass).toBeUndefined();
             expect(freshBreadcrumb.homeAriaLabel).toBeUndefined();
+            expect(freshBreadcrumb.ariaLabel).toBeUndefined();
+            expect(freshBreadcrumb.ariaLabelledBy).toBeUndefined();
         });
 
         it('should accept custom values', async () => {
@@ -241,6 +245,8 @@ describe('Breadcrumb', () => {
             component.home = testHome;
             component.styleClass = 'custom-class';
             component.homeAriaLabel = 'Custom Home';
+            component.ariaLabel = 'Main breadcrumb';
+            component.ariaLabelledBy = 'breadcrumb-heading';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -249,6 +255,8 @@ describe('Breadcrumb', () => {
             expect(breadcrumbInstance.home).toBe(testHome);
             expect(breadcrumbInstance.styleClass).toBe('custom-class');
             expect(breadcrumbInstance.homeAriaLabel).toBe('Custom Home');
+            expect(breadcrumbInstance.ariaLabel).toBe('Main breadcrumb');
+            expect(breadcrumbInstance.ariaLabelledBy).toBe('breadcrumb-heading');
         });
 
         it('should initialize templates properties', () => {
@@ -309,12 +317,34 @@ describe('Breadcrumb', () => {
             expect(breadcrumbInstance.homeAriaLabel).toBe('Go to home page');
         });
 
+        it('should bind aria label to the navigation landmark', async () => {
+            component.ariaLabel = 'Primary breadcrumb';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const nav = fixture.debugElement.query(By.css('nav'));
+            expect(nav.nativeElement.getAttribute('aria-label')).toBe('Primary breadcrumb');
+        });
+
+        it('should bind aria labelledby to the navigation landmark', async () => {
+            component.ariaLabelledBy = 'breadcrumb-title';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const nav = fixture.debugElement.query(By.css('nav'));
+            expect(nav.nativeElement.getAttribute('aria-labelledby')).toBe('breadcrumb-title');
+        });
+
         it('should handle undefined inputs', async () => {
             component.model = undefined as any;
             component.home = undefined as any;
             component.style = undefined as any;
             component.styleClass = undefined as any;
             component.homeAriaLabel = undefined as any;
+            component.ariaLabel = undefined as any;
+            component.ariaLabelledBy = undefined as any;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -324,6 +354,8 @@ describe('Breadcrumb', () => {
             expect(breadcrumbInstance.style).toBeUndefined();
             expect(breadcrumbInstance.styleClass).toBeUndefined();
             expect(breadcrumbInstance.homeAriaLabel).toBeUndefined();
+            expect(breadcrumbInstance.ariaLabel).toBeUndefined();
+            expect(breadcrumbInstance.ariaLabelledBy).toBeUndefined();
         });
     });
 
