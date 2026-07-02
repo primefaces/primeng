@@ -865,6 +865,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
         this.onHide.emit(event);
         this.cd.markForCheck();
+        this.onModelTouched?.();
     }
 
     clear(event: Event) {
@@ -1053,7 +1054,6 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     onInputBlur(event: Event) {
         this.focused = false;
         this.onBlur.emit(event);
-        this.onModelTouched();
     }
 
     /**
