@@ -677,21 +677,21 @@
                             "name": "acceptButtonProps",
                             "optional": true,
                             "readonly": false,
-                            "type": "any",
+                            "type": "ButtonProps",
                             "description": "Accept button properties."
                         },
                         {
                             "name": "rejectButtonProps",
                             "optional": true,
                             "readonly": false,
-                            "type": "any",
+                            "type": "ButtonProps",
                             "description": "Reject button properties."
                         },
                         {
                             "name": "closeButtonProps",
                             "optional": true,
                             "readonly": false,
-                            "type": "any",
+                            "type": "ButtonProps",
                             "description": "Close button properties."
                         },
                         {
@@ -1969,7 +1969,7 @@
                             "name": "orientation",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"both\" | \"vertical\" | \"horizontal\"",
+                            "type": "\"vertical\" | \"horizontal\" | \"both\"",
                             "description": "The orientation of scrollbar."
                         },
                         {
@@ -2474,14 +2474,14 @@
                             "name": "tooltipPosition",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
+                            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
                             "description": "Position of tooltip."
                         },
                         {
                             "name": "tooltipEvent",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"hover\" | \"focus\" | \"both\"",
+                            "type": "\"focus\" | \"both\" | \"hover\"",
                             "description": "Event to show the tooltip."
                         },
                         {
@@ -8125,14 +8125,14 @@
                                 "name": "overlay",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
+                                "type": "HTMLElement | TemplateRef<any> | ElementRef<any>",
                                 "description": "Overlay element."
                             },
                             {
                                 "name": "target",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
+                                "type": "HTMLElement | TemplateRef<any> | ElementRef<any>",
                                 "description": "Target element."
                             },
                             {
@@ -8152,14 +8152,14 @@
                                 "name": "overlay",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
+                                "type": "HTMLElement | TemplateRef<any> | ElementRef<any>",
                                 "description": "Overlay element."
                             },
                             {
                                 "name": "target",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
+                                "type": "HTMLElement | TemplateRef<any> | ElementRef<any>",
                                 "description": "Target element."
                             },
                             {
@@ -8179,14 +8179,14 @@
                                 "name": "overlay",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
+                                "type": "HTMLElement | TemplateRef<any> | ElementRef<any>",
                                 "description": "Overlay element."
                             },
                             {
                                 "name": "target",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
+                                "type": "HTMLElement | TemplateRef<any> | ElementRef<any>",
                                 "description": "Target element."
                             },
                             {
@@ -8206,14 +8206,14 @@
                                 "name": "overlay",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
+                                "type": "HTMLElement | TemplateRef<any> | ElementRef<any>",
                                 "description": "Overlay element."
                             },
                             {
                                 "name": "target",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
+                                "type": "HTMLElement | TemplateRef<any> | ElementRef<any>",
                                 "description": "Target element."
                             },
                             {
@@ -9961,7 +9961,7 @@
                             "name": "defaultFocus",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"accept\" | \"reject\" | \"none\" | \"close\"",
+                            "type": "\"accept\" | \"none\" | \"reject\" | \"close\"",
                             "default": "accept",
                             "description": "Element to receive the focus when the dialog gets visible."
                         },
@@ -9991,7 +9991,7 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\" | \"center\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
+                            "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | \"center\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
                             "default": "center",
                             "description": "Allows getting the position of the component."
                         },
@@ -14022,7 +14022,7 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\" | \"center\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
+                            "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | \"center\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
                             "description": "Position of the dialog."
                         },
                         {
@@ -14466,7 +14466,7 @@
                             "name": "align",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\" | \"center\"",
+                            "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | \"center\"",
                             "description": "Alignment of the content."
                         }
                     ]
@@ -14583,7 +14583,7 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
+                            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of element."
                         },
@@ -15073,7 +15073,7 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"right\" | \"left\" | \"top\" | \"bottom\" | \"full\">",
+                            "type": "InputSignal<\"left\" | \"right\" | \"top\" | \"bottom\" | \"full\">",
                             "default": "'left'",
                             "description": "Specifies the position of the drawer, valid values are \"left\", \"right\", \"bottom\" and \"top\"."
                         },
@@ -17932,7 +17932,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"in\" | \"on\" | \"over\"",
+                            "type": "\"on\" | \"in\" | \"over\"",
                             "default": "over",
                             "description": "Defines the positioning of the label relative to the input."
                         }
@@ -18278,7 +18278,7 @@
                             "name": "thumbnailsPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
+                            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of thumbnails."
                         },
@@ -18310,7 +18310,7 @@
                             "name": "indicatorsPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
+                            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of indicators."
                         },
@@ -19038,7 +19038,7 @@
                             "name": "iconPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\"",
+                            "type": "\"left\" | \"right\"",
                             "default": "left",
                             "description": "Position of the icon."
                         },
@@ -27124,7 +27124,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"in\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"contains\" | \"startsWith\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\" | \"in\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -27140,7 +27140,7 @@
                             "name": "tooltipPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
+                            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
                             "default": "right",
                             "description": "Position of the tooltip."
                         },
@@ -28420,7 +28420,7 @@
                             "name": "controlsPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\"",
+                            "type": "\"left\" | \"right\"",
                             "default": "left",
                             "description": "Defines the location of the buttons with respect to the list."
                         },
@@ -28435,7 +28435,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"in\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"contains\" | \"startsWith\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\" | \"in\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -30569,7 +30569,7 @@
                             "name": "toggler",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"icon\" | \"header\"",
+                            "type": "\"header\" | \"icon\"",
                             "default": "icon",
                             "description": "Specifies the toggler element to toggle the panel content."
                         },
@@ -34882,7 +34882,7 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"both\" | \"vertical\" | \"horizontal\"",
+                            "type": "\"vertical\" | \"horizontal\" | \"both\"",
                             "description": "The orientation of scrollbar."
                         },
                         {
@@ -36408,7 +36408,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"in\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"contains\" | \"startsWith\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\" | \"in\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -36424,7 +36424,7 @@
                             "name": "tooltipPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
+                            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
                             "default": "right",
                             "description": "Position of the tooltip."
                         },
@@ -44883,7 +44883,7 @@
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\"",
+                            "type": "\"left\" | \"right\"",
                             "default": "left",
                             "description": "Position of the icon."
                         },
@@ -45640,7 +45640,7 @@
                             "name": "tooltipEvent",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"hover\" | \"focus\" | \"both\"",
+                            "type": "\"focus\" | \"both\" | \"hover\"",
                             "default": "hover",
                             "description": "Event to show the tooltip."
                         },
@@ -45910,7 +45910,7 @@
                             "name": "loadingMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"icon\" | \"mask\"",
+                            "type": "\"mask\" | \"icon\"",
                             "default": "mask",
                             "description": "Loading mode display."
                         },
@@ -47386,7 +47386,7 @@
                             "name": "loadingMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"icon\" | \"mask\"",
+                            "type": "\"mask\" | \"icon\"",
                             "default": "mask",
                             "description": "Loading mode display."
                         },
