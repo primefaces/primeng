@@ -7,7 +7,7 @@ import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Bind, BindModule } from 'primeng/bind';
 import { Nullable } from 'primeng/ts-helpers';
-import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorPassThrough, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'primeng/types/editor';
+import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorPassThrough, EditorSelectionChangeEvent, EditorTextChangeEvent, QuillModule } from 'primeng/types/editor';
 import { EditorStyle } from './style/editorstyle';
 
 const EDITOR_INSTANCE = new InjectionToken<Editor>('EDITOR_INSTANCE');
@@ -118,6 +118,12 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
      * @group Props
      */
     @Input() modules: object | undefined;
+    /**
+     * Map of custom Quill modules that need to be registered before initialization, see [here](https://quilljs.com/docs/modules#extending).
+     * Keys must be full Quill registration paths (for example, `'modules/myModule'`), as they are passed directly to `Quill.register` and are not auto-prefixed by the component.
+     * @group Props
+     */
+    @Input() customModules: Record<string, QuillModule> | undefined;
     /**
      * DOM Element or a CSS selector for a DOM Element, within which the editor’s p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries.
      * @group Props
@@ -291,11 +297,21 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
             import('quill')
                 .then((quillModule: any) => {
                     this.dynamicQuill = quillModule.default;
+                    this.registerQuillModules();
                     this.createQuillEditor();
                 })
                 .catch((e) => console.error(e.message));
         } else {
+            this.registerQuillModules();
             this.createQuillEditor();
+        }
+    }
+
+    private registerQuillModules(): void {
+        if (this.customModules) {
+            for (const [moduleName, moduleInstance] of Object.entries(this.customModules)) {
+                this.dynamicQuill.register(moduleName, moduleInstance);
+            }
         }
     }
 
