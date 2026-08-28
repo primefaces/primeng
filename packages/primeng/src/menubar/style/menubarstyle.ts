@@ -11,7 +11,7 @@ const classes = {
         'p-menubar p-component',
         {
             'p-menubar-mobile': instance.queryMatches(),
-            'p-menubar-mobile-active': instance.mobileActive
+            'p-menubar-mobile-active': instance.mobileActive()
         }
     ],
     start: 'p-menubar-start',
