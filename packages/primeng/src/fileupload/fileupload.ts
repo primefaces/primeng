@@ -298,17 +298,17 @@ export class FileContent extends BaseComponent {
                     [pt]="ptm('pcChooseButton')"
                     [unstyled]="unstyled()"
                 >
-                    <ng-template #icon>
+                    <ng-template #icon let-iconClass="class">
                         @if (hasFiles() && !auto) {
-                            <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
+                            <span *ngIf="uploadIcon" [class]="iconClass" [ngClass]="uploadIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
                             <ng-container *ngIf="!uploadIcon">
-                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [class]="'p-button-icon p-button-icon-left'" [pBind]="ptm('pcChooseButton')?.icon" />
-                                <span *ngIf="_uploadIconTemplate || uploadIconTemplate" class="p-button-icon p-button-icon-left" [pBind]="ptm('pcChooseButton')?.icon">
+                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [class]="iconClass" [pBind]="ptm('pcChooseButton')?.icon" />
+                                <span *ngIf="_uploadIconTemplate || uploadIconTemplate" [class]="iconClass" [pBind]="ptm('pcChooseButton')?.icon">
                                     <ng-template *ngTemplateOutlet="_uploadIconTemplate || uploadIconTemplate"></ng-template>
                                 </span>
                             </ng-container>
                         } @else {
-                            <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
+                            <span *ngIf="chooseIcon" [class]="iconClass" [ngClass]="chooseIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
                             <ng-container *ngIf="!chooseIcon">
                                 <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [pBind]="ptm('pcChooseButton')?.icon" />
                                 <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
