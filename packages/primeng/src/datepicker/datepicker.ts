@@ -2807,15 +2807,16 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             true // intentional fall through
         ) {
             case isMinDate && minHoursExceeds12 && this.minDate!.getHours() === 12 && this.minDate!.getHours() > convertedHour:
-                returnTimeTriple[0] = 11;
+                this.setCurrentHourPM(this.minDate!.getHours());
+                returnTimeTriple[0] = this.currentHour || 0;
             case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() > minute:
                 returnTimeTriple[1] = this.minDate!.getMinutes();
             case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() === minute && this.minDate!.getSeconds() > second:
                 returnTimeTriple[2] = this.minDate!.getSeconds();
                 break;
             case isMinDate && !minHoursExceeds12 && this.minDate!.getHours() - 1 === convertedHour && this.minDate!.getHours() > convertedHour:
-                returnTimeTriple[0] = 11;
-                this.pm = true;
+                this.setCurrentHourPM(this.minDate!.getHours());
+                returnTimeTriple[0] = this.currentHour || 0;
             case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() > minute:
                 returnTimeTriple[1] = this.minDate!.getMinutes();
             case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() === minute && this.minDate!.getSeconds() > second:
