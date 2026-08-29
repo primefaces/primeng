@@ -172,6 +172,7 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                             [loading]="loading"
                             [filterInputAutoFocus]="filterInputAutoFocus"
                             [loadingMode]="loadingMode"
+                            (onFilter)="onFilterInput($event)"
                             [pt]="ptm('pcTree')"
                             [unstyled]="unstyled()"
                         >
@@ -739,7 +740,18 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
     onOverlayBeforeEnter() {
         if (this.filter) {
-            isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
+            if (!isNotEmpty(this.filterValue)) {
+                return;
+            }
+
+            const treeFilterInput = this.treeViewChild?.filterViewChild?.nativeElement;
+
+            if (treeFilterInput) {
+                treeFilterInput.value = this.filterValue;
+            }
+
+            this.treeViewChild?._filter(<any>this.filterValue);
+
             this.filterInputAutoFocus && this.filterViewChild?.nativeElement.focus();
         } else {
             let focusableElements = <any>getFocusableElements(this.panelEl?.nativeElement!);
@@ -820,13 +832,9 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         }
     }
 
-    onFilterInput(event: Event) {
-        this.filterValue = (event.target as HTMLInputElement).value;
-        this.treeViewChild?._filter(this.filterValue);
-        this.onFilter.emit({
-            filter: this.filterValue,
-            filteredValue: this.treeViewChild?.filteredNodes
-        });
+    onFilterInput(event: TreeFilterEvent) {
+        this.filterValue = event.filter;
+        this.onFilter.emit(event);
         setTimeout(() => {
             this.overlayViewChild?.alignOverlay();
         });
@@ -898,11 +906,9 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     }
 
     resetFilter() {
-        if (this.filter && !this.resetFilterOnHide) {
-            this.filteredNodes = this.treeViewChild?.filteredNodes;
-            this.treeViewChild?.resetFilter();
-        } else {
+        if (this.filter && this.resetFilterOnHide) {
             this.filterValue = null;
+            this.treeViewChild?.resetFilter();
         }
     }
 
