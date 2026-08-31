@@ -525,6 +525,7 @@ Dialog is a container to display content in an overlay window.
 | maximizable | boolean | false | Whether the dialog can be displayed full screen. |
 | keepInViewport | boolean | true | Keeps dialog in the viewport. |
 | focusTrap | boolean | true | When enabled, can only focus on elements inside the dialog. |
+| selectableTitle | boolean | false | When enabled, the title text is selectable and dragging only works on other parts of the header. |
 | transitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the animation. **(Deprecated)** |
 | maskMotionOptions | InputSignal<MotionOptions> | ... | The motion options for the mask. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
