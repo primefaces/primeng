@@ -1472,15 +1472,52 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     private _initialColWidths: number[];
 
+    private _dataToRenderCacheKey: any = null;
+
+    private _dataToRenderCacheResult: any[] | undefined;
+
     dataToRender(data: any) {
         const _data = data || this.processedData;
 
-        if (_data && this.paginator) {
-            const first = this.lazy ? 0 : this.first;
-            return _data.slice(first, <number>first + <number>this.rows);
+        // Imperative callers may pass non-array values (e.g. a row count); preserve the
+        // original, un-cached behavior for those so the semantics stay byte-for-byte identical.
+        if (!Array.isArray(_data)) {
+            if (_data && this.paginator) {
+                const first = this.lazy ? 0 : this.first;
+                return _data.slice(first, <number>first + <number>this.rows);
+            }
+
+            return _data;
         }
 
-        return _data;
+        const first = this.lazy ? 0 : this.first;
+        const key = this._dataToRenderCacheKey;
+
+        // Return the previously computed array while every input that affects the result is
+        // unchanged. This keeps the body's [value] binding referentially stable across change
+        // detection cycles, avoiding a fresh slice (and the TableBody value-setter side effects,
+        // including a forced layout reflow for frozen rows) on every cycle. Sort/filter/value
+        // changes all replace the array reference (sort: `_value = [...]`, filter: reassigns
+        // `filteredValue`), so the `source`/`length` checks invalidate the cache correctly.
+        if (
+            key !== null &&
+            key.data === data &&
+            key.source === _data &&
+            key.length === _data.length &&
+            key.first === first &&
+            key.rows === this.rows &&
+            key.lazy === this.lazy &&
+            key.paginator === this.paginator
+        ) {
+            return this._dataToRenderCacheResult;
+        }
+
+        const result = this.paginator ? _data.slice(<number>first, <number>first + <number>this.rows) : _data;
+
+        this._dataToRenderCacheKey = { data, source: _data, length: _data.length, first, rows: this.rows, lazy: this.lazy, paginator: this.paginator };
+        this._dataToRenderCacheResult = result;
+
+        return result;
     }
 
     updateSelectionKeys() {
