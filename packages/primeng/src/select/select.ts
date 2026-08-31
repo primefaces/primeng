@@ -1241,7 +1241,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     onOptionMouseEnter(event, index) {
         if (this.focusOnHover) {
-            this.changeFocusedOptionIndex(event, index);
+            this.focusedOptionIndex.set(index);
         }
     }
 
@@ -1419,7 +1419,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
         if (this.options && this.options.length) {
             if (this.virtualScroll) {
-                const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+                const selectedIndex = this.modelValue() ? this.findSelectedOptionIndex() : -1;
                 if (selectedIndex !== -1) {
                     setTimeout(() => {
                         this.scroller?.scrollToIndex(selectedIndex);
