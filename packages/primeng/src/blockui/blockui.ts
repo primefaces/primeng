@@ -99,6 +99,7 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
 
     onAfterViewInit() {
         if (this._blocked) this.block();
+        else this.hideSelf();
 
         if (this.target && !this.target.getBlockableElement) {
             throw 'Target of BlockUI must implement BlockableUI interface';
@@ -157,10 +158,14 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
         }
     }
 
+    hideSelf() {
+        this.el.nativeElement.style.display = 'none';
+    }
+
     destroyModal() {
         this._blocked = false;
         if (this.el && isPlatformBrowser(this.platformId)) {
-            this.el.nativeElement.style.display = 'none';
+            this.hideSelf();
             this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask');
             this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask-leave-active');
             ZIndexUtils.clear(this.el.nativeElement);
