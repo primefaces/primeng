@@ -14,6 +14,18 @@ const style = /*css*/ `
     p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
         color: dt('multiselect.invalid.placeholder.color');
     }
+
+    .p-multiselect-option-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .p-multiselect-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 `;
 
 const inlineStyles = {
@@ -63,6 +75,7 @@ const classes = {
         'p-disabled': instance.disabled,
         'p-focus': instance.focused
     }),
+    optionLabel: 'p-multiselect-option-label',
     emptyMessage: 'p-multiselect-empty-message',
     clearIcon: 'p-multiselect-clear-icon'
 };
@@ -156,6 +169,10 @@ export enum MultiSelectClasses {
      * Class name of the option element
      */
     option = 'p-multiselect-option',
+    /**
+     * Class name of the option label element
+     */
+    optionLabel = 'p-multiselect-option-label',
     /**
      * Class name of the empty message element
      */
