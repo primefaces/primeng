@@ -544,13 +544,13 @@ export class DomHandler {
         if (this.calculatedScrollbarHeight !== null) return this.calculatedScrollbarHeight;
 
         let scrollDiv = document.createElement('div');
-        scrollDiv.className = 'p-scrollbar-measure';
+        scrollDiv.style.overflow = 'scroll';
         document.body.appendChild(scrollDiv);
 
         let scrollbarHeight = scrollDiv.offsetHeight - scrollDiv.clientHeight;
         document.body.removeChild(scrollDiv);
 
-        this.calculatedScrollbarWidth = scrollbarHeight;
+        this.calculatedScrollbarHeight = scrollbarHeight;
 
         return scrollbarHeight;
     }
