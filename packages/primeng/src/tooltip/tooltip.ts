@@ -131,7 +131,15 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
 
-    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+    $appendTo = computed(() => {
+        const localAppendTo = this.appendTo();
+        if (localAppendTo) return localAppendTo;
+
+        const globalAppendTo = this.config.overlayAppendTo();
+        if (globalAppendTo && globalAppendTo !== 'self') return globalAppendTo;
+
+        return this._tooltipOptions.appendTo;
+    });
 
     _tooltipOptions = {
         tooltipLabel: null,
@@ -276,10 +284,6 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
         if (simpleChange.tooltipEvent) {
             this.setOption({ tooltipEvent: simpleChange.tooltipEvent.currentValue });
-        }
-
-        if (simpleChange.appendTo) {
-            this.setOption({ appendTo: simpleChange.appendTo.currentValue });
         }
 
         if (simpleChange.positionStyle) {
@@ -510,9 +514,10 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
         this.container.appendChild(this.tooltipText);
 
-        if (this.getOption('appendTo') === 'body') document.body.appendChild(this.container);
-        else if (this.getOption('appendTo') === 'target') appendChild(this.container, this.el.nativeElement);
-        else appendChild(this.getOption('appendTo'), this.container);
+        const appendTo = this.$appendTo();
+        if (appendTo === 'body') document.body.appendChild(this.container);
+        else if (appendTo === 'target') appendChild(this.container, this.el.nativeElement);
+        else appendChild(appendTo, this.container);
 
         this.container.style.display = 'none';
 
@@ -614,7 +619,8 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     }
 
     getHostOffset() {
-        if (this.getOption('appendTo') === 'body' || this.getOption('appendTo') === 'target') {
+        const appendTo = this.$appendTo();
+        if (appendTo === 'body' || appendTo === 'target') {
             let offset = this.el.nativeElement.getBoundingClientRect();
             let targetLeft = offset.left + getWindowScrollLeft();
             let targetTop = offset.top + getWindowScrollTop();
@@ -795,9 +801,10 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     remove() {
         if (this.container && this.container.parentElement) {
-            if (this.getOption('appendTo') === 'body') document.body.removeChild(this.container);
-            else if (this.getOption('appendTo') === 'target') this.el.nativeElement.removeChild(this.container);
-            else removeChild(this.getOption('appendTo'), this.container);
+            const appendTo = this.$appendTo();
+            if (appendTo === 'body') document.body.removeChild(this.container);
+            else if (appendTo === 'target') this.el.nativeElement.removeChild(this.container);
+            else removeChild(appendTo, this.container);
         }
 
         this.unbindDocumentResizeListener();
