@@ -165,6 +165,7 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                             [filterPlaceholder]="filterPlaceholder"
                             [filterLocale]="filterLocale"
                             [filteredNodes]="filteredNodes"
+                            [scrollHeight]="virtualScroll ? scrollHeight : undefined"
                             [virtualScroll]="virtualScroll"
                             [virtualScrollItemSize]="virtualScrollItemSize"
                             [virtualScrollOptions]="virtualScrollOptions"

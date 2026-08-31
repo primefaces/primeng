@@ -1330,6 +1330,31 @@ describe('TreeSelect', () => {
             expect(treeSelectInstance.virtualScrollItemSize).toBe(32);
         });
 
+        it('should pass scrollHeight to tree when virtual scrolling is enabled', async () => {
+            testComponent.options = Array.from({ length: 50 }, (_, i) => ({
+                key: i.toString(),
+                label: `Node ${i}`,
+                data: `Data ${i}`
+            }));
+            testComponent.scrollHeight = '180px';
+            testComponent.virtualScroll = true;
+            testComponent.virtualScrollItemSize = 32;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+            testFixture.detectChanges();
+
+            const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
+            const dropdown = testFixture.debugElement.query(By.css('.p-treeselect-dropdown'));
+            dropdown.nativeElement.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+            await testFixture.whenStable();
+            testFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve));
+            await testFixture.whenStable();
+            testFixture.detectChanges();
+
+            expect(treeSelectInstance.treeViewChild?.scrollHeight).toBe('180px');
+        });
+
         it('should handle dynamic option updates', async () => {
             // Start with empty options
             testComponent.options = [];
