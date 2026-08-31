@@ -1016,6 +1016,7 @@ Select is used to choose an item from a collection of options.
 | optionLabel | string | - | Name of the label field of an option. |
 | optionValue | string | - | Name of the value field of an option. |
 | optionDisabled | string | - | Name of the disabled field of an option. |
+| optionTooltip | string | - | Name of the tooltip field of an option. |
 | optionGroupLabel | string | label | Name of the label field of an option group. |
 | optionGroupChildren | string | items | Name of the options field of an option group. |
 | group | boolean | false | Whether to display options as grouped when nested options are provided. |
