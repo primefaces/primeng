@@ -32,7 +32,9 @@ import { ChevronDownIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TieredMenu } from 'primeng/tieredmenu';
 import { TooltipModule } from 'primeng/tooltip';
+import type { ButtonIconTemplateContext } from 'primeng/types/button';
 import { ButtonProps, MenuButtonProps, SplitButtonPassThrough } from 'primeng/types/splitbutton';
+import type { TieredMenuItemTemplateContext } from 'primeng/types/tieredmenu';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
 
 const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTANCE');
@@ -84,7 +86,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [text]="text"
                 [outlined]="outlined"
                 [size]="size"
-                [icon]="icon"
+                [icon]="icon && !hasIconTemplate ? icon : undefined"
                 [iconPos]="iconPos"
                 [label]="label"
                 (click)="onDefaultButtonClick($event)"
@@ -97,7 +99,13 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [tooltipOptions]="tooltipOptions"
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
-            ></button>
+            >
+                <ng-container *ngIf="!icon && hasIconTemplate">
+                    <span [class]="defaultButtonIconClass" aria-hidden="true">
+                        <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate; context: iconTemplateContext"></ng-template>
+                    </span>
+                </ng-container>
+            </button>
         </ng-template>
         <button
             type="button"
@@ -137,7 +145,11 @@ type SplitButtonIconPosition = 'left' | 'right';
             (onShow)="onShow()"
             [pt]="ptm('pcMenu')"
             [unstyled]="unstyled()"
-        ></p-tieredmenu>
+        >
+            <ng-template #item let-item let-hasSubmenu="hasSubmenu" *ngIf="itemTemplate || _itemTemplate">
+                <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, hasSubmenu: hasSubmenu }"></ng-container>
+            </ng-template>
+        </p-tieredmenu>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [SplitButtonStyle, { provide: SPLITBUTTON_INSTANCE, useExisting: SplitButton }, { provide: PARENT_INSTANCE, useExisting: SplitButton }],
@@ -355,10 +367,20 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
      */
     @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
     /**
+     * Custom icon template for the default action button.
+     * @group Templates
+     */
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<ButtonIconTemplateContext> | undefined;
+    /**
      * Custom dropdown icon template.
      * @group Templates
      **/
     @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: TemplateRef<void> | undefined;
+    /**
+     * Custom item template for the overlay menu.
+     * @group Templates
+     */
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<TieredMenuItemTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -372,9 +394,34 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
 
     _contentTemplate: TemplateRef<void> | undefined;
 
+    _iconTemplate: TemplateRef<ButtonIconTemplateContext> | undefined;
+
     _dropdownIconTemplate: TemplateRef<void> | undefined;
 
+    _itemTemplate: TemplateRef<TieredMenuItemTemplateContext> | undefined;
+
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+
+    get hasIconTemplate(): boolean {
+        return !!(this.iconTemplate || this._iconTemplate);
+    }
+
+    get defaultButtonIconClass(): string {
+        const classes = ['p-button-icon'];
+
+        if (this.label && this.iconPos) {
+            classes.push(`p-button-icon-${this.iconPos}`);
+        }
+
+        return classes.join(' ');
+    }
+
+    get iconTemplateContext(): ButtonIconTemplateContext {
+        return {
+            class: this.defaultButtonIconClass,
+            pt: this.ptm('pcButton')?.icon
+        };
+    }
 
     onInit() {
         this.ariaId = uuid('pn_id_');
@@ -387,12 +434,19 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
                     this._contentTemplate = item.template;
                     break;
 
+                case 'icon':
+                    this._iconTemplate = item.template;
+                    break;
+
                 case 'dropdownicon':
                     this._dropdownIconTemplate = item.template;
                     break;
 
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+
                 default:
-                    this._contentTemplate = item.template;
                     break;
             }
         });
