@@ -15,9 +15,9 @@ const classes = {
     root: ({ instance }) => [
         'p-floatlabel',
         {
-            'p-floatlabel-over': instance.variant === 'over',
-            'p-floatlabel-on': instance.variant === 'on',
-            'p-floatlabel-in': instance.variant === 'in'
+            'p-floatlabel-over': instance.$variant() === 'over',
+            'p-floatlabel-on': instance.$variant() === 'on',
+            'p-floatlabel-in': instance.$variant() === 'in'
         }
     ]
 };
