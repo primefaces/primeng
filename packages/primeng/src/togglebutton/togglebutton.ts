@@ -171,9 +171,10 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Defines the size of the component.
+     * @defaultValue undefined
      * @group Props
      */
-    @Input() size: 'large' | 'small';
+    size = input<'small' | 'large' | undefined>();
     /**
      * Whether selection can not be cleared.
      * @group Props
@@ -270,7 +271,7 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
         return this.cn({
             checked: this.active,
             invalid: this.invalid(),
-            [this.size as string]: this.size
+            [this.size() as string]: this.size()
         });
     }
 }
