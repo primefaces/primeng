@@ -26,7 +26,7 @@ describe('TreeTable', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicTreeTableComponent, TestTemplatesTreeTableComponent, TestDynamicTreeTableComponent],
+            declarations: [TestBasicTreeTableComponent, TestTemplatesTreeTableComponent, TestDynamicTreeTableComponent, TestSelectableRowKeyboardComponent],
             imports: [FormsModule, TreeTableModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -430,6 +430,64 @@ describe('TreeTable', () => {
             });
 
             expect(treetable.onContextMenuSelect.emit).toHaveBeenCalled();
+        });
+
+        it('should not prevent Space keydown from editable row descendants', async () => {
+            const keyboardFixture = TestBed.createComponent(TestSelectableRowKeyboardComponent);
+            keyboardFixture.changeDetectorRef.markForCheck();
+            await keyboardFixture.whenStable();
+            keyboardFixture.detectChanges();
+
+            const keyboardTreetable = keyboardFixture.debugElement.query(By.directive(TreeTable)).componentInstance as TreeTable;
+            const editableSelectors = ['input', 'textarea', 'select', 'button', '[contenteditable="true"]'];
+            const selectionChangeEmitSpy = spyOn(keyboardTreetable.selectionChange, 'emit');
+
+            for (const selector of editableSelectors) {
+                const editableElement = keyboardFixture.nativeElement.querySelector(selector) as HTMLElement;
+                const event = new KeyboardEvent('keydown', { code: 'Space', bubbles: true, cancelable: true });
+
+                editableElement.dispatchEvent(event);
+
+                expect(event.defaultPrevented).withContext(`${selector} Space keydown should not be prevented`).toBe(false);
+                expect(selectionChangeEmitSpy).withContext(`${selector} Space keydown should not select a row`).not.toHaveBeenCalled();
+                selectionChangeEmitSpy.calls.reset();
+            }
+        });
+
+        it('should prevent Space keydown on selectable row', async () => {
+            const keyboardFixture = TestBed.createComponent(TestSelectableRowKeyboardComponent);
+            keyboardFixture.changeDetectorRef.markForCheck();
+            await keyboardFixture.whenStable();
+            keyboardFixture.detectChanges();
+
+            const keyboardTreetable = keyboardFixture.debugElement.query(By.directive(TreeTable)).componentInstance as TreeTable;
+            const row = keyboardFixture.nativeElement.querySelector('tbody tr') as HTMLElement;
+            const event = new KeyboardEvent('keydown', { code: 'Space', bubbles: true, cancelable: true });
+
+            spyOn(keyboardTreetable.selectionChange, 'emit');
+
+            row.dispatchEvent(event);
+
+            expect(event.defaultPrevented).toBe(true);
+            expect(keyboardTreetable.selectionChange.emit).toHaveBeenCalled();
+        });
+
+        it('should preserve Enter key selection on selectable row', async () => {
+            const keyboardFixture = TestBed.createComponent(TestSelectableRowKeyboardComponent);
+            keyboardFixture.changeDetectorRef.markForCheck();
+            await keyboardFixture.whenStable();
+            keyboardFixture.detectChanges();
+
+            const keyboardTreetable = keyboardFixture.debugElement.query(By.directive(TreeTable)).componentInstance as TreeTable;
+            const row = keyboardFixture.nativeElement.querySelector('tbody tr') as HTMLElement;
+            const event = new KeyboardEvent('keydown', { code: 'Enter', bubbles: true, cancelable: true });
+
+            spyOn(keyboardTreetable.selectionChange, 'emit');
+
+            row.dispatchEvent(event);
+
+            expect(event.defaultPrevented).toBe(true);
+            expect(keyboardTreetable.selectionChange.emit).toHaveBeenCalled();
         });
     });
 
@@ -3125,6 +3183,41 @@ class TestBasicTreeTableComponent {
     onEditComplete(event: any) {}
     onEditCancel(event: any) {}
     onSelectionKeysChange(event: any) {}
+}
+
+@Component({
+    standalone: false,
+    template: `
+        <p-treetable [value]="value" [columns]="columns" [selectionMode]="selectionMode">
+            <ng-template #header let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">{{ col.header }}</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-rowNode let-rowData="rowData">
+                <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                    <td>
+                        <input type="text" />
+                        <textarea></textarea>
+                        <select>
+                            <option>Option</option>
+                        </select>
+                        <button type="button">Button</button>
+                        <span contenteditable="true">Editable</span>
+                    </td>
+                    <td>{{ rowData.name }}</td>
+                </tr>
+            </ng-template>
+        </p-treetable>
+    `
+})
+class TestSelectableRowKeyboardComponent {
+    value: TreeNode[] = [{ data: { name: 'Root' } }];
+    columns = [
+        { field: 'controls', header: 'Controls' },
+        { field: 'name', header: 'Name' }
+    ];
+    selectionMode: string = 'single';
 }
 
 @Component({
