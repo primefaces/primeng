@@ -5,10 +5,10 @@ import { FormControl, FormGroup, FormsModule, NgForm, NgModel, ReactiveFormsModu
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
+import type { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFocusEvent } from 'primeng/types/multiselect';
 import { BehaviorSubject, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { MultiSelect, MultiSelectModule } from './multiselect';
-import type { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFocusEvent } from 'primeng/types/multiselect';
 interface City {
     name: string;
     code: string;
@@ -3723,5 +3723,67 @@ describe('MultiSelect Complex Edge Cases', () => {
             // Verify component is created with PT configuration for child components
             expect(fixture.componentInstance).toBeTruthy();
         });
+    });
+});
+
+@Component({
+    standalone: false,
+    template: `<p-multiselect [options]="options" [(ngModel)]="value" optionLabel="name" />`
+})
+class TestOverlayHideMultiSelectComponent {
+    options: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' }
+    ];
+    value: any;
+}
+
+describe('MultiSelect overlay onHide wiring', () => {
+    let fixture: ComponentFixture<TestOverlayHideMultiSelectComponent>;
+    let multiselect: MultiSelect;
+
+    beforeEach(async () => {
+        TestBed.resetTestingModule();
+        await TestBed.configureTestingModule({
+            declarations: [TestOverlayHideMultiSelectComponent],
+            imports: [MultiSelectModule, FormsModule, CommonModule],
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(TestOverlayHideMultiSelectComponent);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        multiselect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance;
+    });
+
+    it('should close and mark for check when the overlay reports onHide', async () => {
+        multiselect.show();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(multiselect.overlayVisible).toBe(true);
+
+        const markForCheck = spyOn(multiselect.cd, 'markForCheck').and.callThrough();
+        const overlay = fixture.debugElement.query(By.css('p-overlay'));
+
+        overlay.triggerEventHandler('onHide', {});
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(multiselect.overlayVisible).toBe(false);
+        expect(markForCheck).toHaveBeenCalled();
+    });
+
+    it('should reset the focused option when the overlay reports onHide', async () => {
+        multiselect.show();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        multiselect.focusedOptionIndex.set(1);
+
+        fixture.debugElement.query(By.css('p-overlay')).triggerEventHandler('onHide', {});
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(multiselect.focusedOptionIndex()).toBe(-1);
     });
 });

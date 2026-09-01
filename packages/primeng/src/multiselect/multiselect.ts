@@ -301,7 +301,7 @@ export class MultiSelectItem extends BaseComponent {
             [motionOptions]="motionOptions()"
             (onBeforeEnter)="onOverlayBeforeEnter($event)"
             (onAfterLeave)="onOverlayAfterLeave($event)"
-            (onHide)="onOverlayHide($event)"
+            (onHide)="hide()"
         >
             <ng-template #content>
                 <div [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP" [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
@@ -2089,15 +2089,6 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
         this._filterValue.set(null);
         this._filteredOptions = null;
-    }
-
-    onOverlayHide(event: any) {
-        // Called when overlay completes its hide animation
-        // Don't call hide() again to avoid recursive calls
-        this.focusedOptionIndex.set(-1);
-        if (this.filter && this.resetFilterOnHide) {
-            this.resetFilter();
-        }
     }
 
     close(event: Event) {
