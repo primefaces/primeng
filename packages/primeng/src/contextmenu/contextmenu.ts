@@ -30,7 +30,6 @@ import {
 import { RouterModule } from '@angular/router';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import {
-    appendChild,
     calculateScrollbarWidth,
     findLastIndex,
     findSingle,
@@ -54,6 +53,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BindModule } from 'primeng/bind';
 import { AngleRightIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
+import { appendChild } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';

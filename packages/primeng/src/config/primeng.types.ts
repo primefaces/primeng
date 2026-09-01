@@ -90,6 +90,9 @@ export type ZIndex = {
 /** Theme configuration */
 export type ThemeType = { preset?: any; options?: any } | 'none' | boolean | undefined;
 
+/** Dynamic style container configuration */
+export type StyleContainerType = HTMLElement | ShadowRoot | null | undefined;
+
 export type ThemeConfigType = {
     theme?: ThemeType;
     csp?: {
@@ -189,7 +192,8 @@ export interface GlobalPassThrough {
 
 export type PrimeNGConfigType = {
     ripple?: boolean;
-    overlayAppendTo?: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    overlayAppendTo?: HTMLElement | ShadowRoot | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    styleContainer?: StyleContainerType;
     /**
      * @deprecated Since v20. Use `inputVariant` instead.
      */

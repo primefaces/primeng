@@ -1,10 +1,10 @@
 import { DOCUMENT } from '@angular/common';
 import { ApplicationRef, ComponentRef, EmbeddedViewRef, Inject, Injectable, Injector, Type, createComponent } from '@angular/core';
-import { appendChild } from '@primeuix/utils';
 import { DynamicDialog } from './dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogRef } from './dynamicdialog-ref';
+import { appendChild } from 'primeng/dom';
 
 /**
  * Dynamic Dialog component methods.
