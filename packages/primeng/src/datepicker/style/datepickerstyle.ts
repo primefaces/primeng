@@ -3,12 +3,16 @@ import { style as datepicker_style } from '@primeuix/styles/datepicker';
 import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
-${datepicker_style}
+    ${datepicker_style}
 
-/* For PrimeNG */
-.p-datepicker.ng-invalid.ng-dirty .p-inputtext {
-    border-color: dt('inputtext.invalid.border.color');
-}
+    /* For PrimeNG */
+    .p-datepicker.ng-invalid.ng-dirty .p-inputtext {
+        border-color: dt('inputtext.invalid.border.color');
+    }
+
+    .p-datepicker.ng-invalid.ng-dirty .p-inputtext::placeholder {
+        color: dt('inputtext.invalid.placeholder.color');
+    }
 `;
 
 const inlineStyles = {
