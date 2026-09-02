@@ -33,7 +33,7 @@ import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addStyle, appendChild, find, findSingle, getAttribute, isClickable, setAttribute } from '@primeuix/utils';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE, PERFORMANCE_CONTEXT } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Button, ButtonModule } from 'primeng/button';
 import { CheckboxChangeEvent, CheckboxModule } from 'primeng/checkbox';
@@ -353,7 +353,7 @@ export class TableService {
             <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
         </span>
     `,
-    providers: [TableService, TableStyle, { provide: TABLE_INSTANCE, useExisting: Table }, { provide: PARENT_INSTANCE, useExisting: Table }],
+    providers: [TableService, TableStyle, { provide: TABLE_INSTANCE, useExisting: Table }, { provide: PARENT_INSTANCE, useExisting: Table }, { provide: PERFORMANCE_CONTEXT, useExisting: Table }],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {

@@ -25,7 +25,7 @@ import { addClass, createElement, findSingle, isEmpty } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BadgeModule } from 'primeng/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE, PERFORMANCE_CONTEXT } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
@@ -54,7 +54,7 @@ const INTERNAL_BUTTON_CLASSES = {
 
 @Directive({
     selector: '[pButtonLabel]',
-    providers: [ButtonStyle, { provide: BUTTON_LABEL_INSTANCE, useExisting: ButtonLabel }, { provide: PARENT_INSTANCE, useExisting: ButtonLabel }],
+    providers: [ButtonStyle, { provide: BUTTON_LABEL_INSTANCE, useExisting: ButtonLabel }, { provide: PARENT_INSTANCE, useExisting: ButtonLabel }, { provide: PERFORMANCE_CONTEXT, useExisting: ButtonLabel }],
     standalone: true,
     host: {
         '[class.p-button-label]': '!$unstyled() && true'
@@ -107,7 +107,7 @@ export class ButtonLabel extends BaseComponent {
 
 @Directive({
     selector: '[pButtonIcon]',
-    providers: [ButtonStyle, { provide: BUTTON_ICON_INSTANCE, useExisting: ButtonIcon }, { provide: PARENT_INSTANCE, useExisting: ButtonIcon }],
+    providers: [ButtonStyle, { provide: BUTTON_ICON_INSTANCE, useExisting: ButtonIcon }, { provide: PARENT_INSTANCE, useExisting: ButtonIcon }, { provide: PERFORMANCE_CONTEXT, useExisting: ButtonIcon }],
     standalone: true,
     host: {
         '[class.p-button-icon]': '!$unstyled() && true'
@@ -164,7 +164,7 @@ export class ButtonIcon extends BaseComponent {
 @Directive({
     selector: '[pButton]',
     standalone: true,
-    providers: [ButtonStyle, { provide: BUTTON_DIRECTIVE_INSTANCE, useExisting: ButtonDirective }, { provide: PARENT_INSTANCE, useExisting: ButtonDirective }],
+    providers: [ButtonStyle, { provide: BUTTON_DIRECTIVE_INSTANCE, useExisting: ButtonDirective }, { provide: PARENT_INSTANCE, useExisting: ButtonDirective }, { provide: PERFORMANCE_CONTEXT, useExisting: ButtonDirective }],
     host: {
         '[class.p-button-icon-only]': '!$unstyled() && isIconOnly()',
         '[class.p-button-text]': ' !$unstyled() && isTextButton()'
@@ -304,6 +304,10 @@ export class ButtonDirective extends BaseComponent {
     }
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
+
+    private dynamicLabelElement: HTMLElement | undefined;
+
+    private dynamicIconElement: HTMLElement | undefined;
 
     pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
@@ -506,16 +510,17 @@ export class ButtonDirective extends BaseComponent {
     }
 
     createLabel() {
-        const created = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
+        const created = this.getDynamicLabelElement();
         if (!created && this.label) {
             let labelElement = <HTMLElement>createElement('span', { class: this.cx('label'), 'p-bind': this.ptm('buttonlabel'), 'aria-hidden': this.icon && !this.label ? 'true' : null });
             labelElement.appendChild(this.document.createTextNode(this.label));
             this.htmlElement.appendChild(labelElement);
+            this.dynamicLabelElement = labelElement;
         }
     }
 
     createIcon() {
-        const created = findSingle(this.htmlElement, '[data-pc-section="buttonicon"]');
+        const created = this.getDynamicIconElement();
         if (!created && (this.icon || this.loading)) {
             let iconPosClass = this.label && !this.$unstyled() ? 'p-button-icon-' + this.iconPos : null;
             let iconClass = !this.$unstyled() && this.getIconClass();
@@ -526,14 +531,16 @@ export class ButtonDirective extends BaseComponent {
             }
 
             this.htmlElement.insertBefore(iconElement, this.htmlElement.firstChild);
+            this.dynamicIconElement = iconElement;
         }
     }
 
     updateLabel() {
-        let labelElement = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
+        let labelElement = this.getDynamicLabelElement();
 
         if (!this.label) {
             labelElement && this.htmlElement.removeChild(labelElement);
+            this.dynamicLabelElement = undefined;
             return;
         }
 
@@ -541,8 +548,8 @@ export class ButtonDirective extends BaseComponent {
     }
 
     updateIcon() {
-        let iconElement = findSingle(this.htmlElement, '[data-pc-section="buttonicon"]');
-        let labelElement = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
+        let iconElement = this.getDynamicIconElement();
+        let labelElement = this.getDynamicLabelElement();
 
         if (this.loading && !this.loadingIcon && iconElement) {
             iconElement.innerHTML = this.spinnerIcon;
@@ -559,6 +566,26 @@ export class ButtonDirective extends BaseComponent {
         } else {
             this.createIcon();
         }
+    }
+
+    private getDynamicLabelElement() {
+        if (this.dynamicLabelElement && this.htmlElement.contains(this.dynamicLabelElement)) {
+            return this.dynamicLabelElement;
+        }
+
+        this.dynamicLabelElement = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]') as HTMLElement | undefined;
+
+        return this.dynamicLabelElement;
+    }
+
+    private getDynamicIconElement() {
+        if (this.dynamicIconElement && this.htmlElement.contains(this.dynamicIconElement)) {
+            return this.dynamicIconElement;
+        }
+
+        this.dynamicIconElement = findSingle(this.htmlElement, '[data-pc-section="buttonicon"]') as HTMLElement | undefined;
+
+        return this.dynamicIconElement;
     }
 
     getIconClass() {
@@ -627,7 +654,7 @@ export class ButtonDirective extends BaseComponent {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ButtonStyle, { provide: BUTTON_INSTANCE, useExisting: Button }, { provide: PARENT_INSTANCE, useExisting: Button }],
+    providers: [ButtonStyle, { provide: BUTTON_INSTANCE, useExisting: Button }, { provide: PARENT_INSTANCE, useExisting: Button }, { provide: PERFORMANCE_CONTEXT, useExisting: Button }],
     hostDirectives: [Bind]
 })
 export class Button extends BaseComponent<ButtonPassThrough> {

@@ -9,6 +9,13 @@ import { BaseComponentStyle } from './style/basecomponentstyle';
 
 export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANCE');
 
+export interface BaseComponentPerformanceContext {
+    themeReactive?: () => boolean | undefined;
+    scopedTokens?: () => boolean | undefined;
+}
+
+export const PERFORMANCE_CONTEXT = new InjectionToken<BaseComponentPerformanceContext>('PERFORMANCE_CONTEXT');
+
 @Directive({
     standalone: true,
     providers: [BaseComponentStyle, BaseStyle]
@@ -30,6 +37,8 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     public $parentInstance: BaseComponent | undefined = inject(PARENT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
+    public $performanceContext: BaseComponentPerformanceContext | undefined = inject(PERFORMANCE_CONTEXT, { optional: true, skipSelf: true }) ?? undefined;
+
     public baseComponentStyle: BaseComponentStyle = inject(BaseComponentStyle);
 
     public baseStyle: BaseStyle = inject(BaseStyle);
@@ -43,6 +52,26 @@ export class BaseComponent<PT = any> implements Lifecycle {
     private _themeScopedListener: () => void;
 
     private themeChangeListenerMap: Map<string, any> = new Map();
+
+    private ptmCache: Map<string, Record<string, any>> = new Map();
+
+    private ptmsCache: Map<string, Record<string, any>> = new Map();
+
+    private cxStaticCache: Map<string, string | undefined> = new Map();
+
+    private sxStaticCache: Map<string, Record<string, any> | undefined> = new Map();
+
+    private styleCache: any;
+
+    private emptyPT: Record<string, any> = {};
+
+    private paramsCache: any;
+
+    private paramsCacheName: string | undefined;
+
+    private paramsCacheHostName: any;
+
+    private paramsCacheParentInstance: BaseComponent | undefined;
 
     /******************** Inputs ********************/
 
@@ -70,6 +99,18 @@ export class BaseComponent<PT = any> implements Lifecycle {
      * @defaultValue undefined
      */
     ptOptions = input<PassThroughOptions | undefined>();
+    /**
+     * Enables per-instance theme change reactivity.
+     * Set to `false` in performance-sensitive component subtrees when runtime theme changes are not needed.
+     * @defaultValue undefined
+     */
+    themeReactive = input<boolean | undefined>();
+    /**
+     * Enables scoped design token handling through the `dt` input.
+     * Set to `false` in performance-sensitive component subtrees when scoped tokens are not used.
+     * @defaultValue undefined
+     */
+    scopedTokens = input<boolean | undefined>();
 
     /******************** Computed ********************/
 
@@ -108,7 +149,19 @@ export class BaseComponent<PT = any> implements Lifecycle {
     }
 
     get $style() {
-        return { theme: undefined, css: undefined, classes: undefined, inlineStyles: undefined, ...(this._getHostInstance(this) || {}).$style, ...this['_componentStyle'] };
+        if (this.styleCache) {
+            return this.styleCache;
+        }
+
+        const hostStyle = (this._getHostInstance(this) || {}).$style;
+        const componentStyle = this['_componentStyle'];
+        const style = { theme: undefined, css: undefined, classes: undefined, inlineStyles: undefined, ...hostStyle, ...componentStyle };
+
+        if (hostStyle || componentStyle) {
+            this.styleCache = style;
+        }
+
+        return style;
     }
 
     get $styleOptions() {
@@ -116,14 +169,25 @@ export class BaseComponent<PT = any> implements Lifecycle {
     }
 
     get $params() {
+        const name = this.$name;
+        const hostName = this.$hostName;
         const parentInstance = this._getHostInstance(this) || this.$parentInstance;
 
-        return {
+        if (this.paramsCache && this.paramsCacheName === name && this.paramsCacheHostName === hostName && this.paramsCacheParentInstance === parentInstance) {
+            return this.paramsCache;
+        }
+
+        this.paramsCacheName = name;
+        this.paramsCacheHostName = hostName;
+        this.paramsCacheParentInstance = parentInstance;
+        this.paramsCache = {
             instance: this as any,
             parent: {
                 instance: parentInstance
             }
         };
+
+        return this.paramsCache;
     }
 
     /******************** Lifecycle Hooks ********************/
@@ -166,10 +230,13 @@ export class BaseComponent<PT = any> implements Lifecycle {
         // watch _dt_ changes
         effect((onCleanup) => {
             if (this.document && !isPlatformServer(this.platformId)) {
-                if (this.dt()) {
+                if (this._isScopedTokensEnabled() && this.dt()) {
                     this._loadScopedThemeStyles(this.dt());
-                    this._themeScopedListener = () => this._loadScopedThemeStyles(this.dt());
-                    this._themeChangeListener('_themeScopedListener', this._themeScopedListener);
+
+                    if (this._isThemeReactive()) {
+                        this._themeScopedListener = () => this._loadScopedThemeStyles(this.dt());
+                        this._themeChangeListener('_themeScopedListener', this._themeScopedListener);
+                    }
                 } else {
                     this._unloadScopedThemeStyles();
                 }
@@ -183,7 +250,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
         // watch _unstyled_ changes
         effect((onCleanup) => {
             if (this.document && !isPlatformServer(this.platformId)) {
-                if (!this.$unstyled()) {
+                if (this._isThemeReactive() && !this.$unstyled() && this._hasCoreStyles()) {
                     this._loadCoreStyles();
                     this._themeChangeListener('_loadCoreStyles', this._loadCoreStyles); // Update styles with theme settings
                 }
@@ -203,7 +270,10 @@ export class BaseComponent<PT = any> implements Lifecycle {
      * Use 'onInit()' in subclasses instead.
      */
     ngOnInit() {
-        this._loadCoreStyles();
+        if (this._hasCoreStyles()) {
+            this._loadCoreStyles();
+        }
+
         this._loadStyles();
 
         this.onInit();
@@ -257,7 +327,9 @@ export class BaseComponent<PT = any> implements Lifecycle {
      */
     ngAfterViewInit() {
         // @todo - remove this after implementing pt for root
-        this.$el?.setAttribute(this.$attrSelector, '');
+        if (this.config?.ptMetadata()) {
+            this.$el?.setAttribute(this.$attrSelector, '');
+        }
 
         this.onAfterViewInit();
         this._hook('onAfterViewInit');
@@ -304,8 +376,46 @@ export class BaseComponent<PT = any> implements Lifecycle {
         return getKeyValue(options, key, params);
     }
 
+    private _getRawOptionValue(options: any, key = '') {
+        if (!key || !options) {
+            return options;
+        }
+
+        return key.split('.').reduce((acc, part) => acc?.[part], options);
+    }
+
+    private _isStaticClassValue(value: any) {
+        return isString(value) || (isArray(value) && value.every((item) => isString(item)));
+    }
+
+    private _isStaticStyleValue(value: any) {
+        return !isFunction(value);
+    }
+
+    private _getInheritedBooleanOption(name: string, defaultValue = true) {
+        const ownValue = this[name]?.();
+
+        if (ownValue !== undefined) {
+            return ownValue;
+        }
+
+        const parentInstance = this._getHostInstance(this) || this.$parentInstance;
+        const parentValue = parentInstance?.[name];
+        const contextValue = this.$performanceContext?.[name];
+
+        return (isFunction(parentValue) ? parentValue.call(parentInstance) : parentValue) ?? (isFunction(contextValue) ? contextValue.call(this.$performanceContext) : contextValue) ?? defaultValue;
+    }
+
+    private _isThemeReactive() {
+        return this._getInheritedBooleanOption('themeReactive');
+    }
+
+    private _isScopedTokensEnabled() {
+        return this._getInheritedBooleanOption('scopedTokens');
+    }
+
     private _hook(hookName: string, ...args: any[]) {
-        if (!this.$hostName) {
+        if (this.config?.ptBinding() && !this.$hostName && this._hasPTConfig()) {
             const selfHook = this._usePT(this._getPT(this.$pt(), this.$name), this._getOptionValue, `hooks.${hookName}`);
             const defaultHook = this._useDefaultPT(this._getOptionValue, `hooks.${hookName}`);
 
@@ -329,7 +439,10 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     private _loadStyles() {
         this._load();
-        this._themeChangeListener('_load', () => this._load());
+
+        if (this._isThemeReactive()) {
+            this._themeChangeListener('_load', () => this._load());
+        }
     }
 
     private _loadGlobalStyles() {
@@ -345,6 +458,10 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
             Base.setLoadedStyleName(this.$style.name);
         }
+    }
+
+    private _hasCoreStyles() {
+        return !!(this.baseComponentStyle?.css || this.$style?.css);
     }
 
     private _loadThemeStyles() {
@@ -393,11 +510,17 @@ export class BaseComponent<PT = any> implements Lifecycle {
     }
 
     private _themeChangeListener(id: string, callback = () => {}) {
+        Base._ensureThemeChangeWired();
         this._offThemeChangeListener(id);
-        Base.clearLoadedStyleNames();
         const hold = callback.bind(this);
-        this.themeChangeListenerMap.set(id, hold);
-        ThemeService.on('theme:change', hold);
+        const styleName = this.$style?.name;
+
+        if ((id === '_load' || id === '_loadCoreStyles') && styleName) {
+            this.themeChangeListenerMap.set(id, Base._registerGroupedThemeChangeListener(`${id}:${styleName}`, hold));
+        } else {
+            this.themeChangeListenerMap.set(id, () => ThemeService.off('theme:change', hold));
+            ThemeService.on('theme:change', hold);
+        }
     }
 
     private _removeThemeListeners() {
@@ -408,7 +531,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     private _offThemeChangeListener(id: string) {
         if (this.themeChangeListenerMap.has(id)) {
-            ThemeService.off('theme:change', this.themeChangeListenerMap.get(id));
+            this.themeChangeListenerMap.get(id)?.();
             this.themeChangeListenerMap.delete(id);
         }
     }
@@ -426,6 +549,10 @@ export class BaseComponent<PT = any> implements Lifecycle {
     }
 
     private _getPTDatasets(key = '') {
+        if (!this.config?.ptBinding() || !this.config?.ptMetadata()) {
+            return undefined;
+        }
+
         const datasetPrefix = 'data-pc-';
         const isExtended = key === 'root' && isNotEmpty(this.$pt()?.['data-pc-section']);
 
@@ -439,6 +566,26 @@ export class BaseComponent<PT = any> implements Lifecycle {
                 [`${datasetPrefix}section`]: toFlatCase(key.includes('.') ? (key.split('.').at(-1) ?? '') : key)
             }
         );
+    }
+
+    private _hasPTConfig() {
+        return !!(this.pt() || this.directivePT() || this.config?.pt());
+    }
+
+    private _hasPTParams(params: Record<string, any> | undefined) {
+        return params ? Object.keys(params).length > 0 : false;
+    }
+
+    private _getCachedPTMDatasets(key = '') {
+        let cached = this.ptmCache.get(key);
+
+        if (!cached) {
+            const datasets = this._getPTDatasets(key);
+            cached = datasets ? { ...datasets } : {};
+            this.ptmCache.set(key, cached);
+        }
+
+        return cached;
     }
 
     private _getPTClassValue(options?: any, key?: any, params?: any) {
@@ -493,29 +640,107 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     /******************** Exposed API ********************/
 
-    public ptm(key = '', params = {}) {
+    public ptm(key = '', params?: Record<string, any>) {
+        if (!this.config?.ptBinding()) {
+            return this.emptyPT;
+        }
+
+        if (!this._hasPTConfig() && !this._hasPTParams(params)) {
+            return this._getCachedPTMDatasets(key);
+        }
+
         return this._getPTValue(this.$pt() as any, key, { ...this.$params, ...params });
     }
 
-    public ptms(keys: string[], params = {}) {
-        return keys.reduce((acc, arg) => {
-            acc = mergeProps(acc, this.ptm(arg, params)) || {};
-            return acc;
-        }, {});
+    public ptms(keys: string[], params?: Record<string, any>) {
+        if (!this.config?.ptBinding()) {
+            return this.emptyPT;
+        }
+
+        if (!this._hasPTConfig() && !this._hasPTParams(params)) {
+            const cacheKey = keys.join('|');
+            let cached = this.ptmsCache.get(cacheKey);
+
+            if (!cached) {
+                cached =
+                    keys.reduce((acc, arg) => {
+                        acc = mergeProps(acc, this._getCachedPTMDatasets(arg)) || {};
+                        return acc;
+                    }, {}) || {};
+                this.ptmsCache.set(cacheKey, cached);
+            }
+
+            return cached;
+        }
+
+        return (
+            keys.reduce((acc, arg) => {
+                acc = mergeProps(acc, this.ptm(arg, params)) || {};
+                return acc;
+            }, {}) || {}
+        );
     }
 
     public ptmo(obj = {}, key = '', params = {}) {
+        if (!this.config?.ptBinding()) {
+            return this.emptyPT;
+        }
+
         return this._getPTValue(obj, key, { instance: this, ...params }, false);
     }
 
     public cx(key: string, params = {}) {
-        return !this.$unstyled() ? cn(this._getOptionValue(this.$style.classes, key, { ...this.$params, ...params })) : undefined;
+        if (this.$unstyled()) {
+            return undefined;
+        }
+
+        if (!this._hasPTParams(params)) {
+            if (this.cxStaticCache.has(key)) {
+                return this.cxStaticCache.get(key);
+            }
+
+            const rawValue = this._getRawOptionValue(this.$style.classes, key);
+
+            if (this._isStaticClassValue(rawValue)) {
+                const className = cn(rawValue);
+
+                this.cxStaticCache.set(key, className);
+
+                return className;
+            }
+        }
+
+        return cn(this._getOptionValue(this.$style.classes, key, { ...this.$params, ...params }));
     }
 
     public sx(key = '', when = true, params = {}) {
         if (when) {
+            if (!this._hasPTParams(params)) {
+                const rawSelf = this._getRawOptionValue(this.$style.inlineStyles, key);
+                const rawBase = this._getRawOptionValue(this.baseComponentStyle.inlineStyles, key);
+
+                if (this._isStaticStyleValue(rawSelf) && this._isStaticStyleValue(rawBase)) {
+                    const cacheKey = key || '$root';
+
+                    if (this.sxStaticCache.has(cacheKey)) {
+                        return this.sxStaticCache.get(cacheKey);
+                    }
+
+                    const style = { ...rawBase, ...rawSelf };
+                    const cached = isNotEmpty(style) ? style : undefined;
+
+                    this.sxStaticCache.set(cacheKey, cached);
+
+                    return cached;
+                }
+            }
+
             const self = this._getOptionValue(this.$style.inlineStyles, key, { ...this.$params, ...params }) as Record<string, any>;
             const base = this._getOptionValue(this.baseComponentStyle.inlineStyles, key, { ...this.$params, ...params }) as Record<string, any>;
+
+            if (!isNotEmpty(base) && !isNotEmpty(self)) {
+                return undefined;
+            }
 
             return { ...base, ...self };
         }

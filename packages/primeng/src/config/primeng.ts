@@ -28,6 +28,10 @@ export class PrimeNG extends ThemeProvider {
 
     ptOptions = signal<PrimeNGConfigType['ptOptions']>(undefined);
 
+    ptMetadata = signal<boolean>(true);
+
+    ptBinding = signal<boolean>(true);
+
     filterMatchModeOptions = {
         text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
         numeric: [FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS, FilterMatchMode.LESS_THAN, FilterMatchMode.LESS_THAN_OR_EQUAL_TO, FilterMatchMode.GREATER_THAN, FilterMatchMode.GREATER_THAN_OR_EQUAL_TO],
@@ -186,7 +190,7 @@ export class PrimeNG extends ThemeProvider {
     }
 
     setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo, zIndex, ptOptions, pt, unstyled } = config || {};
+        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo, zIndex, ptOptions, pt, ptMetadata, ptBinding, unstyled } = config || {};
 
         if (csp) this.csp.set(csp);
         if (overlayAppendTo) this.overlayAppendTo.set(overlayAppendTo);
@@ -199,6 +203,8 @@ export class PrimeNG extends ThemeProvider {
         if (zIndex) this.zIndex = zIndex;
         if (pt) this.pt.set(pt);
         if (ptOptions) this.ptOptions.set(ptOptions);
+        if (ptMetadata !== undefined) this.ptMetadata.set(ptMetadata);
+        if (ptBinding !== undefined) this.ptBinding.set(ptBinding);
         if (unstyled) this.unstyled.set(unstyled);
 
         if (theme)
