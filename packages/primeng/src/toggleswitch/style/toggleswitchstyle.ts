@@ -8,6 +8,36 @@ const style = /*css*/ `
     p-toggleswitch.ng-invalid.ng-dirty > .p-toggleswitch-slider {
         border-color: dt('toggleswitch.invalid.border.color');
     }
+
+    .p-toggleswitch-sm {
+        width: 2rem;
+        height: 1.25rem;
+    }
+
+    .p-toggleswitch-sm .p-toggleswitch-handle {
+        width: 0.875rem;
+        height: 0.875rem;
+        margin-block-start: calc(-1 * calc(0.875rem / 2));
+    }
+
+    .p-toggleswitch-sm.p-toggleswitch-checked .p-toggleswitch-handle {
+        inset-inline-start: calc(2rem - calc(0.875rem + dt('toggleswitch.gap')));
+    }
+
+    .p-toggleswitch-lg {
+        width: 3rem;
+        height: 1.75rem;
+    }
+
+    .p-toggleswitch-lg .p-toggleswitch-handle {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-block-start: calc(-1 * calc(1.25rem / 2));
+    }
+
+    .p-toggleswitch-lg.p-toggleswitch-checked .p-toggleswitch-handle {
+        inset-inline-start: calc(3rem - calc(1.25rem + dt('toggleswitch.gap')));
+    }
 `;
 
 const inlineStyles = {
@@ -20,6 +50,8 @@ const classes = {
         {
             'p-toggleswitch p-component': true,
             'p-toggleswitch-checked': instance.checked(),
+            'p-toggleswitch-sm': instance.size() === 'small',
+            'p-toggleswitch-lg': instance.size() === 'large',
             'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid()
         }
