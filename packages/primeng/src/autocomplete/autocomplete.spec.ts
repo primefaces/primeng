@@ -1366,6 +1366,55 @@ describe('AutoComplete', () => {
             }
         });
 
+        it('should provide an accessible name for the multiple listbox', async () => {
+            testComponent.multiple = true;
+            testComponent.ariaLabel = undefined as any;
+            testComponent.ariaLabelledBy = undefined as any;
+            testComponent.placeholder = 'Select tags';
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+
+            const listElement = testFixture.debugElement.query(By.css('ul[role="listbox"]'));
+
+            expect(listElement.nativeElement.getAttribute('aria-label')).toBe('Select tags');
+            expect(listElement.nativeElement.getAttribute('aria-labelledby')).toBeNull();
+        });
+
+        it('should support labelledby for the multiple listbox', async () => {
+            testComponent.multiple = true;
+            testComponent.ariaLabelledBy = 'autocomplete-label';
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+
+            const listElement = testFixture.debugElement.query(By.css('ul[role="listbox"]'));
+
+            expect(listElement.nativeElement.getAttribute('aria-labelledby')).toBe('autocomplete-label');
+        });
+
+        it('should provide a default accessible name for the multiple listbox', async () => {
+            testComponent.multiple = true;
+            testComponent.ariaLabel = undefined as any;
+            testComponent.ariaLabelledBy = undefined as any;
+            testComponent.placeholder = undefined as any;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+
+            const listElement = testFixture.debugElement.query(By.css('ul[role="listbox"]'));
+
+            expect(listElement.nativeElement.getAttribute('aria-label')).toBe('Option List');
+        });
+
+        it('should not render the multiple input wrapper as an option', async () => {
+            testComponent.multiple = true;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+
+            const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+            const inputWrapper = inputElement.nativeElement.closest('li');
+
+            expect(inputWrapper.getAttribute('role')).toBe('presentation');
+        });
+
         it('should support keyboard navigation', () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
 
