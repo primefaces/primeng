@@ -1034,13 +1034,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         this.contentViewChild = content;
 
         if (this.contentViewChild && this.overlay) {
-            if (this.isMonthNavigate) {
-                Promise.resolve(null).then(() => this.updateFocus());
-                this.isMonthNavigate = false;
-            } else {
-                if (!this.focus && !this.inline) {
-                    this.initFocusableCell();
-                }
+            if (!this.focus && !this.inline) {
+                this.initFocusableCell();
             }
         }
     }
@@ -1241,8 +1236,6 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     documentResizeListener: VoidListener;
 
     navigationState: Nullable<NavigationState> = null;
-
-    isMonthNavigate: Nullable<boolean>;
 
     initialized: Nullable<boolean>;
 
@@ -1571,8 +1564,6 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             return;
         }
 
-        this.isMonthNavigate = true;
-
         if (this.currentView === 'month') {
             this.decrementYear();
             setTimeout(() => {
@@ -1587,8 +1578,14 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             if (this.currentMonth === 0) {
                 this.currentMonth = 11;
                 this.decrementYear();
+                setTimeout(() => {
+                    this.updateFocus();
+                }, 1);
             } else {
                 this.currentMonth--;
+                setTimeout(() => {
+                    this.updateFocus();
+                }, 1);
             }
 
             this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
@@ -1601,8 +1598,6 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             event.preventDefault();
             return;
         }
-
-        this.isMonthNavigate = true;
 
         if (this.currentView === 'month') {
             this.incrementYear();
@@ -1618,8 +1613,14 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             if (this.currentMonth === 11) {
                 this.currentMonth = 0;
                 this.incrementYear();
+                setTimeout(() => {
+                    this.updateFocus();
+                }, 1);
             } else {
                 this.currentMonth++;
+                setTimeout(() => {
+                    this.updateFocus();
+                }, 1);
             }
 
             this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
@@ -1716,6 +1717,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             this.setCurrentView('date');
             this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         }
+        this.updateFocus();
     }
 
     onYearSelect(event: Event, year: number) {
@@ -1726,6 +1728,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             this.setCurrentView('month');
             this.onYearChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         }
+        this.updateFocus();
     }
 
     updateInputfield() {
