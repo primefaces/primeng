@@ -377,7 +377,10 @@ export class ButtonDirective extends BaseComponent {
 
         if (val && typeof val === 'object') {
             //@ts-ignore
-            Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
+            Object.entries(val).forEach(([k, v]) => this[k] !== v && (this[k] = v));
+            if (this.initialized) {
+                this.setStyleClass();
+            }
         }
     }
 

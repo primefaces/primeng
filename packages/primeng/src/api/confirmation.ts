@@ -1,4 +1,5 @@
 import { EventEmitter } from '@angular/core';
+import type { ButtonProps } from 'primeng/button';
 
 /**
  * Represents a confirmation dialog configuration.
@@ -92,15 +93,15 @@ export interface Confirmation {
     /**
      * Accept button properties.
      */
-    acceptButtonProps?: any;
+    acceptButtonProps?: ButtonProps;
     /**
      * Reject button properties.
      */
-    rejectButtonProps?: any;
+    rejectButtonProps?: ButtonProps;
     /**
      * Close button properties.
      */
-    closeButtonProps?: any;
+    closeButtonProps?: ButtonProps;
     /**
      * Defines if the dialog is closable.
      */
