@@ -96,7 +96,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
                 <svg data-p-icon="check" *ngIf="selected" [class]="cx('optionCheckIcon')" [pBind]="$pcSelect?.ptm('optionCheckIcon')" />
                 <svg data-p-icon="blank" *ngIf="!selected" [class]="cx('optionBlankIcon')" [pBind]="$pcSelect?.ptm('optionBlankIcon')" />
             </ng-container>
-            <span *ngIf="!template" [pBind]="$pcSelect?.ptm('optionLabel')">{{ label ?? 'empty' }}</span>
+            <span *ngIf="!template" [class]="cx('optionLabel')" [pBind]="$pcSelect?.ptm('optionLabel')">{{ label ?? 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
     `,
@@ -272,7 +272,7 @@ export class SelectItem extends BaseComponent {
             #overlay
             [hostAttrSelector]="$attrSelector"
             [(visible)]="overlayVisible"
-            [options]="overlayOptions"
+            [options]="{ ...overlayOptions, autoMaxWidth: autoWidth }"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
             [unstyled]="unstyled()"
@@ -680,6 +680,11 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocusFilter: boolean = true;
+    /**
+     * Whether the width of the overlay mirrors the width of the component.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autoWidth: boolean = true;
     /**
      * When specified, filter displays with this value.
      * @group Props
