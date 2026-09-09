@@ -80,7 +80,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                         </a>
                     }
                 </li>
-                <li *ngIf="model && home" [class]="cx('separator')" [pBind]="ptm('separator')">
+                <li *ngIf="model && home" [class]="cx('separator')" [pBind]="ptm('separator')" aria-hidden="true">
                     <svg data-p-icon="chevron-right" *ngIf="!separatorTemplate && !_separatorTemplate" [pBind]="ptm('separatorIcon')" />
                     <ng-template *ngTemplateOutlet="separatorTemplate || _separatorTemplate"></ng-template>
                 </li>
@@ -157,7 +157,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                             </a>
                         }
                     </li>
-                    <li *ngIf="!end && menuitem.visible !== false" [class]="cx('separator')" [pBind]="ptm('separator')">
+                    <li *ngIf="!end && menuitem.visible !== false" [class]="cx('separator')" [pBind]="ptm('separator')" aria-hidden="true">
                         <svg data-p-icon="chevron-right" *ngIf="!separatorTemplate && !_separatorTemplate" [pBind]="ptm('separatorIcon')" />
                         <ng-template *ngTemplateOutlet="separatorTemplate || _separatorTemplate"></ng-template>
                     </li>
