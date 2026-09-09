@@ -745,6 +745,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     close(event: Event) {
         this.visible = false;
         this.visibleChange.emit(this.visible);
+        this.cd.markForCheck();
         event.preventDefault();
     }
 
