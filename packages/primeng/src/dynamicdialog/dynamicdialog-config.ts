@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { Binding, Type } from '@angular/core';
 import type { DialogPassThrough } from 'primeng/types/dialog';
 
 /**
@@ -196,6 +196,11 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      * @group Props
      */
     unstyled?: boolean;
+    /**
+     * An array of Angular Bindings (providers) to pass to the dynamically created component.
+     * @group Props
+     */
+    bindings?: Binding[];
 }
 
 /**
