@@ -20,6 +20,10 @@ ${datatable_style}
     z-index: 1;
 }
 
+.p-datatable-frozen-column {
+    z-index: 1;
+}
+
 .p-datatable-mask.p-overlay-mask {
     position: absolute;
     display: flex;
