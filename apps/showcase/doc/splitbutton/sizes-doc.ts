@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService, ToastSeverity } from 'primeng/api';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 
@@ -47,7 +47,7 @@ export class SizesDoc {
 
     items: MenuItem[];
 
-    save(severity: string) {
+    save(severity: ToastSeverity) {
         this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
     }
 

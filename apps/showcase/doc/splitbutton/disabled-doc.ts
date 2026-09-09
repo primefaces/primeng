@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService, ToastSeverity } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -48,7 +48,7 @@ export class DisabledDoc {
 
     items: MenuItem[];
 
-    save(severity: string) {
+    save(severity: ToastSeverity) {
         this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
     }
 

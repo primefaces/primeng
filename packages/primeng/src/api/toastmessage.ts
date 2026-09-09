@@ -1,10 +1,10 @@
 /**
- * Deines valid options for the toast message.
+ * Defines valid options for the toast message.
  * @group Interface
  */
 export interface ToastMessageOptions {
     text?: any;
-    severity?: string;
+    severity?: ToastSeverity;
     summary?: string;
     detail?: string;
     id?: any;
@@ -18,3 +18,5 @@ export interface ToastMessageOptions {
     styleClass?: string;
     closeIcon?: string;
 }
+
+export type ToastSeverity = 'success' | 'info' | 'warn' | 'error' | 'danger' | 'secondary' | 'contrast' | 'custom';
