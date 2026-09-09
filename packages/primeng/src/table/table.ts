@@ -275,7 +275,7 @@ export class TableService {
                     <tbody
                         role="rowgroup"
                         *ngIf="scrollerOptions.spacerStyle"
-                        [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
+                        [style]="'height: min(17000000px, calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px));'"
                         [class]="cx('virtualScrollerSpacer')"
                         [pBind]="ptm('virtualScrollerSpacer')"
                     ></tbody>
