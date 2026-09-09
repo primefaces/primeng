@@ -1065,6 +1065,68 @@ describe('Menu', () => {
 
             expect(dynamicMenu.model.length).toBe(0);
         });
+
+        it('should reuse flat menu item elements when model items are recomputed', async () => {
+            const dynamicFixture = TestBed.createComponent(TestDynamicMenuComponent);
+            const dynamicComponent = dynamicFixture.componentInstance;
+            dynamicComponent.dynamicModel = [{ label: 'Item 1', icon: 'pi pi-test' }];
+            dynamicFixture.detectChanges();
+            await dynamicFixture.whenStable();
+
+            const itemElement = dynamicFixture.nativeElement.querySelector('li[data-pc-section="item"]') as HTMLElement;
+
+            expect(itemElement).toBeTruthy();
+            expect(itemElement.textContent).toContain('Item 1');
+
+            dynamicComponent.dynamicModel = [{ label: 'Item 1 updated', icon: 'pi pi-test' }];
+            dynamicFixture.changeDetectorRef.markForCheck();
+            dynamicFixture.detectChanges();
+            await dynamicFixture.whenStable();
+
+            const updatedItemElement = dynamicFixture.nativeElement.querySelector('li[data-pc-section="item"]') as HTMLElement;
+
+            expect(updatedItemElement).toBe(itemElement);
+            expect(updatedItemElement.textContent).toContain('Item 1 updated');
+        });
+
+        it('should reuse grouped menu item elements when submenu items are recomputed', async () => {
+            const submenuFixture = TestBed.createComponent(TestSubmenuMenuComponent);
+            const submenuComponent = submenuFixture.componentInstance;
+            submenuComponent.submenuModel = [
+                {
+                    label: 'Group',
+                    items: [
+                        { label: 'Item 1', icon: 'pi pi-test' },
+                        { label: 'Item 2', icon: 'pi pi-test2' }
+                    ]
+                }
+            ];
+            submenuFixture.detectChanges();
+            await submenuFixture.whenStable();
+
+            const itemElement = submenuFixture.nativeElement.querySelector('li[data-pc-section="item"]') as HTMLElement;
+
+            expect(itemElement).toBeTruthy();
+            expect(itemElement.textContent).toContain('Item 1');
+
+            submenuComponent.submenuModel = [
+                {
+                    label: 'Group',
+                    items: [
+                        { label: 'Item 1 updated', icon: 'pi pi-test' },
+                        { label: 'Item 2', icon: 'pi pi-test2' }
+                    ]
+                }
+            ];
+            submenuFixture.changeDetectorRef.markForCheck();
+            submenuFixture.detectChanges();
+            await submenuFixture.whenStable();
+
+            const updatedItemElement = submenuFixture.nativeElement.querySelector('li[data-pc-section="item"]') as HTMLElement;
+
+            expect(updatedItemElement).toBe(itemElement);
+            expect(updatedItemElement.textContent).toContain('Item 1 updated');
+        });
     });
 
     describe('Popup Menu Tests', () => {
