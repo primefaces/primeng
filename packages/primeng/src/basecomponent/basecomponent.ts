@@ -36,6 +36,10 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     public scopedStyleEl: any;
 
+    // Declared before `parent` (which reads `$params` during construction) so this define-semantics
+    // field initializer does not reset a cache already populated at construction time.
+    private _$paramsCache: { instance: any; parent: { instance: BaseComponent | undefined } } | undefined;
+
     public parent = this.$params.parent;
 
     protected readonly cn = cn;
@@ -116,14 +120,17 @@ export class BaseComponent<PT = any> implements Lifecycle {
     }
 
     get $params() {
-        const parentInstance = this._getHostInstance(this) || this.$parentInstance;
-
-        return {
+        // Memoized: `instance` is `this` and the resolved parent (host-instance chain walk or the
+        // injected `$parentInstance`) are both fixed for the component's lifetime, so this is
+        // computed once. `instance` stays the live `this`, so style/PT functions still read live
+        // state. Eliminates the per-call `_getHostInstance` chain walk and object allocation that
+        // ran inside every `cx()`/`sx()`/`ptm()` on every change detection cycle.
+        return (this._$paramsCache ??= {
             instance: this as any,
             parent: {
-                instance: parentInstance
+                instance: this._getHostInstance(this) || this.$parentInstance
             }
-        };
+        });
     }
 
     /******************** Lifecycle Hooks ********************/
