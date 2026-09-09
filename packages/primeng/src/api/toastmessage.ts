@@ -1,5 +1,5 @@
 /**
- * Deines valid options for the toast message.
+ * Defines valid options for the toast message.
  * @group Interface
  */
 export interface ToastMessageOptions {
