@@ -849,6 +849,7 @@ MultiSelect is used to select multiple items from a collection.
 | optionLabel | string | - | Name of the label field of an option. |
 | optionValue | string | - | Name of the value field of an option. |
 | optionDisabled | string | - | Name of the disabled field of an option. |
+| optionTooltip  | string | - | Name of the tooltip field of an option. |
 | optionGroupLabel | string | label | Name of the label field of an option group. |
 | optionGroupChildren | string | items | Name of the options field of an option group. |
 | showHeader | boolean | true | Whether to show the header. |
