@@ -27,12 +27,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
-import { absolutePosition, addClass, appendChild, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { absolutePosition, addClass, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { appendChild, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { MotionModule } from 'primeng/motion';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
