@@ -3644,12 +3644,15 @@ export class FrozenColumn extends BaseComponent {
                 this.el.nativeElement.style.left = left + 'px';
             }
 
-            const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
-            if (filterRow) {
+            const nextRow = this.el.nativeElement?.parentElement?.nextElementSibling;
+            const isHeaderCell = this.el.nativeElement?.tagName === 'TH';
+            const nextRowIsFilterRow = !!nextRow && !!DomHandler.findSingle(nextRow, '[data-pc-section="columnfilter"]');
+
+            if (isHeaderCell && nextRow && nextRowIsFilterRow) {
                 let index = DomHandler.index(this.el.nativeElement);
-                if (filterRow.children && filterRow.children[index]) {
-                    filterRow.children[index].style.left = this.el.nativeElement.style.left;
-                    filterRow.children[index].style.right = this.el.nativeElement.style.right;
+                if (nextRow.children && nextRow.children[index]) {
+                    nextRow.children[index].style.left = this.el.nativeElement.style.left;
+                    nextRow.children[index].style.right = this.el.nativeElement.style.right;
                 }
             }
         }
