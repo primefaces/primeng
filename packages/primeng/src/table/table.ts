@@ -1654,7 +1654,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             else if ((<SortMeta[]>this.multiSortMeta)[0].field !== this.groupRowsBy) this._multiSortMeta = [this.getGroupRowsMeta(), ...this._multiSortMeta];
         }
 
-        if (this.multiSortMeta) {
+        if (this.multiSortMeta && this.multiSortMeta.length > 0) {
             if (this.lazy) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             } else if (this.value) {
