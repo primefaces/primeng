@@ -135,6 +135,21 @@ class TestDatePickerComponent {
 
 @Component({
     standalone: false,
+    template: ` <p-datepicker [(ngModel)]="rangeDates" [minDate]="today" [inline]="true" selectionMode="range" [readonlyInput]="true"></p-datepicker> `
+})
+class TestGetterMinDateDatePickerComponent {
+    rangeDates: Date[] | null = null as any;
+
+    get today(): Date {
+        const date = new Date(2026, 4, 4);
+        date.setHours(0, 0, 0, 0);
+
+        return date;
+    }
+}
+
+@Component({
+    standalone: false,
     template: `
         <form [formGroup]="form">
             <p-datepicker formControlName="date" [dateFormat]="'dd/mm/yy'" [placeholder]="'Select date'"></p-datepicker>
@@ -361,7 +376,7 @@ describe('DatePicker', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule],
-            declarations: [TestDatePickerComponent, TestReactiveFormDatePickerComponent, TestTemplatesDatePickerComponent, TestPTemplatesDatePickerComponent, TestRefTemplatesDatePickerComponent],
+            declarations: [TestDatePickerComponent, TestGetterMinDateDatePickerComponent, TestReactiveFormDatePickerComponent, TestTemplatesDatePickerComponent, TestPTemplatesDatePickerComponent, TestRefTemplatesDatePickerComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -627,6 +642,24 @@ describe('DatePicker', () => {
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.minDate).toEqual(minDate);
+        });
+
+        it('should not recreate months when minDate getter returns equivalent dates', async () => {
+            const getterFixture = TestBed.createComponent(TestGetterMinDateDatePickerComponent);
+            getterFixture.changeDetectorRef.markForCheck();
+            await getterFixture.whenStable();
+
+            const datePickerComponent = getterFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
+            const nextButton = getterFixture.nativeElement.querySelector('.p-datepicker-next-button');
+            const createMonthsSpy = spyOn(datePickerComponent, 'createMonths').and.callThrough();
+
+            expect(nextButton).toBeTruthy();
+
+            getterFixture.changeDetectorRef.markForCheck();
+            await getterFixture.whenStable();
+
+            expect(createMonthsSpy).not.toHaveBeenCalled();
+            expect(getterFixture.nativeElement.querySelector('.p-datepicker-next-button')).toBe(nextButton);
         });
 
         it('should handle maxDate restriction', async () => {
