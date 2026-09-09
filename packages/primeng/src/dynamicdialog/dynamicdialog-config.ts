@@ -127,6 +127,11 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      */
     draggable?: boolean = false;
     /**
+     * When enabled, the title text is selectable and dragging only works on other parts of the header.
+     * @group Props
+     */
+    selectableTitle?: boolean = false;
+    /**
      * Keeps dialog in the viewport.
      * @group Props
      */
