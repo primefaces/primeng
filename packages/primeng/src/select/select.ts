@@ -279,6 +279,7 @@ export class SelectItem extends BaseComponent {
             [pt]="ptm('pcOverlay')"
             [motionOptions]="motionOptions()"
             (onBeforeEnter)="onOverlayBeforeEnter($event)"
+            (onAfterEnter)="onOverlayAfterEnter($event)"
             (onAfterLeave)="onOverlayAfterLeave($event)"
             (onHide)="hide()"
         >
@@ -1441,6 +1442,14 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             }
         }
         this.onShow.emit(event);
+    }
+
+    onOverlayAfterEnter(event: any) {
+        if (this.virtualScroll) {
+            this.zone.run(() => {
+                this.cd.detectChanges();
+            });
+        }
     }
 
     onOverlayAfterLeave(event: any) {
