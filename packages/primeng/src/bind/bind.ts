@@ -1,5 +1,6 @@
-import { computed, Directive, effect, ElementRef, input, NgModule, Renderer2, signal } from '@angular/core';
+import { computed, Directive, effect, ElementRef, inject, input, NgModule, Renderer2, signal } from '@angular/core';
 import { cn, equals } from '@primeuix/utils';
+import { PrimeNG } from 'primeng/config';
 
 /**
  * Bind directive provides dynamic attribute, property, and event listener binding functionality.
@@ -14,6 +15,8 @@ import { cn, equals } from '@primeuix/utils';
     }
 })
 export class Bind {
+    private config = inject(PrimeNG);
+
     /**
      * Dynamic attributes, properties, and event listeners to be applied to the host element.
      * @group Props
@@ -23,8 +26,10 @@ export class Bind {
     private _attrs = signal<{ [key: string]: any } | undefined>(undefined);
     private attrs = computed(() => this._attrs() || this.pBind());
 
-    styles = computed(() => this.attrs()?.style);
-    classes = computed(() => cn(this.attrs()?.class));
+    styles = computed(() => (this.config.ptBinding() ? this.attrs()?.style : undefined));
+    classes = computed(() => (this.config.ptBinding() ? cn(this.attrs()?.class) : undefined));
+
+    private appliedAttrs: { [key: string]: any } = {};
 
     private listeners: { eventName: string; unlisten: () => void }[] = [];
 
@@ -33,7 +38,19 @@ export class Bind {
         private renderer: Renderer2
     ) {
         effect(() => {
-            const { style, class: className, ...rest } = this.attrs() || {};
+            if (!this.config.ptBinding()) {
+                this.clearAppliedAttrs();
+                this.clearListeners();
+                return;
+            }
+
+            const attrs = this.attrs();
+
+            if (!attrs) {
+                return;
+            }
+
+            const { style, class: className, ...rest } = attrs;
 
             for (const [key, value] of Object.entries(rest)) {
                 if (key.startsWith('on') && typeof value === 'function') {
@@ -47,12 +64,18 @@ export class Bind {
                 } else if (value === null || value === undefined) {
                     // remove attr
                     this.renderer.removeAttribute(this.el.nativeElement, key);
-                } else {
-                    // attr & prop fallback
-                    this.renderer.setAttribute(this.el.nativeElement, key, value.toString());
+                    delete this.appliedAttrs[key];
+                } else if (this.appliedAttrs[key] !== value) {
+                    const attrValue = value.toString();
+
+                    this.appliedAttrs[key] = value;
+                    this.renderer.setAttribute(this.el.nativeElement, key, attrValue);
+
                     if (key in this.el.nativeElement) {
                         (this.el.nativeElement as any)[key] = value;
                     }
+                } else {
+                    continue;
                 }
             }
         });
@@ -63,7 +86,7 @@ export class Bind {
     }
 
     public setAttrs(attrs: { [key: string]: any } | undefined) {
-        if (!equals(this._attrs(), attrs)) {
+        if (this._attrs() !== attrs && !equals(this._attrs(), attrs)) {
             this._attrs.set(attrs);
         }
     }
@@ -71,6 +94,14 @@ export class Bind {
     private clearListeners() {
         this.listeners.forEach(({ unlisten }) => unlisten());
         this.listeners = [];
+    }
+
+    private clearAppliedAttrs() {
+        for (const key of Object.keys(this.appliedAttrs)) {
+            this.renderer.removeAttribute(this.el.nativeElement, key);
+        }
+
+        this.appliedAttrs = {};
     }
 }
 
