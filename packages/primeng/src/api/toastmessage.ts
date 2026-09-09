@@ -4,7 +4,7 @@
  */
 export interface ToastMessageOptions {
     text?: any;
-    severity?: string;
+    severity?: 'success' | 'info' | 'error' | 'warn';
     summary?: string;
     detail?: string;
     id?: any;
