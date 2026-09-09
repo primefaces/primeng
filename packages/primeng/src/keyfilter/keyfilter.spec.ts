@@ -228,9 +228,9 @@ describe('KeyFilter', () => {
         });
 
         it('should validate single character', () => {
-            expect(directive.isValidChar('5')).toBe(true);
-            expect(directive.isValidChar('a')).toBe(false);
-            expect(directive.isValidChar('-')).toBe(false);
+            expect(directive.isValidString('5')).toBe(true);
+            expect(directive.isValidString('a')).toBe(false);
+            expect(directive.isValidString('-')).toBe(false);
         });
 
         it('should validate entire string', () => {
@@ -387,6 +387,120 @@ describe('KeyFilter', () => {
             inputElement.dispatchEvent(keyEvent);
 
             expect(keyEvent.preventDefault).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('Keypress Event Handling with regex', () => {
+        let inputElement: HTMLInputElement;
+
+        beforeEach(() => {
+            inputElement = inputEl.nativeElement;
+
+            testComponent.pattern = /^[a-zA-Z]\d$/;
+
+            directive.isAndroid = false;
+            testComponent.validateOnly = false;
+
+            fixture.detectChanges();
+        });
+
+        it('should allow valid combined input matching regex', () => {
+            inputElement.value = 'A';
+
+            const keyEvent = new KeyboardEvent('keypress', { key: '1', keyCode: 49, charCode: 49 });
+
+            spyOn(keyEvent, 'preventDefault');
+
+            inputElement.dispatchEvent(keyEvent);
+
+            expect(keyEvent.preventDefault).not.toHaveBeenCalled();
+        });
+
+        it('should prevent invalid combined input violating regex', () => {
+            inputElement.value = 'A';
+
+            const keyEvent = new KeyboardEvent('keypress', { key: 'A', keyCode: 65, charCode: 65 });
+
+            spyOn(keyEvent, 'preventDefault');
+
+            inputElement.dispatchEvent(keyEvent);
+
+            expect(keyEvent.preventDefault).toHaveBeenCalled();
+        });
+
+        it("shouldn't prevent clearing the input with regex validation, even if invalid", async () => {
+            inputElement.value = 'A';
+
+            const keyEvent = new KeyboardEvent('keypress', { keyCode: 8, charCode: 8 }); // Backspace
+
+            spyOn(keyEvent, 'preventDefault');
+
+            inputElement.dispatchEvent(keyEvent);
+
+            expect(keyEvent.preventDefault).toHaveBeenCalled();
+        });
+    });
+
+    describe('Input Event Handling with regex', () => {
+        let inputElement: HTMLInputElement;
+
+        beforeEach(() => {
+            inputElement = inputEl.nativeElement;
+
+            testComponent.pattern = /^[a-zA-Z]\d*$/;
+
+            directive.isAndroid = true;
+            testComponent.validateOnly = false;
+
+            fixture.detectChanges();
+        });
+
+        it('should allow valid combined input matching regex', async () => {
+            directive.lastValue = 'A';
+            inputElement.value = 'A1';
+
+            const inputEvent = new Event('input');
+            inputElement.dispatchEvent(inputEvent);
+            await fixture.whenStable();
+
+            expect(inputElement.value).toBe('A1');
+        });
+
+        it('should prevent invalid combined input violating regex', async () => {
+            directive.lastValue = 'A';
+            inputElement.value = 'A-';
+            spyOn(directive.ngModelChange, 'emit');
+
+            const inputEvent = new Event('input');
+            inputElement.dispatchEvent(inputEvent);
+            await fixture.whenStable();
+
+            expect(inputElement.value).toBe('A');
+            expect(directive.ngModelChange.emit).toHaveBeenCalledWith('A');
+        });
+
+        it('should prevent invalid input with multiples of regex start character', async () => {
+            directive.lastValue = 'A';
+            inputElement.value = 'AA';
+            spyOn(directive.ngModelChange, 'emit');
+
+            const inputEvent = new Event('input');
+            inputElement.dispatchEvent(inputEvent);
+            await fixture.whenStable();
+
+            expect(inputElement.value).toBe('A');
+            expect(directive.ngModelChange.emit).toHaveBeenCalledWith('A');
+        });
+
+        it("shouldn't prevent clearing the input with regex validation, even if invalid", async () => {
+            directive.lastValue = 'A';
+            inputElement.value = '';
+
+            const inputEvent = new Event('input');
+            inputElement.dispatchEvent(inputEvent);
+            await fixture.whenStable();
+
+            expect(inputElement.value).toBe('');
         });
     });
 
@@ -615,7 +729,7 @@ describe('KeyFilter', () => {
 
         it('should handle undefined values gracefully', () => {
             expect(() => {
-                directive.isValidChar('');
+                directive.isValidString('');
                 directive.isValidString('');
                 directive.findDelta('', '');
             }).not.toThrow();
@@ -635,16 +749,16 @@ describe('KeyFilter', () => {
             testComponent.pattern = /[!@#$%^&*()]/;
             fixture.detectChanges();
 
-            expect(directive.isValidChar('!')).toBe(true);
-            expect(directive.isValidChar('a')).toBe(false);
+            expect(directive.isValidString('!')).toBe(true);
+            expect(directive.isValidString('a')).toBe(false);
         });
 
         it('should handle Unicode characters', () => {
             testComponent.pattern = /[àáâãäåæçèéêë]/;
             fixture.detectChanges();
 
-            expect(directive.isValidChar('é')).toBe(true);
-            expect(directive.isValidChar('a')).toBe(false);
+            expect(directive.isValidString('é')).toBe(true);
+            expect(directive.isValidString('a')).toBe(false);
         });
 
         it('should handle browser compatibility for key codes', () => {
