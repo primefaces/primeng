@@ -133,6 +133,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [attr.data-p]="inputMultipleDataP"
             [tabindex]="-1"
             role="listbox"
+            [attr.aria-label]="ariaLabelledBy ? undefined : ariaLabel || placeholder || listLabel"
+            [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-orientation]="'horizontal'"
             [attr.aria-activedescendant]="focused ? focusedMultipleOptionId : undefined"
             (focus)="onMultipleContainerFocus($event)"
@@ -171,7 +173,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     </ng-template>
                 </p-chip>
             </li>
-            <li [pBind]="ptm('inputChip')" [class]="cx('inputChip')" role="option">
+            <li [pBind]="ptm('inputChip')" [class]="cx('inputChip')" role="presentation">
                 <input
                     #focusInput
                     #multiIn
