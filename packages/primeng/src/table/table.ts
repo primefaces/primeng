@@ -5044,7 +5044,7 @@ export class TableRadioButton extends BaseComponent {
     selector: 'p-tableCheckbox',
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
+        <p-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
             @if (dataTable.checkboxIconTemplate || dataTable._checkboxIconTemplate; as template) {
                 <ng-template pTemplate="icon">
                     <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
@@ -5053,10 +5053,19 @@ export class TableRadioButton extends BaseComponent {
         </p-checkbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    hostDirectives: [Bind]
 })
 export class TableCheckbox extends BaseComponent {
     @Input() value: any;
+
+    hostName = 'Table';
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('tableCheckbox'));
+    }
 
     readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     readonly required = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
