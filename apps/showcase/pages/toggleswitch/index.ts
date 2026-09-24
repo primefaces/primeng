@@ -5,6 +5,7 @@ import { ImportDoc } from '@/doc/toggleswitch/import-doc';
 import { InvalidDoc } from '@/doc/toggleswitch/invalid-doc';
 import { PreselectionDoc } from '@/doc/toggleswitch/preselection-doc';
 import { ReactiveFormsDoc } from '@/doc/toggleswitch/reactiveforms-doc';
+import { SizeDoc } from '@/doc/toggleswitch/size-doc';
 import { TemplateDoc } from '@/doc/toggleswitch/template-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/toggleswitch/templatedrivenforms-doc';
 import { PTComponent } from '@/doc/toggleswitch/pt/PTComponent';
@@ -46,6 +47,11 @@ export class ToggleSwitchDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'size',
+            label: 'Size',
+            component: SizeDoc
         },
         {
             id: 'disabled',
