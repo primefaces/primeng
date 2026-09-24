@@ -49,6 +49,7 @@ import { Dialog } from './dialog';
             (onMaximize)="onMaximizeEvent($event)"
             (onResizeInit)="onResizeInitEvent($event)"
             (onResizeEnd)="onResizeEndEvent($event)"
+            (onDragStart)="onDragStartEvent($event)"
             (onDragEnd)="onDragEndEvent($event)"
             (visibleChange)="onVisibleChangeEvent($event)"
         >
@@ -99,6 +100,7 @@ class TestBasicDialogComponent {
     maximizeEvent: any = null as any;
     resizeInitEvent: any = null as any;
     resizeEndEvent: any = null as any;
+    dragStartEvent: any = null as any;
     dragEndEvent: any = null as any;
     visibleChangeEvent: any = null as any;
 
@@ -124,6 +126,10 @@ class TestBasicDialogComponent {
 
     onResizeEndEvent(event: any) {
         this.resizeEndEvent = event;
+    }
+
+    onDragStartEvent(event: any) {
+        this.dragStartEvent = event;
     }
 
     onDragEndEvent(event: any) {
@@ -517,6 +523,20 @@ describe('Dialog', () => {
             dialogInstance.onResizeInit.emit(mouseEvent);
 
             expect(component.onResizeInitEvent).toHaveBeenCalledWith(mouseEvent);
+        });
+
+        it('should emit onDragStart event when dragging starts', async () => {
+            spyOn(component, 'onDragStartEvent');
+
+            component.visible = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
+
+            const mouseEvent = new MouseEvent('mousedown');
+            dialogInstance.onDragStart.emit(mouseEvent);
+
+            expect(component.onDragStartEvent).toHaveBeenCalledWith(mouseEvent);
         });
 
         it('should emit onDragEnd event when dragging ends', async () => {
@@ -1298,6 +1318,30 @@ describe('Dialog', () => {
             dialogInstance.onResizeInit.emit(mouseEvent);
 
             expect(component.onResizeInitEvent).toHaveBeenCalledWith(mouseEvent);
+        });
+
+        it('should emit onDragStart event from initDrag', async () => {
+            component.draggable = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
+            component.visible = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
+
+            spyOn(dialogInstance.onDragStart, 'emit');
+
+            const targetElement = document.createElement('div');
+            const mouseEvent = new MouseEvent('mousedown', { clientX: 100, clientY: 100 });
+            Object.defineProperty(mouseEvent, 'target', { value: targetElement });
+            Object.defineProperty(mouseEvent, 'pageX', { value: 100 });
+            Object.defineProperty(mouseEvent, 'pageY', { value: 100 });
+
+            dialogInstance.initDrag(mouseEvent);
+
+            expect(dialogInstance.dragging).toBe(true);
+            expect(dialogInstance.onDragStart.emit).toHaveBeenCalledWith(mouseEvent);
         });
 
         it('should emit onDragEnd event', () => {

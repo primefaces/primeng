@@ -327,6 +327,17 @@ describe('DynamicDialog', () => {
             expect(mockDialogRef.dragStart).toHaveBeenCalledWith(mouseEvent);
         });
 
+        it('should forward drag start from dialog to dialog ref', () => {
+            const mouseEvent = new MouseEvent('mousedown');
+            Object.defineProperty(mouseEvent, 'pageX', { value: 100 });
+            Object.defineProperty(mouseEvent, 'pageY', { value: 100 });
+
+            component.onDialogDragStart(mouseEvent);
+
+            expect(component.dragging).toBe(true);
+            expect(mockDialogRef.dragStart).toHaveBeenCalledWith(mouseEvent);
+        });
+
         it('should not initialize drag when clicking on header icons', () => {
             const iconElement = document.createElement('i');
             iconElement.className = 'p-dialog-header-icon';
