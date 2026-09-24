@@ -774,7 +774,6 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     onItemClick(event: any) {
         const { originalEvent, processedItem } = event;
         const grouped = this.isProcessedItemGroup(processedItem);
-        const root = isEmpty(processedItem.parent);
         const selected = this.isSelected(processedItem);
 
         if (selected) {
@@ -789,11 +788,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
             if (grouped) {
                 this.onItemChange(event);
             } else {
-                const rootProcessedItem = root ? processedItem : this.activeItemPath().find((p) => p.parentKey === '');
-                this.hide(originalEvent);
-                this.changeFocusedItemIndex(originalEvent, rootProcessedItem?.index ?? -1);
-
-                focus(this.rootmenu?.sublistViewChild?.nativeElement);
+                this.hide(originalEvent, true);
             }
         }
     }
@@ -960,7 +955,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
             !grouped && this.onItemChange({ originalEvent: event, processedItem });
         }
 
-        this.hide();
+        this.hide(event, true);
     }
 
     onEnterKey(event: KeyboardEvent) {
@@ -1086,7 +1081,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
      * Hides the popup menu.
      * @group Method
      */
-    hide(event?, isFocus?: boolean) {
+    hide(event?: Event, isFocus?: boolean) {
         if (this.popup) {
             this.onHide.emit({});
             this.visible = false;
@@ -1094,7 +1089,10 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        isFocus && focus(this.relatedTarget || this.target || this.rootmenu?.sublistViewChild?.nativeElement);
+        if (isFocus) {
+            focus(this.relatedTarget || this.target || this.rootmenu?.sublistViewChild?.nativeElement);
+            event?.preventDefault();
+        }
         this.dirty = false;
     }
 
