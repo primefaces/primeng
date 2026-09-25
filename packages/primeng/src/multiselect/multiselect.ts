@@ -1448,8 +1448,9 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     searchFields() {
-        return (this.filterBy || this.optionLabel || 'label').split(',');
+        return this.filterBy?.split(',') || this.filterFields || [this.optionLabel ?? 'label'];
     }
+
 
     findNearestSelectedOptionIndex(index, firstCheckUp = false) {
         let matchedOptionIndex = -1;
