@@ -199,7 +199,7 @@ export class MenuItemContent extends BaseComponent {
                     (blur)="onListBlur($event)"
                     (keydown)="onListKeyDown($event)"
                 >
-                    <ng-template ngFor let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
+                    <ng-template ngFor let-submenu let-i="index" [ngForOf]="model" [ngForTrackBy]="trackByMenuItem" *ngIf="hasSubMenu()">
                         <li [class]="cx('separator')" [pBind]="ptm('separator')" *ngIf="submenu.separator && submenu.visible !== false" role="separator" [attr.data-pc-section]="'separator'"></li>
                         <li
                             [class]="cx('submenuLabel')"
@@ -219,7 +219,7 @@ export class MenuItemContent extends BaseComponent {
                             </ng-container>
                             <ng-container *ngTemplateOutlet="submenuHeaderTemplate ?? _submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                         </li>
-                        <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
+                        <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items" [ngForTrackBy]="trackByMenuItem">
                             <li [class]="cx('separator')" [pBind]="ptm('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator" [attr.data-pc-section]="'separator'"></li>
                             <li
                                 [class]="cn(cx('item', { item, id: menuitemId(item, id, i, j) }), item?.styleClass)"
@@ -244,7 +244,7 @@ export class MenuItemContent extends BaseComponent {
                             ></li>
                         </ng-template>
                     </ng-template>
-                    <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
+                    <ng-template ngFor let-item let-i="index" [ngForOf]="model" [ngForTrackBy]="trackByMenuItem" *ngIf="!hasSubMenu()">
                         <li [class]="cx('separator')" [pBind]="ptm('separator')" *ngIf="item.separator && item.visible !== false" role="separator" [attr.data-pc-section]="'separator'"></li>
                         <li
                             [class]="cn(cx('item', { item, id: menuitemId(item, id, i) }), item?.styleClass)"
@@ -615,6 +615,10 @@ export class Menu extends BaseComponent<MenuPassThrough> {
 
     menuitemId(item: MenuItem, id: string | any, index?: string | number, childIndex?: string | number) {
         return item?.id ?? `${id}_${index}${childIndex !== undefined ? '_' + childIndex : ''}`;
+    }
+
+    trackByMenuItem(index: number, item: MenuItem) {
+        return item?.id ?? index;
     }
 
     isItemFocused(id) {
