@@ -914,6 +914,8 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
     toggleRowIndex: Nullable<number>;
 
+    private thScopeObserver: MutationObserver | null = null;
+
     onInit() {
         if (this.lazy && this.lazyLoadOnInit && !this.virtualScroll) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -1031,6 +1033,12 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
                     break;
             }
         });
+    }
+
+    onAfterViewInit() {
+        if (isPlatformBrowser(this.platformId)) {
+            this.initThScopeObserver();
+        }
     }
 
     filterService = inject(FilterService);
@@ -2346,6 +2354,40 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         this.editingCellField = null;
         this.editingCellData = null;
         this.initialized = null;
+
+        if (this.thScopeObserver) {
+            this.thScopeObserver.disconnect();
+            this.thScopeObserver = null;
+        }
+    }
+
+    private initThScopeObserver() {
+        const theads = this.el.nativeElement.querySelectorAll(':scope thead');
+        if (!theads.length) {
+            return;
+        }
+
+        theads.forEach((thead: HTMLElement) => {
+            thead.querySelectorAll(':scope > tr > th:not([scope])').forEach((th: HTMLElement) => th.setAttribute('scope', 'col'));
+        });
+
+        this.thScopeObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        const element = node as HTMLElement;
+                        if (element.tagName === 'TH' && !element.hasAttribute('scope')) {
+                            element.setAttribute('scope', 'col');
+                        }
+                        element.querySelectorAll?.('th:not([scope])').forEach((th: HTMLElement) => th.setAttribute('scope', 'col'));
+                    }
+                });
+            });
+        });
+
+        theads.forEach((thead: HTMLElement) => {
+            this.thScopeObserver!.observe(thead, { childList: true, subtree: true });
+        });
     }
 
     get dataP() {

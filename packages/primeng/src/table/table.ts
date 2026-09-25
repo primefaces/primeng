@@ -1176,6 +1176,8 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     id: string = UniqueComponentId();
 
+    private thScopeObserver: MutationObserver | null = null;
+
     styleElement: any;
 
     responsiveStyleElement: any;
@@ -1353,6 +1355,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             if (this.isStateful() && this.resizableColumns) {
                 this.restoreColumnWidths();
             }
+            this.initThScopeObserver();
         }
     }
 
@@ -3198,6 +3201,36 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
         this.destroyStyleElement();
         this.destroyResponsiveStyle();
+
+        if (this.thScopeObserver) {
+            this.thScopeObserver.disconnect();
+            this.thScopeObserver = null;
+        }
+    }
+
+    private initThScopeObserver() {
+        const thead = this.tableHeaderViewChild?.nativeElement;
+        if (!thead) {
+            return;
+        }
+
+        thead.querySelectorAll(':scope > tr > th:not([scope])').forEach((th: HTMLElement) => th.setAttribute('scope', 'col'));
+
+        this.thScopeObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        const element = node as HTMLElement;
+                        if (element.tagName === 'TH' && !element.hasAttribute('scope')) {
+                            element.setAttribute('scope', 'col');
+                        }
+                        element.querySelectorAll?.('th:not([scope])').forEach((th: HTMLElement) => th.setAttribute('scope', 'col'));
+                    }
+                });
+            });
+        });
+
+        this.thScopeObserver.observe(thead, { childList: true, subtree: true });
     }
 
     get dataP() {
