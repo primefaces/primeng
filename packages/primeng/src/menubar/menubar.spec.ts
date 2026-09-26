@@ -467,18 +467,18 @@ describe('Menubar', () => {
             expect(menuButton).toBeTruthy();
         });
 
-        it('should toggle mobile menu on button click', () => {
+        it('should toggle mobile menu on button click', async () => {
             menubarInstance.queryMatches.set(true);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const menuButton = fixture.debugElement.query(By.css('a[data-pc-section="button"]'));
 
-            expect(menubarInstance.mobileActive).toBeFalsy();
+            expect(menubarInstance.mobileActive()).toBeFalsy();
 
             menuButton.nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
-            expect(menubarInstance.mobileActive).toBe(true);
+            expect(menubarInstance.mobileActive()).toBe(true);
         });
 
         it('should show and hide menu programmatically', () => {
@@ -490,6 +490,33 @@ describe('Menubar', () => {
 
             expect(menubarInstance.focusedItemInfo().index).toBe(-1);
             expect(menubarInstance.activeItemPath()).toEqual([]);
+        });
+
+        it('should hide mobile menu on outside click', async () => {
+            menubarInstance.queryMatches.set(true);
+            await fixture.whenStable();
+
+            const menuButton = fixture.debugElement.query(By.css('a[data-pc-section="button"]'));
+
+            expect(menubarInstance.mobileActive()).toBeFalsy();
+
+            menuButton.nativeElement.click();
+            await fixture.whenStable();
+
+            expect(menubarInstance.mobileActive()).toBe(true);
+            expect(menubarInstance.outsideClickListener).toBeTruthy();
+
+            // Check if root submenu is visible before outside click
+            const rootMenu = fixture.debugElement.query(By.css('ul[pMenubarSub]'));
+            expect(rootMenu).toBeTruthy();
+            expect(window.getComputedStyle(rootMenu.nativeElement).display).not.toBe('none');
+
+            const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
+            document.dispatchEvent(clickEvent);
+            await fixture.whenStable();
+
+            expect(menubarInstance.mobileActive()).toBe(false);
+            expect(window.getComputedStyle(rootMenu.nativeElement).display).toBe('none');
         });
     });
 
@@ -1006,14 +1033,16 @@ describe('Menubar', () => {
             expect(menubarInstance.focusedItemInfo().index).toBe(-1);
         });
 
-        it('should call toggle method programmatically', () => {
+        it('should call toggle method programmatically', async () => {
             const mockEvent = new MouseEvent('click');
             spyOn(mockEvent, 'preventDefault');
 
-            expect(menubarInstance.mobileActive).toBeFalsy();
+            expect(menubarInstance.mobileActive()).toBeFalsy();
 
             menubarInstance.toggle(mockEvent);
-            expect(menubarInstance.mobileActive).toBe(true);
+            await fixture.whenStable();
+
+            expect(menubarInstance.mobileActive()).toBe(true);
             expect(mockEvent.preventDefault).toHaveBeenCalled();
         });
 
@@ -1320,17 +1349,17 @@ describe('Menubar', () => {
             }
         });
 
-        it('Case 4: should use instance variables in PT functions', () => {
+        it('Case 4: should use instance variables in PT functions', async () => {
             fixture.componentRef.setInput('pt', {
                 button: ({ instance }) => ({
                     class: {
-                        MOBILE_ACTIVE: instance.mobileActive
+                        MOBILE_ACTIVE: instance.mobileActive()
                     }
                 })
             });
 
-            menubar.mobileActive = true;
-            fixture.detectChanges();
+            menubar.mobileActive.set(true);
+            await fixture.whenStable();
 
             const buttonEl = fixture.nativeElement.querySelector('[class*="p-menubar-button"]');
             expect(buttonEl).toBeTruthy();
