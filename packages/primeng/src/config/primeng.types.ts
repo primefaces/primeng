@@ -195,6 +195,7 @@ export type PrimeNGConfigType = {
      */
     inputStyle?: 'outlined' | 'filled';
     inputVariant?: 'outlined' | 'filled';
+    floatVariant?: 'in' | 'over' | 'on';
     overlayOptions?: OverlayOptions;
     translation?: Translation;
     /**

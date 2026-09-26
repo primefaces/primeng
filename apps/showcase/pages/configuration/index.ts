@@ -1,18 +1,19 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { CspDoc } from '@/doc/configuration/csp-doc';
 import { DynamicDoc } from '@/doc/configuration/dynamic-doc';
 import { FilterModeDoc } from '@/doc/configuration/filtermode-doc';
+import { FloatVariantDoc } from '@/doc/configuration/floatvariantdoc';
 import { InputVariantDoc } from '@/doc/configuration/inputvariant-doc';
 import { ApiDoc } from '@/doc/configuration/locale/apidoc';
 import { RepositoryDoc } from '@/doc/configuration/locale/repositorydoc';
 import { RuntimeDoc } from '@/doc/configuration/locale/runtimedoc';
 import { TranslationDoc } from '@/doc/configuration/locale/translationdoc';
+import { OverlayAppendToDoc } from '@/doc/configuration/overlayappendto-doc';
 import { ProviderDoc } from '@/doc/configuration/provider-doc';
 import { RippleDoc } from '@/doc/configuration/ripple-doc';
-import { OverlayAppendToDoc } from '@/doc/configuration/overlayappendto-doc';
 import { ThemeDoc } from '@/doc/configuration/theme-doc';
 import { ZIndexDoc } from '@/doc/configuration/zindex-doc';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     selector: 'configuration',
@@ -46,6 +47,11 @@ export class ConfigurationDemo {
             id: 'inputvariant',
             label: 'InputVariant',
             component: InputVariantDoc
+        },
+        {
+            id: 'floatvariant',
+            label: 'FloatVariant',
+            component: FloatVariantDoc
         },
         {
             id: 'overlayappendto',
