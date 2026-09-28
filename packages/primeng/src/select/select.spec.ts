@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
+import { Dialog } from 'primeng/dialog';
 import { BehaviorSubject, timer } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Select } from './select';
@@ -797,6 +798,39 @@ class TestComplexEdgeCasesComponent {
                 this.edgeOptions = testCase as any;
             }, index * 100);
         });
+    }
+}
+
+@Component({
+    standalone: false,
+    template: `
+        <p-dialog [(visible)]="dialogVisible" [modal]="true" appendTo="body" header="Test Dialog">
+            <p-select
+                [options]="items"
+                [(ngModel)]="selectedItem"
+                optionLabel="name"
+                optionValue="code"
+                placeholder="Select item"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="38"
+                [lazy]="true"
+                (onLazyLoad)="onLazyLoad($event)"
+                [scrollHeight]="'200px'"
+            ></p-select>
+        </p-dialog>
+    `
+})
+class TestVirtualScrollLazyDialogComponent {
+    dialogVisible = false;
+    selectedItem: any = null;
+    items: any[] = [];
+
+    onLazyLoad(event: any) {
+        const loadedItems: any[] = [];
+        for (let i = event.first; i < event.last; i++) {
+            loadedItems.push({ name: `Item ${i + 1}`, code: `item_${i + 1}` });
+        }
+        this.items = loadedItems;
     }
 }
 
@@ -4444,5 +4478,61 @@ describe('Select PT (PassThrough)', () => {
                 expect(emptyMessage.nativeElement.getAttribute('data-empty')).toBe('true');
             }
         });
+    });
+});
+
+describe('Select VirtualScroll + Lazy in Dialog', () => {
+    let component: TestVirtualScrollLazyDialogComponent;
+    let fixture: ComponentFixture<TestVirtualScrollLazyDialogComponent>;
+    let selectInstance: Select;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [CommonModule, FormsModule, Select, Dialog],
+            declarations: [TestVirtualScrollLazyDialogComponent],
+            providers: [provideZonelessChangeDetection()]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(TestVirtualScrollLazyDialogComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+        await fixture.whenStable();
+    });
+
+    afterEach(() => {
+        document.querySelectorAll('.p-overlay').forEach((el) => el.remove());
+        document.querySelectorAll('.p-dialog-mask').forEach((el) => el.remove());
+    });
+
+    it('should trigger detectChanges inside NgZone on overlay after enter when virtualScroll is enabled', async () => {
+        component.dialogVisible = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        selectInstance = fixture.debugElement.query(By.directive(Select)).componentInstance;
+        expect(selectInstance.virtualScroll).toBeTrue();
+
+        const cdSpy = spyOn(selectInstance.cd, 'detectChanges').and.callThrough();
+        const zoneSpy = spyOn(selectInstance.zone, 'run').and.callThrough();
+        selectInstance.onOverlayAfterEnter({});
+
+        expect(zoneSpy).toHaveBeenCalled();
+        expect(cdSpy).toHaveBeenCalled();
+    });
+
+    it('should not trigger detectChanges on overlay after enter when virtualScroll is disabled', async () => {
+        component.dialogVisible = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        selectInstance = fixture.debugElement.query(By.directive(Select)).componentInstance;
+        selectInstance.virtualScroll = false;
+
+        const zoneSpy = spyOn(selectInstance.zone, 'run');
+        const cdSpy = spyOn(selectInstance.cd, 'detectChanges');
+        selectInstance.onOverlayAfterEnter({});
+
+        expect(zoneSpy).not.toHaveBeenCalled();
+        expect(cdSpy).not.toHaveBeenCalled();
     });
 });
