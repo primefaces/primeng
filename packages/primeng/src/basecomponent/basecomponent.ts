@@ -112,7 +112,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
     }
 
     get $styleOptions() {
-        return { nonce: this.config?.csp().nonce };
+        return { nonce: this.config?.csp().nonce, styleContainer: this.config?.styleContainer?.() };
     }
 
     get $params() {

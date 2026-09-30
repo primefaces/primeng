@@ -27,12 +27,12 @@ import {
     ViewRef
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
-import { addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
+import { addStyle, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
-import { blockBodyScroll, DomHandler, unblockBodyScroll } from 'primeng/dom';
+import { appendChild, blockBodyScroll, DomHandler, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
@@ -1074,7 +1074,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
     appendContainer() {
         if (this.$appendTo() !== 'self') {
-            appendChild(this.document.body, this.wrapper as HTMLElement);
+            appendChild(this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.wrapper as HTMLElement);
         }
     }
 

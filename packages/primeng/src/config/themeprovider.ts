@@ -11,6 +11,8 @@ export class ThemeProvider {
 
     csp = signal<{ nonce: string | undefined }>({ nonce: undefined });
 
+    styleContainer = signal<HTMLElement | ShadowRoot | null | undefined>(undefined);
+
     isThemeChanged: boolean = false;
 
     public document: Document = inject(DOCUMENT);
@@ -56,7 +58,7 @@ export class ThemeProvider {
         // common
         if (!Theme.isStyleNameLoaded('common')) {
             const { primitive, semantic, global, style } = this.baseStyle.getCommonTheme?.() || {};
-            const styleOptions = { nonce: this.csp?.()?.nonce };
+            const styleOptions = { nonce: this.csp?.()?.nonce, styleContainer: this.styleContainer?.() };
 
             this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...styleOptions });
             this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...styleOptions });
