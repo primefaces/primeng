@@ -182,7 +182,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
         effect(() => {
             if (this.clearAll()) {
-                this.visible.set(false);
+                this.close();
             }
         });
     }
@@ -225,11 +225,15 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
     }
 
     onCloseIconClick = (event: Event) => {
+        this.close();
+        event.preventDefault();
+    };
+
+    close() {
         this.isClosing = true;
         this.clearTimeout();
         this.visible.set(false);
-        event.preventDefault();
-    };
+    }
 
     get closeAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
