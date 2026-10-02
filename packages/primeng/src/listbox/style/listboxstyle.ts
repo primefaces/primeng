@@ -6,6 +6,11 @@ const style = /*css*/ `
     ${listbox_style}
 
     /* For PrimeNG */
+    .p-listbox {
+        display: flex;
+        flex-direction: column;
+    }
+
     .p-listbox.ng-invalid.ng-dirty {
         border-color: dt('listbox.invalid.border.color');
     }
@@ -13,6 +18,7 @@ const style = /*css*/ `
     .p-listbox-header {
         display: flex;
         align-items: center;
+        flex-shrink: 0;
     }
 
     .p-listbox-header > .p-iconfield {
@@ -20,7 +26,9 @@ const style = /*css*/ `
     }
 
     .p-listbox-list-container {
-        height: 100%;
+        flex: 1 1 auto;
+        overflow: auto;
+        min-height: 0;
     }
 
     /* CDK Drag & Drop styles */
