@@ -21,7 +21,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
     standalone: true,
     imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule, Bind, Badge],
     template: `
-        <nav [pBind]="ptm('root')" [class]="cn(cx('root'), styleClass)" [style]="style">
+        <nav [pBind]="ptm('root')" [attr.aria-label]="ariaLabel" [class]="cn(cx('root'), styleClass)" [style]="style">
             <ol [class]="cx('list')" [pBind]="ptm('list')">
                 <li [attr.id]="home.id" [class]="cn(cx('homeItem'), home.styleClass)" [ngStyle]="home.style" *ngIf="home && home.visible !== false" pTooltip [tooltipOptions]="home.tooltipOptions" [pBind]="ptm('homeItem')" [unstyled]="unstyled()">
                     @if (itemTemplate || _itemTemplate) {
@@ -194,6 +194,11 @@ export class Breadcrumb extends BaseComponent<BreadcrumbPassThrough> {
      * @group Props
      */
     @Input() home: MenuItem | undefined;
+    /**
+     * Defines a string that labels the breadcrumb navigation element for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
     /**
      * Defines a string that labels the home icon for accessibility.
      * @group Props
