@@ -159,6 +159,10 @@ export interface OverlayOptions {
      */
     motionOptions?: MotionOptions;
     /**
+     * Indicates whether the overlay should have a max-width based on the target element.
+     */
+    autoMaxWidth?: boolean;
+    /**
      * Indicates whether the overlay should be hidden when the escape key is pressed.
      */
     hideOnEscape?: boolean;
