@@ -669,6 +669,23 @@ describe('TreeSelect', () => {
             expect(treeSelectInstance.placeholder).toBe('Choose a tree node');
         });
 
+        it('should mark as touched on hide', async () => {
+            const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance as any;
+
+            const touchedSpy = jasmine.createSpy('touched');
+            treeSelectInstance.registerOnTouched(touchedSpy);
+
+            testFixture.detectChanges();
+            await testFixture.whenStable();
+
+            treeSelectInstance.hide(new Event('hide'));
+
+            testFixture.detectChanges();
+            await testFixture.whenStable();
+
+            expect(touchedSpy).toHaveBeenCalled();
+        });
+
         it('should work with disabled state', async () => {
             testComponent.disabled = true;
             testFixture.changeDetectorRef.markForCheck();
