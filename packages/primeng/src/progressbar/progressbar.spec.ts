@@ -181,6 +181,50 @@ describe('ProgressBar', () => {
             await fixture.whenStable();
             expect(progressBarInstance.valueStyleClass).toBe('value-test-class');
         });
+
+        describe('value transition behavior', () => {
+            // beforeEach binds value=50, which starts the 1s debounce timer.
+            // Any value change within the same test therefore counts as a rapid update.
+
+            afterEach(() => jasmine.clock().uninstall());
+
+            it('should not apply inline transition style on initial value set', () => {
+                const valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]')).nativeElement;
+                expect(progressBarInstance._isRapidUpdate).toBe(false);
+                expect(valueElement.style.transition).toBe('');
+            });
+
+            it('should apply short transition when value changes within 1s of a prior change', () => {
+                component.value = 75;
+                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
+
+                const valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]')).nativeElement;
+                expect(progressBarInstance._isRapidUpdate).toBe(true);
+                expect(valueElement.style.transition).toBe('width 100ms ease-in-out');
+            });
+
+            it('should reset rapid-update mode after 1s and apply no inline transition on the next slow update', () => {
+                jasmine.clock().install();
+
+                component.value = 75; // rapid — timer already pending from beforeEach
+                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
+                expect(progressBarInstance._isRapidUpdate).toBe(true);
+
+                jasmine.clock().tick(1000); // debounce timer fires → _isRapidUpdate resets to false
+                expect(progressBarInstance._isRapidUpdate).toBe(false);
+
+                component.value = 90; // slow — no pending timer
+                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
+
+                const valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]')).nativeElement;
+                expect(progressBarInstance._isRapidUpdate).toBe(false);
+                expect(valueElement.style.transition).toBe('');
+                jasmine.clock().tick(1000); // flush new pending timer before uninstall
+            });
+        });
     });
 
     describe('Determinate Mode Rendering', () => {
