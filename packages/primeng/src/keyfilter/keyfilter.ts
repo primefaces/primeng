@@ -158,46 +158,28 @@ export class KeyFilter implements Validator {
         return delta;
     }
 
-    isValidChar(c: string) {
-        return (<RegExp>this.regex).test(c);
-    }
-
     isValidString(str: string) {
-        for (let i = 0; i < str.length; i++) {
-            if (!this.isValidChar(str.substr(i, 1))) {
-                return false;
-            }
-        }
-
-        return true;
+        return (<RegExp>this.regex).test(str);
     }
 
     @HostListener('input', ['$event'])
-    onInput(e: KeyboardEvent) {
+    onInput() {
         if (this.isAndroid && !this.pValidateOnly) {
             let val = this.el.nativeElement.value;
-            let lastVal = this.lastValue || '';
+            const lastVal = this.lastValue || '';
 
-            let inserted = this.findDelta(val, lastVal);
-            let removed = this.findDelta(lastVal, val);
-            let pasted = inserted.length > 1 || (!inserted && !removed);
+            const isValidString = (<RegExp>this.regex).test(val);
+            // Clearing the input shouldn't be blocked
+            const isInputEmpty = val.length == 0;
 
-            if (pasted) {
-                if (!this.isValidString(val)) {
-                    this.el.nativeElement.value = lastVal;
-                    this.ngModelChange.emit(lastVal);
-                }
-            } else if (!removed) {
-                if (!this.isValidChar(inserted)) {
-                    this.el.nativeElement.value = lastVal;
-                    this.ngModelChange.emit(lastVal);
-                }
+            if (!isValidString && !isInputEmpty) {
+                this.el.nativeElement.value = lastVal;
+                this.ngModelChange.emit(lastVal);
+                return;
             }
 
             val = this.el.nativeElement.value;
-            if (this.isValidString(val)) {
-                this.lastValue = val;
-            }
+            this.lastValue = val;
         }
     }
 
