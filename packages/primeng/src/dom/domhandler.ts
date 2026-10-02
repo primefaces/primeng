@@ -170,9 +170,9 @@ export class DomHandler {
         element.style.transformOrigin = origin;
 
         if (gutter) {
-            const gutterValue = getCSSVariableByRegex(/-anchor-gutter$/)?.value;
+            const gutterValue = getCSSVariableByRegex(/-anchor-gutter$/)?.value ?? '2px';
 
-            element.style.marginTop = origin === 'bottom' ? `calc(${gutterValue ?? '2px'} * -1)` : (gutterValue ?? '');
+            element.style.marginTop = origin === 'bottom' ? `calc(${gutterValue} * -1)` : `calc(${gutterValue})`;
         }
     }
 
