@@ -64,6 +64,7 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
                 role="complementary"
                 (keydown)="onKeyDown($event)"
                 pFocusTrap
+                [pFocusTrapDisabled]="focusTrap === false"
                 [attr.data-p]="dataP"
                 [attr.data-p-open]="visible"
             >
@@ -198,6 +199,11 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
+    /**
+     * When enabled, can only focus on elements inside the dialog.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) focusTrap: boolean = true;
     /**
      * The visible property is an input that determines the visibility of the component.
      * @defaultValue false
