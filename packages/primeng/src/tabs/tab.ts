@@ -97,39 +97,44 @@ export class Tab extends BaseComponent<TabPassThrough> {
         switch (event.code) {
             case 'ArrowRight':
                 this.onArrowRightKey(event);
+                event.stopPropagation();
                 break;
 
             case 'ArrowLeft':
                 this.onArrowLeftKey(event);
+                event.stopPropagation();
                 break;
 
             case 'Home':
                 this.onHomeKey(event);
+                event.stopPropagation();
                 break;
 
             case 'End':
                 this.onEndKey(event);
+                event.stopPropagation();
                 break;
 
             case 'PageDown':
                 this.onPageDownKey(event);
+                event.stopPropagation();
                 break;
 
             case 'PageUp':
                 this.onPageUpKey(event);
+                event.stopPropagation();
                 break;
 
             case 'Enter':
             case 'NumpadEnter':
             case 'Space':
                 this.onEnterKey(event);
+                event.stopPropagation();
                 break;
 
             default:
                 break;
         }
-
-        event.stopPropagation();
     }
 
     onAfterViewInit(): void {
