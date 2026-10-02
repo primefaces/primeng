@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { TooltipOptions } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 import { Tooltip } from './tooltip';
 
 @Component({
@@ -873,6 +874,109 @@ describe('Tooltip', () => {
             await fixture.whenStable();
 
             expect(container?.hasAttribute('data-test')).toBeFalsy();
+        });
+    });
+
+    describe('Append To', () => {
+        @Component({
+            standalone: false,
+            template: `<input #inputElement pTooltip="AppendTo tooltip" [appendTo]="appendTo" [tooltipOptions]="tooltipOptions" type="text" />`
+        })
+        class TestAppendToTooltipComponent {
+            @ViewChild('inputElement', { read: ElementRef }) inputElement!: ElementRef;
+            appendTo: any;
+            tooltipOptions: TooltipOptions | undefined;
+        }
+
+        let fixture: ComponentFixture<TestAppendToTooltipComponent>;
+        let component: TestAppendToTooltipComponent;
+        let tooltipDirective: Tooltip;
+        let customContainer: HTMLDivElement;
+        let primengConfig: PrimeNG;
+
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({
+                imports: [Tooltip],
+                declarations: [TestAppendToTooltipComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            customContainer = document.createElement('div');
+            customContainer.id = 'custom-tooltip-container';
+            document.body.appendChild(customContainer);
+
+            primengConfig = TestBed.inject(PrimeNG);
+        });
+
+        afterEach(() => {
+            if (tooltipDirective?.container) {
+                tooltipDirective.deactivate();
+            }
+            primengConfig.overlayAppendTo.set('self');
+            customContainer.remove();
+        });
+
+        function createFixture() {
+            fixture = TestBed.createComponent(TestAppendToTooltipComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+            tooltipDirective = fixture.debugElement.query(By.directive(Tooltip)).injector.get(Tooltip);
+        }
+
+        it('should append tooltip to document.body by default', () => {
+            createFixture();
+            tooltipDirective.activate();
+
+            expect(tooltipDirective.container).toBeTruthy();
+            expect(tooltipDirective.container.parentElement).toBe(document.body);
+        });
+
+        it('should keep body fallback when config.overlayAppendTo is the default "self" value', () => {
+            expect(primengConfig.overlayAppendTo()).toBe('self');
+            createFixture();
+            tooltipDirective.activate();
+
+            expect(tooltipDirective.container.parentElement).toBe(document.body);
+        });
+
+        it('should respect config.overlayAppendTo when set to a custom element', () => {
+            primengConfig.overlayAppendTo.set(customContainer);
+            createFixture();
+            tooltipDirective.activate();
+
+            expect(tooltipDirective.container.parentElement).toBe(customContainer);
+        });
+
+        it('should prefer local appendTo input over config.overlayAppendTo', async () => {
+            const otherContainer = document.createElement('div');
+            document.body.appendChild(otherContainer);
+
+            try {
+                primengConfig.overlayAppendTo.set(customContainer);
+                createFixture();
+                component.appendTo = otherContainer;
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                fixture.detectChanges();
+
+                tooltipDirective.activate();
+
+                expect(tooltipDirective.container.parentElement).toBe(otherContainer);
+            } finally {
+                otherContainer.remove();
+            }
+        });
+
+        it('should remove tooltip from the same container used on create', () => {
+            primengConfig.overlayAppendTo.set(customContainer);
+            createFixture();
+
+            tooltipDirective.activate();
+            expect(customContainer.contains(tooltipDirective.container)).toBe(true);
+
+            tooltipDirective.deactivate();
+
+            expect(customContainer.children.length).toBe(0);
         });
     });
 });
