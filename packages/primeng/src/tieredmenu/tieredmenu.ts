@@ -863,7 +863,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     onItemMouseEnter(event: any) {
         if (!isTouchDevice()) {
-            if (this.dirty) {
+            if (this.dirty || this.autoDisplay) {
                 this.onItemChange(event, 'hover');
             }
         } else {
