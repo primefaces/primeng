@@ -2363,7 +2363,7 @@
             "values": [
                 {
                     "name": "ToastMessageOptions",
-                    "description": "Deines valid options for the toast message.",
+                    "description": "Defines valid options for the toast message.",
                     "props": [
                         {
                             "name": "text",

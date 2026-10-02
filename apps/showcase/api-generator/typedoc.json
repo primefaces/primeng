@@ -34401,7 +34401,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Deines valid options for the toast message."
+								"text": "Defines valid options for the toast message."
 							}
 						],
 						"blockTags": [
