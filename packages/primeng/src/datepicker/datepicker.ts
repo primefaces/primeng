@@ -193,7 +193,6 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                         (keydown)="onContainerButtonKeydown($event)"
                                         [class]="cx('selectMonth')"
                                         [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
-                                        [attr.aria-label]="this.getTranslation('chooseMonth')"
                                         pRipple
                                         [pBind]="ptm('selectMonth')"
                                         [attr.data-pc-group-section]="'navigator'"
@@ -207,7 +206,6 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                         (keydown)="onContainerButtonKeydown($event)"
                                         [class]="cx('selectYear')"
                                         [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
-                                        [attr.aria-label]="getTranslation('chooseYear')"
                                         pRipple
                                         [pBind]="ptm('selectYear')"
                                         [attr.data-pc-group-section]="'navigator'"
