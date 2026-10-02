@@ -821,7 +821,7 @@ export class PanelMenuList extends BaseComponent {
                     [tooltipOptions]="getItemProp(item, 'tooltipOptions')"
                     [attr.aria-expanded]="isItemActive(item)"
                     [attr.aria-label]="getItemProp(item, 'label')"
-                    [attr.aria-controls]="getContentId(item, i)"
+                    [attr.aria-controls]="isItemGroup(item) ? getContentId(item, i) : null"
                     [attr.aria-disabled]="isItemDisabled(item)"
                     [attr.data-p-highlight]="isItemActive(item)"
                     [attr.data-p-disabled]="isItemDisabled(item)"
