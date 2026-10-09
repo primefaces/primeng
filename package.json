@@ -7,7 +7,7 @@
         "type": "git",
         "url": "https://github.com/primefaces/primeng.git"
     },
-    "license": "SEE LICENSE IN LICENSE.md",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/primefaces/primeng/issues"
     },
