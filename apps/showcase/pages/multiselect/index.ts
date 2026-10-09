@@ -20,6 +20,7 @@ import { FluidDoc } from '@/doc/multiselect/fluid-doc';
 import { PTComponent } from '@/doc/multiselect/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
+import { TooltipDoc } from '@/doc/multiselect/tooltipdoc';
 
 @Component({
     template: `<app-doc
@@ -124,6 +125,11 @@ export class MultiSelectDemo {
                 { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
                 { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
             ]
+        },
+        {
+            id: 'tooltip',
+            label: 'Tooltip',
+            component: TooltipDoc
         },
         {
             id: 'accessibility',
