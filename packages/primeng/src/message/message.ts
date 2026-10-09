@@ -21,7 +21,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
     standalone: true,
     imports: [CommonModule, TimesIcon, Ripple, SharedModule, Bind, MotionModule],
     template: `
-        <div [pBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')" [attr.data-p]="dataP">
+        <div [pBind]="ptm('contentWrapper')" [ngStyle]="style" [class]="cx('contentWrapper')" [attr.data-p]="dataP">
             <div [pBind]="ptm('content')" [class]="cx('content')" [attr.data-p]="dataP">
                 @if (iconTemplate || _iconTemplate) {
                     <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
