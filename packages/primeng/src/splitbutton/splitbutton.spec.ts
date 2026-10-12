@@ -167,6 +167,40 @@ class TestContentTemplateSplitButtonComponent {
     model: MenuItem[] = [{ label: 'Template Action 1' }, { label: 'Template Action 2' }];
 }
 
+@Component({
+    standalone: false,
+    template: `
+        <p-splitbutton label="Save" [model]="model">
+            <ng-template #icon>
+                <svg class="custom-action-icon" data-testid="custom-action-icon"></svg>
+            </ng-template>
+            <ng-template #dropdownicon>
+                <svg class="custom-dropdown-svg" data-testid="custom-dropdown-svg"></svg>
+            </ng-template>
+        </p-splitbutton>
+    `
+})
+class TestIconTemplateSplitButtonComponent {
+    model: MenuItem[] = [{ label: 'Action 1' }];
+}
+
+@Component({
+    standalone: false,
+    template: `
+        <p-splitbutton label="Save" [model]="model">
+            <ng-template #item let-item>
+                <a class="custom-menu-item">
+                    <svg class="custom-item-icon" [attr.data-item]="item.label"></svg>
+                    <span>{{ item.label }}</span>
+                </a>
+            </ng-template>
+        </p-splitbutton>
+    `
+})
+class TestItemTemplateSplitButtonComponent {
+    model: MenuItem[] = [{ label: 'Update' }, { label: 'Delete' }];
+}
+
 // Severity SplitButton Test
 @Component({
     standalone: false,
@@ -308,6 +342,8 @@ describe('SplitButton', () => {
                 TestBasicSplitButtonComponent,
                 TestTemplateSplitButtonComponent,
                 TestContentTemplateSplitButtonComponent,
+                TestIconTemplateSplitButtonComponent,
+                TestItemTemplateSplitButtonComponent,
                 TestSeveritySplitButtonComponent,
                 TestSplitButtonVariantsComponent,
                 TestDisabledSplitButtonComponent,
@@ -1056,6 +1092,37 @@ describe('SplitButton', () => {
 
                 expect(() => splitButtonInstance.ngAfterContentInit()).not.toThrow();
                 expect(splitButtonInstance.templates).toBeDefined();
+            });
+
+            it('should render custom icon template on default button', async () => {
+                const iconTemplateFixture = TestBed.createComponent(TestIconTemplateSplitButtonComponent);
+                iconTemplateFixture.detectChanges();
+                await iconTemplateFixture.whenStable();
+
+                const splitButtonInstance = iconTemplateFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
+                expect(splitButtonInstance.iconTemplate).toBeDefined();
+                expect(splitButtonInstance.hasIconTemplate).toBe(true);
+
+                const customActionIcon = iconTemplateFixture.debugElement.query(By.css('[data-testid="custom-action-icon"]'));
+                expect(customActionIcon).toBeTruthy();
+            });
+
+            it('should forward item template to tiered menu', async () => {
+                const itemTemplateFixture = TestBed.createComponent(TestItemTemplateSplitButtonComponent);
+                itemTemplateFixture.detectChanges();
+                await itemTemplateFixture.whenStable();
+
+                const splitButtonInstance = itemTemplateFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
+                expect(splitButtonInstance.itemTemplate).toBeDefined();
+                expect(splitButtonInstance.menu?.itemTemplate).toBeDefined();
+
+                const buttons = itemTemplateFixture.debugElement.queryAll(By.css('button'));
+                buttons[1].nativeElement.click();
+                itemTemplateFixture.detectChanges();
+                await itemTemplateFixture.whenStable();
+
+                const customMenuItems = itemTemplateFixture.debugElement.queryAll(By.css('.custom-menu-item'));
+                expect(customMenuItems.length).toBeGreaterThan(0);
             });
         });
     });
